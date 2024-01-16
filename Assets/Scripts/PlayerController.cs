@@ -16,6 +16,13 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     private bool doubleJump;
 
+    // 대시
+    [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float dashTime = 0.5f;
+    private Vector2 dashingDir;
+    private bool isDashing;
+    private bool canDash = true;
+
     private float maxJumpTime = 0.3f;
     //코요테타임, 땅에서 벗어난 이후 점프 가능한 시간 
     private float coyoteTime = 0.2f; 
@@ -37,19 +44,43 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+        var DashInput = Input.GetButtonDown("Dash");
 
-        Setgravity();
-        Flip();
-        Jump();
-    }
-
-    private void FixedUpdate()
-    {
         
+        rigid.velocity = new Vector2(horizontal * moveSpeed, rigid.velocity.y);
+
+        // 대시 
+        if (DashInput && canDash)
+        {
+            Debug.Log("Dash");
+            isDashing = true;
+            canDash = false;
+            dashingDir = new Vector2(horizontal, Input.GetAxisRaw("Vertical"));
+            if (dashingDir == Vector2.zero)
+            {
+                dashingDir = new Vector2(transform.localScale.x, 0);
+            }
+
+            StartCoroutine(StopDashing());
+        }
+
+        if (isDashing)
+        {
+            rigid.velocity = dashingDir.normalized * dashSpeed;
+            return;
+        }
+
+        if (IsGrounded())
+        {
+            canDash = true;
+        }
+
+
+        // 점프
         if (IsGrounded()) { coyoteTimeCounter = coyoteTime; }
         else { if (coyoteTimeCounter > 0) coyoteTimeCounter -= Time.deltaTime; }
 
-        
+
         if (jumpBufferCounter > 0) jumpBufferCounter -= Time.deltaTime;
 
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f && !isJumping)
@@ -67,14 +98,23 @@ public class PlayerController : MonoBehaviour
 
             if (jumpTime >= maxJumpTime || !jumpPressed)
             {
-                if(vertical > 5) vertical = 5f;
+                if (vertical > 5) vertical = 5f;
                 jumpTime = 0f;
                 isJumping = false;
             }
 
             rigid.velocity = new Vector2(rigid.velocity.x, vertical);
         }
-        rigid.velocity = new Vector2(horizontal * moveSpeed, rigid.velocity.y);
+
+
+        Setgravity();
+        Flip();
+        Jump();
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     // 캐릭터 좌우 반전
@@ -82,11 +122,11 @@ public class PlayerController : MonoBehaviour
     {
         if (horizontal > 0)
         {
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else if (horizontal < 0)
         {
-            transform.eulerAngles = new Vector3(0, 180, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
@@ -136,6 +176,12 @@ public class PlayerController : MonoBehaviour
         {
             jumpPressed = false;
         }
+    }
+
+    private IEnumerator StopDashing()
+    {
+        yield return new WaitForSeconds(dashTime);
+        isDashing = false;
     }
 
     void Setgravity()

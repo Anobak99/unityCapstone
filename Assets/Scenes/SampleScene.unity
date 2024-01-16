@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 1073380050}
   - component: {fileID: 1073380049}
   - component: {fileID: 1073380048}
+  - component: {fileID: 1073380053}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -378,9 +379,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  gravity: 5
+  vertical: 0
   jumpPower: 10
   djumpPower: 10
   jumpTime: 1
+  dashSpeed: 10
+  dashTime: 0.5
+  coyoteTimeCounter: 0
+  jumpBufferCounter: 0
+  jumpPressed: 0
   groundCheck: {fileID: 1710167637}
   groundLayer:
     serializedVersion: 2
@@ -515,6 +523,18 @@ Transform:
   - {fileID: 1710167637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1073380053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073380047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315a9b6a2ed123d439bb50d9d1fa45b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1710167636
 GameObject:
   m_ObjectHideFlags: 0
