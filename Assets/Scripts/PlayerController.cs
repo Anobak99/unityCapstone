@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float vertical;
     public float jumpPower;
     public float djumpPower;
+    public float maxJumpPower;
     private float jumpTImeCounter;
     public float jumpTime;
     private bool isJumping;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigid;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    Collider2D col;
 
     private void Awake()
     {
@@ -93,12 +95,16 @@ public class PlayerController : MonoBehaviour
         if (isJumping)
         {
             jumpTime += Time.deltaTime;
-            if (vertical < 10) vertical += 5f;
-            else { vertical += 0.2f; }
+            if(vertical < maxJumpPower)
+            {
+                if (vertical < 10) vertical += 5f;
+                else vertical += 0.2f;
+            }
 
             if (jumpTime >= maxJumpTime || !jumpPressed)
             {
-                if (vertical > 5) vertical = 5f;
+                if (vertical > 5f) vertical = 5f;
+                else vertical = 0f;
                 jumpTime = 0f;
                 isJumping = false;
             }
@@ -122,18 +128,27 @@ public class PlayerController : MonoBehaviour
     {
         if (horizontal > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
         }
         else if (horizontal < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(transform.localScale.x * -1, 1, 1);
         }
     }
 
     // ¹Ù´Ú Ã¼Å©
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        col = Physics2D.OverlapBox(groundCheck.position, new Vector2(0.8f, 0.1f), 0, groundLayer);
+        if(col == null) return false; //¹Ù´Ú¿¡ ¾Æ¹«°Íµµ ¾øÀ» ½Ã
+
+        if (col.CompareTag("Platform")) //¹Ù´ÚÀÌ ÇÃ·§ÆûÀÏ ½Ã
+        {
+            SpecialPlatform platform = col.GetComponent<SpecialPlatform>();
+            platform.OnStand();
+        }
+
+        return true;
     }
 
     // Á¡ÇÁ ÇÔ¼ö
