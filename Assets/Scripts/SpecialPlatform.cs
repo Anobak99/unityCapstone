@@ -48,7 +48,7 @@ public class SpecialPlatform : MonoBehaviour
                 //플레이어가 플랫폼 위에 서 있을 시
                 if (col.bounds.min.x < collision.collider.bounds.max.x && col.bounds.max.x > collision.collider.bounds.min.x)
                 {
-                    if (collision.collider.bounds.min.y <= col.bounds.max.y)
+                    if (collision.collider.transform.position.y > transform.position.y + transform.localScale.y / 2)
                     {
                         collision.transform.parent = gameObject.transform;
                         stand = true;
