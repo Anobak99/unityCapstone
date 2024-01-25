@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TrapBullet : MonoBehaviour
 {
     public float speed;
     public Vector2 direction;
-    Rigidbody2D rb;
     private bool isMove;
 
     private void OnEnable()
     {
-        rb = GetComponent<Rigidbody2D>();
         isMove = true;
     }
 
@@ -20,9 +20,8 @@ public class TrapBullet : MonoBehaviour
     {
         if(isMove)
         {
-            rb.velocity = direction * speed;
+            transform.Translate(direction * speed * Time.deltaTime);
         }
-        else { rb.velocity = Vector2.zero; }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
