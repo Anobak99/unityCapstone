@@ -5,32 +5,40 @@ using UnityEngine.EventSystems;
 
 public class EnemyType2 : MonoBehaviour {
     private int hp = 3;
-    private float moveDirection = -1;
-    public float speed;
-    public int dmg;
-
-    public Transform player;
-    private float distanceFromPlayer;
-    private float horizental;
-    public float viewRange;
-    private bool canAttack;
-    private bool facingRight;
     private Rigidbody2D rb;
     private Animator animator;
+    private bool canAct;
 
+    //movement
+    private Vector2 moveDirection;
+    private float horizental;
+    public float speed;
+
+    //attack
+    public int dmg;
+    public GameObject objectPrefab;
+    private List<GameObject> pool;
+
+    //playerCheck
+    public Transform player;
+    private float distanceFromPlayer;
+    public float viewRange;
+    public float attackRange;
+    public bool facingRight;
+
+    //collisionCheck
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayor;
     [SerializeField] Transform WallCheck;
-    public bool isGround;
-    public bool isWall;
+    private bool isGround;
+    private bool isWall;
 
-    
     void Start()
     {
-        facingRight = false;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        canAttack = true;
+        pool = new List<GameObject>();
+        canAct = true;
     }
 
     void Update()
@@ -39,31 +47,24 @@ public class EnemyType2 : MonoBehaviour {
 
         horizental = player.position.x - transform.position.x;
         distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-        if(distanceFromPlayer < viewRange) //대상이 인식 범위 안쪽일 경우
+        if(distanceFromPlayer < viewRange && canAct) //대상이 인식 범위 안쪽일 경우
         {
-            animator.SetInteger("AnimState", 1);
             FlipToPlayer(horizental);
-            if(distanceFromPlayer > 1.5f) //대상의 거리가 공격범위 밖일 경우
+            if(distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
             {
-                if (isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
+                if (!isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
                 {
-                    animator.SetInteger("AnimState", 2);
-                    rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                    moveDirection = (player.position - transform.position).normalized * speed;
+                    rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
                 }
                 else
-                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    rb.velocity = Vector2.zero;
             }
             else //대상이 공격거리 안일 경우
             {
-                if (canAttack)
-                {
-                   StartCoroutine(Attack());
-                }
+                rb.velocity = Vector2.zero;
+                StartCoroutine(Attack());
             }
-        }
-        else
-        {
-            animator.SetInteger("AnimState", 0);
         }
     }
 
@@ -77,13 +78,11 @@ public class EnemyType2 : MonoBehaviour {
     {
         if(playerPosition < 0 && facingRight)
         {
-            moveDirection *= -1;
             facingRight = !facingRight;
             transform.Rotate(0, 180, 0);
         }
         else if(playerPosition > 0 && !facingRight)
         {
-            moveDirection *= -1;
             facingRight = !facingRight;
             transform.Rotate(0, 180, 0);
         }
@@ -91,16 +90,53 @@ public class EnemyType2 : MonoBehaviour {
 
     private IEnumerator Attack()
     {
-        canAttack = false;
+        canAct = false;
         animator.SetTrigger("Attack");
         Debug.Log("Enemy's Attack!");
-        yield return new WaitForSeconds(3f);
-        canAttack = true;
+        yield return new WaitForSeconds(0.8f);
+        StartCoroutine(Shot());
     }
 
-    public void TakeDamage(int dmg)
+    private IEnumerator Shot()
     {
-        animator.SetTrigger("Hurt");
+        EnemyBullet bullet;
+        GameObject select = null;
+
+        foreach (GameObject item in pool)
+        {
+            if (!item.activeSelf)
+            {
+                select = item;
+                select.SetActive(true);
+                break;
+            }
+        }
+
+        if (!select)
+        {
+            select = Instantiate(objectPrefab, transform);
+            pool.Add(select);
+        }
+
+        bullet = select.GetComponent<EnemyBullet>();
+        bullet.target = player.gameObject;
+        moveDirection = (player.position - transform.position).normalized * 5f;
+        bullet.rb.velocity = moveDirection;
+
+        yield return new WaitForSeconds(3f);
+
+        canAct = true;
+    }
+
+    public IEnumerator TakeDamage(int dmg)
+    {
+        if(canAct)
+        {
+            canAct = false;
+            animator.SetTrigger("Hurt");
+            yield return new WaitForSeconds(0.5f);
+            canAct = true;
+        }
         hp -= dmg;
         if(hp <= 0 )
         {

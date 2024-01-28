@@ -26,7 +26,13 @@ public class TrapBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
+        {
+            isMove = false;
+            StartCoroutine(OnHit());
+        }
+
+        if(collision.CompareTag("Ground") || collision.CompareTag("Platform"))
         {
             isMove = false;
             StartCoroutine(OnHit());
