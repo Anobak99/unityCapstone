@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class EnemyType1 : MonoBehaviour {
     private int hp = 3;
-    private float moveDirection = 1;
+    private float moveDirection = -1;
     public float speed;
     public int dmg;
 
@@ -16,6 +16,7 @@ public class EnemyType1 : MonoBehaviour {
     private bool canAttack;
     private bool facingRight;
     private Rigidbody2D rb;
+    private Animator animator;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayor;
@@ -26,8 +27,9 @@ public class EnemyType1 : MonoBehaviour {
     
     void Start()
     {
-        facingRight = true;
+        facingRight = false;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         canAttack = true;
     }
 
@@ -39,11 +41,13 @@ public class EnemyType1 : MonoBehaviour {
         distanceFromPlayer = Vector2.Distance(player.position, transform.position);
         if(distanceFromPlayer < viewRange) //대상이 인식 범위 안쪽일 경우
         {
+            animator.SetInteger("AnimState", 1);
             FlipToPlayer(horizental);
             if(distanceFromPlayer > 1.5f) //대상의 거리가 공격범위 밖일 경우
             {
                 if (isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
                 {
+                    animator.SetInteger("AnimState", 2);
                     rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
                 }
                 else
@@ -51,11 +55,15 @@ public class EnemyType1 : MonoBehaviour {
             }
             else //대상이 공격거리 안일 경우
             {
-                if(canAttack)
+                if (canAttack)
                 {
                    StartCoroutine(Attack());
                 }
             }
+        }
+        else
+        {
+            animator.SetInteger("AnimState", 0);
         }
     }
 
@@ -84,8 +92,9 @@ public class EnemyType1 : MonoBehaviour {
     private IEnumerator Attack()
     {
         canAttack = false;
+        animator.SetTrigger("Attack");
         Debug.Log("Enemy's Attack!");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         canAttack = true;
     }
 
