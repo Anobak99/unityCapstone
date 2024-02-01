@@ -28,6 +28,7 @@ public class EnemyType1 : MonoBehaviour {
     
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         canAct = true;
@@ -37,30 +38,33 @@ public class EnemyType1 : MonoBehaviour {
     {
         Check(); //앞 지형체크
 
-        horizental = player.position.x - transform.position.x;
-        distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-        if(distanceFromPlayer < viewRange && canAct) //대상이 인식 범위 안쪽일 경우
+        if(player != null)
         {
-            animator.SetInteger("AnimState", 1);
-            FlipToPlayer(horizental);
-            if(distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
+            horizental = player.position.x - transform.position.x;
+            distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+            if (distanceFromPlayer < viewRange && canAct) //대상이 인식 범위 안쪽일 경우
             {
-                if (isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
+                animator.SetInteger("AnimState", 1);
+                FlipToPlayer(horizental);
+                if (distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
                 {
-                    animator.SetInteger("AnimState", 2);
-                    rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                    if (isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
+                    {
+                        animator.SetInteger("AnimState", 2);
+                        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                    }
+                    else
+                        rb.velocity = new Vector2(0, rb.velocity.y);
                 }
-                else
-                    rb.velocity = new Vector2(0, rb.velocity.y);
+                else //대상이 공격거리 안일 경우
+                {
+                    StartCoroutine(Attack());
+                }
             }
-            else //대상이 공격거리 안일 경우
+            else
             {
-                StartCoroutine(Attack());
+                animator.SetInteger("AnimState", 0);
             }
-        }
-        else
-        {
-            animator.SetInteger("AnimState", 0);
         }
     }
 
@@ -95,11 +99,17 @@ public class EnemyType1 : MonoBehaviour {
         canAct = true;
     }
 
-    public void TakeDamage(int dmg)
+    public IEnumerator TakeDamage(int dmg)
     {
-        animator.SetTrigger("Hurt");
+        if (canAct)
+        {
+            canAct = false;
+            animator.SetTrigger("Hurt");
+            yield return new WaitForSeconds(0.5f);
+            canAct = true;
+        }
         hp -= dmg;
-        if(hp <= 0 )
+        if (hp <= 0)
         {
             IsDead();
             gameObject.SetActive(false);

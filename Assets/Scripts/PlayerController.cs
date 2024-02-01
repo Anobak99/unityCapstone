@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PlayerInput
 {
-    private float horizontal;
     public float moveSpeed;
 
     public float gravity = 5;
@@ -28,10 +27,6 @@ public class PlayerController : MonoBehaviour
     //코요테타임, 땅에서 벗어난 이후 점프 가능한 시간 
     private float coyoteTime = 0.2f; 
     [SerializeField] private float coyoteTimeCounter;
-    //점프버퍼, 점프키 입력 후 입력 지속시간, 땅에 도착하면 점프
-    private float jumpBufferTime = 0.2f;
-    [SerializeField]private float jumpBufferCounter;
-    public bool jumpPressed;
 
     Rigidbody2D rigid;
     [SerializeField] private Transform groundCheck;
@@ -43,16 +38,13 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();       
     }
 
-    private void Update()
+    protected override void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        var DashInput = Input.GetButtonDown("Dash");
-
-        
+        base.Update(); //플레이어 키 입력
         rigid.velocity = new Vector2(horizontal * moveSpeed, rigid.velocity.y);
 
         // 대시 
-        if (DashInput && canDash)
+        if (dashInput && canDash)
         {
             Debug.Log("Dash");
             isDashing = true;
@@ -115,7 +107,6 @@ public class PlayerController : MonoBehaviour
 
         Setgravity();
         Flip();
-        Jump();
     }
 
     private void FixedUpdate()
@@ -149,48 +140,6 @@ public class PlayerController : MonoBehaviour
         }
 
         return true;
-    }
-
-    // 점프 함수
-    void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            jumpBufferCounter = jumpBufferTime;
-            jumpPressed = true;
-
-            //if (IsGrounded())
-            //{
-            //    isJumping = true;
-            //    jumpTImeCounter = jumpTime;
-            //    rigid.velocity = new Vector2(rigid.velocity.x, jumpPower); // 기본 점프            
-            //    doubleJump = true;
-            //}
-            //else if (doubleJump)
-            //{
-            //    rigid.velocity = new Vector2(rigid.velocity.x, djumpPower);
-            //    doubleJump = false;
-            //}
-        }
-
-        //if (Input.GetKey(KeyCode.Space) && isJumping == true)
-        //{
-        //    if (jumpTImeCounter > 0)
-        //    {
-        //        rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
-        //        jumpTImeCounter -= Time.deltaTime;
-        //    }
-        //    else
-        //    {
-        //        isJumping = false;
-        //    }
-        //}
-
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            jumpPressed = false;
-        }
     }
 
     private IEnumerator StopDashing()
