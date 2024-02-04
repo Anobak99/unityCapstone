@@ -21,6 +21,7 @@ public class EnemyBullet : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             rb.velocity = Vector2.zero;
+            GameManager.Instance.PlayerHit(1);
             StartCoroutine(OnHit());
         }
         if (collision.CompareTag("Ground") || collision.CompareTag("Platform"))

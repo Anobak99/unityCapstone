@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EnemyType1 : MonoBehaviour {
-    public int hp = 3;
+public class EnemyType1 : Enemy {
     public float moveDirection;
     public float speed;
-    public int dmg;
 
-    public Transform player;
     private float distanceFromPlayer;
     private float horizental;
     public float viewRange;
     public float attackRange;
-    private bool canAct;
     public bool facingRight;
-    private Rigidbody2D rb;
-    private Animator animator;
+
+    public Transform attackPos;
+    public LayerMask whatIsEnemies;
+    public float hitRange;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayor;
@@ -25,14 +23,11 @@ public class EnemyType1 : MonoBehaviour {
     private bool isGround;
     private bool isWall;
 
-    
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        canAct = true;
-    }
+
+    //public override void Start()
+    //{
+    //    base.Start();
+    //}
 
     void Update()
     {
@@ -68,6 +63,8 @@ public class EnemyType1 : MonoBehaviour {
                 animator.SetInteger("AnimState", 0);
             }
         }
+
+
     }
 
     private void Check()
@@ -92,7 +89,7 @@ public class EnemyType1 : MonoBehaviour {
         }
     }
 
-    private IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         canAct = false;
         animator.SetTrigger("Attack");
@@ -101,25 +98,15 @@ public class EnemyType1 : MonoBehaviour {
         canAct = true;
     }
 
-    public IEnumerator TakeDamage(int dmg)
+    public override void Hit()
     {
-        if (canAct)
+        Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
+        for (int i = 0; i < attackBox.Length; i++)
         {
-            canAct = false;
-            animator.SetTrigger("Hurt");
-            yield return new WaitForSeconds(0.5f);
-            canAct = true;
+            if ( attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
+            {
+                GameManager.Instance.PlayerHit(dmg);
+            }
         }
-        hp -= dmg;
-        if (hp <= 0)
-        {
-            IsDead();
-            gameObject.SetActive(false);
-        }
-    }
-
-    private void IsDead()
-    {
-        Debug.Log("Enemy is Dead.");
     }
 }

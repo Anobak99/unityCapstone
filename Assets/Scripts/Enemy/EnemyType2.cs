@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EnemyType2 : MonoBehaviour {
-    private int hp = 3;
-    private Rigidbody2D rb;
-    private Animator animator;
-    private bool canAct;
-
+public class EnemyType2 : Enemy {
     //movement
     private Vector2 moveDirection;
     private float horizental;
     public float speed;
 
     //attack
-    public int dmg;
     public GameObject objectPrefab;
     private List<GameObject> pool;
 
     //playerCheck
-    public Transform player;
     private float distanceFromPlayer;
     public float viewRange;
     public float attackRange;
@@ -33,13 +26,11 @@ public class EnemyType2 : MonoBehaviour {
     private bool isGround;
     private bool isWall;
 
-    void Start()
+
+    public override void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        base.Start();
         pool = new List<GameObject>();
-        canAct = true;
     }
 
     void Update()
@@ -92,7 +83,7 @@ public class EnemyType2 : MonoBehaviour {
         }
     }
 
-    private IEnumerator Attack()
+    public override IEnumerator Attack()
     {
         canAct = false;
         animator.SetTrigger("Attack");
@@ -132,7 +123,7 @@ public class EnemyType2 : MonoBehaviour {
         canAct = true;
     }
 
-    public IEnumerator TakeDamage(int dmg)
+    public override IEnumerator TakeDamage(int dmg)
     {
         if(canAct)
         {
@@ -149,8 +140,4 @@ public class EnemyType2 : MonoBehaviour {
         }
     }
 
-    private void IsDead()
-    {
-        Debug.Log("Enemy is Dead.");
-    }
 }

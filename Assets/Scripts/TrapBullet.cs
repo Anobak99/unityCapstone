@@ -29,6 +29,7 @@ public class TrapBullet : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             isMove = false;
+            GameManager.Instance.PlayerHit(1);
             StartCoroutine(OnHit());
         }
 

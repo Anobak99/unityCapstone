@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
 
     public string currentScene;
     public GameObject player;
+    private PlayerController playerController;
+    public int maxHp;
+    public int hp;
+
 
     void Awake()
     {
@@ -45,11 +49,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameManager.Instance.player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.AddComponent<PlayerController>();
+        maxHp = 5;
+        hp = maxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void PlayerHit(int dmg)
+    {
+        playerController.TakeDamage(dmg);
     }
 }

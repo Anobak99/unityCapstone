@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 1071167943564144188}
   - {fileID: 7100748783935140806}
+  - {fileID: 897093844089683673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &378016162317837273
@@ -196,13 +197,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  moveDirection: 1
-  speed: 1
   dmg: 1
   player: {fileID: 0}
-  viewRange: 3
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  canAct: 0
+  moveDirection: 1
+  speed: 2
+  viewRange: 6
   attackRange: 1.5
   facingRight: 1
+  attackPos: {fileID: 897093844089683673}
+  whatIsEnemies:
+    serializedVersion: 2
+    m_Bits: 64
+  hitRange: 1.5
   groundCheck: {fileID: 1071167943564144188}
   groundLayor:
     serializedVersion: 2
@@ -265,6 +274,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 547446022456685699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5949643449960801378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 897093844089683673}
+  m_Layer: 8
+  m_Name: AttackRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &897093844089683673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5949643449960801378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
