@@ -148,6 +148,21 @@ public class PlayerController : PlayerInput
         isDashing = false;
     }
 
+    public IEnumerator ChangeScene(Vector2 exitDir, float delay)
+    {
+        if(exitDir.y > 0)
+        {
+            rigid.velocity = jumpPower * exitDir;
+        }
+        if(exitDir.x != 0)
+        {
+            horizontal = exitDir.x > 0 ? 1 : -1;
+        }
+
+        Flip();
+        yield return new WaitForSeconds(delay);
+    }
+
     void Setgravity()
     {
         //점프시 중력에 영향을 받지 않음

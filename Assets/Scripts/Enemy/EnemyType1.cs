@@ -58,11 +58,13 @@ public class EnemyType1 : MonoBehaviour {
                 }
                 else //대상이 공격거리 안일 경우
                 {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
                     StartCoroutine(Attack());
                 }
             }
             else
             {
+                rb.velocity = new Vector2(0, rb.velocity.y);
                 animator.SetInteger("AnimState", 0);
             }
         }
