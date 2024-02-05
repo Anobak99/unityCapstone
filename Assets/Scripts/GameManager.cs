@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     public string currentScene;
     public GameObject player;
-    private PlayerController playerController;
+    public PlayerController playerController;
     public int maxHp;
     public int hp;
 

@@ -18,6 +18,7 @@ public class SceneChange : MonoBehaviour
         if (GameManager.Instance.currentScene == nextScene)
         {
             GameManager.Instance.player = GameObject.FindGameObjectWithTag("Player");
+            GameManager.Instance.playerController = GameManager.Instance.player.GetComponent<PlayerController>();
             GameManager.Instance.player.transform.position = startPoint.position;
         }
     }

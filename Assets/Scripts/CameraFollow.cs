@@ -4,29 +4,25 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;
-    public float timeOffset;
-    public Vector3 offsetPos;
-
-    public Vector3 boundsMin;
-    public Vector3 boundsMax;
+    public GameObject player;
+    public float followSpeed;
+    public float xOffSet;
+    public float yOffSet;
 
     private void LateUpdate()
     {
         if (player != null)
         {
-            Vector3 startPos = transform.position;
-            Vector3 targetPos = player.position;
-
-            targetPos.x += offsetPos.x;
-            targetPos.y += offsetPos.y;
-            targetPos.z = transform.position.z;
-
-            targetPos.x = Mathf.Clamp(targetPos.x, boundsMin.x, boundsMax.x);
-            targetPos.y = Mathf.Clamp(targetPos.y, boundsMin.y, boundsMax.y);
-
-            float t = 1f - Mathf.Pow(1f - timeOffset, Time.deltaTime * 30);
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
+            if(player.transform.localScale.x == 1)
+            {
+                xOffSet = 1.5f;
+            }
+            else
+            {
+                xOffSet = -1.5f;
+            }
+            Vector3 newPos = new Vector3(player.transform.position.x + xOffSet, player.transform.position.y + 1f + yOffSet, -10f);
+            transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
         }
     }   
 }

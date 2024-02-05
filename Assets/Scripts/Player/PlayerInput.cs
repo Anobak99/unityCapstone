@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     public float jumpBufferTime = 0.2f;
     [SerializeField] public float jumpBufferCounter;
     public bool dashInput;
+    public bool attackInput;
 
 
     protected virtual void Update()
@@ -17,6 +18,7 @@ public class PlayerInput : MonoBehaviour
 
         jump();
         Dash();
+        Attack();
     }
 
     void jump()
@@ -43,6 +45,19 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonUp("Dash"))
         {
             dashInput = false;
+        }
+    }
+
+    void Attack()
+    {
+        if(Input.GetButtonDown("Attack"))
+        {
+            attackInput = true;
+        }
+
+        if(Input.GetButtonUp("Attack"))
+        {
+            attackInput = false;
         }
     }
 }

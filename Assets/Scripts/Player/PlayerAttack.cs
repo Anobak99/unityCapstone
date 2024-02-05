@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
                     if (enemiesToDamage[i].gameObject.tag == "Enemy") // 利苞 面倒 矫 单固瘤 贸府
                     {
                         Debug.Log("Enemy Hit!");
-                        enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage);
+                        enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage, attackPos.position);
                     }
                     else if (enemiesToDamage[i].gameObject.tag == "Boss")
                     {

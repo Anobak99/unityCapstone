@@ -30,25 +30,32 @@ public class Enemy : MonoBehaviour
     {
     }
 
-    public virtual void Attacked(int dmg)
+    public virtual void Attacked(int dmg, Vector2 attackPos)
     {
-        StartCoroutine(TakeDamage(dmg));
+        StartCoroutine(TakeDamage(dmg, attackPos));
     }
 
-    public virtual IEnumerator TakeDamage(int dmg)
+    public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-        if (canAct)
+        canAct = false;
+        if(attackPos.x > transform.position.x)
         {
-            canAct = false;
-            animator.SetTrigger("Hurt");
-            yield return new WaitForSeconds(0.5f);
-            canAct = true;
+            Debug.Log("Attack by right");
+            rb.velocity = Vector2.left * 1f;
         }
+        else
+        {
+            Debug.Log("Attack by left");
+            rb.velocity = Vector2.right * 1f;
+        }
+        animator.SetTrigger("Hurt");
+        yield return new WaitForSeconds(0.5f);
         hp -= dmg;
         if (hp <= 0)
         {
             IsDead();
         }
+        canAct = true;
     }
 
     public virtual void IsDead()

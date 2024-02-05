@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     public float djumpPower;
     public float maxJumpPower;
-    public float jumpTime;
+    private float jumpTime;
     private bool isJumping;
     private bool doubleJump;
     private float maxJumpTime = 0.25f;
@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float coyoteTimeCounter;
 
     // 대시
-    [SerializeField] private float dashSpeed = 10f;
-    [SerializeField] private float dashTime = 0.5f;
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashTime = 0.1f;
     private Vector2 dashingDir;
     private bool isDashing;
     private bool canDash = true;
@@ -31,7 +31,16 @@ public class PlayerController : MonoBehaviour
     private PlayerInput input;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    private Vector2 boxSize = new Vector2(0.8f, 0.2f);
     private Collider2D col;
+
+    private float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
+    public float startTimeBtwAttack; // 공격 쿨타임 설정
+
+    public Transform attackPos;
+    public LayerMask whatIsEnemies;
+    public float attackRange; // 공격 범위
+    public int damage;        // 데미지 수치
 
     private bool canDamage;
     private bool canAct;
@@ -47,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        UpdateJumpVariables();
+        UpdateVariables();
 
         if(!canAct) { return; }
         Flip();
@@ -62,6 +71,11 @@ public class PlayerController : MonoBehaviour
             isDashing = true;
             canDash = false;
             StartCoroutine(Dashing());
+        }
+
+        if (timeBtwAttack <= 0 && input.attackInput)
+        {
+            StartCoroutine(Attack());
         }
 
     }
@@ -87,14 +101,13 @@ public class PlayerController : MonoBehaviour
     // 바닥 체크
     private bool IsGrounded()
     {
-        col = Physics2D.OverlapBox(groundCheck.position, new Vector2(0.8f, 0.5f), 0, groundLayer);
+        col = Physics2D.OverlapBox(groundCheck.position, boxSize, 0, groundLayer);
         if (!col)
         {
             anim.SetBool("isGrounded", false);
             return false;
         }
-        
-        if (col.CompareTag("Platform")) //바닥이 플랫폼일 시
+        else if (col.CompareTag("Platform")) //바닥이 플랫폼일 시
         {
             SpecialPlatform platform = col.GetComponent<SpecialPlatform>();
             platform.OnStand();
@@ -113,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdateJumpVariables()
+    void UpdateVariables()
     {
         if (IsGrounded())
         {
@@ -127,6 +140,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (input.jumpBufferCounter > 0) input.jumpBufferCounter -= Time.deltaTime;
+
+        if(timeBtwAttack > 0) { timeBtwAttack -= Time.deltaTime; }
     }
 
     void Jump()
@@ -210,7 +225,7 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("isHurt");
         yield return new WaitForSeconds(0.5f);
         canAct = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         canDamage = true;
     }
 
@@ -229,10 +244,43 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
+    private IEnumerator Attack()
+    {
+         canAct = false;
+         anim.SetTrigger("isAttack");
+         yield return new WaitForSeconds(0.5f);
+         canAct = true;
+         timeBtwAttack = startTimeBtwAttack;
+    }
+
+    public void HitCheck()
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+        Debug.Log("Player Attack!");
+        for (int i = 0; i < enemiesToDamage.Length; i++)
+        {
+            if (enemiesToDamage[i].gameObject.tag == "Enemy") // 적과 충돌 시 데미지 처리
+            {
+                Debug.Log("Enemy Hit!");
+                enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage, attackPos.position);
+            }
+            else if (enemiesToDamage[i].gameObject.tag == "Boss")
+            {
+                //[i].GetComponent<Boss>().TakeDamage(damage, attackPos.position);
+            }
+        }
+    }
+
     void Setgravity()
     {
         //점프시 및 돌진시 중력에 영향을 받지 않음
         if (isJumping || isDashing) { rigid.gravityScale = 0; }
         else { rigid.gravityScale = gravity; }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 }

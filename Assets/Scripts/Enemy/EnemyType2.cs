@@ -122,22 +122,4 @@ public class EnemyType2 : Enemy {
 
         canAct = true;
     }
-
-    public override IEnumerator TakeDamage(int dmg)
-    {
-        if(canAct)
-        {
-            canAct = false;
-            animator.SetTrigger("Hurt");
-            yield return new WaitForSeconds(0.5f);
-            canAct = true;
-        }
-        hp -= dmg;
-        if(hp <= 0 )
-        {
-            IsDead();
-            gameObject.SetActive(false);
-        }
-    }
-
 }

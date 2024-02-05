@@ -199,6 +199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScene: 
   player: {fileID: 0}
+  playerController: {fileID: 0}
+  maxHp: 0
+  hp: 0
 --- !u!4 &1404434635
 Transform:
   m_ObjectHideFlags: 0
@@ -737,7 +740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.52
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -862,17 +865,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3.323
       objectReference: {fileID: 0}
+    - target: {fileID: 5080021144994906025, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5430593975755357514, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.213852
+      value: -1.0436859
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7226
+      value: 3.6037898
       objectReference: {fileID: 0}
     - target: {fileID: 8461402448723795629, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_Follow
