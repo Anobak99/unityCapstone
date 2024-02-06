@@ -27,9 +27,8 @@ public class EnemyType2 : Enemy {
     private bool isWall;
 
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
         pool = new List<GameObject>();
     }
 

@@ -10,15 +10,18 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Rigidbody2D rb;
     public Animator animator;
-    public bool canAct;
+    [HideInInspector] public bool canAct;
+    [HideInInspector] public bool canDamage;
+    [HideInInspector] public bool isDead;
 
     // Start is called before the first frame update
-    public virtual void Start()
+    public virtual void OnEnable()
     {
         player = GameManager.Instance.player.transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         canAct = true;
+        canDamage = true;
     }
 
     public virtual IEnumerator Attack()
@@ -32,35 +35,48 @@ public class Enemy : MonoBehaviour
 
     public virtual void Attacked(int dmg, Vector2 attackPos)
     {
-        StartCoroutine(TakeDamage(dmg, attackPos));
+        if (canDamage)
+        {
+            StartCoroutine(TakeDamage(dmg, attackPos));
+        }
     }
 
     public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         canAct = false;
-        if(attackPos.x > transform.position.x)
+        canDamage = false;
+        animator.SetInteger("AnimState", 0);
+        if (attackPos.x > transform.position.x)
         {
             Debug.Log("Attack by right");
-            rb.velocity = Vector2.left * 1f;
+            rb.velocity = Vector2.left * 1.5f;
         }
         else
         {
             Debug.Log("Attack by left");
-            rb.velocity = Vector2.right * 1f;
+            rb.velocity = Vector2.right * 1.5f;
         }
         animator.SetTrigger("Hurt");
         yield return new WaitForSeconds(0.5f);
+        rb.velocity = Vector2.zero;
         hp -= dmg;
+        canDamage = true;
         if (hp <= 0)
-        {
-            IsDead();
+        {            
+            StartCoroutine(Death());
+            yield break;
         }
+        yield return new WaitForSeconds(0.5f);
         canAct = true;
     }
 
-    public virtual void IsDead()
+    public virtual IEnumerator Death()
     {
+        rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
+        canDamage = false;
+        isDead = true;
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
     }
 }

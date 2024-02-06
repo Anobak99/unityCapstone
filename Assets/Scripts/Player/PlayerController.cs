@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float vertical;
     public float jumpPower;
     public float djumpPower;
-    public float maxJumpPower;
-    private float jumpTime;
+    private float jumpCounter;
+    [SerializeField] private float jumpTime;
     private bool isJumping;
     private bool doubleJump;
     private float maxJumpTime = 0.25f;
@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
 
     private bool canDamage;
     private bool canAct;
-    private bool ground;
 
     private void Awake()
     {
@@ -58,11 +57,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         UpdateVariables();
-
+        
         if(!canAct) { return; }
+
         Flip();
         Run();
         Jump();
+        WhileJump();
         Setgravity();
 
         // 대시 
@@ -74,8 +75,9 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dashing());
         }
 
-        if (timeBtwAttack <= 0 && input.attackInput)
+        if (timeBtwAttack <= 0 && input.attackInput && IsGrounded() && !isDashing)
         {
+            rigid.velocity = new Vector2(0f, rigid.velocity.y);
             StartCoroutine(Attack());
         }
 
@@ -129,10 +131,8 @@ public class PlayerController : MonoBehaviour
 
     void UpdateVariables()
     {
-        ground = IsGrounded();
-        if (ground)
+        if (IsGrounded())
         {
-            isJumping = false;
             coyoteTimeCounter = coyoteTime;
             doubleJump = true;
         }
@@ -154,17 +154,21 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter = 0f;
             isJumping = true;
             vertical = jumpPower;
+            jumpCounter += 1;
         }
 
-        if(!IsGrounded() && doubleJump &&  input.jumpBufferCounter > 0f && coyoteTimeCounter < 0f)
+        if(!IsGrounded() && doubleJump &&  input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
             input.jumpBufferCounter = 0f;
-            coyoteTimeCounter = 0f;
             isJumping = true;
             doubleJump = false;
             vertical = djumpPower;
+            jumpCounter = 0;
         }
+    }
 
+    void WhileJump()
+    {
         if (isJumping)
         {
             jumpTime += Time.deltaTime;
@@ -218,12 +222,14 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.hp -= dmg;
             canAct = false;
+            canDamage = false;
             StartCoroutine(InvinsibleTime());
         }
     }
 
     IEnumerator InvinsibleTime()
     {
+        rigid.velocity = Vector2.zero;
         anim.SetTrigger("isHurt");
         yield return new WaitForSeconds(0.5f);
         canAct = true;
@@ -250,7 +256,7 @@ public class PlayerController : MonoBehaviour
     {
          canAct = false;
          anim.SetTrigger("isAttack");
-         yield return new WaitForSeconds(0.5f);
+         yield return new WaitForSeconds(0.3f);
          canAct = true;
          timeBtwAttack = startTimeBtwAttack;
     }
@@ -258,13 +264,11 @@ public class PlayerController : MonoBehaviour
     public void HitCheck()
     {
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-        Debug.Log("Player Attack!");
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
             if (enemiesToDamage[i].gameObject.tag == "Enemy") // 적과 충돌 시 데미지 처리
             {
-                Debug.Log("Enemy Hit!");
-                enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage, attackPos.position);
+                enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage, transform.position);
             }
             else if (enemiesToDamage[i].gameObject.tag == "Boss")
             {
