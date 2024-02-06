@@ -24,10 +24,6 @@ public class EnemyType1 : Enemy {
     private bool isWall;
 
 
-    //public override void Start()
-    //{
-    //    base.Start();
-    //}
 
     void Update()
     {
@@ -103,7 +99,7 @@ public class EnemyType1 : Enemy {
         Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
         for (int i = 0; i < attackBox.Length; i++)
         {
-            if ( attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
+            if (attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
             {
                 GameManager.Instance.PlayerHit(dmg);
             }

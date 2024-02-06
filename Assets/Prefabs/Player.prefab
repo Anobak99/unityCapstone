@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 9069026418745721363}
   - component: {fileID: 8855693910838137715}
   - component: {fileID: 1284313668461532792}
-  - component: {fileID: 3604732823970027733}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -297,22 +296,3 @@ MonoBehaviour:
   jumpBufferCounter: 0
   dashInput: 0
   attackInput: 0
---- !u!114 &3604732823970027733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6373365281794207096}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0df1ed06e1cad5e4caaddb270ed93ae3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startTimeBtwAttack: 1
-  attackPos: {fileID: 1840215377923922934}
-  whatIsEnemies:
-    serializedVersion: 2
-    m_Bits: 256
-  attackRange: 0.5
-  damage: 1

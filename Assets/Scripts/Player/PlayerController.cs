@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canDamage;
     private bool canAct;
+    private bool ground;
 
     private void Awake()
     {
@@ -101,7 +102,7 @@ public class PlayerController : MonoBehaviour
     // ¹Ù´Ú Ã¼Å©
     private bool IsGrounded()
     {
-        col = Physics2D.OverlapBox(groundCheck.position, boxSize, 0, groundLayer);
+        col = Physics2D.OverlapBox(groundCheck.position, boxSize, 0f, groundLayer);
         if (!col)
         {
             anim.SetBool("isGrounded", false);
@@ -128,7 +129,8 @@ public class PlayerController : MonoBehaviour
 
     void UpdateVariables()
     {
-        if (IsGrounded())
+        ground = IsGrounded();
+        if (ground)
         {
             isJumping = false;
             coyoteTimeCounter = coyoteTime;
@@ -282,5 +284,6 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
+        Gizmos.DrawCube(groundCheck.position, boxSize);
     }
 }

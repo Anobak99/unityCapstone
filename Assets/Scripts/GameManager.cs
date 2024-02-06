@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.player = GameObject.FindGameObjectWithTag("Player");
-        playerController = player.AddComponent<PlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player) playerController = player.GetComponent<PlayerController>();
         maxHp = 5;
         hp = maxHp;
     }
