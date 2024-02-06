@@ -9,7 +9,7 @@ public class EnemyAttack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        {
+        {              
             GameManager.Instance.PlayerHit(1);
             Debug.Log("hit!");
         }
