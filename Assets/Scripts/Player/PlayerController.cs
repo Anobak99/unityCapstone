@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canDamage;
     private bool canAct;
+    private bool isDead;
 
     private void Awake()
     {
@@ -52,13 +53,14 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         canDamage = true;
         canAct = true;
+        isDead = false;
     }
 
     private void Update()
     {
         UpdateVariables();
         
-        if(!canAct) { return; }
+        if(!canAct || isDead) { return; }
 
         Flip();
         Run();
@@ -223,18 +225,35 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.hp -= dmg;
             canAct = false;
             canDamage = false;
-            StartCoroutine(InvinsibleTime());
+            rigid.velocity = Vector2.zero;
+            anim.SetBool("isRun", false);
+            if(GameManager.Instance.hp <= 0)
+            {
+                StartCoroutine(Death());
+            }
+            else
+            {
+                StartCoroutine(InvinsibleTime());
+            }
         }
     }
 
-    IEnumerator InvinsibleTime()
+    private IEnumerator InvinsibleTime()
     {
-        rigid.velocity = Vector2.zero;
         anim.SetTrigger("isHurt");
         yield return new WaitForSeconds(0.5f);
         canAct = true;
         yield return new WaitForSeconds(2f);
         canDamage = true;
+    }
+
+    private IEnumerator Death()
+    {
+        isDead = true;
+        Time.timeScale = 1f;
+        anim.SetTrigger("isDead");
+        yield return new WaitForSeconds(0.8f);
+        StartCoroutine(UIManager.Instance.ActiveDeathMassage());
     }
 
     public IEnumerator ChangeScene(Vector2 exitDir, float delay)
