@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
     private Animator anim;
     private PlayerInput input;
+    
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     private Vector2 boxSize = new Vector2(0.8f, 0.2f);
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead;
 
     private void Awake()
-    {
+    {       
         input = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -221,7 +222,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         if (canDamage)
-        {
+        {           
             GameManager.Instance.hp -= dmg;
             canAct = false;
             canDamage = false;
