@@ -29,6 +29,8 @@ public class EnemyType1 : Enemy {
     {
         Check(); //앞 지형체크
 
+        if (!canAct || isDead) return;
+
         if(player != null)
         {
             horizental = player.position.x - transform.position.x;
