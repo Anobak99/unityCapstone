@@ -43,11 +43,18 @@ public class UIManager : MonoBehaviour
         screenFader = GetComponentInChildren<ScreenFader>();
     }
 
-    public IEnumerator ActiveDeathMassage()
+    public IEnumerator ActivateDeathMassage()
     {
         yield return new WaitForSeconds(0.8f);
         StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.In));
         yield return new WaitForSeconds(0.8f);
         deathMassage.SetActive(true);
+    }
+
+    public IEnumerator DeactivateDeathMassage()
+    {
+        yield return new WaitForSeconds(0.5f);
+        deathMassage.SetActive(false);
+        StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out));
     }
 }

@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
     public int maxHp;
     public int hp;
-
+    public Vector2 respawnPoint;
+    public string respawnScene;
 
     void Awake()
     {
@@ -65,5 +66,13 @@ public class GameManager : MonoBehaviour
     public void PlayerHit(int dmg)
     {
         playerController.TakeDamage(dmg);
+    }
+
+    public void RespawnPlayer()
+    {
+        player.transform.position = respawnPoint;
+        hp = maxHp;
+        playerController.Respawn();
+        StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
     }
 }

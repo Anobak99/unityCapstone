@@ -254,7 +254,18 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
         anim.SetTrigger("isDead");
         yield return new WaitForSeconds(0.8f);
-        StartCoroutine(UIManager.Instance.ActiveDeathMassage());
+        StartCoroutine(UIManager.Instance.ActivateDeathMassage());
+    }
+
+    public void Respawn()
+    {
+        if(isDead)
+        {
+            isDead = false;
+            canAct = true;
+            canDamage = true;
+            anim.Play("Idle");
+        }
     }
 
     public IEnumerator ChangeScene(Vector2 exitDir, float delay)
