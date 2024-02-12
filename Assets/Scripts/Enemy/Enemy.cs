@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
 
-    // Start is called before the first frame update
     public virtual void OnEnable()
     {
         player = GameManager.Instance.player.transform;
@@ -22,6 +21,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         canAct = true;
         canDamage = true;
+        isDead = false;
     }
 
     public virtual IEnumerator Attack()

@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
     public int maxHp;
     public int hp;
-
+    public Vector2 respawnPoint;
+    public string respawnScene;
 
     void Awake()
     {
@@ -48,8 +49,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        if (player) playerController = player.GetComponent<PlayerController>();
         maxHp = 5;
         hp = maxHp;
     }
@@ -59,9 +58,21 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
+    public void SetPlayerComp()
+    {
+        player = GameObject.FindWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+    }
     public void PlayerHit(int dmg)
     {
         playerController.TakeDamage(dmg);
+    }
+
+    public void RespawnPlayer()
+    {
+        player.transform.position = respawnPoint;
+        hp = maxHp;
+        playerController.Respawn();
+        StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
     }
 }
