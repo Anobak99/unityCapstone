@@ -22,6 +22,11 @@ public class PlayerBullet : MonoBehaviour
             collision.GetComponent<Enemy>().Attacked(damage, bullet.position);
         }
 
+        if (collision.gameObject.tag == "Switch")
+        {
+            Debug.Log("Switch Active");
+            SwitchManager.Instance.openSwitchDoor[collision.GetComponent<Switch>().num] = true;
+        }
         Destroy(gameObject);
     }
 }

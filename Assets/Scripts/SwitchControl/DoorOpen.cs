@@ -9,7 +9,7 @@ public class DoorOpen : MonoBehaviour
     private void OnEnable()
     {
         if (SwitchManager.Instance.openedDoor[num])
-        {
+        {          
             gameObject.SetActive(false);
         }
     }
