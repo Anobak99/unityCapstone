@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
@@ -16,12 +17,21 @@ public class PlayerInput : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        jump();
+        Jump();
         Dash();
         Attack();
+        Pause();
     }
 
-    void jump()
+    void Pause()
+    {
+        if(Input.GetButtonDown("Cancel"))
+        {
+            UIManager.Instance.PauseMenu();
+        }
+    }
+
+    void Jump()
     {
         if (Input.GetButtonDown("Jump"))
         {

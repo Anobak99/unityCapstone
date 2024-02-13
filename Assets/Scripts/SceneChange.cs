@@ -56,4 +56,5 @@ public class SceneChange : MonoBehaviour
             StartCoroutine(UIManager.Instance.screenFader.FadeAndLoadScene(ScreenFader.FadeDirection.In, nextScene));
         }
     }
+
 }

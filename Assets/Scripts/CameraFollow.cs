@@ -13,8 +13,7 @@ public class CameraFollow : MonoBehaviour
 
 
     private void Start()
-    {
-        halfHeight = Camera.main.orthographicSize;
+    {        halfHeight = Camera.main.orthographicSize;
         halfWidth = halfHeight * Camera.main.aspect;
     }
 
@@ -22,6 +21,7 @@ public class CameraFollow : MonoBehaviour
     {
         if (player != null)
         {
+
             if(player.transform.localScale.x == 1)
             {
                 xOffSet = 1.5f;
@@ -35,6 +35,10 @@ public class CameraFollow : MonoBehaviour
                 Mathf.Clamp(player.transform.position.y + yOffSet, camBound.bounds.min.y + halfHeight, camBound.bounds.max.y - halfHeight),
                 -10f);
             transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
+        }
+        else
+        {
+            player = GameManager.Instance.player;
         }
     }   
 }

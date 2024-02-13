@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0dd7596ea0a8c49aa59dbed6c421da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1580931009}
+  player: {fileID: 0}
   camBound: {fileID: 2091571800}
   followSpeed: 5
 --- !u!1 &974728652
@@ -1798,11 +1798,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
---- !u!1 &1580931009 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
-  m_PrefabInstance: {fileID: 1407156145}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1669186396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2051,11 +2046,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnScene
-      value: Level0-2
+      value: Level0-1
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnPoint.x
-      value: 11
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnPoint.y

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public int hp;
     public Vector2 respawnPoint;
     public string respawnScene;
+    private bool isRespawn;
 
     void Awake()
     {
@@ -56,6 +57,10 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+        if(currentScene == respawnScene && isRespawn)
+        {
+            player.transform.position = respawnPoint;
+        }
     }
     public void PlayerHit(int dmg) //플레이어 피격처리
     {
@@ -68,12 +73,15 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void RespawnPlayer() //플레이어 부활(수정 예정)
+    public void RespawnPlayer() //플레이어 부활
     {
-        player.transform.position = respawnPoint;
+        currentScene = respawnScene;
+        StartCoroutine(UIManager.Instance.screenFader.FadeAndLoadScene(ScreenFader.FadeDirection.In, respawnScene));
+        SetPlayerComp();
         hp = maxHp;
         UIManager.Instance.UpdateHealth(hp, maxHp);
         playerController.Respawn();
+        isRespawn = false;
         StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
     }
 

@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateVariables();
         
-        if(!canAct || isDead) { return; }
+        if(!canAct || isDead || Time.timeScale == 0f) { return; }
 
         Flip();
         Run();
