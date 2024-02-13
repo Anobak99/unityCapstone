@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public float attackRange; // 공격 범위
     public int damage;        // 데미지 수치
 
-    private bool canDamage;
+    [HideInInspector] public bool canDamage;
     private bool canAct;
     private bool isDead;
 
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
             jumpCounter += 1;
         }
 
-        if(!IsGrounded() && doubleJump &&  input.jumpBufferCounter > 0f && jumpCounter > 0f)
+        if(!IsGrounded() && (doubleJump && SwitchManager.Instance.abilities[0]) &&  input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
             input.jumpBufferCounter = 0f;
             isJumping = true;
@@ -223,7 +223,6 @@ public class PlayerController : MonoBehaviour
     {
         if (canDamage)
         {           
-            GameManager.Instance.hp -= dmg;
             canAct = false;
             canDamage = false;
             rigid.velocity = Vector2.zero;

@@ -5,9 +5,18 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject player;
+    public BoxCollider2D camBound;
     public float followSpeed;
-    public float xOffSet;
-    public float yOffSet;
+    private float xOffSet;
+    private float yOffSet;
+    private float halfHeight, halfWidth;
+
+
+    private void Start()
+    {
+        halfHeight = Camera.main.orthographicSize;
+        halfWidth = halfHeight * Camera.main.aspect;
+    }
 
     private void LateUpdate()
     {
@@ -21,7 +30,10 @@ public class CameraFollow : MonoBehaviour
             {
                 xOffSet = -1.5f;
             }
-            Vector3 newPos = new Vector3(player.transform.position.x + xOffSet, player.transform.position.y + 1f + yOffSet, -10f);
+            Vector3 newPos = new Vector3(
+                Mathf.Clamp(player.transform.position.x + xOffSet, camBound.bounds.min.x + halfWidth, camBound.bounds.max.x - halfWidth),
+                Mathf.Clamp(player.transform.position.y + yOffSet, camBound.bounds.min.y + halfHeight, camBound.bounds.max.y - halfHeight),
+                -10f);
             transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
         }
     }   

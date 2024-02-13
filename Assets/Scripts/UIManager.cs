@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
 
     public ScreenFader screenFader;
     [SerializeField] private GameObject deathMassage;
+    [SerializeField] private Slider hpBar;
 
     private void Awake()
     {
@@ -56,5 +58,11 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         deathMassage.SetActive(false);
         StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out));
+    }
+
+    public void UpdateHealth(int hp, int maxHp)
+    {
+        hpBar.maxValue = maxHp;
+        hpBar.value = hp;
     }
 }

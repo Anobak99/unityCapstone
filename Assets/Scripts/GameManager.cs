@@ -46,33 +46,52 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         maxHp = 5;
         hp = maxHp;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void SetPlayerComp()
+    public void SetPlayerComp() //플레이어 컴포넌트 참조
     {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
     }
-    public void PlayerHit(int dmg)
+    public void PlayerHit(int dmg) //플레이어 피격처리
     {
-        playerController.TakeDamage(dmg);
+        if(playerController.canDamage) //플레이어가 피격 가능일 경우
+        {
+            hp = Mathf.Clamp(hp - dmg, 0, maxHp);
+            UIManager.Instance.UpdateHealth(hp, maxHp);
+            playerController.TakeDamage(dmg);
+        }
+        
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer() //플레이어 부활(수정 예정)
     {
         player.transform.position = respawnPoint;
         hp = maxHp;
+        UIManager.Instance.UpdateHealth(hp, maxHp);
         playerController.Respawn();
         StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
+    }
+
+    //플레이어 정보 저장
+    public SaveData SavePlayerInfo(SaveData saveData)
+    {
+        saveData.maxHp = maxHp;
+        saveData.saveScene = respawnScene;
+        saveData.savePosition = respawnPoint;
+
+        return saveData;
+    }
+
+    //플레이어 정보 불러오기
+    public void LoadPlayerInfo(SaveData loadData)
+    {
+        maxHp = loadData.maxHp;
+        respawnPoint = loadData.savePosition;
+        respawnScene = loadData.saveScene;
     }
 }
