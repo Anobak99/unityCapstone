@@ -250,6 +250,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Death()
     {
         isDead = true;
+        GameManager.Instance.isDead = true;
         Time.timeScale = 1f;
         anim.SetTrigger("isDead");
         yield return new WaitForSeconds(0.8f);
@@ -312,6 +313,19 @@ public class PlayerController : MonoBehaviour
         //점프시 및 돌진시 중력에 영향을 받지 않음
         if (isJumping || isDashing) { rigid.gravityScale = 0; }
         else { rigid.gravityScale = gravity; }
+    }
+
+    
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (canDamage)
+        {
+            if (collision.CompareTag("EnemyBody"))
+            {
+                GameManager.Instance.PlayerHit(1);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()

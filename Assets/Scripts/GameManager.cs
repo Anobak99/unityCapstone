@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,7 +35,8 @@ public class GameManager : MonoBehaviour
     public int hp;
     public Vector2 respawnPoint;
     public string respawnScene;
-    private bool isRespawn;
+    public bool isRespawn;
+    [HideInInspector] public bool isDead;
 
     void Awake()
     {
@@ -60,8 +62,13 @@ public class GameManager : MonoBehaviour
         if(currentScene == respawnScene && isRespawn)
         {
             player.transform.position = respawnPoint;
+            isRespawn = false;
         }
+        Camera.main.transform.position = player.transform.position;
+        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out));
     }
+    
+
     public void PlayerHit(int dmg) //플레이어 피격처리
     {
         if(playerController.canDamage) //플레이어가 피격 가능일 경우
@@ -73,16 +80,26 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void PlayerHeal(int num)
+    {
+        hp = Mathf.Clamp(hp + num, 0, maxHp);
+        UIManager.Instance.UpdateHealth(hp, maxHp);
+    }
+
     public void RespawnPlayer() //플레이어 부활
     {
-        currentScene = respawnScene;
-        StartCoroutine(UIManager.Instance.screenFader.FadeAndLoadScene(ScreenFader.FadeDirection.In, respawnScene));
-        SetPlayerComp();
-        hp = maxHp;
-        UIManager.Instance.UpdateHealth(hp, maxHp);
-        playerController.Respawn();
-        isRespawn = false;
-        StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
+        if(!isRespawn)
+        {
+            isRespawn = true;
+            currentScene = respawnScene;
+            SceneManager.LoadScene(respawnScene);
+            hp = maxHp;
+            UIManager.Instance.UpdateHealth(hp, maxHp);
+            playerController.Respawn();
+            isDead = false;
+            StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
+            SetPlayerComp();
+        }
     }
 
     //플레이어 정보 저장

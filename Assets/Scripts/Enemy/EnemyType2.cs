@@ -36,7 +36,9 @@ public class EnemyType2 : Enemy {
     {
         Check(); //앞 지형체크
 
-        if (player != null) 
+        if (!canAct || isDead) return;
+
+        if (player != null && !GameManager.Instance.isDead) 
         {
             horizental = player.position.x - transform.position.x;
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);

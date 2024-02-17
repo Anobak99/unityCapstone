@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
+    public GameObject[] item;
 
     public virtual void OnEnable()
     {
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
     public virtual void Hit()
     {
     }
+
 
     public virtual void Attacked(int dmg, Vector2 attackPos)
     {
@@ -56,9 +58,8 @@ public class Enemy : MonoBehaviour
             Debug.Log("Attack by left");
             rb.velocity = Vector2.right * 1.5f;
         }
-        animator.SetTrigger("Hurt");
-        yield return new WaitForSeconds(0.5f);
         rb.velocity = Vector2.zero;
+        animator.SetTrigger("Hurt");
         hp -= dmg;
         canDamage = true;
         if (hp <= 0)
@@ -76,7 +77,21 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Death");
         canDamage = false;
         isDead = true;
+        ItemDrop();
         yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
+    }
+
+    public virtual void ItemDrop()
+    {
+        if(item != null)
+        {
+            int num1 = Random.Range(0, 10);
+            if (num1 == 1)
+            {
+                int num2 = Random.Range(0, item.Length);
+                Instantiate(item[num2], new Vector3(transform.position.x, transform.position.y + 1), Quaternion.identity);
+            }
+        }
     }
 }

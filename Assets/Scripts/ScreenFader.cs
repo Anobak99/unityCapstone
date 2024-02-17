@@ -12,7 +12,7 @@ public class ScreenFader : MonoBehaviour
 
     public enum FadeDirection
     {
-        In, Out
+        In, Out, etc
     }
 
     private void Start()

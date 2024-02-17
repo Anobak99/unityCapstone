@@ -56,9 +56,8 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator DeactivateDeathMassage()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         deathMassage.SetActive(false);
-        StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out));
     }
 
     public void UpdateHealth(int hp, int maxHp)

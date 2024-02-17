@@ -30,7 +30,6 @@ public class SceneChange : MonoBehaviour
             GameManager.Instance.player.transform.position = startPoint.position;
         }
         ActiveEnemy();
-        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out));
     }
 
     // Update is called once per frame

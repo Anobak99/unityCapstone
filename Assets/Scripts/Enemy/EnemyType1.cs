@@ -25,13 +25,13 @@ public class EnemyType1 : Enemy {
 
 
 
-    void Update()
+    void FixedUpdate()
     {
         Check(); //앞 지형체크
 
         if (!canAct || isDead) return;
 
-        if(player != null)
+        if(player != null && !GameManager.Instance.isDead)
         {
             horizental = player.position.x - transform.position.x;
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
@@ -104,7 +104,7 @@ public class EnemyType1 : Enemy {
             if (attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
             {
                 //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // 플레이어 피격시 시간 정지       
-                GameManager.Instance.PlayerHit(dmg);
+                GameManager.Instance.PlayerHit(dmg + 1);
             }
         }
     }
