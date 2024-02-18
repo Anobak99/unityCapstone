@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
-    public GameObject[] item;
+    public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
     public virtual void OnEnable()
     {
@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     {
         if (canDamage)
         {
+            StopAction();
             StartCoroutine(TakeDamage(dmg, attackPos));
         }
     }
@@ -50,25 +51,28 @@ public class Enemy : MonoBehaviour
         animator.SetInteger("AnimState", 0);
         if (attackPos.x > transform.position.x)
         {
-            Debug.Log("Attack by right");
             rb.velocity = Vector2.left * 1.5f;
         }
         else
         {
-            Debug.Log("Attack by left");
             rb.velocity = Vector2.right * 1.5f;
         }
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Hurt");
         hp -= dmg;
-        canDamage = true;
         if (hp <= 0)
         {            
             StartCoroutine(Death());
             yield break;
         }
         yield return new WaitForSeconds(0.5f);
+        canDamage = true;
         canAct = true;
+    }
+
+    public virtual void StopAction()
+    {
+        StopCoroutine(Attack());
     }
 
     public virtual IEnumerator Death()
@@ -84,13 +88,13 @@ public class Enemy : MonoBehaviour
 
     public virtual void ItemDrop()
     {
-        if(item != null)
+        foreach (DropItemInfo item in dropTable)
         {
-            int num1 = Random.Range(0, 10);
-            if (num1 == 1)
+            if(Random.Range(0f, 100f) <= item.dropChance)
             {
-                int num2 = Random.Range(0, item.Length);
-                Instantiate(item[num2], new Vector3(transform.position.x, transform.position.y + 1), Quaternion.identity);
+                if(item.itemPrefab != null)
+                Instantiate(item.itemPrefab, new Vector3(transform.position.x, transform.position.y + 1), Quaternion.identity);
+                break;
             }
         }
     }

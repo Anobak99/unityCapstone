@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     public int damage;        // 데미지 수치
 
     [HideInInspector] public bool canDamage;
+    private bool isDamaged;
     private bool canAct;
     private bool isDead;
 
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Dash");
             isDashing = true;
             canDash = false;
+            canDamage = false;
             StartCoroutine(Dashing());
         }
 
@@ -205,7 +207,6 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         anim.SetBool("isDash", true);
-
         dashingDir = new Vector2(input.horizontal, 0f);
         if (dashingDir == Vector2.zero)
         {
@@ -217,6 +218,7 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(1f);
         canDash = true;
+        if(!isDamaged) canDamage = true;
     }
 
     public void TakeDamage(int dmg)
@@ -225,6 +227,7 @@ public class PlayerController : MonoBehaviour
         {           
             canAct = false;
             canDamage = false;
+            isDamaged = true;
             rigid.velocity = Vector2.zero;
             anim.SetBool("isRun", false);
             if(GameManager.Instance.hp <= 0)
@@ -245,6 +248,7 @@ public class PlayerController : MonoBehaviour
         canAct = true;
         yield return new WaitForSeconds(2f);
         canDamage = true;
+        isDamaged = false;
     }
 
     private IEnumerator Death()
@@ -303,7 +307,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (enemiesToDamage[i].gameObject.tag == "Boss")
             {
-                //[i].GetComponent<Boss>().TakeDamage(damage, attackPos.position);
+                enemiesToDamage[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
             }
         }
     }

@@ -30,13 +30,19 @@ public class GameManager : MonoBehaviour
 
     public string currentScene;
     public GameObject player;
+    private CameraFollow cam;
     public PlayerController playerController;
     public int maxHp;
     public int hp;
     public Vector2 respawnPoint;
     public string respawnScene;
-    public bool isRespawn;
+    private bool isRespawn;
     [HideInInspector] public bool isDead;
+    public enum GameState
+    {
+        Field, Menu, Boss, Event
+    }
+    public GameState gameState;
 
     void Awake()
     {
@@ -59,12 +65,13 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-        if(currentScene == respawnScene && isRespawn)
+        cam = FindObjectOfType<CameraFollow>();
+        if (currentScene == respawnScene && isRespawn)
         {
             player.transform.position = respawnPoint;
             isRespawn = false;
         }
-        Camera.main.transform.position = player.transform.position;
+        cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
         StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out));
     }
     

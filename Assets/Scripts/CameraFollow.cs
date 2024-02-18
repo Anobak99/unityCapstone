@@ -13,7 +13,8 @@ public class CameraFollow : MonoBehaviour
 
 
     private void Start()
-    {        halfHeight = Camera.main.orthographicSize;
+    {        
+        halfHeight = Camera.main.orthographicSize;
         halfWidth = halfHeight * Camera.main.aspect;
     }
 
@@ -40,5 +41,10 @@ public class CameraFollow : MonoBehaviour
         {
             player = GameManager.Instance.player;
         }
-    }   
+    }
+
+    public void ChangeCameraPos(Vector3 pos)
+    {
+        transform.position = pos;
+    }
 }

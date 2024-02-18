@@ -91,7 +91,6 @@ public class EnemyType1 : Enemy {
     {
         canAct = false;
         animator.SetTrigger("Attack");
-        Debug.Log("Enemy's Attack!");
         yield return new WaitForSeconds(3f);
         canAct = true;
     }
@@ -104,7 +103,7 @@ public class EnemyType1 : Enemy {
             if (attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
             {
                 //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // 플레이어 피격시 시간 정지       
-                GameManager.Instance.PlayerHit(dmg + 1);
+                GameManager.Instance.PlayerHit(dmg);
             }
         }
     }

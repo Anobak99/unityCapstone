@@ -9,6 +9,7 @@ public class DropItem : MonoBehaviour
         Heal
     }
     public ItemType itype;
+    private int healPoint;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,7 +17,7 @@ public class DropItem : MonoBehaviour
         {
             if(itype == ItemType.Heal)
             {
-                GameManager.Instance.PlayerHeal(1);
+                GameManager.Instance.PlayerHeal(healPoint);
                 Destroy(gameObject);
             }
         }
