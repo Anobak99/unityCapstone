@@ -43,7 +43,8 @@ public class PlayerController : MonoBehaviour
     public float attackRange; // 공격 범위
     public int damage;        // 데미지 수치
 
-    private bool canDamage;
+    [HideInInspector] public bool canDamage;
+    private bool isDamaged;
     private bool canAct;
     private bool isDead;
 
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateVariables();
         
-        if(!canAct || isDead) { return; }
+        if(!canAct || isDead || Time.timeScale == 0f) { return; }
 
         Flip();
         Run();
@@ -75,6 +76,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Dash");
             isDashing = true;
             canDash = false;
+            canDamage = false;
             StartCoroutine(Dashing());
         }
 
@@ -160,7 +162,7 @@ public class PlayerController : MonoBehaviour
             jumpCounter += 1;
         }
 
-        if(!IsGrounded() && doubleJump &&  input.jumpBufferCounter > 0f && jumpCounter > 0f)
+        if(!IsGrounded() && (doubleJump && SwitchManager.Instance.abilities[0]) &&  input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
             input.jumpBufferCounter = 0f;
             isJumping = true;
@@ -205,7 +207,6 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         anim.SetBool("isDash", true);
-
         dashingDir = new Vector2(input.horizontal, 0f);
         if (dashingDir == Vector2.zero)
         {
@@ -217,15 +218,16 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(1f);
         canDash = true;
+        if(!isDamaged) canDamage = true;
     }
 
     public void TakeDamage(int dmg)
     {
         if (canDamage)
         {           
-            GameManager.Instance.hp -= dmg;
             canAct = false;
             canDamage = false;
+            isDamaged = true;
             rigid.velocity = Vector2.zero;
             anim.SetBool("isRun", false);
             if(GameManager.Instance.hp <= 0)
@@ -246,11 +248,13 @@ public class PlayerController : MonoBehaviour
         canAct = true;
         yield return new WaitForSeconds(2f);
         canDamage = true;
+        isDamaged = false;
     }
 
     private IEnumerator Death()
     {
         isDead = true;
+        GameManager.Instance.isDead = true;
         Time.timeScale = 1f;
         anim.SetTrigger("isDead");
         yield return new WaitForSeconds(0.8f);
@@ -303,7 +307,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (enemiesToDamage[i].gameObject.tag == "Boss")
             {
-                //[i].GetComponent<Boss>().TakeDamage(damage, attackPos.position);
+                enemiesToDamage[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
             }
         }
     }
@@ -313,6 +317,19 @@ public class PlayerController : MonoBehaviour
         //점프시 및 돌진시 중력에 영향을 받지 않음
         if (isJumping || isDashing) { rigid.gravityScale = 0; }
         else { rigid.gravityScale = gravity; }
+    }
+
+    
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (canDamage)
+        {
+            if (collision.CompareTag("EnemyBody"))
+            {
+                GameManager.Instance.PlayerHit(1);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()

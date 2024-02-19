@@ -11,7 +11,7 @@ public class EnemyType2 : Enemy {
 
     //attack
     public GameObject objectPrefab;
-    private List<GameObject> pool;
+    private List<GameObject> pool = new List<GameObject>();
 
     //playerCheck
     private float distanceFromPlayer;
@@ -27,16 +27,13 @@ public class EnemyType2 : Enemy {
     private bool isWall;
 
 
-    public void Start()
-    {
-        pool = new List<GameObject>();
-    }
-
     void Update()
     {
         Check(); //앞 지형체크
 
-        if (player != null) 
+        if (!canAct || isDead) return;
+
+        if (player != null && !GameManager.Instance.isDead) 
         {
             horizental = player.position.x - transform.position.x;
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);

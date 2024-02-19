@@ -7,11 +7,14 @@ TagManager:
   - Platform
   - Ground
   - Enemy
+  - Switch
+  - EnemyBody
+  - Boss
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NoColider
   - Water
   - UI
   - Player
@@ -52,4 +55,7 @@ TagManager:
     locked: 0
   - name: Unit
     uniqueID: 3039591005
+    locked: 0
+  - name: Effect
+    uniqueID: 2109086697
     locked: 0

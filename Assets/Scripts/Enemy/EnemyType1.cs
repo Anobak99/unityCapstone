@@ -25,13 +25,13 @@ public class EnemyType1 : Enemy {
 
 
 
-    void Update()
+    void FixedUpdate()
     {
         Check(); //앞 지형체크
 
-        if (!canAct || isDead) return;
+        if (!canAct || isDead || Time.timeScale == 0) return;
 
-        if(player != null)
+        if(player != null && !GameManager.Instance.isDead)
         {
             horizental = player.position.x - transform.position.x;
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
@@ -91,7 +91,6 @@ public class EnemyType1 : Enemy {
     {
         canAct = false;
         animator.SetTrigger("Attack");
-        Debug.Log("Enemy's Attack!");
         yield return new WaitForSeconds(3f);
         canAct = true;
     }
