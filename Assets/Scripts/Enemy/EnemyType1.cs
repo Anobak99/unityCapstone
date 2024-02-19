@@ -29,7 +29,7 @@ public class EnemyType1 : Enemy {
     {
         Check(); //앞 지형체크
 
-        if (!canAct || isDead) return;
+        if (!canAct || isDead || Time.timeScale == 0) return;
 
         if(player != null && !GameManager.Instance.isDead)
         {

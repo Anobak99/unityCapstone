@@ -11,7 +11,7 @@ public class EnemyType2 : Enemy {
 
     //attack
     public GameObject objectPrefab;
-    private List<GameObject> pool;
+    private List<GameObject> pool = new List<GameObject>();
 
     //playerCheck
     private float distanceFromPlayer;
@@ -26,11 +26,6 @@ public class EnemyType2 : Enemy {
     private bool isGround;
     private bool isWall;
 
-
-    public void Start()
-    {
-        pool = new List<GameObject>();
-    }
 
     void Update()
     {

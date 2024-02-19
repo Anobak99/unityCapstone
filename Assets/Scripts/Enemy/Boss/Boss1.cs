@@ -8,6 +8,7 @@ public class Boss1 : Boss
     private float moveDirection = -1;
     private bool facingRight = false;
     [SerializeField] private float speed;
+    private float moveTime;
 
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayor;
@@ -23,11 +24,16 @@ public class Boss1 : Boss
     [SerializeField] private float attackRange2; //공격2 범위
     [SerializeField] private float jumpHeight;
     private bool isJump;
+    private bool isAttack3;
+
+    public GameObject objectPrefab;
+    private List<GameObject> bullets = new List<GameObject>();
 
     [SerializeField] private Transform attackPos;
+    [SerializeField] private Transform attack3Pos1;
+    [SerializeField] private Transform attack3Pos2;
     [SerializeField] private LayerMask whatIsEnemies;
     [SerializeField] private float hitRange;
-    [SerializeField] private GameObject[] Rocks;
 
 
     private void Start()
@@ -40,7 +46,9 @@ public class Boss1 : Boss
     {
         Check();
 
-        if(canAct && !isDead)
+        if (GameManager.Instance.gameState != GameManager.GameState.Boss ||isDead || Time.timeScale == 0) return;
+
+        if (canAct && player != null && !GameManager.Instance.isDead)
         {
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
             horizental = player.position.x - transform.position.x;
@@ -62,6 +70,8 @@ public class Boss1 : Boss
                     {
                         animator.SetInteger("AnimState", 2);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                        moveTime -= Time.deltaTime;
+                        if(moveTime < 0) StartCoroutine(Attack2());
                     }
                     else
                         rb.velocity = new Vector2(0, rb.velocity.y);
@@ -79,8 +89,16 @@ public class Boss1 : Boss
 
             if (isGround)
             {
-                rb.gravityScale = 1;
-                Attack2Hit();
+                if(isAttack3)
+                {
+                    rb.gravityScale = 1;
+                    StartCoroutine(Attack3Hit());
+                }
+                else
+                {
+                    rb.gravityScale = 1;
+                    Attack2Hit();
+                }
             }
         }
     }
@@ -111,6 +129,7 @@ public class Boss1 : Boss
     {
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
+        moveTime = 3f;
         canAct = true;
     }
 
@@ -154,13 +173,10 @@ public class Boss1 : Boss
         isJump = false;
         animator.SetTrigger("JumpEnd");
 
-        //for (int i = 0; i < Rocks.Length; i++)
-        //{
-        //    Rocks[i].SetActive(true);
-        //    Boss1_bullet bullet = Rocks[i].GetComponent<Boss1_bullet>();
-        //    bullet.distanceFromPlayer = transform.position.x + Random.Range(-2f, 2f);
-        //    bullet.Jump();
-        //}
+        for (int i = 0; i < 4; i++)
+        {
+            Shoot(isAttack3);
+        }
 
         attackCount++;
         StartCoroutine(Think(2f));
@@ -168,10 +184,83 @@ public class Boss1 : Boss
 
     IEnumerator Attack3()
     {
+        float downPos;
+
         canAct = false;
+        isAttack3 = true;
+
+        if (horizental < 0) //반대 벽으로 점프
+        {
+            downPos = attack3Pos2.position.x;
+        }
+        else
+        {
+            downPos = attack3Pos1.position.x;
+        }
+
+        animator.SetTrigger("Jump");
+        yield return new WaitForSeconds(0.5f);
+        rb.velocity = new Vector2(downPos, jumpHeight);
+        yield return new WaitForSeconds(0.5f);
+        isJump = true;
+        rb.velocity = new Vector2(downPos, 0f);
+        animator.SetTrigger("JumpAttack");
+    }
+
+    IEnumerator Attack3Hit()
+    {
+        isJump = false;
+        animator.SetTrigger("JumpEnd");
+        yield return new WaitForSeconds(0.5f);
+        horizental = player.position.x - transform.position.x;
+        FlipToPlayer(horizental);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("Attack3", true);
+        yield return new WaitForSeconds(0.5f);
+
+        for (int i = 0; i < 10; i++)
+        {
+            horizental = player.position.x - transform.position.x;
+            Shoot(isAttack3);
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isAttack3 = false;
+        animator.SetBool("Attack3", false);
         attackCount = 0;
-        yield return null;
-        StartCoroutine(Think(6f));
+        StartCoroutine(Think(2f));
+    }
+
+    private void Shoot(bool isAttack3)
+    {
+        Boss1_bullet b_script;
+        GameObject select = null;
+
+        foreach (GameObject item in bullets)
+        {
+            if (!item.activeSelf)
+            {
+                select = item;
+                select.SetActive(true);
+                break;
+            }
+        }
+
+        if (!select)
+        {
+            select = Instantiate(objectPrefab, transform);
+            bullets.Add(select);
+        }
+
+        b_script = select.GetComponent<Boss1_bullet>();
+
+        if (isAttack3)
+        {
+            b_script.isAttack3 = true;
+            b_script.downPoint = horizental;
+        }
+
+        StartCoroutine(b_script.Jump());
     }
 
     IEnumerator Stuuned()
@@ -179,9 +268,12 @@ public class Boss1 : Boss
         yield return new WaitForSeconds(3f);
     }
 
-    public virtual void StopAction()
+    private void StopAction()
     {
         StopCoroutine(Attack1());
+        StopCoroutine(Attack2());
+        StopCoroutine(Attack3());
+        StopCoroutine(Attack3Hit());
     }
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
@@ -191,6 +283,7 @@ public class Boss1 : Boss
         hp -= dmg;
         if (hp <= 0)
         {
+            StopAction();
             spriteRenderer.color = Color.white;
             StartCoroutine(Death());
             yield break;
@@ -198,6 +291,16 @@ public class Boss1 : Boss
         yield return new WaitForSeconds(0.2f);
         spriteRenderer.color = Color.white;
         canDamage = true;
+    }
+
+    private IEnumerator Death()
+    {
+        rb.velocity = Vector2.zero;
+        //animator.SetTrigger("Death");
+        canDamage = false;
+        isDead = true;
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()

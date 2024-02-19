@@ -40,11 +40,6 @@ public class Boss : MonoBehaviour
         yield return null;
     }
 
-    public virtual IEnumerator Death()
-    {
-        yield return null;
-    }
-
     public virtual void ItemDrop()
     {
         foreach (DropItemInfo item in dropTable)
