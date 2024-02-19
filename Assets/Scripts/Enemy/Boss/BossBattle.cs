@@ -10,6 +10,8 @@ public class BossBattle : MonoBehaviour
     public float camSpeed;
     public GameObject BossObject;
     private int bossNum;
+    public GameObject Door1;
+    public GameObject Door2;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +31,11 @@ public class BossBattle : MonoBehaviour
         {
             if(collision.CompareTag("Player"))
             {
-                GameManager.Instance.gameState = GameManager.GameState.Boss;
+                GameManager.Instance.gameState = GameManager.GameState.Event;
                 cam.camBound = camPosition;
                 BossObject.SetActive(true);
+                Door1.SetActive(true);
+                Door2.SetActive(true);
             }
         }
     }
@@ -40,6 +44,8 @@ public class BossBattle : MonoBehaviour
     {
         GameManager.Instance.gameState = GameManager.GameState.Field;
         cam.camBound = preCamBox;
+        Door1.SetActive(false);
+        Door2.SetActive(false);
         SwitchManager.Instance.boss[bossNum] = true;
     }
 

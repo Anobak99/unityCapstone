@@ -28,6 +28,7 @@ public class Boss1 : Boss
 
     public GameObject objectPrefab;
     private List<GameObject> bullets = new List<GameObject>();
+    [SerializeField] private BossBattle battle;
 
     [SerializeField] private Transform attackPos;
     [SerializeField] private Transform attack3Pos1;
@@ -38,13 +39,25 @@ public class Boss1 : Boss
 
     private void Start()
     {
-        StartCoroutine(Think(3f));
+        animator.SetTrigger("Jump");
+        animator.SetTrigger("JumpAttack");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Check();
+
+        if(GameManager.Instance.gameState == GameManager.GameState.Event)
+        {
+            if(isGround)
+            {
+                GameManager.Instance.gameState = GameManager.GameState.Boss;
+                animator.SetTrigger("JumpEnd");
+                rb.gravityScale = 1f;
+                StartCoroutine(Think(2f));
+            }
+        }
 
         if (GameManager.Instance.gameState != GameManager.GameState.Boss ||isDead || Time.timeScale == 0) return;
 
@@ -300,6 +313,7 @@ public class Boss1 : Boss
         canDamage = false;
         isDead = true;
         yield return new WaitForSeconds(1f);
+        battle.BossDead();
         gameObject.SetActive(false);
     }
 
