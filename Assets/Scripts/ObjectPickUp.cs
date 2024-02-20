@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectPickUp : MonoBehaviour
 {
     public float liftingForce = 5f; // 들기 힘
+    public float holdRange = 1.5f;
     public Transform holdPosition;   // 들고 있는 위치
 
     private Rigidbody2D heldObject;  // 들고 있는 물체의 Rigidbody2D
@@ -35,7 +36,7 @@ public class ObjectPickUp : MonoBehaviour
     void PickUpObject()
     {
         // 근처에 있는 물체 찾기
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, holdRange);
         foreach (Collider2D col in colliders)
         {
             if (col.CompareTag("Pickupable"))
@@ -72,5 +73,11 @@ public class ObjectPickUp : MonoBehaviour
             heldObject.angularVelocity = 0f;
             heldObject.MovePosition(holdPosition.position);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, holdRange);
     }
 }
