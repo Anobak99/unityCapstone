@@ -7,12 +7,16 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int dmg;
 
-    public Transform player;
-    public Rigidbody2D rb;
-    public Animator animator;
+    [HideInInspector] public Transform player;
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
+    public Material flashMaterial;
+    public Material defalutMaterial;
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
+    public GameObject DamageBox;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
     public virtual void OnEnable()
@@ -20,6 +24,8 @@ public class Enemy : MonoBehaviour
         player = GameManager.Instance.player.transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        DamageBox.SetActive(true);
         canAct = true;
         canDamage = true;
         isDead = false;
@@ -46,9 +52,11 @@ public class Enemy : MonoBehaviour
 
     public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
+        rb.velocity = Vector2.zero;
         canAct = false;
         canDamage = false;
         animator.SetInteger("AnimState", 0);
+        spriteRenderer.material = flashMaterial;
         if (attackPos.x > transform.position.x)
         {
             rb.velocity = Vector2.left * 1.5f;
@@ -57,15 +65,21 @@ public class Enemy : MonoBehaviour
         {
             rb.velocity = Vector2.right * 1.5f;
         }
-        rb.velocity = Vector2.zero;
         animator.SetTrigger("Hurt");
+        animator.SetBool("Hit", true);
         hp -= dmg;
         if (hp <= 0)
-        {            
+        {
+            spriteRenderer.material = defalutMaterial;
+            yield return new WaitForSeconds(0.2f);
             StartCoroutine(Death());
             yield break;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.material = defalutMaterial;
+        animator.SetBool("Hit", false);
+        rb.velocity = Vector2.zero;
+        StopCoroutine(Attack());
         canDamage = true;
         canAct = true;
     }
@@ -78,6 +92,8 @@ public class Enemy : MonoBehaviour
     public virtual IEnumerator Death()
     {
         rb.velocity = Vector2.zero;
+        DamageBox.SetActive(false);
+        animator.SetBool("Hit", false);
         animator.SetTrigger("Death");
         canDamage = false;
         isDead = true;

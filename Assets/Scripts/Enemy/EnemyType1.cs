@@ -95,6 +95,7 @@ public class EnemyType1 : Enemy {
         canAct = true;
     }
 
+
     public override void Hit()
     {
         Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
