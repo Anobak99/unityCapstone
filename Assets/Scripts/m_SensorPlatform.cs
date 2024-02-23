@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class m_SensorPlatform : MonoBehaviour
 {
+    CameraShake cs;
+
+    private void Awake()
+    {
+        cs = GetComponent<CameraShake>();
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         Rigidbody2D rigidbody = collision.collider.GetComponent<Rigidbody2D>();
@@ -11,8 +18,14 @@ public class m_SensorPlatform : MonoBehaviour
         if (rigidbody != null)
         {
             Debug.Log("무게 감지됨");
-            
-            // 여기에 원하는 로직을 추가하세요.
+
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CameraShake.Instance.OnShakeCamera(0.1f, 0.1f);
+    }
+
+
 }

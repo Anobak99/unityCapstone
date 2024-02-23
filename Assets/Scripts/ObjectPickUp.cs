@@ -43,6 +43,7 @@ public class ObjectPickUp : MonoBehaviour
             {
                 // 들고 있는 물체 설정
                 heldObject = col.GetComponent<Rigidbody2D>();
+                col.transform.SetParent(transform);
                 if (heldObject != null)
                 {
                     isHolding = true;

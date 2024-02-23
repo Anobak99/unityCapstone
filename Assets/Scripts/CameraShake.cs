@@ -5,55 +5,65 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
-    public CinemachineVirtualCamera CinemachineVirtualCamera;
-    public float ShakeIntensity = 1f;
-    public float ShakeTime = 0.2f;
+    private static CameraShake instance;
+    public static CameraShake Instance => instance;
+    
 
-    public float timer;
-    public CinemachineBasicMultiChannelPerlin _cbmcp;
+    public float shakeTime;
+    public float shakeIntensity;
 
-    private void Awake()
+    public CameraShake()
     {
-        CinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();    
+        instance = this;
     }
 
-    private void Start()
+
+    public void OnShakeCamera(float shakeTime =0.5f, float shakeIntensity =1f)
     {
-        StopShake();
+        this.shakeTime = shakeTime;
+        this.shakeIntensity = shakeIntensity;
+
+        StopCoroutine("ShakeByPosition");
+        StartCoroutine("ShakeByPosition");
     }
 
-    public void ShakeCamera()
+    private IEnumerator ShakeByPosition()
     {
-        CinemachineBasicMultiChannelPerlin _cbmcp = CinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        _cbmcp.m_AmplitudeGain = ShakeIntensity;
+        Vector3 startPosition = transform.position;
 
-        timer = ShakeTime;
-        Debug.Log("Shake Camera");
-    }
-
-    void StopShake()
-    {
-        CinemachineBasicMultiChannelPerlin _cbmcp = CinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        _cbmcp.m_AmplitudeGain = 0f;
-
-        timer = 0;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {          
-            ShakeCamera();
-        }
-
-        if (timer > 0)
+        while ( shakeTime > 0.0f)
         {
-            timer -= Time.deltaTime;
 
-            if(timer <= 0)
-            {
-                StopShake();
-            }
+            // 초기 위치로부터 구 범위 * shakeIntensity의 범위 안에서 카메라 위치 변화
+            transform.position = startPosition + Random.insideUnitSphere * shakeIntensity;
+
+            shakeTime -= Time.deltaTime;
+
+            yield return null;
         }
+
+        transform.position = startPosition;
     }
+
+    private IEnumerator ShakeByRotation()
+    {
+        Vector3 startRotation = transform.eulerAngles;
+
+        float power = 10f;
+
+        while ( shakeTime > 0.0f)
+        {
+            float x = 0; //Random.Range(-1f, 1f);
+            float y = 0; //Random.Range(-1f, 1f);
+            float z = Random.Range(-1f, 1f);
+            transform.rotation = Quaternion.Euler(startRotation + new Vector3(x, y, z) * shakeIntensity * power);
+
+            shakeTime -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.Euler(startRotation);
+    }
+    
 }
