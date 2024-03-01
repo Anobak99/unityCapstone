@@ -48,10 +48,11 @@ public class ObjectPickUp : MonoBehaviour
                 {
                     isHolding = true;
                     heldObject.gravityScale = 0f;
-                }
+                }               
                 break;
             }
         }
+        
     }
 
     void ReleaseObject()
@@ -59,6 +60,7 @@ public class ObjectPickUp : MonoBehaviour
         // 물체 놓기
         if (heldObject != null)
         {
+            heldObject.transform.SetParent(null);
             heldObject.gravityScale = 1f;
             heldObject = null;
             isHolding = false;
