@@ -14,6 +14,11 @@ public class TimeStop : MonoBehaviour
 
     private void Update()
     {      
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    StopTime(0.05f, 10, 0.1f);
+        //}
+
         if (RestoreTime)
         {
             if (Time.timeScale < 1f)

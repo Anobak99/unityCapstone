@@ -6,6 +6,7 @@ public class PlayerShootingAttack : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public int skillNum = 0;
 
     private void Update()
     {
@@ -17,6 +18,9 @@ public class PlayerShootingAttack : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (SwitchManager.Instance.abilities[skillNum])
+        {
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
     }
 }

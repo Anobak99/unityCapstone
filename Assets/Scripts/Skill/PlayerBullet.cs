@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
+    public GameObject player;
     public Transform bullet;
     public float speed = 10f;
     public int damage = 10;
     public Rigidbody2D rb;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player");
+        player.GetComponent<Transform>();
+    }
+
     void Start()
     {
-        rb.velocity = transform.right * speed;
+        if (player.transform.localScale.x == 1)
+        {
+            rb.velocity = transform.right * speed;
+        }
+        else if (player.transform.localScale.x == -1)
+        {
+            rb.velocity = transform.right * speed *-1;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,6 +40,6 @@ public class PlayerBullet : MonoBehaviour
             Debug.Log("Switch Active");
             SwitchManager.Instance.openSwitchDoor[collision.GetComponent<Switch>().num] = true;
         }
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

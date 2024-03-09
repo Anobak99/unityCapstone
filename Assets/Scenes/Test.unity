@@ -435,6 +435,85 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1817657573}
   m_SourcePrefab: {fileID: 100100000, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
+--- !u!1 &668256588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668256592}
+  - component: {fileID: 668256591}
+  - component: {fileID: 668256590}
+  - component: {fileID: 668256589}
+  m_Layer: 0
+  m_Name: SkillManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &668256589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668256588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a277795bf8cc07e4990daa3b1b76cfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  bullet: {fileID: 1538805915271459956, guid: 383ac47acf0832140a231e3ff88b56b9, type: 3}
+  speed: 10
+  damage: 10
+  rb: {fileID: 252790462210012742, guid: 383ac47acf0832140a231e3ff88b56b9, type: 3}
+--- !u!114 &668256590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668256588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b332dd3d9f67d4187cda556d692ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 1544926700}
+  bulletPrefab: {fileID: 2594359028336724878, guid: 383ac47acf0832140a231e3ff88b56b9, type: 3}
+  skillNum: 1
+--- !u!114 &668256591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668256588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368d9ccc60079f846a6769d4201c3fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skills_enable: 
+--- !u!4 &668256592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668256588}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.837573, y: 2.767064, z: -33.901882}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1053784215
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +1030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1544926700}
   bulletPrefab: {fileID: 2594359028336724878, guid: 383ac47acf0832140a231e3ff88b56b9, type: 3}
+  skillNum: 1
 --- !u!114 &1521466288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1899,3 +1979,4 @@ SceneRoots:
   - {fileID: 188425316}
   - {fileID: 1481805268}
   - {fileID: 1053784218}
+  - {fileID: 668256592}

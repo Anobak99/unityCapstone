@@ -9,7 +9,7 @@ public class m_SensorPlatform : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         Rigidbody2D rigidbody = collision.collider.GetComponent<Rigidbody2D>();
-
+        
         if (rigidbody != null)
         {
             SwitchManager.Instance.openSwitchDoor[doorNum] = true;

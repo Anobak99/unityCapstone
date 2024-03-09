@@ -12,10 +12,6 @@ public class DoorOpen : MonoBehaviour
         {          
             gameObject.SetActive(false);
         }
-        else
-        {
-            gameObject.SetActive(true);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
