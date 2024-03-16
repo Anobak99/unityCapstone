@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
+    [HideInInspector] public bool isAttack;
     public GameObject DamageBox;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
@@ -53,10 +54,23 @@ public class Enemy : MonoBehaviour
     public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        canAct = false;
+        if(!isAttack)
+        {
+            animator.SetTrigger("Hurt");
+            animator.SetBool("Hit", true);
+        }
         canDamage = false;
         animator.SetInteger("AnimState", 0);
-        spriteRenderer.material = flashMaterial;
+
+        hp -= dmg;
+        if (hp <= 0)
+        {
+            canAct = false;
+            StopAction();
+            StartCoroutine(Death());
+            yield break;
+        }
+
         if (attackPos.x > transform.position.x)
         {
             rb.velocity = Vector2.left * 1.5f;
@@ -65,23 +79,15 @@ public class Enemy : MonoBehaviour
         {
             rb.velocity = Vector2.right * 1.5f;
         }
-        animator.SetTrigger("Hurt");
-        animator.SetBool("Hit", true);
-        hp -= dmg;
-        if (hp <= 0)
-        {
-            spriteRenderer.material = defalutMaterial;
-            yield return new WaitForSeconds(0.2f);
-            StartCoroutine(Death());
-            yield break;
-        }
-        yield return new WaitForSeconds(0.2f);
-        spriteRenderer.material = defalutMaterial;
-        animator.SetBool("Hit", false);
+        
+        yield return new WaitForSeconds(0.5f);
         rb.velocity = Vector2.zero;
-        StopCoroutine(Attack());
+
+        if (animator.GetBool("Hit"))
+        {
+            animator.SetBool("Hit", false);
+        }
         canDamage = true;
-        canAct = true;
     }
 
     public virtual void StopAction()
@@ -91,7 +97,6 @@ public class Enemy : MonoBehaviour
 
     public virtual IEnumerator Death()
     {
-        rb.velocity = Vector2.zero;
         DamageBox.SetActive(false);
         animator.SetBool("Hit", false);
         animator.SetTrigger("Death");

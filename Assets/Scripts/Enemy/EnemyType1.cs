@@ -41,7 +41,7 @@ public class EnemyType1 : Enemy {
                 FlipToPlayer(horizental);
                 if (distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
                 {
-                    if (isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
+                    if (isGround && !isWall && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
                     {
                         animator.SetInteger("AnimState", 2);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -90,8 +90,11 @@ public class EnemyType1 : Enemy {
     public override IEnumerator Attack()
     {
         canAct = false;
+        isAttack = true;
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
+        isAttack = false;
+        yield return new WaitForSeconds(2f);
         canAct = true;
     }
 
