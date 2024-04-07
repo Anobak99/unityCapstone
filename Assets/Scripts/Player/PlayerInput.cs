@@ -27,6 +27,10 @@ public class PlayerInput : MonoBehaviour
     {
         if(Input.GetButtonDown("Cancel"))
         {
+            if(UIManager.Instance.MapOpened())
+            {
+                UIManager.Instance.MapMenu();
+            }
             UIManager.Instance.PauseMenu();
         }
     }

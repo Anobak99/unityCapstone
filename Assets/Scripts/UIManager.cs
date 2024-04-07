@@ -32,10 +32,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject deathMassage;
     [SerializeField] private Slider hpBar;
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject mapImage;
 
     private void Awake()
     {
-        var objs = FindObjectsOfType<GameManager>();
+        var objs = FindObjectsOfType<UIManager>();
         if (objs.Length != 1)
         {
             Destroy(gameObject);
@@ -87,5 +88,26 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
 
         pauseScreen.SetActive(false);
+    }
+
+    public void MapMenu()
+    {
+        if(!mapImage.activeSelf)
+        {
+            mapImage.SetActive(true);
+        }
+        else
+        {
+            mapImage.SetActive(false);
+        }
+    }
+
+    public bool MapOpened()
+    {
+        if (mapImage.activeSelf)
+        {
+            return true;
+        }
+        else { return false; }
     }
 }
