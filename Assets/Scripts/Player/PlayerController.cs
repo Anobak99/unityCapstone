@@ -162,8 +162,9 @@ public class PlayerController : MonoBehaviour
             jumpCounter += 1;
         }
 
-        if(!IsGrounded() && (doubleJump && SwitchManager.Instance.abilities[0]) &&  input.jumpBufferCounter > 0f && jumpCounter > 0f)
+        if(!IsGrounded() && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
+            Debug.Log("double jump");
             input.jumpBufferCounter = 0f;
             isJumping = true;
             doubleJump = false;
