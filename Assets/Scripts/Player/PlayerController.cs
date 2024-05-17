@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    private GameObject currentOneWayPlatform; // onewayplatform 오브젝트
+    private BoxCollider2D playerCollider;
+
     public float moveSpeed;
 
     public float gravity = 5;
@@ -50,7 +53,8 @@ public class PlayerController : MonoBehaviour
     private bool isDead;
 
     private void Awake()
-    {       
+    {
+        playerCollider = GetComponent<BoxCollider2D>();
         input = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -70,6 +74,15 @@ public class PlayerController : MonoBehaviour
         Jump();
         WhileJump();
         Setgravity();
+
+        // 아래키 입력->플랫폼 통과
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentOneWayPlatform != null)
+            {
+                StartCoroutine(DisableCollision());
+            }
+        }
 
         // 대시 
         if (input.dashInput && canDash)
@@ -321,7 +334,31 @@ public class PlayerController : MonoBehaviour
         else { rigid.gravityScale = gravity; }
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
+        {
+            currentOneWayPlatform = collision.gameObject;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
+        {
+            currentOneWayPlatform = null;
+        }
+    }
+
+    // one-way platform(아래키 눌러 플랫폼 아래로 이동)
+    private IEnumerator DisableCollision()
+    {
+        BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+
+        Physics2D.IgnoreCollision(playerCollider, platformCollider);
+        yield return new WaitForSeconds(0.25f);
+        Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
