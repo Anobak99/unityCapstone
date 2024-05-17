@@ -78,7 +78,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9068362808191381223
 Transform:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7679128429253476647
 Transform:
   m_ObjectHideFlags: 0
@@ -347,7 +347,8 @@ MonoBehaviour:
   canAct: 0
   canDamage: 0
   isDead: 0
-  DamageBox: {fileID: 0}
+  isAttack: 0
+  DamageBox: {fileID: 4654595448375221531}
   dropTable:
   - itemPrefab: {fileID: 7827938167965584996, guid: 01c195dd958a85d479270d61b5c8c4d3, type: 3}
     dropChance: 30

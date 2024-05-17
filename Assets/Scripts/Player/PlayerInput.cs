@@ -13,7 +13,18 @@ public class PlayerInput : MonoBehaviour
     public bool attackInput;
 
 
-    protected virtual void Update()
+    void Awake()
+    {
+        var objs = FindObjectsOfType<PlayerInput>();
+        if (objs.Length != 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 

@@ -15,6 +15,24 @@ public class DataManager : MonoBehaviour
         filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
     }
 
+    public string FileCheck(string name)
+    {
+        currentData.fileName = name;
+        filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
+
+        if(File.Exists(filePath)) 
+        {
+            string loadData = File.ReadAllText(filePath + currentData.fileName);
+            currentData = JsonUtility.FromJson<SaveData>(loadData);
+
+            return currentData.saveScene;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public void SaveData()
     {
         GameManager.Instance.SavePlayerInfo(currentData);

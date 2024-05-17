@@ -6,7 +6,7 @@ using System.IO;
 [System.Serializable]
 public class SaveData
 {
-    public string fileName = "saveFile1";
+    public string fileName = "saveFile1.json";
     public int maxHp;
     public string saveScene;
     public Vector3 savePosition;

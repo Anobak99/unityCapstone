@@ -31,7 +31,9 @@ public class GameManager : MonoBehaviour
     public string currentScene;
     public GameObject player;
     private CameraFollow cam;
+    public GameObject mainCam;
     public PlayerController playerController;
+    public BoxCollider2D camCollider;
     public int maxHp;
     public int hp;
     public Vector2 respawnPoint;
@@ -65,16 +67,22 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
-        cam = FindObjectOfType<CameraFollow>();
+        cam = mainCam.GetComponentInChildren<CameraFollow>();
         if (currentScene == respawnScene && isRespawn)
         {
             player.transform.position = respawnPoint;
             isRespawn = false;
         }
+        cam.camBound = camCollider; 
+        cam.cameraMove = false;
         cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
-        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out));
+        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0.3f));
     }
     
+    public void CamOff()
+    {
+        mainCam.SetActive(false);
+    }
 
     public void PlayerHit(int dmg) //플레이어 피격처리
     {

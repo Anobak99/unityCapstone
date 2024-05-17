@@ -9,7 +9,6 @@ public class ScreenFader : MonoBehaviour
 {
     [SerializeField] private Image fadeOutUIImage;
     [SerializeField] private float fadeTime;
-
     public enum FadeDirection
     {
         In, Out, etc
@@ -20,8 +19,10 @@ public class ScreenFader : MonoBehaviour
         fadeOutUIImage = GetComponent<Image>();
     }
 
-    public IEnumerator Fade(FadeDirection _fadeDirection)
+    public IEnumerator Fade(FadeDirection _fadeDirection, float t)
     {
+        yield return new WaitForSeconds(t);
+
         float _alpha = _fadeDirection == FadeDirection.Out ? 1 : 0;
         float _fadeEndValue = _fadeDirection == FadeDirection.Out ? 0 : 1;
 
@@ -53,15 +54,14 @@ public class ScreenFader : MonoBehaviour
     {
         fadeOutUIImage.enabled = true;
 
-        yield return Fade(_fadeDirection);
-
-        SceneManager.LoadScene(_sceneToLoad);
+        yield return Fade(_fadeDirection, 0f);
+        SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Additive);
     }
 
     void SetColorImage(ref float _alpha, FadeDirection _fadeDirection)
     {
         fadeOutUIImage.color = new Color(fadeOutUIImage.color.r, fadeOutUIImage.color.g, fadeOutUIImage.color.b, _alpha);
 
-        _alpha += Time.deltaTime * (1 / fadeTime) * (_fadeDirection == FadeDirection.Out ? -1 : 1);
+        _alpha += 2 * Time.deltaTime * (1 / fadeTime) * (_fadeDirection == FadeDirection.Out ? -1 : 1);
     }
 }

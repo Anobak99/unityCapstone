@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator ActivateDeathMassage()
     {
         yield return new WaitForSeconds(0.8f);
-        StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.In));
+        StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.In, 0f));
         yield return new WaitForSeconds(0.8f);
         deathMassage.SetActive(true);
     }

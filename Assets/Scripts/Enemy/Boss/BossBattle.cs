@@ -16,8 +16,7 @@ public class BossBattle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       cam = FindObjectOfType<CameraFollow>();
-       preCamBox = cam.camBound;
+       
     }
 
     // Update is called once per frame
@@ -31,6 +30,8 @@ public class BossBattle : MonoBehaviour
         {
             if(collision.CompareTag("Player"))
             {
+                cam = FindObjectOfType<CameraFollow>();
+                preCamBox = cam.camBound;
                 GameManager.Instance.gameState = GameManager.GameState.Event;
                 cam.camBound = camPosition;
                 BossObject.SetActive(true);

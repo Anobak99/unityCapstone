@@ -1,31 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Parallax : MonoBehaviour
 {
     public Camera cam;
-    public Transform subject;
-
-    Vector2 startPosition;
-    float startZ;
-
-    Vector2 travel => (Vector2)cam.transform.position - startPosition;
-    //float distanceFromSubject => transform.position.z - subject.position.z;
-    //float clippingPlane => cam.transform.position.z + (distanceFromSubject > 0 ? cam.farClipPlane : cam.nearClipPlane);
-    //float parallaxFactor => Mathf.Abs(distanceFromSubject) / clippingPlane;
+    private float length;
+    float startPosition;
     public float parallaxFactor;
 
     void Start()
     {
-        startPosition = transform.position;
-        startZ = transform.position.z;
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        startPosition = transform.position.x;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector2 newPos = startPosition + travel;
-        transform.position = new Vector3(newPos.x * parallaxFactor, newPos.y, startZ);
+        float distance = cam.transform.position.x * parallaxFactor; //0 = move with cam | 1 = don't move | 0.5 = move half speed
+        float movement = cam.transform.position.x * (1 - parallaxFactor);
+        transform.position = new Vector3(distance + startPosition, cam.transform.position.y, transform.position.z);
+
+        //if background reached the end of its length, move Position
+        if(movement > startPosition + length) { startPosition += length; }
+        else if(movement < startPosition - length) { startPosition -= length; }
     }
 }

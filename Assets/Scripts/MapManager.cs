@@ -42,6 +42,7 @@ public class MapManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    //현재 미사용
     public void MapSystem(int width, int height)
     {
         //mapGrid = new Tilemap[width, height];
@@ -50,6 +51,7 @@ public class MapManager : MonoBehaviour
     }
 
     // Call this method when the player enters a new room
+    // 해당 방의 지도 타일을 투명에서 보이도록 전환
     public void EnterRoom(int x, int y)
     {
         currentX = x;
@@ -59,6 +61,7 @@ public class MapManager : MonoBehaviour
     }
 
     // Call this method to check if a room has been visited
+    // 해당 방이 방문했던 적이 있는지 확인
     public bool HasVisited(int x, int y)
     {
         //return mapGrid[x, y];

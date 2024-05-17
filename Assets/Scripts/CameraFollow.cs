@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,11 @@ public class CameraFollow : MonoBehaviour
     public GameObject player;
     public BoxCollider2D camBound;
     public float followSpeed;
-    private float xOffSet;
-    private float yOffSet;
+    [SerializeField] private float xOffSet;
+    [SerializeField] private float yOffSet;
     private float halfHeight, halfWidth;
-
-
+    public bool cameraMove;
+        
     private void Start()
     {        
         halfHeight = Camera.main.orthographicSize;
@@ -20,7 +21,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (player != null)
+        if (player != null && cameraMove)
         {
 
             if(player.transform.localScale.x == 1)
@@ -46,5 +47,7 @@ public class CameraFollow : MonoBehaviour
     public void ChangeCameraPos(Vector3 pos)
     {
         transform.position = pos;
+        cameraMove = true;
     }
+
 }
