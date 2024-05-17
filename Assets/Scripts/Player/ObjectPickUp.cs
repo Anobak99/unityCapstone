@@ -43,6 +43,7 @@ public class ObjectPickUp : MonoBehaviour
             {
                 // 들고 있는 물체 설정
                 heldObject = col.GetComponent<Rigidbody2D>();
+                heldObject.mass = 0;
                 col.transform.SetParent(transform);
                 if (heldObject != null)
                 {
@@ -60,6 +61,7 @@ public class ObjectPickUp : MonoBehaviour
         // 물체 놓기
         if (heldObject != null)
         {
+            heldObject.mass = 1;
             heldObject.transform.SetParent(null);
             heldObject.gravityScale = 1f;
             heldObject = null;

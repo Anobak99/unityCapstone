@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
     private Animator anim;
     private PlayerInput input;
+
     
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
