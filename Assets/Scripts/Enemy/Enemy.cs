@@ -18,18 +18,26 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool isDead;
     [HideInInspector] public bool isAttack;
     public GameObject DamageBox;
+    public Coroutine act1 = null;
+    public Coroutine act2 = null;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
     public virtual void OnEnable()
     {
         player = GameManager.Instance.player.transform;
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         DamageBox.SetActive(true);
-        canAct = true;
+        canAct = false;
         canDamage = true;
         isDead = false;
+        act1 = StartCoroutine(Think());
+    }
+
+    public virtual IEnumerator Think()
+    {
+        yield return null;
     }
 
     public virtual IEnumerator Attack()
@@ -46,7 +54,15 @@ public class Enemy : MonoBehaviour
     {
         if (canDamage)
         {
-            StopAction();
+            if(act1 != null)
+            {
+                StopCoroutine(act1);
+            }
+            if(act2 != null)
+            {
+                StopCoroutine(act2);
+            }
+            
             StartCoroutine(TakeDamage(dmg, attackPos));
         }
     }
@@ -63,36 +79,36 @@ public class Enemy : MonoBehaviour
         animator.SetInteger("AnimState", 0);
 
         hp -= dmg;
-        if (hp <= 0)
-        {
-            canAct = false;
-            StopAction();
-            StartCoroutine(Death());
-            yield break;
-        }
-
+        
         if (attackPos.x > transform.position.x)
         {
-            rb.velocity = Vector2.left * 1.5f;
+            rb.velocity = new Vector2(-2f, rb.velocity.y);
         }
         else
         {
-            rb.velocity = Vector2.right * 1.5f;
+            rb.velocity = new Vector2(-2f, rb.velocity.y);
         }
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);  
         rb.velocity = Vector2.zero;
 
         if (animator.GetBool("Hit"))
         {
             animator.SetBool("Hit", false);
         }
+        if (hp <= 0)
+        {
+            canAct = false;
+            StartCoroutine(Death());
+            yield break;
+        }
         canDamage = true;
+        act1 = StartCoroutine(Think());
     }
 
-    public virtual void StopAction()
+    public virtual void StopAction(IEnumerator action)
     {
-        StopCoroutine(Attack());
+        StopCoroutine(action);
     }
 
     public virtual IEnumerator Death()

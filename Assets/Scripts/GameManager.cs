@@ -73,10 +73,9 @@ public class GameManager : MonoBehaviour
             player.transform.position = respawnPoint;
             isRespawn = false;
         }
-        cam.camBound = camCollider; 
-        cam.cameraMove = false;
-        cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
-        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0.3f));
+        cam.cameraMove = true;
+        //cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
+        //StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0.3f));
     }
     
     public void CamOff()
