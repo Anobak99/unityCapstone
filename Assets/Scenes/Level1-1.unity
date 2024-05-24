@@ -690,6 +690,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &159788131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 1407156145}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &252621846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1275,7 @@ GameObject:
   - component: {fileID: 931163841}
   m_Layer: 7
   m_Name: Platform
-  m_TagString: Ground
+  m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5213,6 +5218,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 5.6
       objectReference: {fileID: 0}
+    - target: {fileID: 1625679917947091866, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 159788131}
     - target: {fileID: 5430593975755357514, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -7008,7 +7017,7 @@ GameObject:
   - component: {fileID: 2068838707}
   m_Layer: 7
   m_Name: Platform2
-  m_TagString: Ground
+  m_TagString: OneWayPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
