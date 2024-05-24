@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,18 +25,24 @@ public class EnemyType1 : Enemy {
     private bool isWall;
 
 
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Check(); //앞 지형체크
+        if(canAct)
+        {
+            Check();
 
-        if (!canAct || isDead || Time.timeScale == 0) return;
+            if (isGround && !isWall && !animator.GetBool("Hit"))
+                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+        }
+    }
 
-        if(player != null && !GameManager.Instance.isDead)
+    public override IEnumerator Think()
+    {
+        if (player != null && !GameManager.Instance.isDead)
         {
             horizental = player.position.x - transform.position.x;
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-            if (distanceFromPlayer < viewRange && canAct) //대상이 인식 범위 안쪽일 경우
+            if (distanceFromPlayer < viewRange) //대상이 인식 범위 안쪽일 경우
             {
                 animator.SetInteger("AnimState", 1);
                 FlipToPlayer(horizental);
@@ -44,25 +51,32 @@ public class EnemyType1 : Enemy {
                     if (isGround && !isWall && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
                     {
                         animator.SetInteger("AnimState", 2);
-                        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                        canAct = true;
                     }
                     else
+                    {
+                        canAct = false;
                         rb.velocity = new Vector2(0, rb.velocity.y);
+                    }
                 }
                 else //대상이 공격거리 안일 경우
                 {
+                    canAct = false;
                     rb.velocity = new Vector2(0, rb.velocity.y);
-                    StartCoroutine(Attack());
+                    act2 = StartCoroutine(Attack());
+                    yield return null;
                 }
             }
             else
             {
+                canAct = false;
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 animator.SetInteger("AnimState", 0);
             }
         }
 
-
+        yield return new WaitForSeconds(1f);
+        act1 = StartCoroutine(Think());
     }
 
     private void Check()
@@ -89,13 +103,13 @@ public class EnemyType1 : Enemy {
 
     public override IEnumerator Attack()
     {
-        canAct = false;
-        isAttack = true;
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(1f);
-        isAttack = false;
+        yield return new WaitForSeconds(0.5f);
+        Hit();
+        yield return new WaitForSeconds(0.1f);
+        animator.SetTrigger("Attack2");
         yield return new WaitForSeconds(2f);
-        canAct = true;
+        act1 = StartCoroutine(Think());
     }
 
 

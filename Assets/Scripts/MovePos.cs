@@ -5,12 +5,16 @@ using UnityEngine;
 public class MovePos : MonoBehaviour
 {
     [SerializeField] private Vector2 m_Pos;
+    [SerializeField] private string curScene;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.In, 0f));
-        GameManager.Instance.CamOff();
-        StartCoroutine(ChangePos());
+        //StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.In, 0f));
+        if(GameManager.Instance.currentScene == curScene)
+        {
+            GameManager.Instance.CamOff();
+            StartCoroutine(ChangePos());
+        }
     }
 
     private IEnumerator ChangePos()

@@ -32,10 +32,11 @@ public class CameraFollow : MonoBehaviour
             {
                 xOffSet = -1.5f;
             }
-            Vector3 newPos = new Vector3(
-                Mathf.Clamp(player.transform.position.x + xOffSet, camBound.bounds.min.x + halfWidth, camBound.bounds.max.x - halfWidth),
-                Mathf.Clamp(player.transform.position.y + yOffSet, camBound.bounds.min.y + halfHeight, camBound.bounds.max.y - halfHeight),
-                -10f);
+            //Vector3 newPos = new Vector3(
+            //    Mathf.Clamp(player.transform.position.x + xOffSet, camBound.bounds.min.x, camBound.bounds.max.x),
+            //    Mathf.Clamp(player.transform.position.y + yOffSet, camBound.bounds.min.y, camBound.bounds.max.y),
+            //    -10f);
+            Vector3 newPos = new Vector3(player.transform.position.x + xOffSet, player.transform.position.y, -10f);
             transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);
         }
         else
