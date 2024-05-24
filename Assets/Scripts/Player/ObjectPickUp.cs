@@ -9,7 +9,7 @@ public class ObjectPickUp : MonoBehaviour
     public Transform holdPosition;   // 들고 있는 위치
 
     private Rigidbody2D heldObject;  // 들고 있는 물체의 Rigidbody2D
-    public bool isHolding = false;  // 현재 물건을 들고 있는지 여부
+    private bool isHolding = false;  // 현재 물건을 들고 있는지 여부
 
     void Update()
     {
