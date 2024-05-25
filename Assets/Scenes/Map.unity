@@ -1796,6 +1796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI(Canvas)
       objectReference: {fileID: 0}
+    - target: {fileID: 6868885693698158656, guid: 23a575cb698eb7d41b44fd5e70f66ce2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7239265546892405114, guid: 23a575cb698eb7d41b44fd5e70f66ce2, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 2.5128937
@@ -1818,11 +1822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7376429636909468795, guid: 23a575cb698eb7d41b44fd5e70f66ce2, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7376429636909468795, guid: 23a575cb698eb7d41b44fd5e70f66ce2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7489256233109418682, guid: 23a575cb698eb7d41b44fd5e70f66ce2, type: 3}
       propertyPath: fadeTime
@@ -3276,7 +3280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1417902382
 Camera:
   m_ObjectHideFlags: 0
@@ -3812,7 +3816,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3825,10 +3829,10 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -890434591, guid: f347c2f55a5195d45b1ffddc63438bb4, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -890434591, guid: f347c2f55a5195d45b1ffddc63438bb4, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
