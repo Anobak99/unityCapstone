@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Boss1 : Boss
+public class Drako_move : Boss
 {
-    private float moveDirection = -1;
-    private bool facingRight = false;
+    private float moveDirection = 1;
+    private bool facingRight = true;
     [SerializeField] private float speed;
     private float moveTime;
 
@@ -15,11 +15,13 @@ public class Boss1 : Boss
     [SerializeField] Transform WallCheck;
     private bool isGround;
     private bool isWall;
+    private bool isMove;
 
     private float distanceFromPlayer;
     private float horizental;
 
     public int attackCount; //공격횟수
+    public int attackCount2;
     [SerializeField] private float attackRange; //공격1 범위
     [SerializeField] private float attackRange2; //공격2 범위
     [SerializeField] private float jumpHeight;
@@ -37,76 +39,92 @@ public class Boss1 : Boss
     [SerializeField] private float hitRange;
 
 
+    // Update is called once per frame
     void FixedUpdate()
     {
         Check();
 
-        if(GameManager.Instance.gameState == GameManager.GameState.Event)
+        if (GameManager.Instance.gameState == GameManager.GameState.Event)
         {
-            if(isGround)
+            if (isGround)
             {
                 GameManager.Instance.gameState = GameManager.GameState.Boss;
-                animator.SetTrigger("JumpEnd");
-                rb.gravityScale = 1f;
                 StartCoroutine(Think(2f));
             }
         }
 
-        if (GameManager.Instance.gameState != GameManager.GameState.Boss ||isDead || Time.timeScale == 0) return;
+        if (GameManager.Instance.gameState != GameManager.GameState.Boss || isDead || Time.timeScale == 0) return;
 
         if (canAct && player != null && !GameManager.Instance.isDead)
         {
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
             horizental = player.position.x - transform.position.x;
             FlipToPlayer(horizental);
-            if (attackCount != 5)
+
+            if (attackCount2 < 3)
             {
-                animator.SetInteger("AnimState", 0);
-                if (distanceFromPlayer < attackRange)
+                if (attackCount != 4)
                 {
-                    StartCoroutine(Attack1());
-                }
-                else if(distanceFromPlayer > attackRange2)
-                {
-                    StartCoroutine(Attack2());
+                    animator.SetInteger("AnimState", 0);
+                    if (distanceFromPlayer < attackRange)
+                    {
+                        isMove = false;
+                        StartCoroutine(Attack1());
+                    }
+                    else if (distanceFromPlayer > attackRange2)
+                    {
+                        StartCoroutine(Attack2());
+                    }
+                    else
+                    {
+                        if (isGround && !isWall)
+                        {
+                            isMove = true;
+                            animator.SetInteger("AnimState", 2);
+                            moveTime -= Time.deltaTime;
+                            if (moveTime < 0) StartCoroutine(Attack2());
+                        }
+                        else
+                        {
+                            isMove = false;
+                            rb.velocity = new Vector2(0, rb.velocity.y);
+                        }
+                    }
                 }
                 else
                 {
-                    if (isGround && !isWall)
-                    {
-                        animator.SetInteger("AnimState", 2);
-                        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
-                        moveTime -= Time.deltaTime;
-                        if(moveTime < 0) StartCoroutine(Attack2());
-                    }
-                    else
-                        rb.velocity = new Vector2(0, rb.velocity.y);
+
+                    StartCoroutine(Attack2());
+                    attackCount = 0;
                 }
             }
             else
-            {
                 StartCoroutine(Attack3());
-            }
         }
 
-        if(isJump)
+        if(isMove)
         {
-             rb.gravityScale = 10;
-
-            if (isGround)
+            if(animator.GetInteger("AnimState") == 2 && isGround && !isWall)
             {
-                if(isAttack3)
+                FlipToPlayer(horizental);
+                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+            }
+            else if(animator.GetInteger("AnimState") == 1)
+            {
+                
+
+                if (isGround && !isWall)
                 {
-                    rb.gravityScale = 1;
-                    StartCoroutine(Attack3Hit());
+                    rb.velocity = new Vector2(moveDirection * speed * 3, rb.velocity.y);
                 }
-                else
+                else if(isGround && isWall)
                 {
-                    rb.gravityScale = 1;
-                    Attack2Hit();
+                    isMove = false;
+                    StartCoroutine(Attack2Hit());
                 }
             }
         }
+
     }
 
     private void Check()
@@ -135,7 +153,7 @@ public class Boss1 : Boss
     {
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
-        moveTime = 3f;
+        moveTime = 2f;
         canAct = true;
     }
 
@@ -144,7 +162,7 @@ public class Boss1 : Boss
         canAct = false;
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Attack1");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         Hit();
         attackCount++;
         StartCoroutine(Think(1.5f));
@@ -156,90 +174,72 @@ public class Boss1 : Boss
         for (int i = 0; i < attackBox.Length; i++)
         {
             if (attackBox[i].gameObject.tag == "Player")
-            {     
+            {
                 GameManager.Instance.PlayerHit(dmg);
             }
         }
     }
 
-    IEnumerator Attack2() //적에게 점프
+    IEnumerator Attack2() //적에게 돌진
     {
         canAct = false;
-        animator.SetTrigger("Jump");
+        FlipToPlayer(horizental);
+        animator.SetTrigger("Ready");
         yield return new WaitForSeconds(0.5f);
-        rb.velocity = new Vector2(horizental, jumpHeight);
-        yield return new WaitForSeconds(0.5f);
-        isJump = true;
-        rb.velocity = new Vector2(horizental, 0f);
-        animator.SetTrigger("JumpAttack");
+        isMove = true;
+        animator.SetInteger("AnimState", 1);
     }
 
-    void Attack2Hit()
+    IEnumerator Attack2Hit() //벽에 부딪힐 시 밀려남
     {
-        isJump = false;
-        animator.SetTrigger("JumpEnd");
+        animator.SetBool("Hit", true);
+        animator.SetInteger("AnimState", 0);
+        rb.velocity = new Vector2(-1 * moveDirection * speed, jumpHeight);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("Hit", false);
 
-        for (int i = 0; i < 4; i++)
-        {
-            Shoot(isAttack3);
-        }
-
-        attackCount++;
-        StartCoroutine(Think(2f));
+        attackCount2++;
+        StartCoroutine(Think(1f));
     }
 
-    IEnumerator Attack3()
+    IEnumerator Attack3() //제자리에서 포격 준비
     {
-        float downPos;
-
+        isMove = false;
         canAct = false;
         isAttack3 = true;
 
-        if (horizental < 0) //반대 벽으로 점프
-        {
-            downPos = attack3Pos2.position.x;
-        }
-        else
-        {
-            downPos = attack3Pos1.position.x;
-        }
-
-        animator.SetTrigger("Jump");
-        yield return new WaitForSeconds(0.5f);
-        rb.velocity = new Vector2(downPos, jumpHeight);
-        yield return new WaitForSeconds(0.5f);
-        isJump = true;
-        rb.velocity = new Vector2(downPos, 0f);
-        animator.SetTrigger("JumpAttack");
+        animator.SetBool("Attack2_1", true);
+        animator.Play("Drako_Atack2");
+        yield return new WaitForSeconds(1.5f);
+        StartCoroutine(Attack3Hit());
     }
 
-    IEnumerator Attack3Hit()
+    IEnumerator Attack3Hit() //플레이어 머리 위로 5회 불꽃 발사
     {
-        isJump = false;
-        animator.SetTrigger("JumpEnd");
-        yield return new WaitForSeconds(0.5f);
+        GameObject fire;
+
         horizental = player.position.x - transform.position.x;
         FlipToPlayer(horizental);
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("Attack3", true);
-        yield return new WaitForSeconds(0.5f);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
+            animator.SetTrigger("Attack2_2");
+            yield return new WaitForSeconds(0.3f);
             horizental = player.position.x - transform.position.x;
-            Shoot(isAttack3);
-            yield return new WaitForSeconds(0.5f);
+            fire = Shoot();
+            fire.transform.position = new Vector2(player.position.x, 8f);
+            yield return new WaitForSeconds(0.3f);
         }
 
         isAttack3 = false;
-        animator.SetBool("Attack3", false);
-        attackCount = 0;
+        animator.SetBool("Attack2_1", false);
+        animator.Play("Drako_Atack2_3");
+        attackCount2 = 0;
         StartCoroutine(Think(2f));
     }
 
-    private void Shoot(bool isAttack3)
+    private GameObject Shoot() //총알 생성, 생성된 오브젝트 재활용 및 없을 시 생성
     {
-        Boss1_bullet b_script;
         GameObject select = null;
 
         foreach (GameObject item in bullets)
@@ -258,28 +258,7 @@ public class Boss1 : Boss
             bullets.Add(select);
         }
 
-        b_script = select.GetComponent<Boss1_bullet>();
-
-        if (isAttack3)
-        {
-            b_script.isAttack3 = true;
-            b_script.downPoint = horizental;
-        }
-
-        StartCoroutine(b_script.Jump());
-    }
-
-    IEnumerator Stuuned()
-    {
-        yield return new WaitForSeconds(3f);
-    }
-
-    private void StopAction()
-    {
-        StopCoroutine(Attack1());
-        StopCoroutine(Attack2());
-        StopCoroutine(Attack3());
-        StopCoroutine(Attack3Hit());
+        return select;
     }
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
@@ -289,7 +268,6 @@ public class Boss1 : Boss
         hp -= dmg;
         if (hp <= 0)
         {
-            StopAction();
             spriteRenderer.color = Color.white;
             StartCoroutine(Death());
             yield break;
@@ -302,7 +280,7 @@ public class Boss1 : Boss
     private IEnumerator Death()
     {
         rb.velocity = Vector2.zero;
-        //animator.SetTrigger("Death");
+        animator.SetBool("Hit", true);
         canDamage = false;
         isDead = true;
         yield return new WaitForSeconds(1f);

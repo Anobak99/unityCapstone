@@ -13,7 +13,7 @@ public class Boss1_bullet : MonoBehaviour
 
     public IEnumerator Jump()
     {
-        //animator.Play("Idle");
+        ///animator.Play("Idle");
         rb.gravityScale = 0f;
         if(!isAttack3)
         {
@@ -40,20 +40,15 @@ public class Boss1_bullet : MonoBehaviour
         {
             rb = GetComponent<Rigidbody2D>();
         }
+        animator.SetBool("Explo", false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Ground"))
         {
-            //animator.SetTrigger("Break");
+            animator.SetBool("Explo", true);
             GameManager.Instance.PlayerHit(1);
-            StartCoroutine(Hit());
-        }
-
-        if (collision.CompareTag("Ground"))
-        {
-            //animator.SetTrigger("Break");
             StartCoroutine(Hit());
         }
     }
