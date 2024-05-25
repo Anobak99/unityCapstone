@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
             isRespawn = false;
         }
         cam.cameraMove = true;
-        //cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
+        cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
         //StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0.3f));
     }
     
