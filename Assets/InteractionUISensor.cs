@@ -22,7 +22,7 @@ public class InteractionUISensor : MonoBehaviour
 
     void Flip()
     {
-        if (parentTrans.localScale.x == -1)
+        if (parentTrans.localScale.x < 0)
         {
             if (transform.localScale.x > 0)
             {
@@ -33,7 +33,7 @@ public class InteractionUISensor : MonoBehaviour
                 gameObject.transform.localScale = new Vector2(transform.localScale.x * 1, transform.localScale.y);
             }
         }
-        else if (parentTrans.localScale.x == 1)
+        else if (parentTrans.localScale.x > 0)
         {
             if (transform.localScale.x > 0)
             {

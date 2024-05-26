@@ -61,7 +61,7 @@ public class ObjectPickUp : MonoBehaviour
         // 물체 놓기
         if (heldObject != null)
         {
-            heldObject.mass = 1;
+            heldObject.mass = 1000;
             heldObject.transform.SetParent(null);
             heldObject.gravityScale = 1f;
             heldObject = null;
