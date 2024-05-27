@@ -4,7 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EnemyType1 : Enemy {
+public class Turtler_move : Enemy
+{
     public float moveDirection;
     public float speed;
 
@@ -13,7 +14,7 @@ public class EnemyType1 : Enemy {
     public float viewRange;
     public float attackRange;
     public bool facingRight;
-    private bool playerfound;
+    private bool ready;
 
     public Transform attackPos;
     public LayerMask whatIsEnemies;
@@ -26,36 +27,32 @@ public class EnemyType1 : Enemy {
     private bool isWall;
     private bool isplatform;
 
-
     private void FixedUpdate()
     {
         Check();
 
         if (canAct)
         {
-            Check();
 
-            if (isGround && !isWall && !animator.GetBool("Hit") && isplatform)
+            if (isGround && !isWall && !animator.GetBool("Hit"))
                 rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
         }
     }
 
     public override IEnumerator Think()
     {
-        Debug.Log(groundCheck.position.x);
-        if (player != null && !GameManager.Instance.isDead)
+        if (player != null && !GameManager.Instance.isDead && ready)
         {
             horizental = player.position.x - transform.position.x;
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
             if (distanceFromPlayer < viewRange) //대상이 인식 범위 안쪽일 경우
             {
-                animator.SetInteger("AnimState", 1);
                 FlipToPlayer(horizental);
                 if (distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
                 {
                     if (isGround && !isWall && isplatform) //개체 앞의 지형이 이동 가능한 경우
                     {
-                        animator.SetInteger("AnimState", 2);
+                        animator.SetInteger("AnimState", 1);
                         canAct = true;
                     }
                     else
@@ -68,6 +65,7 @@ public class EnemyType1 : Enemy {
                 {
                     canAct = false;
                     rb.velocity = new Vector2(0, rb.velocity.y);
+                    animator.SetInteger("AnimState", 0);
                     act2 = StartCoroutine(Attack());
                     yield break;
                 }
@@ -79,30 +77,88 @@ public class EnemyType1 : Enemy {
                 animator.SetInteger("AnimState", 0);
             }
         }
+        else
+        {
+            moveDirection = Random.Range(-1, 2);
+            if (moveDirection == 0)
+            {
+                canAct = false;
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                animator.SetInteger("AnimState", 0);
+            }
+            else
+            {
+                FlipToPlayer(horizental);
+                animator.SetInteger("AnimState", 1);
+                canAct = true;
+            }
+        }
+
 
         yield return new WaitForSeconds(1f);
         act1 = StartCoroutine(Think());
     }
 
+    public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
+    {
+        rb.velocity = Vector2.zero;
+        ready = true;
+        animator.SetBool("Hit", true);
+        canDamage = false;
+        animator.SetInteger("AnimState", 0);
+
+        hp -= dmg;
+
+        if (player.position.x > transform.position.x)
+        {
+            rb.velocity = new Vector2(-2f, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(2f, rb.velocity.y);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        rb.velocity = Vector2.zero;
+        animator.SetBool("Hit", false);
+        
+        if (hp <= 0)
+        {
+            canAct = false;
+            StartCoroutine(Death());
+            yield break;
+        }
+
+        canDamage = true;
+        act1 = StartCoroutine(Think());
+    }
+
     private void Check()
     {
-        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayor);
+        isGround = Physics2D.OverlapBox(groundCheck.position, new Vector2(1f, 0.1f), 0f);
         isWall = Physics2D.OverlapCircle(WallCheck.position, 0.1f, groundLayor);
-        isplatform = Physics2D.OverlapCircle(new Vector2(WallCheck.position.x, WallCheck.position.y - 1f), 0.1f, groundLayor);
+        isplatform = Physics2D.OverlapCircle(new Vector2(WallCheck.position.x, WallCheck.position.y - 0.5f), 0.1f, groundLayor);
     }
 
     private void FlipToPlayer(float playerPosition)
     {
-        if(playerPosition < 0 && facingRight)
+        if (playerPosition < 0 && ready)
         {
-            moveDirection *= -1;
-            facingRight = !facingRight;
+            moveDirection = -1;
+        }
+        else if (playerPosition > 0 && ready)
+        {
+            moveDirection = 1;
+        }
+
+        if(moveDirection > 0 && !facingRight)
+        {
+            facingRight = true;
             transform.Rotate(0, 180, 0);
         }
-        else if(playerPosition > 0 && !facingRight)
+        else if(moveDirection < 0 && facingRight)
         {
-            moveDirection *= -1;
-            facingRight = !facingRight;
+            facingRight = false;
             transform.Rotate(0, 180, 0);
         }
     }
@@ -110,10 +166,8 @@ public class EnemyType1 : Enemy {
     public override IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
         Hit();
-        yield return new WaitForSeconds(0.1f);
-        animator.SetTrigger("Attack2");
         yield return new WaitForSeconds(2f);
         act1 = StartCoroutine(Think());
     }
@@ -130,12 +184,5 @@ public class EnemyType1 : Enemy {
                 GameManager.Instance.PlayerHit(dmg);
             }
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, hitRange);
-        Gizmos.DrawWireSphere(new Vector2(WallCheck.position.x, WallCheck.position.y - 1f), 0.1f);
     }
 }

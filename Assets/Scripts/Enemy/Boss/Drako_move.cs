@@ -20,8 +20,9 @@ public class Drako_move : Boss
     private float distanceFromPlayer;
     private float horizental;
 
-    public int attackCount; //공격횟수
-    public int attackCount2;
+    private int attackCount; //공격횟수
+    private int attackCount2;
+    private int countMax;
     [SerializeField] private float attackRange; //공격1 범위
     [SerializeField] private float attackRange2; //공격2 범위
     [SerializeField] private float jumpHeight;
@@ -63,7 +64,7 @@ public class Drako_move : Boss
 
             if (attackCount2 < 3)
             {
-                if (attackCount != 4)
+                if (attackCount != countMax)
                 {
                     animator.SetInteger("AnimState", 0);
                     if (distanceFromPlayer < attackRange)
@@ -197,7 +198,7 @@ public class Drako_move : Boss
         rb.velocity = new Vector2(-1 * moveDirection * speed, jumpHeight);
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Hit", false);
-
+        countMax = Random.Range(2, 5);
         attackCount2++;
         StartCoroutine(Think(1f));
     }
