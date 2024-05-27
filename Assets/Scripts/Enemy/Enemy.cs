@@ -80,13 +80,13 @@ public class Enemy : MonoBehaviour
 
         hp -= dmg;
         
-        if (attackPos.x > transform.position.x)
+        if (player.position.x > transform.position.x)
         {
             rb.velocity = new Vector2(-2f, rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(-2f, rb.velocity.y);
+            rb.velocity = new Vector2(2f, rb.velocity.y);
         }
         
         yield return new WaitForSeconds(0.5f);  
