@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 boxSize = new Vector2(0.8f, 0.2f);
     private Collider2D col;
 
-    private float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
-    public float startTimeBtwAttack; // 공격 쿨타임 설정
+    public float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
+    public float startTimeBtwAttack = 0.8f; // 공격 쿨타임 설정
 
     public Transform attackPos;
     public LayerMask whatIsEnemies;
@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         WhileJump();
         Setgravity();
+        CheckAnime();
 
         // 아래키 입력->플랫폼 통과
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -94,9 +95,8 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dashing());
         }
 
-        if (timeBtwAttack <= 0 && input.attackInput && IsGrounded() && !isDashing)
-        {
-            rigid.velocity = new Vector2(0f, rigid.velocity.y);
+        if (timeBtwAttack <= 0 && input.attackInput &&  !isDashing)
+        {          
             StartCoroutine(Attack());
         }
 
@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour
         if (isJumping)
         {
             jumpTime += Time.deltaTime;
+          
 
             if (jumpTime >= maxJumpTime || !input.jumpPressed)
             {
@@ -306,9 +307,11 @@ public class PlayerController : MonoBehaviour
     {
          canAct = false;
          anim.SetTrigger("isAttack");
-         yield return new WaitForSeconds(0.3f);
+         yield return null;
          canAct = true;
-         timeBtwAttack = startTimeBtwAttack;
+
+       
+        timeBtwAttack = startTimeBtwAttack;
     }
 
     public void HitCheck()
@@ -332,6 +335,21 @@ public class PlayerController : MonoBehaviour
         //점프시 및 돌진시 중력에 영향을 받지 않음
         if (isJumping || isDashing) { rigid.gravityScale = 0; }
         else { rigid.gravityScale = gravity; }
+    }
+
+    // 현재 애니메이션 상태 확인
+    void CheckAnime()
+    {
+      
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        // 공격상태확인
+        if (stateInfo.IsName("Attack") && IsGrounded())
+        {
+            Debug.Log("공격상태");
+            rigid.velocity = new Vector2(0f, rigid.velocity.y);
+        }
+        // 다른 애니메이션 상태에 대한 확인 코드 추가 가능
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
