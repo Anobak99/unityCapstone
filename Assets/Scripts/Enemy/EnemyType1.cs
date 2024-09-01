@@ -27,26 +27,13 @@ public class EnemyType1 : Enemy {
     private bool isplatform;
 
 
-    private void FixedUpdate()
-    {
-        Check();
-
-        if (canAct)
-        {
-            Check();
-
-            if (isGround && !isWall && !animator.GetBool("Hit") && isplatform)
-                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
-        }
-    }
-
     public override IEnumerator Think()
     {
-        Debug.Log(groundCheck.position.x);
-        if (player != null && !GameManager.Instance.isDead)
+        Check(); //지형 체크
+        if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동
         {
-            horizental = player.position.x - transform.position.x;
-            distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+            horizental = player.position.x - transform.position.x; //플레이어 방향 체크
+            distanceFromPlayer = Vector2.Distance(player.position, transform.position); //플레이어와의 거리 체크
             if (distanceFromPlayer < viewRange) //대상이 인식 범위 안쪽일 경우
             {
                 animator.SetInteger("AnimState", 1);
@@ -56,31 +43,29 @@ public class EnemyType1 : Enemy {
                     if (isGround && !isWall && isplatform) //개체 앞의 지형이 이동 가능한 경우
                     {
                         animator.SetInteger("AnimState", 2);
-                        canAct = true;
+                        if (isGround && !isWall && !animator.GetBool("Hit") && isplatform) //앞이 이동 가능할 때
+                            rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
                     }
                     else
                     {
-                        canAct = false;
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
                 else //대상이 공격거리 안일 경우
                 {
-                    canAct = false;
                     rb.velocity = new Vector2(0, rb.velocity.y);
-                    act2 = StartCoroutine(Attack());
-                    yield break;
+                    act2 = StartCoroutine(Attack()); //공격 코루틴 시작
+                    yield break; //현재 코루틴 정지
                 }
             }
-            else
+            else //대상을 찾지 못했을 때
             {
-                canAct = false;
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 animator.SetInteger("AnimState", 0);
             }
         }
-
-        yield return new WaitForSeconds(1f);
+        //0.1초마다 다시 호출
+        yield return new WaitForSeconds(0.1f);
         act1 = StartCoroutine(Think());
     }
 
@@ -91,7 +76,7 @@ public class EnemyType1 : Enemy {
         isplatform = Physics2D.OverlapCircle(new Vector2(WallCheck.position.x, WallCheck.position.y - 1f), 0.1f, groundLayor);
     }
 
-    private void FlipToPlayer(float playerPosition)
+    private void FlipToPlayer(float playerPosition) //플레이어를 향해 방향 전환
     {
         if(playerPosition < 0 && facingRight)
         {
@@ -110,21 +95,20 @@ public class EnemyType1 : Enemy {
     public override IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1f);
         Hit();
-        yield return new WaitForSeconds(0.1f);
         animator.SetTrigger("Attack2");
         yield return new WaitForSeconds(2f);
         act1 = StartCoroutine(Think());
     }
 
 
-    public override void Hit()
+    public override void Hit() //공격 처리
     {
         Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
         for (int i = 0; i < attackBox.Length; i++)
         {
-            if (attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
+            if (attackBox[i].gameObject.tag == "Player") // 플레이어가 공격 범위에 존재 시 데미지 처리
             {
                 //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // 플레이어 피격시 시간 정지       
                 GameManager.Instance.PlayerHit(dmg);
@@ -132,10 +116,4 @@ public class EnemyType1 : Enemy {
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, hitRange);
-        Gizmos.DrawWireSphere(new Vector2(WallCheck.position.x, WallCheck.position.y - 1f), 0.1f);
-    }
 }

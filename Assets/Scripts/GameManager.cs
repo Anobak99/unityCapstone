@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         cam = mainCam.GetComponentInChildren<CameraFollow>();
-        if (currentScene == respawnScene && isRespawn)
+        if (isRespawn)
         {
             player.transform.position = respawnPoint;
             isRespawn = false;
@@ -104,14 +104,14 @@ public class GameManager : MonoBehaviour
     {
         if(!isRespawn)
         {
-            isRespawn = true;
-            currentScene = respawnScene;
-            SceneManager.LoadScene(respawnScene);
+            SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(currentScene);
             hp = maxHp;
             UIManager.Instance.UpdateHealth(hp, maxHp);
             playerController.Respawn();
             isDead = false;
             StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
+            isRespawn = true;
             SetPlayerComp();
         }
     }

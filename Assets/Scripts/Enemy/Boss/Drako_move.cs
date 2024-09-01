@@ -26,35 +26,18 @@ public class Drako_move : Boss
     [SerializeField] private float attackRange; //공격1 범위
     [SerializeField] private float attackRange2; //공격2 범위
     [SerializeField] private float jumpHeight;
-    private bool isJump;
-    private bool isAttack3;
 
     public GameObject objectPrefab;
     private List<GameObject> bullets = new List<GameObject>();
     [SerializeField] private BossBattle battle;
 
-    [SerializeField] private Transform attackPos;
-    [SerializeField] private Transform attack3Pos1;
-    [SerializeField] private Transform attack3Pos2;
-    [SerializeField] private LayerMask whatIsEnemies;
-    [SerializeField] private float hitRange;
+    public ParticleSystem dust;
 
-
-    // Update is called once per frame
-    void FixedUpdate()
+    public override IEnumerator Think()
     {
         Check();
 
-        if (GameManager.Instance.gameState == GameManager.GameState.Event)
-        {
-            if (isGround)
-            {
-                GameManager.Instance.gameState = GameManager.GameState.Boss;
-                StartCoroutine(Think(2f));
-            }
-        }
-
-        if (GameManager.Instance.gameState != GameManager.GameState.Boss || isDead || Time.timeScale == 0) return;
+        if (GameManager.Instance.gameState != GameManager.GameState.Boss || isDead || Time.timeScale == 0) yield return null;
 
         if (canAct && player != null && !GameManager.Instance.isDead)
         {
@@ -71,10 +54,12 @@ public class Drako_move : Boss
                     {
                         isMove = false;
                         StartCoroutine(Attack1());
+                        yield break;
                     }
                     else if (distanceFromPlayer > attackRange2)
                     {
                         StartCoroutine(Attack2());
+                        yield break;
                     }
                     else
                     {
@@ -83,7 +68,11 @@ public class Drako_move : Boss
                             isMove = true;
                             animator.SetInteger("AnimState", 2);
                             moveTime -= Time.deltaTime;
-                            if (moveTime < 0) StartCoroutine(Attack2());
+                            if (moveTime < 0)
+                            {
+                                StartCoroutine(Attack2());
+                                yield break;
+                            }
                         }
                         else
                         {
@@ -94,13 +83,16 @@ public class Drako_move : Boss
                 }
                 else
                 {
-
                     StartCoroutine(Attack2());
                     attackCount = 0;
+                    yield break;
                 }
             }
             else
+            {
                 StartCoroutine(Attack3());
+                yield break;
+            }
         }
 
         if(isMove)
@@ -112,7 +104,7 @@ public class Drako_move : Boss
             }
             else if(animator.GetInteger("AnimState") == 1)
             {
-                
+                dust.Play();
 
                 if (isGround && !isWall)
                 {
@@ -122,10 +114,13 @@ public class Drako_move : Boss
                 {
                     isMove = false;
                     StartCoroutine(Attack2Hit());
+                    yield break;
                 }
             }
         }
 
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(Think());
     }
 
     private void Check()
@@ -150,12 +145,13 @@ public class Drako_move : Boss
         }
     }
 
-    IEnumerator Think(float time)
+    IEnumerator Wait(float time)
     {
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
         moveTime = 2f;
         canAct = true;
+        StartCoroutine(Think());
     }
 
     IEnumerator Attack1() //근접공격
@@ -164,35 +160,25 @@ public class Drako_move : Boss
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Attack1");
         yield return new WaitForSeconds(1f);
-        Hit();
         attackCount++;
-        StartCoroutine(Think(1.5f));
-    }
-
-    public void Hit()
-    {
-        Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
-        for (int i = 0; i < attackBox.Length; i++)
-        {
-            if (attackBox[i].gameObject.tag == "Player")
-            {
-                GameManager.Instance.PlayerHit(dmg);
-            }
-        }
+        StartCoroutine(Wait(1.5f));
     }
 
     IEnumerator Attack2() //적에게 돌진
     {
         canAct = false;
+        speed = 5f;
         FlipToPlayer(horizental);
         animator.SetTrigger("Ready");
         yield return new WaitForSeconds(0.5f);
         isMove = true;
         animator.SetInteger("AnimState", 1);
+        StartCoroutine(Think());
     }
 
     IEnumerator Attack2Hit() //벽에 부딪힐 시 밀려남
     {
+        speed = 3f;
         animator.SetBool("Hit", true);
         animator.SetInteger("AnimState", 0);
         rb.velocity = new Vector2(-1 * moveDirection * speed, jumpHeight);
@@ -200,17 +186,16 @@ public class Drako_move : Boss
         animator.SetBool("Hit", false);
         countMax = Random.Range(2, 5);
         attackCount2++;
-        StartCoroutine(Think(1f));
+        StartCoroutine(Wait(1f));
     }
 
     IEnumerator Attack3() //제자리에서 포격 준비
     {
         isMove = false;
         canAct = false;
-        isAttack3 = true;
 
         animator.SetBool("Attack2_1", true);
-        animator.Play("Drako_Atack2");
+        animator.Play("Drako_Attack2");
         yield return new WaitForSeconds(1.5f);
         StartCoroutine(Attack3Hit());
     }
@@ -232,11 +217,10 @@ public class Drako_move : Boss
             yield return new WaitForSeconds(0.3f);
         }
 
-        isAttack3 = false;
         animator.SetBool("Attack2_1", false);
-        animator.Play("Drako_Atack2_3");
+        animator.Play("Drako_Attack2_3");
         attackCount2 = 0;
-        StartCoroutine(Think(2f));
+        StartCoroutine(Wait(2f));
     }
 
     private GameObject Shoot() //총알 생성, 생성된 오브젝트 재활용 및 없을 시 생성

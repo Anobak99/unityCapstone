@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         deathMassage.SetActive(false);
+        StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
     }
 
     public void UpdateHealth(int hp, int maxHp)

@@ -25,6 +25,18 @@ public class Boss : MonoBehaviour
         canAct = false;
         canDamage = true;
         isDead = false;
+
+        if (GameManager.Instance.gameState == GameManager.GameState.Event)
+        {
+            canAct = true;
+            GameManager.Instance.gameState = GameManager.GameState.Boss;
+            StartCoroutine(Think());
+        }
+    }
+
+    public virtual IEnumerator Think()
+    {
+        yield return null;
     }
 
     public virtual void Attacked(int dmg, Vector2 attackPos)

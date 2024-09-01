@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomNum: 7
+  roomPos: {x: 5, y: 1, z: 0}
+  roomCam: {fileID: 1740734887}
   camCollider: {fileID: 1131064808}
   curScene: Level1-4
   roomCamera: {fileID: 1740734886}
@@ -3545,6 +3546,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5430593975755357514, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
   m_PrefabInstance: {fileID: 1740734885}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1740734887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8461402448723795629, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
+  m_PrefabInstance: {fileID: 1740734885}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1940583550
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class RoomCheck : MonoBehaviour
 {
-    public int roomNum;
+    public Vector3Int roomPos;
+    [SerializeField] private CinemachineVirtualCamera roomCam;
     public BoxCollider2D camCollider;
     [SerializeField] private string curScene;
     [SerializeField] GameObject roomCamera;
@@ -15,9 +17,8 @@ public class RoomCheck : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            MapManager.Instance.EnterRoom(roomNum, 0);
+            MapManager.Instance.EnterRoom(roomPos);
             GameManager.Instance.camCollider = camCollider.GetComponent<BoxCollider2D>();
-            Debug.Log(SceneManager.GetActiveScene().name);
             if(GameManager.Instance.currentScene != curScene)
             {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(curScene));
@@ -25,6 +26,7 @@ public class RoomCheck : MonoBehaviour
                 GameManager.Instance.mainCam = roomCamera;
                 GameManager.Instance.SetPlayerComp();
                 ActiveObject();
+                roomCam.Follow = GameManager.Instance.player.transform;
             }
         }
     }

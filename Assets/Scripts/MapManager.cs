@@ -5,8 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
-    public Tilemap[] maptile; // 2D grid representing the map
-    private int currentX, currentY; // Current position of the player
+    public Tilemap maptile; // 2D grid representing the map
+    public GameObject playerIcon;
+    Transform location;
+    private float currentX, currentY; // Current position of the player
 
     private static MapManager instance;
 
@@ -52,19 +54,24 @@ public class MapManager : MonoBehaviour
 
     // Call this method when the player enters a new room
     // 해당 방의 지도 타일을 투명에서 보이도록 전환
-    public void EnterRoom(int x, int y)
+    public void EnterRoom(Vector3Int pos)
     {
-        currentX = x;
-        currentY = y;   
-        //mapGrid[x, y] = true; // Mark the room as visited
-        maptile[x].color = new Color(255, 255, 255, 255);
+        currentX = pos.x;
+        currentY = pos.y;
+        if(!HasVisited(currentX, currentY))
+        {
+            maptile.SetColor(pos, new Color(255, 255, 255, 255));
+        }
+        //지도의 플레이어 위치 갱신
+        location = playerIcon.transform;
+        location.position = new Vector3(currentX + 0.5f, currentY + 0.5f, 0f);
     }
 
     // Call this method to check if a room has been visited
     // 해당 방이 방문했던 적이 있는지 확인
-    public bool HasVisited(int x, int y)
+    public bool HasVisited(float x, float y)
     {
         //return mapGrid[x, y];
-        return true;
+        return false;
     }
 }
