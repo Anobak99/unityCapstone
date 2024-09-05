@@ -482,6 +482,10 @@ PrefabInstance:
       propertyPath: facingRight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: moveDirection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 157.81888
@@ -550,6 +554,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: facingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: moveDirection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
@@ -2221,6 +2229,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: facingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: moveDirection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
@@ -5768,6 +5780,9 @@ MonoBehaviour:
   bgmVolume: 1
   sfxClip: []
   sfxVolume: 0.5
+  sfxPlayers: []
+  select: {fileID: 0}
+  sfxSound: {fileID: 0}
 --- !u!4 &1988106862
 Transform:
   m_ObjectHideFlags: 0

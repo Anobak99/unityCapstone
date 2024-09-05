@@ -8,7 +8,7 @@ public class PathKey : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SwitchManager.Instance.doorSwitch[num])
+        if (DataManager.Instance.currentData.doorSwitch[num])
         {
             gameObject.SetActive(false);
         }
@@ -18,7 +18,7 @@ public class PathKey : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SwitchManager.Instance.doorSwitch[num] = true;
+            DataManager.Instance.currentData.doorSwitch[num] = true;
             gameObject.SetActive(false);
         }
     }

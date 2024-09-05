@@ -7,9 +7,10 @@ public class MapManager : MonoBehaviour
 {
     public Tilemap maptile; // 2D grid representing the map
     public GameObject playerIcon;
-    Transform location;
-    private float currentX, currentY; // Current position of the player
-
+    public GameObject mapCam;
+    private Transform location;
+    private int currentX, currentY; // Current position of the player
+    
     private static MapManager instance;
 
     public static MapManager Instance
@@ -44,34 +45,52 @@ public class MapManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    //현재 미사용
-    public void MapSystem(int width, int height)
+    public void FindMap()
     {
-        //mapGrid = new Tilemap[width, height];
-        currentX = 0;
-        currentY = 0;
+
     }
 
-    // Call this method when the player enters a new room
-    // 해당 방의 지도 타일을 투명에서 보이도록 전환
+    //방에 진입 시
     public void EnterRoom(Vector3Int pos)
     {
         currentX = pos.x;
         currentY = pos.y;
+        //방문한 적이 없다면 지도 갱신
         if(!HasVisited(currentX, currentY))
         {
             maptile.SetColor(pos, new Color(255, 255, 255, 255));
+            DataManager.Instance.currentData.mapData[currentX, currentY] = true;
         }
         //지도의 플레이어 위치 갱신
         location = playerIcon.transform;
         location.position = new Vector3(currentX + 0.5f, currentY + 0.5f, 0f);
+        location = mapCam.transform;
+        location.position = new Vector3(currentX + 0.5f, currentY + 0.5f, -10f);
     }
 
-    // Call this method to check if a room has been visited
     // 해당 방이 방문했던 적이 있는지 확인
-    public bool HasVisited(float x, float y)
+    public bool HasVisited(int x, int y)
     {
-        //return mapGrid[x, y];
-        return false;
+        if (DataManager.Instance.currentData.mapData[x, y])
+            return true;
+        else
+            return false;
+    }
+
+    //저장된 파일에서 지도 이미지 갱신
+    public void LoadMapInfo()
+    {
+        Vector3Int pos;
+        for(int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                pos = new Vector3Int(i, j, 0);
+                if (HasVisited(i, j))
+                    maptile.SetColor(pos, new Color(255, 255, 255, 255));
+                else
+                    maptile.SetColor(pos, new Color(255, 255, 255, 0));
+            }
+        }
     }
 }

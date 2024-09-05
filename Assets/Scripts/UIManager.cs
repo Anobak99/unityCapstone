@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
     }
 
     public ScreenFader screenFader;
+    public GameObject HPUI;
     [SerializeField] private GameObject deathMassage;
     [SerializeField] private Slider hpBar;
     [SerializeField] private GameObject pauseScreen;
@@ -45,6 +47,11 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         screenFader = GetComponentInChildren<ScreenFader>();
+    }
+
+    public void RespawnBtn()
+    {
+        GameManager.Instance.RespawnPlayer();
     }
 
     public IEnumerator ActivateDeathMassage()
@@ -89,6 +96,8 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
 
         pauseScreen.SetActive(false);
+        //HPUI.SetActive(false);
+        //GameManager.Instance.GoTitle();
     }
 
     public void MapMenu()

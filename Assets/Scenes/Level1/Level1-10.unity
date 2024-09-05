@@ -19466,7 +19466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1fc1ec4e3becf942807cfd0523833bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 30
+  hp: 100
   dmg: 1
   player: {fileID: 0}
   rb: {fileID: 0}
@@ -21082,9 +21082,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6191b0b3273e2488fa519c59651978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 0}
+  bgmClip: {fileID: 8300000, guid: 9b06e85a0a33af34a8bee0b6eb0a40ee, type: 3}
   bgmVolume: 1
-  sfxClip: []
+  sfxClip:
+  - {fileID: 8300000, guid: 1ae169ae2a42e7645a7acff3852c40a6, type: 3}
+  - {fileID: 8300000, guid: f6a09cee8c5b63140a44e9d85ee4abd2, type: 3}
   sfxVolume: 0.5
 --- !u!4 &2032302370
 Transform:

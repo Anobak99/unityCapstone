@@ -5,38 +5,67 @@ using System.IO;
 
 public class DataManager : MonoBehaviour
 {
+    public static DataManager instance;
+
     public SaveData currentData;
     private string filePath;
 
-    // Start is called before the first frame update
-    void Start()
+    public static DataManager Instance
     {
-        //파일 경로 설정(User\Username\AppData\LocalLow\DefaultCompany\unityCapstone\fileName)
-        filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
+        get
+        {
+            if (instance == null)
+            {
+                var obj = FindObjectOfType<DataManager>();
+                if (obj != null)
+                {
+                    instance = obj;
+                }
+                else
+                {
+                    var newObj = new GameObject().AddComponent<DataManager>();
+                    instance = newObj;
+                }
+            }
+            return instance;
+        }
     }
 
-    public string FileCheck(string name)
+    void Awake()
+    {
+        var objs = FindObjectsOfType<DataManager>();
+        if (objs.Length != 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public bool FileCheck(string name)
     {
         currentData.fileName = name;
+        //파일 경로 설정(User\Username\AppData\LocalLow\DefaultCompany\unityCapstone\fileName)
         filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
 
         if(File.Exists(filePath)) 
         {
-            string loadData = File.ReadAllText(filePath + currentData.fileName);
+            string loadData = File.ReadAllText(filePath);
             currentData = JsonUtility.FromJson<SaveData>(loadData);
 
-            return currentData.saveScene;
+            return true;
         }
         else
         {
-            return null;
+            return false;
         }
     }
 
     public void SaveData()
     {
         GameManager.Instance.SavePlayerInfo(currentData);
-        SwitchManager.Instance.SaveSwitchInfo(currentData);
+        //SwitchManager.Instance.SaveSwitchInfo(currentData);
+        //MapManager.Instance.SaveMapInfo(currentData);
 
         string saveData = JsonUtility.ToJson(currentData);
         File.WriteAllText(filePath, saveData);
@@ -44,10 +73,11 @@ public class DataManager : MonoBehaviour
 
     public void LoadData()
     {
-        string loadData = File.ReadAllText(filePath + currentData.fileName);
+        string loadData = File.ReadAllText(filePath);
         currentData = JsonUtility.FromJson<SaveData>(loadData);
 
         GameManager.Instance.LoadPlayerInfo(currentData);
-        SwitchManager.Instance.LoadSwitchInfo(currentData);
+        //SwitchManager.Instance.LoadSwitchInfo(currentData);
+        //MapManager.Instance.LoadMapInfo(currentData);
     }
 }

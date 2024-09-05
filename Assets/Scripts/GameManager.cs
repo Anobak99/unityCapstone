@@ -36,9 +36,11 @@ public class GameManager : MonoBehaviour
     public BoxCollider2D camCollider;
     public int maxHp;
     public int hp;
+
     public Vector2 respawnPoint;
     public string respawnScene;
     private bool isRespawn;
+
     [HideInInspector] public bool isDead;
     public enum GameState
     {
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
         if (isRespawn)
         {
             player.transform.position = respawnPoint;
+            playerController.Respawn();
             isRespawn = false;
         }
         cam.cameraMove = true;
@@ -104,8 +107,10 @@ public class GameManager : MonoBehaviour
     {
         if(!isRespawn)
         {
+            DataManager.Instance.LoadData();
+            UnloadAllScenes();
+            MapManager.Instance.LoadMapInfo();
             SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
-            SceneManager.UnloadSceneAsync(currentScene);
             hp = maxHp;
             UIManager.Instance.UpdateHealth(hp, maxHp);
             playerController.Respawn();
@@ -113,6 +118,23 @@ public class GameManager : MonoBehaviour
             StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
             isRespawn = true;
             SetPlayerComp();
+        }
+    }
+
+    public void GoTitle()
+    {
+        player.SetActive(false);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    void UnloadAllScenes()
+    {
+        int count = SceneManager.sceneCount;
+        for(int i = 0; i < count; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if(scene.name != "Map")
+               SceneManager.UnloadSceneAsync(scene);
         }
     }
 

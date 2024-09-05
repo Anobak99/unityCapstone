@@ -20,7 +20,7 @@ public class BossBattle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!SwitchManager.Instance.boss[bossNum] && !BossObject.activeSelf)
+        if (!DataManager.Instance.currentData.boss[bossNum] && !BossObject.activeSelf)
         {
             if(collision.CompareTag("Player"))
             {
@@ -42,7 +42,7 @@ public class BossBattle : MonoBehaviour
         doorEffect1.Play();
         doorEffect2.Play();
         yield return new WaitForSeconds(1f);
-        if(!SwitchManager.Instance.boss[bossNum])
+        if(!DataManager.Instance.currentData.boss[bossNum])
             StartCoroutine(DoorEffect());
     }
 
@@ -53,9 +53,9 @@ public class BossBattle : MonoBehaviour
         cam.camBound = preCamBox;
         Door1.SetActive(false);
         Door2.SetActive(false);
-        SwitchManager.Instance.boss[bossNum] = true;
-        SwitchManager.Instance.doorSwitch[bossNum] = true;
-        SwitchManager.Instance.openedDoor[bossNum] = true;
+        DataManager.Instance.currentData.boss[bossNum] = true;
+        DataManager.Instance.currentData.doorSwitch[bossNum] = true;
+        DataManager.Instance.currentData.openedDoor[bossNum] = true;
     }
 
 }

@@ -24,6 +24,7 @@ public class RoomCheck : MonoBehaviour
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(curScene));
                 GameManager.Instance.currentScene = SceneManager.GetActiveScene().name;
                 GameManager.Instance.mainCam = roomCamera;
+                DataManager.Instance.currentData.areaName = "Forest";
                 GameManager.Instance.SetPlayerComp();
                 ActiveObject();
                 roomCam.Follow = GameManager.Instance.player.transform;

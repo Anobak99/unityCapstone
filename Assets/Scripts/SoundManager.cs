@@ -14,9 +14,9 @@ public class SoundManager : MonoBehaviour
     [Header("#SFX")]
     public AudioClip[] sfxClip;
     public float sfxVolume;
-    List<AudioSource> sfxPlayers;
-    private AudioSource select;
-    private GameObject sfxSound;
+    public List<AudioSource> sfxPlayers;
+    public AudioSource select;
+    public GameObject sfxSound;
 
 
     private void Awake()
@@ -64,16 +64,18 @@ public class SoundManager : MonoBehaviour
         }
 
 
+        Debug.Log(canPlay);
         //없을 시 새로운 오디오 소스 추가
-        if(!canPlay)
+        if (!canPlay)
         {
             select = sfxSound.AddComponent<AudioSource>();
+            Debug.Log("Worked");
             select.playOnAwake = false;
             select.volume = sfxVolume;
             sfxPlayers.Add(select);
         }
 
-        select.clip = sfxClip[sfx];
-        select.Play();
+        //select.clip = sfxClip[sfx];
+        //select.Play();
     }
 }

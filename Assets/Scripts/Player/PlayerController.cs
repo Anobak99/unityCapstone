@@ -102,11 +102,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-
-    }
-
     // 캐릭터 좌우 반전
     void Flip()
     {
@@ -169,6 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         if (coyoteTimeCounter > 0f && input.jumpBufferCounter > 0f && !isJumping)
         {
+            //SoundManager.instance.PlaySfx(0);
             input.jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
             isJumping = true;
@@ -178,6 +174,7 @@ public class PlayerController : MonoBehaviour
 
         if(!IsGrounded() && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
+            //SoundManager.instance.PlaySfx(0);
             Debug.Log("double jump");
             input.jumpBufferCounter = 0f;
             isJumping = true;
@@ -305,10 +302,11 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-         canAct = false;
-         anim.SetTrigger("isAttack");
-         yield return null;
-         canAct = true;
+        //SoundManager.instance.PlaySfx(1);
+        canAct = false;
+        anim.SetTrigger("isAttack");
+        yield return null;
+        canAct = true;
 
        
         timeBtwAttack = startTimeBtwAttack;
@@ -346,7 +344,6 @@ public class PlayerController : MonoBehaviour
         // 공격상태확인
         if (stateInfo.IsName("Attack") && IsGrounded())
         {
-            Debug.Log("공격상태");
             rigid.velocity = new Vector2(0f, rigid.velocity.y);
         }
         // 다른 애니메이션 상태에 대한 확인 코드 추가 가능
@@ -386,6 +383,8 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.Instance.PlayerHit(1);
             }
+            else if(collision.CompareTag("Trap"))
+                GameManager.Instance.PlayerHit(GameManager.Instance.maxHp);
         }
     }
 

@@ -8,14 +8,14 @@ public class SwitchDoor : MonoBehaviour
 
     private void Update()
     {
-        if (SwitchManager.Instance.openSwitchDoor[num])
+        if (DataManager.Instance.currentData.openSwitchDoor[num])
         {
             Debug.Log("Door Open");
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
         
-        if (SwitchManager.Instance.openSwitchDoor[num] == false)
+        if (DataManager.Instance.currentData.openSwitchDoor[num] == false)
         {            
             Debug.Log("Door Close");
             gameObject.GetComponent<SpriteRenderer>().enabled = true;

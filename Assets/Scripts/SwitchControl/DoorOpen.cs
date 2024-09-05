@@ -8,7 +8,7 @@ public class DoorOpen : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SwitchManager.Instance.openedDoor[num])
+        if (DataManager.Instance.currentData.openedDoor[num])
         {          
             gameObject.SetActive(false);
         }
@@ -18,9 +18,9 @@ public class DoorOpen : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            if (SwitchManager.Instance.doorSwitch[num])
+            if (DataManager.Instance.currentData.doorSwitch[num])
             {
-                SwitchManager.Instance.openedDoor[num] = true;
+                DataManager.Instance.currentData.openedDoor[num] = true;
                 gameObject.SetActive(false);
             }
         }
