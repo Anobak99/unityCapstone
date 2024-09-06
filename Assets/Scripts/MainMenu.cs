@@ -9,10 +9,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject startMenu;
     [SerializeField] GameObject optionMenu;
-    TextMeshPro startText1;
-    TextMeshPro startText2;
-    TextMeshPro startText3;
-    SaveData saveData;
+    [SerializeField] TextMeshPro     startText1;
+    [SerializeField] TextMeshPro startText2;
+    [SerializeField] TextMeshPro startText3;
 
     public void GameStart()
     {
@@ -21,9 +20,9 @@ public class MainMenu : MonoBehaviour
         //if (DataManager.instance.FileCheck("saveFile1.json"))
         //    startText1.text = DataManager.instance.currentData.areaName;
         //if (DataManager.instance.FileCheck("saveFile2.json"))
-        //    startText1.text = DataManager.instance.currentData.areaName;
+        //    startText2.text = DataManager.instance.currentData.areaName;
         //if (DataManager.instance.FileCheck("saveFile3.json"))
-        //    startText1.text = DataManager.instance.currentData.areaName;
+        //    startText3.text = DataManager.instance.currentData.areaName;
     }
 
     public void Option()
@@ -35,6 +34,36 @@ public class MainMenu : MonoBehaviour
     public void StartGame1()
     {
         if (DataManager.Instance.FileCheck("saveFile1.json"))
+        {
+            DataManager.Instance.LoadData();
+            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+        }
+        else
+        {
+            GameManager.Instance.respawnScene = "Level1-0";
+            GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
+            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+        }
+    }
+
+    public void StartGame2()
+    {
+        if (DataManager.Instance.FileCheck("saveFile2.json"))
+        {
+            DataManager.Instance.LoadData();
+            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+        }
+        else
+        {
+            GameManager.Instance.respawnScene = "Level1-0";
+            GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
+            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+        }
+    }
+
+    public void StartGame3()
+    {
+        if (DataManager.Instance.FileCheck("saveFile3.json"))
         {
             DataManager.Instance.LoadData();
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);

@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     public float attackRange; // 공격 범위
     public int damage;        // 데미지 수치
 
-    [HideInInspector] public bool canDamage;
+    public bool canDamage;
     private bool isDamaged;
     private bool canAct;
     private bool isDead;
@@ -229,9 +229,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         anim.SetBool("isDash", false);
         isDashing = false;
+        if (!isDamaged) canDamage = true;
         yield return new WaitForSeconds(1f);
         canDash = true;
-        if(!isDamaged) canDamage = true;
     }
 
     public void TakeDamage(int dmg)
@@ -259,7 +259,7 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("isHurt");
         yield return new WaitForSeconds(0.5f);
         canAct = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         canDamage = true;
         isDamaged = false;
     }
@@ -279,6 +279,7 @@ public class PlayerController : MonoBehaviour
         if(isDead)
         {
             isDead = false;
+            isDamaged = false;
             canAct = true;
             canDamage = true;
             anim.Play("Idle");
