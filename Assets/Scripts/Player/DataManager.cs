@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 public class DataManager : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class DataManager : MonoBehaviour
         if(File.Exists(filePath)) 
         {
             string loadData = File.ReadAllText(filePath);
-            currentData = JsonUtility.FromJson<SaveData>(loadData);
+            currentData = JsonConvert.DeserializeObject<SaveData>(loadData);
 
             return true;
         }
@@ -67,14 +68,14 @@ public class DataManager : MonoBehaviour
         //SwitchManager.Instance.SaveSwitchInfo(currentData);
         //MapManager.Instance.SaveMapInfo(currentData);
 
-        string saveData = JsonUtility.ToJson(currentData);
+        string saveData = JsonConvert.SerializeObject(currentData);
         File.WriteAllText(filePath, saveData);
     }
 
     public void LoadData()
     {
         string loadData = File.ReadAllText(filePath);
-        currentData = JsonUtility.FromJson<SaveData>(loadData);
+        currentData = JsonConvert.DeserializeObject<SaveData>(loadData);
 
         GameManager.Instance.LoadPlayerInfo(currentData);
         //SwitchManager.Instance.LoadSwitchInfo(currentData);

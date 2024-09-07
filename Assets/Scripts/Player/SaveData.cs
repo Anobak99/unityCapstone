@@ -10,7 +10,8 @@ public class SaveData
     public int maxHp;
     public string saveScene;
     public string areaName;
-    public Vector2 savePosition;
+    public float savePosX;
+    public float savePosY;
 
     public bool[] doorSwitch = new bool[10]; //문을 여는 열쇠
     public bool[] openedDoor = new bool[10]; //열린 문

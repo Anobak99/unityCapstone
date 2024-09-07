@@ -143,7 +143,8 @@ public class GameManager : MonoBehaviour
     {
         saveData.maxHp = maxHp;
         saveData.saveScene = respawnScene;
-        saveData.savePosition = respawnPoint;
+        saveData.savePosX = respawnPoint.x;
+        saveData.savePosY = respawnPoint.y;
 
         return saveData;
     }
@@ -152,7 +153,7 @@ public class GameManager : MonoBehaviour
     public void LoadPlayerInfo(SaveData loadData)
     {
         maxHp = loadData.maxHp;
-        respawnPoint = loadData.savePosition;
+        respawnPoint = new Vector2(loadData.savePosX, loadData.savePosY);
         respawnScene = loadData.saveScene;
     }
 }

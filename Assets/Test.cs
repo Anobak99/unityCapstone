@@ -10,6 +10,7 @@ public class Test : MonoBehaviour
     {
         nextScene = GameManager.Instance.respawnScene;
         DataManager.Instance.SaveData();
+        MapManager.Instance.LoadMapInfo();
         SceneManager.UnloadSceneAsync("MainMenu");
         SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
     }
