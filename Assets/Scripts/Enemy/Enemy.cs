@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int maxHp;
     public int hp;
     public int dmg;
 
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
         canDamage = true;
         isDead = false;
         act1 = StartCoroutine(Think());
+        hp = maxHp;
     }
 
     public virtual IEnumerator Think()

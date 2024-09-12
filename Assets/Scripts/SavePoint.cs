@@ -7,6 +7,15 @@ public class SavePoint : MonoBehaviour
 {
     public GameObject text;
     public Vector2 savedPos;
+    [SerializeField] GameObject playerObj;
+
+    private void Awake()
+    {
+        if(GameManager.Instance.isRespawn)
+        {
+            playerObj.SetActive(true);
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {

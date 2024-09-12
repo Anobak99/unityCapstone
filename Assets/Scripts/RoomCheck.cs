@@ -12,6 +12,7 @@ public class RoomCheck : MonoBehaviour
     [SerializeField] private string curScene;
     [SerializeField] GameObject roomCamera;
     [SerializeField] GameObject[] objects;
+    [SerializeField] string areaName;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,7 +25,8 @@ public class RoomCheck : MonoBehaviour
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(curScene));
                 GameManager.Instance.currentScene = SceneManager.GetActiveScene().name;
                 GameManager.Instance.mainCam = roomCamera;
-                DataManager.Instance.currentData.areaName = "Forest";
+                DataManager.Instance.currentData.areaName = areaName;
+                GameManager.Instance.nextScene = false;
                 GameManager.Instance.SetPlayerComp();
                 ActiveObject();
                 roomCam.Follow = GameManager.Instance.player.transform;

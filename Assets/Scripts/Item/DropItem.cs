@@ -9,7 +9,7 @@ public class DropItem : MonoBehaviour
         Heal
     }
     public ItemType itype;
-    private int healPoint;
+    [SerializeField] private int healPoint;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

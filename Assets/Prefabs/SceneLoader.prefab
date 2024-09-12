@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7846149600355951709}
   - component: {fileID: 4563403652914404621}
   m_Layer: 0
-  m_Name: SceneChanger
+  m_Name: SceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextScene: 
   curScene: 
+  exit: {fileID: 5406783149329442587}
 --- !u!61 &4563403652914404621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ GameObject:
   - component: {fileID: 2900001963065045675}
   - component: {fileID: 5406783149329442587}
   m_Layer: 0
-  m_Name: ChangeNextRoom
+  m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,3 +186,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Pos: {x: 0, y: 0}
   curScene: 
+  playerObj: {fileID: 0}
+  isMoved: 0

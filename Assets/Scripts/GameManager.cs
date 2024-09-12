@@ -39,9 +39,10 @@ public class GameManager : MonoBehaviour
 
     public Vector2 respawnPoint;
     public string respawnScene;
-    private bool isRespawn;
-
+    [HideInInspector] public bool isRespawn;
     [HideInInspector] public bool isDead;
+    [HideInInspector] public bool nextScene;
+
     public enum GameState
     {
         Field, Menu, Boss, Event
@@ -103,21 +104,24 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateHealth(hp, maxHp);
     }
 
-    public void RespawnPlayer() //플레이어 부활
+    public IEnumerator RespawnPlayer() //플레이어 부활
     {
         if(!isRespawn)
         {
+            isRespawn = true;
+            currentScene = "";
             DataManager.Instance.LoadData();
             UnloadAllScenes();
             MapManager.Instance.LoadMapInfo();
-            SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
+            while (!asyncOperation.isDone)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
             hp = maxHp;
             UIManager.Instance.UpdateHealth(hp, maxHp);
-            playerController.Respawn();
             isDead = false;
             StartCoroutine(UIManager.Instance.DeactivateDeathMassage());
-            isRespawn = true;
-            SetPlayerComp();
         }
     }
 

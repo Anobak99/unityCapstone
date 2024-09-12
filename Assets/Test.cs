@@ -12,6 +12,7 @@ public class Test : MonoBehaviour
         DataManager.Instance.SaveData();
         MapManager.Instance.LoadMapInfo();
         SceneManager.UnloadSceneAsync("MainMenu");
+        GameManager.Instance.isRespawn = true;
         SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
     }
 }

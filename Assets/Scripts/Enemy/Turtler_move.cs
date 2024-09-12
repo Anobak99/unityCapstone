@@ -9,12 +9,13 @@ public class Turtler_move : Enemy
     public float moveDirection;
     public float speed;
 
-    private float distanceFromPlayer;
     private float horizental;
+    private float playerDistance;
     public float viewRange;
     public float attackRange;
     public bool facingRight;
     private bool ready;
+    private int moveCount;
 
     public Transform attackPos;
     public LayerMask whatIsEnemies;
@@ -27,43 +28,32 @@ public class Turtler_move : Enemy
     private bool isWall;
     private bool isplatform;
 
-    private void FixedUpdate()
+    public override IEnumerator Think()
     {
         Check();
 
-        if (canAct)
-        {
-
-            if (isGround && !isWall && !animator.GetBool("Hit"))
-                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
-        }
-    }
-
-    public override IEnumerator Think()
-    {
         if (player != null && !GameManager.Instance.isDead && ready)
         {
             horizental = player.position.x - transform.position.x;
-            distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-            if (distanceFromPlayer < viewRange) //대상이 인식 범위 안쪽일 경우
+            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f) //대상이 인식 범위 안쪽일 경우
             {
                 FlipToPlayer(horizental);
-                if (distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
+                playerDistance = Mathf.Abs(horizental);
+                if (playerDistance > attackRange) //대상의 거리가 공격범위 밖일 경우
                 {
-                    if (isGround && !isWall && isplatform) //개체 앞의 지형이 이동 가능한 경우
+                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
                     {
                         animator.SetInteger("AnimState", 1);
-                        canAct = true;
+                        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
                     }
                     else
                     {
-                        canAct = false;
+                        animator.SetInteger("AnimState", 0);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
                 else //대상이 공격거리 안일 경우
                 {
-                    canAct = false;
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     animator.SetInteger("AnimState", 0);
                     act2 = StartCoroutine(Attack());
@@ -72,30 +62,44 @@ public class Turtler_move : Enemy
             }
             else
             {
-                canAct = false;
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 animator.SetInteger("AnimState", 0);
             }
         }
         else
         {
-            moveDirection = Random.Range(-1, 2);
+            if (moveCount > 9)
+            {
+                moveCount = 0;
+                moveDirection = Random.Range(-1, 2);
+            }
+            else
+                moveCount++;
+
             if (moveDirection == 0)
             {
-                canAct = false;
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 animator.SetInteger("AnimState", 0);
             }
             else
             {
-                FlipToPlayer(horizental);
-                animator.SetInteger("AnimState", 1);
-                canAct = true;
+                if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
+                {
+                    animator.SetInteger("AnimState", 1);
+                    rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                }
+                else
+                {
+                    animator.SetInteger("AnimState", 0);
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                }
+
+                FlipToPlayer(0f);
             }
         }
 
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         act1 = StartCoroutine(Think());
     }
 
