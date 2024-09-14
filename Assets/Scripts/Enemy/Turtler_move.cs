@@ -125,7 +125,7 @@ public class Turtler_move : Enemy
         yield return new WaitForSeconds(0.5f);
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", false);
-        
+
         if (hp <= 0)
         {
             canAct = false;
@@ -155,12 +155,12 @@ public class Turtler_move : Enemy
             moveDirection = 1;
         }
 
-        if(moveDirection > 0 && !facingRight)
+        if (moveDirection > 0 && !facingRight)
         {
             facingRight = true;
             transform.Rotate(0, 180, 0);
         }
-        else if(moveDirection < 0 && facingRight)
+        else if (moveDirection < 0 && facingRight)
         {
             facingRight = false;
             transform.Rotate(0, 180, 0);
