@@ -28,7 +28,6 @@ public class Turtler_move : Enemy
     private bool isWall;
     private bool isplatform;
 
-<<<<<<< HEAD
     public Color color;
 
     private void Update()
@@ -39,10 +38,7 @@ public class Turtler_move : Enemy
         }
     }
 
-    private void FixedUpdate()
-=======
     public override IEnumerator Think()
->>>>>>> 965c1988c6862dd19c88c983b1528f1494942302
     {
         Check();
 
