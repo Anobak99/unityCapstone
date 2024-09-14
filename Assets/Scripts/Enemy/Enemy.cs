@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int maxHp;
     public int hp;
     public int dmg;
 
     [HideInInspector] public Transform player;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator animator;
-    [HideInInspector] public SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     public Material flashMaterial;
     public Material defalutMaterial;
     [HideInInspector] public bool canAct;
@@ -22,17 +23,27 @@ public class Enemy : MonoBehaviour
     public Coroutine act2 = null;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
+    // 플래시 효과 테스트
+    [SerializeField] private float duration;
+    private Coroutine flashRoutine;
+
+    void Start()
+    {
+        flashMaterial = new Material(flashMaterial);
+    }
+
     public virtual void OnEnable()
     {
         player = GameManager.Instance.player.transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         DamageBox.SetActive(true);
         canAct = false;
         canDamage = true;
         isDead = false;
         act1 = StartCoroutine(Think());
+        hp = maxHp;
     }
 
     public virtual IEnumerator Think()
@@ -67,8 +78,36 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
+    #region Flash Effect
+    public void Flash(Color color)
     {
+        Debug.Log("플래시");
+
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+
+        flashRoutine = StartCoroutine(FlashRoutine(color));
+    }
+
+    private IEnumerator FlashRoutine(Color color)
+    {
+        Debug.Log("플래시 루틴");
+
+        spriteRenderer.material = flashMaterial;
+        flashMaterial.color = color;
+
+        yield return new WaitForSeconds(duration);
+        
+        spriteRenderer.material = defalutMaterial;
+        flashRoutine = null;
+    }
+
+    #endregion
+
+    public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
+    {       
         rb.velocity = Vector2.zero;
         if(!isAttack)
         {

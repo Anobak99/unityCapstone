@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     public void RespawnBtn()
     {
-        GameManager.Instance.RespawnPlayer();
+        StartCoroutine(GameManager.Instance.RespawnPlayer());
     }
 
     public IEnumerator ActivateDeathMassage()

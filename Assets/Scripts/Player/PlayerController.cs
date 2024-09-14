@@ -229,8 +229,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         anim.SetBool("isDash", false);
         isDashing = false;
-        if (!isDamaged) canDamage = true;
         yield return new WaitForSeconds(1f);
+        if (!isDamaged) canDamage = true;
         canDash = true;
     }
 

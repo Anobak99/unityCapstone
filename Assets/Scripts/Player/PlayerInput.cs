@@ -13,16 +13,16 @@ public class PlayerInput : MonoBehaviour
     public bool attackInput;
 
 
-    void Awake()
-    {
-        var objs = FindObjectsOfType<PlayerInput>();
-        if (objs.Length != 1)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
-    }
+    //void Awake()
+    //{
+    //    var objs = FindObjectsOfType<PlayerInput>();
+    //    if (objs.Length != 1)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     void Update()
     {
