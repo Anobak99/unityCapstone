@@ -29,6 +29,7 @@ public class Turtler_move : Enemy
     private bool isplatform;
 
     public Color color;
+    public GameObject blood;
 
     private void Update()
     {
@@ -116,6 +117,7 @@ public class Turtler_move : Enemy
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         Flash(color);
+        Instantiate(blood, transform.position, Quaternion.identity);
         rb.velocity = Vector2.zero;
         ready = true;
         animator.SetBool("Hit", true);
