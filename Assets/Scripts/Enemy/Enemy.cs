@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
     // 플래시 효과 테스트
-    [SerializeField] private float duration;
+    [SerializeField] private float Flash_duration;
     private Coroutine flashRoutine;
 
     void Start()
@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
         spriteRenderer.material = flashMaterial;
         flashMaterial.color = color;
 
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(Flash_duration);
         
         spriteRenderer.material = defalutMaterial;
         flashRoutine = null;
