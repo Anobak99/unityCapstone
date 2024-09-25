@@ -30,8 +30,8 @@ public class ShieldWarrior_move : Enemy
     private bool isWall;
     private bool isplatform;
 
-    public Color color;
-    public GameObject blood;
+    //public Color color;
+    //public GameObject blood;
 
     void OnDrawGizmos()
     {
