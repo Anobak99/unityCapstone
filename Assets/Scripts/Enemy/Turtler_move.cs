@@ -28,6 +28,7 @@ public class Turtler_move : Enemy
     private bool isWall;
     private bool isplatform;
 
+
     public override IEnumerator Think()
     {
         Check();
@@ -35,13 +36,13 @@ public class Turtler_move : Enemy
         if (player != null && !GameManager.Instance.isDead && ready)
         {
             horizental = player.position.x - transform.position.x;
-            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f) //´ë»óÀÌ ÀÎ½Ä ¹üÀ§ ¾ÈÂÊÀÏ °æ¿ì
+            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f) //ëŒ€ìƒì´ ì¸ì‹ ë²”ìœ„ ì•ˆìª½ì¼ ê²½ìš°
             {
                 FlipToPlayer(horizental);
                 playerDistance = Mathf.Abs(horizental);
-                if (playerDistance > attackRange) //´ë»óÀÇ °Å¸®°¡ °ø°İ¹üÀ§ ¹ÛÀÏ °æ¿ì
+                if (playerDistance > attackRange) //ëŒ€ìƒì˜ ê±°ë¦¬ê°€ ê³µê²©ë²”ìœ„ ë°–ì¼ ê²½ìš°
                 {
-                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //°³Ã¼ ¾ÕÀÇ ÁöÇüÀÌ ÀÌµ¿ °¡´ÉÇÑ °æ¿ì
+                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //ê°œì²´ ì•ì˜ ì§€í˜•ì´ ì´ë™ ê°€ëŠ¥í•œ ê²½ìš°
                     {
                         animator.SetInteger("AnimState", 1);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -52,7 +53,7 @@ public class Turtler_move : Enemy
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
-                else //´ë»óÀÌ °ø°İ°Å¸® ¾ÈÀÏ °æ¿ì
+                else //ëŒ€ìƒì´ ê³µê²©ê±°ë¦¬ ì•ˆì¼ ê²½ìš°
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     animator.SetInteger("AnimState", 0);
@@ -83,7 +84,7 @@ public class Turtler_move : Enemy
             }
             else
             {
-                if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //°³Ã¼ ¾ÕÀÇ ÁöÇüÀÌ ÀÌµ¿ °¡´ÉÇÑ °æ¿ì
+                if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //ê°œì²´ ì•ì˜ ì§€í˜•ì´ ì´ë™ ê°€ëŠ¥í•œ ê²½ìš°
                 {
                     animator.SetInteger("AnimState", 1);
                     rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -105,6 +106,8 @@ public class Turtler_move : Enemy
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
+        Flash(color);
+        Instantiate(blood, transform.position, Quaternion.identity);
         rb.velocity = Vector2.zero;
         ready = true;
         animator.SetBool("Hit", true);
@@ -182,9 +185,9 @@ public class Turtler_move : Enemy
         Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
         for (int i = 0; i < attackBox.Length; i++)
         {
-            if (attackBox[i].gameObject.tag == "Player") // ÇÃ·¹ÀÌ¾î Ãæµ¹ ½Ã µ¥¹ÌÁö Ã³¸®
+            if (attackBox[i].gameObject.tag == "Player") // í”Œë ˆì´ì–´ ì¶©ëŒ ì‹œ ë°ë¯¸ì§€ ì²˜ë¦¬
             {
-                //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // ÇÃ·¹ÀÌ¾î ÇÇ°İ½Ã ½Ã°£ Á¤Áö       
+                //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // í”Œë ˆì´ì–´ í”¼ê²©ì‹œ ì‹œê°„ ì •ì§€       
                 GameManager.Instance.PlayerHit(dmg);
             }
         }
