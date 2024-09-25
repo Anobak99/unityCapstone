@@ -11,34 +11,23 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public Transform player;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
     public Material flashMaterial;
     public Material defalutMaterial;
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
     [HideInInspector] public bool isAttack;
-    public GameObject DamageBox;
     public Coroutine act1 = null;
     public Coroutine act2 = null;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
-
-    // 플래시 효과 테스트
-    [SerializeField] private float Flash_duration;
-    private Coroutine flashRoutine;
-
-    void Start()
-    {
-        flashMaterial = new Material(flashMaterial);
-    }
 
     public virtual void OnEnable()
     {
         player = GameManager.Instance.player.transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        DamageBox.SetActive(true);
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         canAct = false;
         canDamage = true;
         isDead = false;
@@ -56,69 +45,38 @@ public class Enemy : MonoBehaviour
         yield return null;
     }
 
-    public virtual void Hit()
-    {
-    }
-
 
     public virtual void Attacked(int dmg, Vector2 attackPos)
     {
         if (canDamage)
         {
-            if(act1 != null)
+            if (act1 != null)
             {
                 StopCoroutine(act1);
             }
-            if(act2 != null)
+            if (act2 != null)
             {
                 StopCoroutine(act2);
             }
-            
+
             StartCoroutine(TakeDamage(dmg, attackPos));
         }
     }
 
-    #region Flash Effect
-    public void Flash(Color color)
-    {
-        Debug.Log("플래시");
-
-        if (flashRoutine != null)
-        {
-            StopCoroutine(flashRoutine);
-        }
-
-        flashRoutine = StartCoroutine(FlashRoutine(color));
-    }
-
-    private IEnumerator FlashRoutine(Color color)
-    {
-        Debug.Log("플래시 루틴");
-
-        spriteRenderer.material = flashMaterial;
-        flashMaterial.color = color;
-
-        yield return new WaitForSeconds(Flash_duration);
-        
-        spriteRenderer.material = defalutMaterial;
-        flashRoutine = null;
-    }
-
-    #endregion
-
     public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
-    {       
+    {
         rb.velocity = Vector2.zero;
-        if(!isAttack)
+        if (!isAttack)
         {
             animator.SetTrigger("Hurt");
             animator.SetBool("Hit", true);
         }
         canDamage = false;
         animator.SetInteger("AnimState", 0);
+        spriteRenderer.material = flashMaterial;
 
         hp -= dmg;
-        
+
         if (player.position.x > transform.position.x)
         {
             rb.velocity = new Vector2(-2f, rb.velocity.y);
@@ -127,9 +85,11 @@ public class Enemy : MonoBehaviour
         {
             rb.velocity = new Vector2(2f, rb.velocity.y);
         }
-        
-        yield return new WaitForSeconds(0.5f);  
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = defalutMaterial;
+        yield return new WaitForSeconds(0.3f);
         rb.velocity = Vector2.zero;
+
 
         if (animator.GetBool("Hit"))
         {
@@ -152,7 +112,6 @@ public class Enemy : MonoBehaviour
 
     public virtual IEnumerator Death()
     {
-        DamageBox.SetActive(false);
         animator.SetBool("Hit", false);
         animator.SetTrigger("Death");
         canDamage = false;
@@ -166,10 +125,10 @@ public class Enemy : MonoBehaviour
     {
         foreach (DropItemInfo item in dropTable)
         {
-            if(Random.Range(0f, 100f) <= item.dropChance)
+            if (Random.Range(0f, 100f) <= item.dropChance)
             {
-                if(item.itemPrefab != null)
-                Instantiate(item.itemPrefab, new Vector3(transform.position.x, transform.position.y + 1), Quaternion.identity);
+                if (item.itemPrefab != null)
+                    Instantiate(item.itemPrefab, new Vector3(transform.position.x, transform.position.y + 1), Quaternion.identity);
                 break;
             }
         }

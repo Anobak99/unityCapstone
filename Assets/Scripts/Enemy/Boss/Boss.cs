@@ -11,6 +11,8 @@ public class Boss : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator animator;
     [HideInInspector] public SpriteRenderer spriteRenderer;
+    public Material flashMaterial;
+    public Material defalutMaterial;
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;

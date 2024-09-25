@@ -249,16 +249,15 @@ public class Drako_move : Boss
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         canDamage = false;
-        spriteRenderer.color = Color.red;
+        spriteRenderer.material = flashMaterial;
         hp -= dmg;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = defalutMaterial;
         if (hp <= 0)
         {
-            spriteRenderer.color = Color.white;
             StartCoroutine(Death());
             yield break;
         }
-        yield return new WaitForSeconds(0.2f);
-        spriteRenderer.color = Color.white;
         canDamage = true;
     }
 

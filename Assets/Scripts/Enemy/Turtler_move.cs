@@ -28,9 +28,6 @@ public class Turtler_move : Enemy
     private bool isWall;
     private bool isplatform;
 
-    public Color color;
-    public GameObject blood;
-
     public override IEnumerator Think()
     {
         Check();
@@ -38,13 +35,13 @@ public class Turtler_move : Enemy
         if (player != null && !GameManager.Instance.isDead && ready)
         {
             horizental = player.position.x - transform.position.x;
-            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f) //대상이 인식 범위 안쪽일 경우
+            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f) //����� �ν� ���� ������ ���
             {
                 FlipToPlayer(horizental);
                 playerDistance = Mathf.Abs(horizental);
-                if (playerDistance > attackRange) //대상의 거리가 공격범위 밖일 경우
+                if (playerDistance > attackRange) //����� �Ÿ��� ���ݹ��� ���� ���
                 {
-                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
+                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //��ü ���� ������ �̵� ������ ���
                     {
                         animator.SetInteger("AnimState", 1);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -55,7 +52,7 @@ public class Turtler_move : Enemy
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
-                else //대상이 공격거리 안일 경우
+                else //����� ���ݰŸ� ���� ���
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     animator.SetInteger("AnimState", 0);
@@ -86,7 +83,7 @@ public class Turtler_move : Enemy
             }
             else
             {
-                if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
+                if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //��ü ���� ������ �̵� ������ ���
                 {
                     animator.SetInteger("AnimState", 1);
                     rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -108,13 +105,12 @@ public class Turtler_move : Enemy
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-        Flash(color);
-        Instantiate(blood, transform.position, Quaternion.identity);
         rb.velocity = Vector2.zero;
         ready = true;
         animator.SetBool("Hit", true);
         canDamage = false;
         animator.SetInteger("AnimState", 0);
+        spriteRenderer.material = flashMaterial;
 
         hp -= dmg;
 
@@ -127,13 +123,14 @@ public class Turtler_move : Enemy
             rb.velocity = new Vector2(2f, rb.velocity.y);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = defalutMaterial;
+        yield return new WaitForSeconds(0.4f);
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", false);
 
         if (hp <= 0)
         {
-            canAct = false;
             StartCoroutine(Death());
             yield break;
         }
@@ -175,23 +172,8 @@ public class Turtler_move : Enemy
     public override IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.5f);
-        Hit();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
 
-
-    public override void Hit()
-    {
-        Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
-        for (int i = 0; i < attackBox.Length; i++)
-        {
-            if (attackBox[i].gameObject.tag == "Player") // 플레이어 충돌 시 데미지 처리
-            {
-                //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // 플레이어 피격시 시간 정지       
-                GameManager.Instance.PlayerHit(dmg);
-            }
-        }
-    }
 }

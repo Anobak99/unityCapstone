@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using UnityEngine.EventSystems;
 
 public class EnemyCrawl : Enemy
 {
@@ -23,30 +26,30 @@ public class EnemyCrawl : Enemy
     [SerializeField] private Direction dir;
     private int ZaxisAdd;
 
-    private void Update()
+    public override IEnumerator Think()
     {
         Check();
-    }
 
-    void FixedUpdate()
-    {
-        if(canAct)
+        if (!turned)
         {
-            Move();
+            rb.velocity = transform.right * speed;
         }
-    }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+        
 
-    void Move()
-    {
-        rb.velocity = transform.right * speed;
+        yield return new WaitForSeconds(0.1f);
+        act1 = StartCoroutine(Think());
     }
 
     void Check()
     {
-        isGround = Physics2D.Raycast(groundCheck.position, -1 * transform.up, groundDistance, groundLayor);
-        isWall = Physics2D.Raycast(wallCheck.position, transform.right, wallDistance, groundLayor);
+        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayor);
+        isWall = Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayor);
 
-        if(!isGround)
+        if (!isGround)
         {
             if(!turned)
             {
@@ -54,25 +57,24 @@ public class EnemyCrawl : Enemy
                 transform.eulerAngles = new Vector3(0, 0, ZaxisAdd);
                 if(dir == Direction.right)
                 {
-                    transform.position = new Vector2(transform.position.x + rotateDistance, transform.position.y - rotateDistance);
-                    turned = true;
+                    transform.position = new Vector2(Mathf.FloorToInt(transform.position.x), transform.position.y - rotateDistance);
                     dir = Direction.down;
                 }
                 else if (dir == Direction.down) 
                 {
-                    transform.position = new Vector2(transform.position.x - rotateDistance, transform.position.y - rotateDistance);
+                    transform.position = new Vector2(transform.position.x - rotateDistance, Mathf.CeilToInt(transform.position.y));
                     turned = true;
                     dir = Direction.left;
                 }
                 else if (dir == Direction.left)
                 {
-                    transform.position = new Vector2(transform.position.x - rotateDistance, transform.position.y + rotateDistance);
+                    transform.position = new Vector2(Mathf.CeilToInt(transform.position.x), transform.position.y + rotateDistance);;
                     turned = true;
                     dir = Direction.up;
                 }
                 else if (dir == Direction.up)
                 {
-                    transform.position = new Vector2(transform.position.x + rotateDistance, transform.position.y + rotateDistance);
+                    transform.position = new Vector2(transform.position.x + rotateDistance, Mathf.FloorToInt(transform.position.y));
                     turned = true;
                     dir = Direction.right;
                 }
@@ -91,25 +93,25 @@ public class EnemyCrawl : Enemy
                 transform.eulerAngles = new Vector3(0, 0, ZaxisAdd);
                 if (dir == Direction.right)
                 {
-                    transform.position = new Vector2(transform.position.x + rotateDistance, transform.position.y + rotateDistance);
+                    transform.position = new Vector2(Mathf.CeilToInt(transform.position.x), transform.position.y + rotateDistance);
                     turned = true;
                     dir = Direction.up;
                 }
                 else if (dir == Direction.down)
                 {
-                    transform.position = new Vector2(transform.position.x + rotateDistance, transform.position.y - rotateDistance);
+                    transform.position = new Vector2(transform.position.x + rotateDistance, Mathf.FloorToInt(transform.position.y));
                     turned = true;
                     dir = Direction.right;
                 }
                 else if (dir == Direction.left)
                 {
-                    transform.position = new Vector2(transform.position.x - rotateDistance, transform.position.y - rotateDistance);
+                    transform.position = new Vector2(Mathf.FloorToInt(transform.position.x), transform.position.y - rotateDistance);
                     turned = true;
                     dir = Direction.down;
                 }
                 else if (dir == Direction.up)
                 {
-                    transform.position = new Vector2(transform.position.x - rotateDistance, transform.position.y + rotateDistance);
+                    transform.position = new Vector2(transform.position.x - rotateDistance, Mathf.CeilToInt(transform.position.y));
                     turned = true;
                     dir = Direction.left;
                 }
@@ -119,20 +121,21 @@ public class EnemyCrawl : Enemy
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-        canAct = false;
+        rb.velocity = Vector2.zero;
         canDamage = false;
 
-        //animator.SetTrigger("Hurt");
-        rb.velocity = Vector2.zero;
+        spriteRenderer.material = flashMaterial;
         hp -= dmg;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = defalutMaterial;
+        yield return new WaitForSeconds(0.2f);
         if (hp <= 0)
         {
             StartCoroutine(Death());
             yield break;
         }
-        yield return new WaitForSeconds(1f);
         canDamage = true;
-        canAct = true;
+        act1 = StartCoroutine(Think());
     }
 
     public override IEnumerator Death()

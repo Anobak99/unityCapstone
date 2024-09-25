@@ -112,25 +112,10 @@ public class EnemyType1 : Enemy {
     public override IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(1f);
-        Hit();
+        yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("Attack2");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         act1 = StartCoroutine(Think());
-    }
-
-
-    public override void Hit() //공격 처리
-    {
-        Collider2D[] attackBox = Physics2D.OverlapCircleAll(attackPos.position, hitRange, whatIsEnemies);
-        for (int i = 0; i < attackBox.Length; i++)
-        {
-            if (attackBox[i].gameObject.tag == "Player") // 플레이어가 공격 범위에 존재 시 데미지 처리
-            {
-                //GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f); // 플레이어 피격시 시간 정지       
-                GameManager.Instance.PlayerHit(dmg);
-            }
-        }
     }
 
 }
