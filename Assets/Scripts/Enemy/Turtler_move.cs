@@ -28,6 +28,8 @@ public class Turtler_move : Enemy
     private bool isWall;
     private bool isplatform;
 
+    public Color color;
+    public GameObject blood;
 
     public override IEnumerator Think()
     {
