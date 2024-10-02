@@ -326,6 +326,11 @@ public class PlayerController : MonoBehaviour
             {
                 enemiesToDamage[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
             }
+            else if (enemiesToDamage[i].gameObject.tag == "EnemyDestroyableBullet")
+            {
+                Debug.Log("적의 투사체에 적중");
+                enemiesToDamage[i].gameObject.SetActive(false);
+            }
         }
     }
 
@@ -384,8 +389,10 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.Instance.PlayerHit(1);
             }
-            else if(collision.CompareTag("Trap"))
+            else if (collision.CompareTag("Trap"))
+            {
                 GameManager.Instance.PlayerHit(GameManager.Instance.maxHp);
+            }
         }
     }
 

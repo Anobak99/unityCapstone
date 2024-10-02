@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int maxHp;
+    [SerializeField] public int maxHp;
     public int hp;
     public int dmg;
 

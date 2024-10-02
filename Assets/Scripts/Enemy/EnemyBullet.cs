@@ -33,7 +33,7 @@ public class EnemyBullet : MonoBehaviour
 
     private IEnumerator OnHit()
     {
-        animator.SetTrigger("Explo");
+       // animator.SetTrigger("Explo");
         yield return new WaitForSeconds(0.2f);
         transform.gameObject.SetActive(false);
     }
