@@ -24,10 +24,15 @@ public class Drako_fire : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("Block"))
+        if (collision.CompareTag("Player"))
         {
             animator.SetBool("Explo", true);
             GameManager.Instance.PlayerHit(1);
+            StartCoroutine(Hit());
+        }
+        else if (collision.CompareTag("Block"))
+        {
+            animator.SetBool("Explo", true);
             StartCoroutine(Hit());
         }
     }

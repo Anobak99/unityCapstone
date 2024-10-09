@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,10 +15,11 @@ public class EnemyType2 : Enemy {
     private List<GameObject> pool = new List<GameObject>();
 
     //playerCheck
-    private float distanceFromPlayer;
+    private float playerDistance;
     public float viewRange;
     public float attackRange;
     public bool facingRight;
+    private bool playerFound;
 
     //collisionCheck
     [SerializeField] Transform groundCheck;
@@ -27,36 +29,54 @@ public class EnemyType2 : Enemy {
     private bool isWall;
 
 
-    void Update()
+    public override IEnumerator Think()
     {
-        Check(); //앞 지형체크
-
-        if (!canAct || isDead) return;
-
-        if (player != null && !GameManager.Instance.isDead) 
+        Check(); //지형 체크
+        if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동
         {
-            horizental = player.position.x - transform.position.x;
-            distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-            if (distanceFromPlayer < viewRange && canAct) //대상이 인식 범위 안쪽일 경우
+            horizental = player.position.x - transform.position.x; //플레이어까지의 x거리
+            playerDistance = Mathf.Abs(horizental);
+            if (playerDistance < viewRange && player.position.y >= transform.position.y - 2.5f && player.position.y < transform.position.y + 2.5f) //대상이 인식 범위 안쪽일 경우
             {
                 FlipToPlayer(horizental);
-                if (distanceFromPlayer > attackRange) //대상의 거리가 공격범위 밖일 경우
+                if (playerFound) //플레이어를 인식한 상황일 때
                 {
-                    if (!isGround && !isWall) //개체 앞의 지형이 이동 가능한 경우
+                    if (playerDistance > attackRange) //대상의 거리가 공격범위 밖일 경우
                     {
-                        moveDirection = (player.position - transform.position).normalized * speed;
-                        rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+                        if (isGround && !isWall && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
+                        {
+                            animator.SetInteger("AnimState", 2);
+                            rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+                        }
+                        else
+                        {
+                            animator.SetInteger("AnimState", 0);
+                            rb.velocity = new Vector2(0, rb.velocity.y);
+                        }
                     }
-                    else
-                        rb.velocity = Vector2.zero;
+                    else //대상이 공격거리 안일 경우
+                    {
+                        animator.SetInteger("AnimState", 0);
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                        act2 = StartCoroutine(Attack()); //공격 코루틴 시작
+                        yield break; //현재 코루틴 정지
+                    }
                 }
-                else //대상이 공격거리 안일 경우
+                else
                 {
-                    rb.velocity = Vector2.zero;
-                    StartCoroutine(Attack());
+                    playerFound = true;
                 }
             }
+            else //대상을 찾지 못했을 때
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                animator.SetInteger("AnimState", 0);
+            }
         }
+
+        //0.1초마다 다시 호출
+        yield return new WaitForSeconds(0.1f);
+        act1 = StartCoroutine(Think());
     }
 
     private void Check()

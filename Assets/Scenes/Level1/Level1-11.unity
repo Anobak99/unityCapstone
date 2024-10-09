@@ -302,7 +302,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -313,7 +313,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40, y: 11.5}
+  m_Size: {x: 40, y: 11.25}
   m_EdgeRadius: 0
 --- !u!66 &262870236
 CompositeCollider2D:
@@ -355,19 +355,19 @@ CompositeCollider2D:
   - m_Collider: {fileID: 262870235}
     m_ColliderPaths:
     - - X: 200000000
-        Y: 57500000
+        Y: 52500000
       - X: -200000000
-        Y: 57500000
+        Y: 52500000
       - X: -200000000
-        Y: -57500000
+        Y: -60000000
       - X: 200000000
-        Y: -57500000
+        Y: -60000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 19.999971, y: -5.75}
-      - {x: 19.999971, y: 5.75}
-      - {x: -20, y: 5.749971}
-      - {x: -19.999971, y: -5.75}
+    - - {x: 19.999971, y: -6}
+      - {x: 19.999971, y: 5.25}
+      - {x: -20, y: 5.249971}
+      - {x: -19.999971, y: -6}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -381,7 +381,7 @@ Transform:
   m_GameObject: {fileID: 262870233}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28, y: 14.5, z: -0.059175998}
+  m_LocalPosition: {x: 28, y: 15, z: -0.059175998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -487,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 516169890141143994, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1749314561743354210, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_Size.x
@@ -503,7 +503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2201246269003613352, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2591426156267375154, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: cam
@@ -519,7 +519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140436799913262144, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4746132852539682172, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: cam
@@ -539,11 +539,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -585,6 +585,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: parallaxCamera
+      value: 
+      objectReference: {fileID: 609388316}
     - target: {fileID: 7245635894874793955, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_Size.x
       value: 60
@@ -641,7 +645,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5080021144994906025, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.92
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080021144994906025, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5095320636966713715, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_BoundingShape2D
@@ -657,11 +665,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9200001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6000004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8461402448723795629, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_Lens.OrthographicSize
@@ -669,11 +677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8487978294654135868, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.89
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8487978294654135868, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.91
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8487978294654135868, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -731,6 +739,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &609388316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1328859936202969721, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
+  m_PrefabInstance: {fileID: 609388312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872be79538d0eca4db3adad979417532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &832645990

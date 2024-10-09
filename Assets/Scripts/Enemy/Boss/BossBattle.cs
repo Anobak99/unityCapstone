@@ -13,10 +13,9 @@ public class BossBattle : MonoBehaviour
     public float camSpeed;
     public GameObject BossObject;
     public int bossNum;
-    public ParticleSystem doorEffect1;
-    public ParticleSystem doorEffect2;
-    public GameObject Door1;
-    public GameObject Door2;
+    [SerializeField] private List<GameObject> bossDoor;
+    [SerializeField] private List<ParticleSystem> bossParticles;
+    public bool camChange;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,14 +23,19 @@ public class BossBattle : MonoBehaviour
         {
             if(collision.CompareTag("Player"))
             {
-                bossCam.Follow = GameManager.Instance.player.transform;
-                bossCam.Priority = 11;
-                preCamBox = cam.camBound;
+                if(camChange)
+                {
+                    bossCam.Follow = GameManager.Instance.player.transform;
+                    bossCam.Priority = 11;
+                    preCamBox = cam.camBound;
+                    cam.camBound = camPosition;
+                }
                 GameManager.Instance.gameState = GameManager.GameState.Event;
-                cam.camBound = camPosition;
                 BossObject.SetActive(true);
-                Door1.SetActive(true);
-                Door2.SetActive(true);
+                foreach (GameObject door in bossDoor)
+                {
+                    door.SetActive(true);
+                }
                 StartCoroutine(DoorEffect());
             }
         }
@@ -39,8 +43,14 @@ public class BossBattle : MonoBehaviour
 
     IEnumerator DoorEffect()
     {
-        doorEffect1.Play();
-        doorEffect2.Play();
+        foreach (GameObject door in bossDoor)
+        {
+            door.SetActive(true);
+        }
+        foreach (ParticleSystem door in bossParticles)
+        {
+            door.Play();
+        }
         yield return new WaitForSeconds(1f);
         if(!DataManager.Instance.currentData.boss[bossNum])
             StartCoroutine(DoorEffect());
@@ -49,13 +59,17 @@ public class BossBattle : MonoBehaviour
     public void BossDead()
     {
         GameManager.Instance.gameState = GameManager.GameState.Field;
-        bossCam.Priority = 9;
-        cam.camBound = preCamBox;
-        Door1.SetActive(false);
-        Door2.SetActive(false);
+        if (camChange)
+        {
+            bossCam.Priority = 9;
+            cam.camBound = preCamBox;
+        }
+        foreach(GameObject door in bossDoor)
+        {
+            door.SetActive(false);
+        }
         DataManager.Instance.currentData.boss[bossNum] = true;
         DataManager.Instance.currentData.doorSwitch[bossNum] = true;
         DataManager.Instance.currentData.openedDoor[bossNum] = true;
     }
-
 }

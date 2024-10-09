@@ -18,6 +18,9 @@ public class Boss : MonoBehaviour
     [HideInInspector] public bool isDead;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
 
+    public Coroutine act1 = null;
+    public Coroutine act2 = null;
+
     public virtual void OnEnable()
     {
         player = GameManager.Instance.player.transform;

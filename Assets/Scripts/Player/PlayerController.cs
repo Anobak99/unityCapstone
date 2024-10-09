@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private GameObject currentOneWayPlatform; // onewayplatform 오브젝트
-    private BoxCollider2D playerCollider;
+    private Collider2D playerCollider;
 
     public float moveSpeed;
 
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        playerCollider = GetComponent<BoxCollider2D>();
+        playerCollider = GetComponent<Collider2D>();
         input = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -375,9 +375,9 @@ public class PlayerController : MonoBehaviour
     // one-way platform(아래키 눌러 플랫폼 아래로 이동)
     private IEnumerator DisableCollision()
     {
-        if (currentOneWayPlatform.GetComponent<BoxCollider2D>() != null)
+        if (currentOneWayPlatform.GetComponent<Collider2D>() != null)
         {
-            BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+            Collider2D platformCollider = currentOneWayPlatform.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(playerCollider, platformCollider);
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreCollision(playerCollider, platformCollider, false);

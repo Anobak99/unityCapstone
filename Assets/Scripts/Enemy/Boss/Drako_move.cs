@@ -53,12 +53,12 @@ public class Drako_move : Boss
                     if (distanceFromPlayer < attackRange)
                     {
                         isMove = false;
-                        StartCoroutine(Attack1());
+                        act2 = StartCoroutine(Attack1());
                         yield break;
                     }
                     else if (distanceFromPlayer > attackRange2)
                     {
-                        StartCoroutine(Attack2());
+                        act2 = StartCoroutine(Attack2());
                         yield break;
                     }
                     else
@@ -70,7 +70,7 @@ public class Drako_move : Boss
                             moveTime -= Time.deltaTime;
                             if (moveTime < 0)
                             {
-                                StartCoroutine(Attack2());
+                                act2 = StartCoroutine(Attack2());
                                 yield break;
                             }
                         }
@@ -83,14 +83,14 @@ public class Drako_move : Boss
                 }
                 else
                 {
-                    StartCoroutine(Attack2());
+                    act2 = StartCoroutine(Attack2());
                     attackCount = 0;
                     yield break;
                 }
             }
             else
             {
-                StartCoroutine(Attack3());
+                act2 = StartCoroutine(Attack3());
                 yield break;
             }
         }
@@ -113,14 +113,14 @@ public class Drako_move : Boss
                 else if(isGround && isWall)
                 {
                     isMove = false;
-                    StartCoroutine(Attack2Hit());
+                    act2 = StartCoroutine(Attack2Hit());
                     yield break;
                 }
             }
         }
 
         yield return new WaitForSeconds(0.1f);
-        StartCoroutine(Think());
+        act1 = StartCoroutine(Think());
     }
 
     private void Check()
@@ -151,7 +151,7 @@ public class Drako_move : Boss
         yield return new WaitForSeconds(time);
         moveTime = 2f;
         canAct = true;
-        StartCoroutine(Think());
+        act1 = StartCoroutine(Think());
     }
 
     IEnumerator Attack1() //근접공격
@@ -161,7 +161,7 @@ public class Drako_move : Boss
         animator.SetTrigger("Attack1");
         yield return new WaitForSeconds(1f);
         attackCount++;
-        StartCoroutine(Wait(1.5f));
+        act2 = StartCoroutine(Wait(1.5f));
     }
 
     IEnumerator Attack2() //적에게 돌진
@@ -173,7 +173,7 @@ public class Drako_move : Boss
         yield return new WaitForSeconds(0.5f);
         isMove = true;
         animator.SetInteger("AnimState", 1);
-        StartCoroutine(Think());
+        act1 = StartCoroutine(Think());
     }
 
     IEnumerator Attack2Hit() //벽에 부딪힐 시 밀려남
@@ -186,7 +186,7 @@ public class Drako_move : Boss
         animator.SetBool("Hit", false);
         countMax = Random.Range(2, 5);
         attackCount2++;
-        StartCoroutine(Wait(1f));
+        act2 = StartCoroutine(Wait(1f));
     }
 
     IEnumerator Attack3() //제자리에서 포격 준비
@@ -197,7 +197,7 @@ public class Drako_move : Boss
         animator.SetBool("Attack2_1", true);
         animator.Play("Drako_Attack2");
         yield return new WaitForSeconds(1.5f);
-        StartCoroutine(Attack3Hit());
+        act2 = StartCoroutine(Attack3Hit());
     }
 
     IEnumerator Attack3Hit() //플레이어 머리 위로 5회 불꽃 발사
@@ -220,7 +220,7 @@ public class Drako_move : Boss
         animator.SetBool("Attack2_1", false);
         animator.Play("Drako_Attack2_3");
         attackCount2 = 0;
-        StartCoroutine(Wait(2f));
+        act2 = StartCoroutine(Wait(2f));
     }
 
     private GameObject Shoot() //총알 생성, 생성된 오브젝트 재활용 및 없을 시 생성
@@ -263,6 +263,8 @@ public class Drako_move : Boss
 
     private IEnumerator Death()
     {
+        StopCoroutine(act1);
+        StopCoroutine(act2);
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", true);
         canDamage = false;
