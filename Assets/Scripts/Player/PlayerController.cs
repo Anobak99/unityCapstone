@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -374,11 +375,21 @@ public class PlayerController : MonoBehaviour
     // one-way platform(아래키 눌러 플랫폼 아래로 이동)
     private IEnumerator DisableCollision()
     {
-        BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+        if (currentOneWayPlatform.GetComponent<BoxCollider2D>() != null)
+        {
+            BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+            Physics2D.IgnoreCollision(playerCollider, platformCollider);
+            yield return new WaitForSeconds(0.25f);
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+        }
+        else if (currentOneWayPlatform.GetComponent<TilemapCollider2D>() != null)
+        {
+            TilemapCollider2D platformCollider = currentOneWayPlatform.GetComponent<TilemapCollider2D>();
+            Physics2D.IgnoreCollision(playerCollider, platformCollider);
+            yield return new WaitForSeconds(0.25f);
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+        }
 
-        Physics2D.IgnoreCollision(playerCollider, platformCollider);
-        yield return new WaitForSeconds(0.25f);
-        Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

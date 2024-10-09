@@ -34,6 +34,9 @@ public class LavaTurtle : Enemy
     public Color color;
     public GameObject blood;
 
+    public float cooldownTime = 5f; // 쿨타임 설정 
+    private bool isLavaFlowCooldown = false; // 쿨타임 여부
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -134,8 +137,6 @@ public class LavaTurtle : Enemy
         canDamage = false;
         animator.SetInteger("AnimState", 0);
 
-        StartCoroutine(LavaOverFlow());
-
         hp -= dmg;
 
         if (player.position.x > transform.position.x)
@@ -158,8 +159,16 @@ public class LavaTurtle : Enemy
             yield break;
         }
 
+        if (!isLavaFlowCooldown)
+        {
+            StartCoroutine(LavaOverFlow());
+        }
+        else
+        {
+            act1 = StartCoroutine(Think());
+        }
+
         canDamage = true;
-        act1 = StartCoroutine(Think());
     }
 
     private void Check()
@@ -197,7 +206,7 @@ public class LavaTurtle : Enemy
         Debug.Log("라바 오버플러우");      
         animator.SetTrigger("LavaOverFlow");
 
-        LavaTurtle_lava lava;
+        isLavaFlowCooldown = true;
         GameObject select = null;
 
         foreach (GameObject item in pool)
@@ -219,7 +228,8 @@ public class LavaTurtle : Enemy
             pool.Add(select);
         }
 
-        lava = select.GetComponent<LavaTurtle_lava>();
+        yield return new WaitForSeconds(cooldownTime);
+        isLavaFlowCooldown = false;
 
         canAct = true;
         act1 = StartCoroutine(Think());
@@ -230,7 +240,7 @@ public class LavaTurtle : Enemy
     public override IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
 }

@@ -70,19 +70,16 @@ public class FireFly : Enemy
                 {
                     if (!isWall && !isplatform && !animator.GetBool("Hit")) 
                     {
-                        animator.SetInteger("AnimState", 1);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
                     }
                     else
                     {
-                        animator.SetInteger("AnimState", 0);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
                 else if (playerDistance <= attackRange && !IsShotCoolingDown)
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
-                    animator.SetInteger("AnimState", 0);
                     act2 = StartCoroutine(Shot());
                     yield break;
                 }
@@ -90,12 +87,10 @@ public class FireFly : Enemy
                 {
                     if (!isWall && !isplatform && !animator.GetBool("Hit"))
                     {
-                        animator.SetInteger("AnimState", 1);
                         rb.velocity = new Vector2(moveDirection * speed * -1f, rb.velocity.y);
                     }
                     else
                     {
-                        animator.SetInteger("AnimState", 0);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
@@ -103,7 +98,6 @@ public class FireFly : Enemy
             else
             {
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                animator.SetInteger("AnimState", 0);
             }
         }
         else
@@ -119,18 +113,15 @@ public class FireFly : Enemy
             if (moveDirection == 0)
             {
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                animator.SetInteger("AnimState", 0);
             }
             else
             {
                 if (!isWall && isplatform && !animator.GetBool("Hit")) 
                 {
-                    animator.SetInteger("AnimState", 1);
                     rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
                 }
                 else
-                {
-                    animator.SetInteger("AnimState", 0);
+                {                 
                     rb.velocity = new Vector2(0, rb.velocity.y);
                 }
 
@@ -143,73 +134,8 @@ public class FireFly : Enemy
         act1 = StartCoroutine(Think());
     }
 
-    public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
-    {
-        rb.velocity = Vector2.zero;
-        ready = true;
-        animator.SetBool("Hit", true);
-        canDamage = false;
-        animator.SetInteger("AnimState", 0);
-        spriteRenderer.material = flashMaterial;
-
-        hp -= dmg;
-
-        if (player.position.x > transform.position.x)
-        {
-            rb.velocity = new Vector2(-2f, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(2f, rb.velocity.y);
-        }
-
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.material = defalutMaterial;
-        yield return new WaitForSeconds(0.4f);
-        rb.velocity = Vector2.zero;
-        animator.SetBool("Hit", false);
-
-        if (hp <= 0)
-        {
-            StartCoroutine(Death());
-            yield break;
-        }
-
-        canDamage = true;
-        act1 = StartCoroutine(Think());
-    }
-
-    private void Check()
-    {
-        isWall = Physics2D.OverlapCircle(WallCheck.position, 0.1f, groundLayor);
-        isplatform = Physics2D.OverlapCircle(new Vector2(WallCheck.position.x, WallCheck.position.y - 0.5f), 0.1f, groundLayor);
-    }
-
-    private void FlipToPlayer(float playerPosition)
-    {
-        if (playerPosition < 0 && ready)
-        {
-            moveDirection = -1;
-        }
-        else if (playerPosition > 0 && ready)
-        {
-            moveDirection = 1;
-        }
-
-        if (moveDirection > 0 && !facingRight)
-        {
-            facingRight = true;
-            transform.Rotate(0, 180, 0);
-        }
-        else if (moveDirection < 0 && facingRight)
-        {
-            facingRight = false;
-            transform.Rotate(0, 180, 0);
-        }
-    }
-
     private IEnumerator Shot()
-    {     
+    {
         EnemyBullet bullet;
         GameObject select = null;
 
@@ -239,5 +165,81 @@ public class FireFly : Enemy
         act1 = StartCoroutine(Think());
 
         yield return null;
+    }
+  
+    private void Check()
+    {
+        isWall = Physics2D.OverlapCircle(WallCheck.position, 0.1f, groundLayor);
+        isplatform = Physics2D.OverlapCircle(new Vector2(WallCheck.position.x, WallCheck.position.y - 0.5f), 0.1f, groundLayor);
+    }
+
+    private void FlipToPlayer(float playerPosition)
+    {
+        if (playerPosition < 0 && ready)
+        {
+            moveDirection = -1;
+        }
+        else if (playerPosition > 0 && ready)
+        {
+            moveDirection = 1;
+        }
+
+        if (moveDirection > 0 && !facingRight)
+        {
+            facingRight = true;
+            transform.Rotate(0, 180, 0);
+        }
+        else if (moveDirection < 0 && facingRight)
+        {
+            facingRight = false;
+            transform.Rotate(0, 180, 0);
+        }
+    }
+
+    public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
+    {
+        rb.velocity = Vector2.zero;
+        ready = true;
+        animator.SetBool("Hit", true);
+        canDamage = false;
+        spriteRenderer.material = flashMaterial;
+
+        hp -= dmg;
+
+        if (player.position.x > transform.position.x)
+        {
+            rb.velocity = new Vector2(-2f, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(2f, rb.velocity.y);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = defalutMaterial;
+        yield return new WaitForSeconds(0.4f);
+        rb.velocity = Vector2.zero;
+        animator.SetBool("Hit", false);
+
+        if (hp <= 0)
+        {
+            StartCoroutine(Death());
+            yield break;
+        }
+
+        canDamage = true;
+        act1 = StartCoroutine(Think());
+    }
+
+    public override IEnumerator Death()
+    {
+        rb.gravityScale = 1f;
+        animator.SetBool("Hit", false);
+        animator.SetTrigger("Death");
+        canDamage = false;
+        isDead = true;
+        ItemDrop();
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }
