@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: playerObj
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2043472596}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11
@@ -2123,7 +2123,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2134,7 +2134,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 42, y: 11}
+  m_Size: {x: 40, y: 11.25}
   m_EdgeRadius: 0
 --- !u!66 &680574362
 CompositeCollider2D:
@@ -2175,20 +2175,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 680574361}
     m_ColliderPaths:
-    - - X: 210000000
-        Y: 55000000
-      - X: -210000000
-        Y: 55000000
-      - X: -210000000
-        Y: -55000000
-      - X: 210000000
-        Y: -55000000
+    - - X: 200000000
+        Y: 52500000
+      - X: -200000000
+        Y: 52500000
+      - X: -200000000
+        Y: -60000000
+      - X: 200000000
+        Y: -60000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 20.999971, y: -5.5}
-      - {x: 20.999971, y: 5.5}
-      - {x: -21, y: 5.499971}
-      - {x: -20.999971, y: -5.5}
+    - - {x: 19.999971, y: -6}
+      - {x: 19.999971, y: 5.25}
+      - {x: -20, y: 5.249971}
+      - {x: -19.999971, y: -6}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -2202,7 +2202,7 @@ Transform:
   m_GameObject: {fileID: 680574359}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.98, y: 0.82, z: -0.059175998}
+  m_LocalPosition: {x: 35, y: 2, z: -0.059175998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4106,7 +4106,7 @@ PrefabInstance:
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: playerObj
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2043472596}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.03
