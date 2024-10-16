@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour
 
     public virtual IEnumerator Think()
     {
+        Debug.Log("»ý°¢Áß");
         yield return null;
     }
 

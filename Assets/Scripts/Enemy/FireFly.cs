@@ -13,7 +13,6 @@ public class FireFly : Enemy
     public float viewRange;
     public float attackRange;
     public bool facingRight;
-    private bool ready;
     private int moveCount;
 
     public Transform attackPos;
@@ -40,24 +39,11 @@ public class FireFly : Enemy
     #endregion
 
 
-
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, viewRange);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-
-    }
-
-
     public override IEnumerator Think()
     {
         Check();
 
-        if (player != null && !GameManager.Instance.isDead && ready)
+        if (player != null && !GameManager.Instance.isDead )
         {
             horizental = player.position.x - transform.position.x;
             // 플레이어가 인식 범위 안으로 들어왔을 때
@@ -157,8 +143,10 @@ public class FireFly : Enemy
 
         bullet = select.GetComponent<EnemyBullet>();
         bullet.target = player.gameObject;
-        bulletDirection = (player.position - transform.position).normalized * 5f;
-        bullet.rb.velocity = bulletDirection;
+        bulletDirection = (player.position - transform.position).normalized;
+        float angle = Mathf.Atan2(bulletDirection.y, bulletDirection.x) * Mathf.Rad2Deg; // 회전 각도 구하기 (라디안 값을 각도로 변환)
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle); // 총알을 회전시키기
+        bullet.rb.velocity = bulletDirection * 5f;
 
         StartShotCoolDown();
         canAct = true;
@@ -175,11 +163,11 @@ public class FireFly : Enemy
 
     private void FlipToPlayer(float playerPosition)
     {
-        if (playerPosition < 0 && ready)
+        if (playerPosition < 0 )
         {
             moveDirection = -1;
         }
-        else if (playerPosition > 0 && ready)
+        else if (playerPosition > 0)
         {
             moveDirection = 1;
         }
@@ -198,8 +186,7 @@ public class FireFly : Enemy
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-        rb.velocity = Vector2.zero;
-        ready = true;
+        rb.velocity = Vector2.zero; 
         animator.SetBool("Hit", true);
         canDamage = false;
         spriteRenderer.material = flashMaterial;
@@ -242,4 +229,15 @@ public class FireFly : Enemy
         yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, viewRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+    }
+
 }

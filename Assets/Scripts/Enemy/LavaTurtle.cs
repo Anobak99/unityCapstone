@@ -13,7 +13,6 @@ public class LavaTurtle : Enemy
     public float viewRange;
     public float attackRange;
     public bool facingRight;
-    private bool ready;
     private int moveCount;
 
     public Transform attackPos;
@@ -53,7 +52,7 @@ public class LavaTurtle : Enemy
     {
         Check();
 
-        if (player != null && !GameManager.Instance.isDead && ready)
+        if (player != null && !GameManager.Instance.isDead)
         {
             horizental = player.position.x - transform.position.x;
             if (horizental < viewRange && player.position.y +1.5f >= transform.position.y && player.position.y < transform.position.y) //대상이 인식 범위 안쪽일 경우
@@ -132,7 +131,6 @@ public class LavaTurtle : Enemy
        
         Instantiate(blood, new Vector2(transform.position.x, transform.position.y + 1f), Quaternion.identity);
         rb.velocity = Vector2.zero;
-        ready = true;
         animator.SetBool("Hit", true);
         canDamage = false;
         animator.SetInteger("AnimState", 0);
@@ -180,11 +178,11 @@ public class LavaTurtle : Enemy
 
     private void FlipToPlayer(float playerPosition)
     {
-        if (playerPosition < 0 && ready)
+        if (playerPosition < 0)
         {
             moveDirection = -1;
         }
-        else if (playerPosition > 0 && ready)
+        else if (playerPosition > 0)
         {
             moveDirection = 1;
         }
@@ -224,7 +222,7 @@ public class LavaTurtle : Enemy
         if (!select)
         {
             Debug.Log("오브젝트 풀에 프리팹이 없음");
-            select = Instantiate(lavaPrefab, this.transform.position, Quaternion.identity);
+            select = Instantiate(lavaPrefab, lavaPos.transform.position, Quaternion.identity);
             pool.Add(select);
         }
 

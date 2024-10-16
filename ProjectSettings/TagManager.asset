@@ -16,6 +16,7 @@ TagManager:
   - Block
   - Trap
   - EnemyDestroyableBullet
+  - Lava
   layers:
   - Default
   - TransparentFX
@@ -27,13 +28,13 @@ TagManager:
   - Gruound
   - Enemy
   - PickUp
-  - 
+  - Lava
   - 
   - 
   - 
   - 
   - Map
-  - Lava
+  - 
   - 
   - 
   - 
@@ -64,6 +65,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2109086697
+    locked: 0
+  - name: Lava
+    uniqueID: 2567079439
     locked: 0
   - name: Effect
     uniqueID: 4030188811

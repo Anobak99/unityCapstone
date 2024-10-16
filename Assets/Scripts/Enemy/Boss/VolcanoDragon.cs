@@ -1,32 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Tilemaps;
 using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class VolcanoDragon : Enemy
+public class VolcanoDragon : Boss
 {
+    #region BossState
+    private enum BossState { Idle, ChasePlayer, MeleeAttack, FireBreath, LavaFlood, LavaEruption, Hide}
+    private BossState currentState = BossState.Idle;
+    #endregion
+
+    #region Move
+    [Header ("Move")]
     private float moveDirection = 1;
     private bool facingRight = true;
     [SerializeField] private float speed;
-    private float moveTime;
-
-    [SerializeField] Transform groundCheck;
-    [SerializeField] LayerMask groundLayor;
-    [SerializeField] Transform WallCheck;
-    private bool isWall;
-    private bool isMove;
-
     private float distanceFromPlayer;
     private float horizental;
-    private float hideHorizental;
+    [Space(10f)]
+    #endregion
 
-    [SerializeField] private Transform hidePos; // 숨는 위치
-    private GameObject this_sprite;
+    #region Object
+    [Header("Object")]
     public GameObject fireBreath;
+    public GameObject eruption;
+    public GameObject SurpriseEffect;
+    public GameObject this_sprite;
+    [Space(10f)]
+    #endregion
 
     #region LavaFlood
+    [Header ("Lava Flood")]
     public Tilemap lavaTilemap;           // 용암 타일맵
     public TileBase lavaTile;             // 용암 타일
     private bool rising = true;           // 용암이 상승 중인지 여부
@@ -36,16 +40,33 @@ public class VolcanoDragon : Enemy
     public int minHeight = 0;             // 용암이 도달할 최저 높이 (타일 단위)
     public int tilemapWidth = 10;         // 타일맵의 가로 길이 (x축 범위)
     public int tilemapWidth_start;        // 타일맵의 시작 x 위치
+    [Space(10f)]
     #endregion
 
-    [SerializeField] private int attackCount_1; // 기본 공격 카운트
-    [SerializeField] private int attackCount_2; // 특수 공격 카운트
-    [SerializeField] private int lavafloodCount;
-    [SerializeField] private int breathCount;
-    [SerializeField] private int countMax;
+    #region Hide
+    [Header("Hide")]
+    [SerializeField] private Transform hidePos; // 숨는 위치
+    private float hideHorizental;
+    [Space(10f)]
+    #endregion
 
+    #region Count
+    private int atk_Count = 0;
+    private int atk_countMax;
+    private int meleeAtk_Count = 0;
+    private int meleeAtk_countMax;
+    private int breath_Count = 0;
+    private int breath_countMax;
+    private int lavaflood_Count = 0;
+    private int lavaflood_countMax;
+    #endregion
+
+    #region Range
+    [Header("Range")]
+    [SerializeField] private float viewRange;
     [SerializeField] private float meleeattackRange;
     [SerializeField] private float breathRange;
+    #endregion
 
     #region WaitForSec
     private readonly WaitForSeconds wait0Dot1 = new WaitForSeconds(0.1f);
@@ -53,105 +74,183 @@ public class VolcanoDragon : Enemy
     private readonly WaitForSeconds wait2 = new WaitForSeconds(2f);
     #endregion
 
-    public float cooldownTime = 5f; // 쿨타임 설정 
-    private bool isLavaCooldown = false; // 쿨타임 여부
-
-    private void Awake()
+    private void Start()
     {
         currentHeight = minHeight; // 용암의 초기 위치는 최저로 설정
-        this_sprite = transform.Find("VolcanoDragon_sprite").gameObject;
 
-        countMax = UnityEngine.Random.Range(2, 4);
-        //StartCoroutine(Think());
+        atk_countMax = UnityEngine.Random.Range(3, 5);
+        meleeAtk_countMax = UnityEngine.Random.Range(3, 5);
+        breath_countMax = UnityEngine.Random.Range(2, 4);
+        lavaflood_countMax = UnityEngine.Random.Range(2, 4);
     }
 
     private void Update()
     {
         hideHorizental = hidePos.position.x - this.transform.position.x;
+        Debug.Log("현재상태:"+currentState);
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            StartCoroutine(LavaFlood());
+            StartCoroutine(LavaEruption());
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartCoroutine(Think());
         }
     } 
 
-    private void Check()
-    {
-        isWall = Physics2D.OverlapCircle(WallCheck.position, 0.1f, groundLayor);
-    }
-
     public override IEnumerator Think()
-    {
-        Debug.Log("생각중 . . . ");
+    {      
+        if (GameManager.Instance.gameState != GameManager.GameState.Boss || isDead || Time.timeScale == 0) yield return null;
 
-        Check();
-
-        //if (GameManager.Instance.gameState != GameManager.GameState.Boss || isDead || Time.timeScale == 0) yield return null;
-
-        if (hp > 0)
+        if (canAct && player != null && !GameManager.Instance.isDead)
         {
-            Debug.Log("...");
-            distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+            Debug.Log("생각중 . . . ");
+            rb.velocity = new Vector2(0, 0);
             horizental = player.position.x - transform.position.x;
             FlipToPlayer(horizental);
 
-            if (attackCount_2 < 3 || hp > maxHp / 2)
-            {
-                if (attackCount_1 < countMax)
+                switch (currentState)
                 {
-                    if (distanceFromPlayer < meleeattackRange)
-                    {
-                        Debug.Log("플레이어 근접 공격 범위 안 -> 근접 공격");
-                        isMove = false;
-                        rb.velocity = new Vector2(0, 0);
-                        StartCoroutine(MeleeAttack());
-                        yield break;
-                    }
-                    else if (distanceFromPlayer > breathRange && transform.position.y < player.position.y + 2f && transform.position.y > player.position.y - 2f && breathCount < 1)
-                    {
-                        Debug.Log("플레이어 멀리 있음 -> 브레스 공격");
-                        rb.velocity = new Vector2(0, 0);
-                        StartCoroutine(Breath());
-                        yield break;
-                    }
-                    else //(distanceFromPlayer > meleeattackRange && breathCount >= 1)
-                    {
-                        breathCount = 0;
-                        StartCoroutine(ChasePlayer());
-                        yield break;
-                    }
-                }
-                else
-                {
-                    if (!isLavaCooldown)
-                    {
-                        rb.velocity = new Vector2(0, 0);
-                        attackCount_1 = 0;
-                        StartCoroutine(LavaFlood());
-                        yield break;
-                    }
-                    else
-                    {
-                        attackCount_1 = 0;
-                        Debug.Log("용암 분출 쿨타임중");
-                    }
-                }
+                    case BossState.Idle:
+                        if(atk_Count == atk_countMax && hp < maxHp/2)
+                        {
+                            atk_Count = 0;
+                            yield return StartCoroutine(TransitionToState(BossState.Hide));
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < meleeattackRange)
+                            // 근접 공격 범위 안 -> 근접 공격
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.MeleeAttack));
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < breathRange && 
+                                    2 > Mathf.Abs(player.transform.position.y - gameObject.transform.position.y))
+                            // 브레스 범위 안에 있을 경우 -> 브레스 
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.FireBreath));
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < viewRange)
+                        {
+                            StartCoroutine(TransitionToState(BossState.ChasePlayer));
+                        }
+
+                        break;
+
+                    case BossState.ChasePlayer:
+                            yield return StartCoroutine(ChasePlayer());
+                            yield return wait1;
+                            yield return StartCoroutine(TransitionToState(BossState.Idle));
+
+                        break;
+                        
+                    case BossState.MeleeAttack:
+                        yield return StartCoroutine(MeleeAttack());
+                        yield return new WaitForSeconds(1.5f); // 공격 후 딜레이
+
+                        if (atk_Count == atk_countMax && hp < maxHp / 2)
+                        {
+                            atk_Count = 0;
+                            yield return StartCoroutine(TransitionToState(BossState.Hide));
+                        }
+                        else if (meleeAtk_Count == meleeAtk_countMax) 
+                            // 근접 공격 카운트 맥스면 -> 용암 분출
+                        {
+                            Debug.Log("근접 공격 full count");
+                            meleeAtk_Count = 0;
+                            StartCoroutine(TransitionToState(BossState.LavaFlood));
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < breathRange &&
+                                    1 < Mathf.Abs(player.transform.position.y - gameObject.transform.position.y))
+                            // 브레스 범위 안에 있을 경우 -> 브레스 
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.FireBreath));
+                        }
+
+                        break;
+
+                    case BossState.FireBreath:
+                        yield return StartCoroutine(Breath());
+                        yield return new WaitForSeconds(2f); // 화염 브레스 후 딜레이
+
+                        if (atk_Count == atk_countMax && hp < maxHp / 2)
+                        {
+                            atk_Count = 0;
+                            yield return StartCoroutine(TransitionToState(BossState.Hide));
+                        }
+                        else if (2 < Mathf.Abs(player.transform.position.y - gameObject.transform.position.y) || breath_Count == breath_countMax)
+                            // 브레스 카운트 맥스면 / Y축 위치가 다른 경우 -> 체이스 플레이어
+                        {
+                            Debug.Log("브레스 full count");
+                            breath_countMax = 0;
+                            StartCoroutine(TransitionToState(BossState.ChasePlayer));
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < meleeattackRange) 
+                            // 근접 공격 범위 안에 있을 경우 -> 근접 공격
+                        {
+                            StartCoroutine(TransitionToState(BossState.MeleeAttack));
+                        }
+                        else if (player.position.y < 68f) 
+                            // 플레어이의 위치가 아래 쪽인 경우 -> 용암 분화
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.LavaEruption));
+                        }
+
+                        break;
+
+                    case BossState.LavaFlood:
+                        yield return StartCoroutine(LavaFlood());
+                        yield return new WaitForSeconds(1f); // 용암 분출 후 딜레이
+
+                        if (lavaflood_Count == lavaflood_countMax)
+                        {
+                            Debug.Log("용암 분출 full count");
+                            lavaflood_Count = 0;
+                            yield return StartCoroutine(TransitionToState(BossState.LavaEruption));
+                        }
+                        else if (hp < maxHp/2) 
+                            // 피가 50% 아래인 경우 -> 숨기
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.Hide));
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < meleeattackRange) 
+                            // 근접 공격 범위 안에 있을 경우 -> 근접 공격
+                        {
+                            TransitionToState(BossState.MeleeAttack);
+                        }
+                        else if (Vector2.Distance(transform.position, player.position) < breathRange) 
+                            // 브레스 범위 안에 있을 경우 -> 브레스 
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.FireBreath));
+                        }
+
+                        break;
+
+                    case BossState.LavaEruption:
+                        yield return StartCoroutine(LavaEruption());
+                        yield return wait1;
+                        yield return StartCoroutine(TransitionToState(BossState.Idle));
+
+                    break;
+
+                    case BossState.Hide:
+                        yield return StartCoroutine(Hide());
+                        yield return new WaitForSeconds(2.0f); // 기습 공격 후 딜레이
+                        yield return StartCoroutine(TransitionToState(BossState.Idle));
+
+                    break;            
             }
-            else if (hp < maxHp/2) // hp 50% 미만인경우
-            {
-                rb.velocity = new Vector2(0, 0); rb.velocity = new Vector2(0, 0);
-                lavafloodCount = 0;
-                StartCoroutine(Hide());
-                yield break;
-            }
-            else
-            {
-                StartCoroutine(ChasePlayer());
-            }
+            
         }
-     
-        yield return new WaitForSeconds(0.1f);
-        StartCoroutine(Think());
+        yield return wait0Dot1;
+        yield return StartCoroutine(Think());
+    }
+
+    IEnumerator TransitionToState(BossState newState)
+    {
+        canAct = false;
+        yield return new WaitForSeconds(1f); // 전환 딜레이
+        currentState = newState;
+        canAct = true;
     }
 
     private void FlipToPlayer(float playerPosition)
@@ -189,7 +288,6 @@ public class VolcanoDragon : Enemy
     private IEnumerator ChasePlayer()
     {
         Debug.Log("Chase Player");
-
         int loopnum = 0;
 
         float yPos = Mathf.Abs(player.transform.position.y - gameObject.transform.position.y);
@@ -199,7 +297,7 @@ public class VolcanoDragon : Enemy
             if (player.transform.position.y + 1.5f > gameObject.transform.position.y) // 플레이어가 위에 있을 때
             {
                 Debug.Log("위로 이동");
-                while (player.transform.position.y + 1f > gameObject.transform.position.y)
+                while (player.transform.position.y > gameObject.transform.position.y)
                 {
                     rb.velocity = new Vector2(0, speed);
 
@@ -213,7 +311,7 @@ public class VolcanoDragon : Enemy
             else if (player.transform.position.y + 1.5f < gameObject.transform.position.y) // 플레이어가 아래에 있을 때
             {
                 Debug.Log("아래로 이동");
-                while (player.transform.position.y + 1f < gameObject.transform.position.y)
+                while (player.transform.position.y < gameObject.transform.position.y)
                 {
                     Debug.Log("아래로 이동중");
                     rb.velocity = new Vector2(0, speed * -1f);
@@ -229,99 +327,72 @@ public class VolcanoDragon : Enemy
         else if (!animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
         {
             Debug.Log("플레이어에게 이동");
-            animator.SetInteger("AnimState", 1);
-            if (moveDirection > 0)
+            distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+            while (distanceFromPlayer > 6f)
             {
-                while (player.transform.position.x > gameObject.transform.position.x)
-                {
-                    rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+                distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+                rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
 
-                    yield return wait0Dot1;
+                yield return wait0Dot1;
 
-                    loopnum++;
-                    if (loopnum++ > 10000)
-                        throw new Exception("Infinite Loop");
-                }
+                loopnum++;
+                if (loopnum++ > 10000)
+                    throw new Exception("Infinite Loop");
             }
-            else
-            {
-                while (player.transform.position.x < gameObject.transform.position.x)
-                {
-                    rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
-
-                    yield return wait0Dot1;
-
-                    loopnum++;
-                    if (loopnum++ > 10000)
-                        throw new Exception("Infinite Loop");
-                }
-            }          
         }
-        else if (!isWall || animator.GetBool("Hit"))
+        else if (animator.GetBool("Hit"))
         {
             Debug.Log("이동불가 상태");
-            animator.SetInteger("AnimState", 0);
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, 0);
         }
-
         rb.velocity = new Vector2(0, 0);
-
-        yield return wait2; 
-
-        StartCoroutine(Think());
-
-        yield return null;
     }
 
     private IEnumerator MeleeAttack()
     {
-        attackCount_1++;
+        Debug.Log("근접 공격");
+        atk_Count++;
+        meleeAtk_Count++;
 
-        canAct = false;
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Attack");
-        yield return wait2;
 
-        yield return wait1;
-
-        StartCoroutine(Think());
+        yield return null;
     }
 
     private IEnumerator Breath()
     {
-        attackCount_1++;
-        breathCount++;
+        Debug.Log("브레스");
+        atk_Count++;
+        breath_Count++;
 
-        animator.SetTrigger("Breath");
+        FlipToPlayer(horizental);
+        rb.velocity = Vector2.zero;
+        animator.SetTrigger("Breath");        
         fireBreath.SetActive(true);
 
-        yield return wait2;
+        yield return new WaitForSeconds(4f); // 브레스 지속시간
 
         fireBreath.SetActive(false);
-
-        StartCoroutine(Think());
     }
 
     private IEnumerator LavaFlood()
     {
         Debug.Log("용암 분출");
-
-        isLavaCooldown = true;
-
-        lavafloodCount++;
-        attackCount_2++;
+        atk_Count++;
+        lavaflood_Count++;
 
         animator.SetTrigger("LavaFlood");
         CameraShake.Instance.OnShakeCamera();
-        yield return wait2;
-        StartCoroutine(Think());
+
         while (true)
         {
+            Debug.Log(currentHeight);
             if (rising)
             {
                 // 용암을 위로 차오르게 함
                 if (currentHeight < maxHeight)
-                {
+                {                   
                     currentHeight++;
                     UpdateLavaTiles();
                     yield return new WaitForSeconds(riseSpeed);
@@ -340,7 +411,7 @@ public class VolcanoDragon : Enemy
                 {
                     currentHeight--;
                     UpdateLavaTiles();
-                    yield return new WaitForSeconds(riseSpeed);
+                    yield return new WaitForSeconds(riseSpeed * 2f);
                 }
                 else
                 {
@@ -349,8 +420,6 @@ public class VolcanoDragon : Enemy
             }
 
         }
-        yield return new WaitForSeconds(cooldownTime);
-        isLavaCooldown = false;
         rising = true;
     }
 
@@ -377,10 +446,22 @@ public class VolcanoDragon : Enemy
         }
     }
 
+    private IEnumerator LavaEruption()
+    {
+        Debug.Log("Lava Eruption");
+        atk_Count++;
+
+        CameraShake.Instance.OnShakeCamera(1f, 0.5f);
+        yield return wait1;
+        eruption.SetActive(true);
+        yield return wait2;
+        eruption.SetActive(false);
+    }
+
     private IEnumerator Hide()
     {
-        attackCount_2++;
         Debug.Log("숨기");
+        atk_Count++;
 
         int loopnum=0;
 
@@ -399,7 +480,7 @@ public class VolcanoDragon : Enemy
                 break;
             }
 
-            rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+            rb.velocity = new Vector2(moveDirection * speed * 1.5f, rb.velocity.y);
 
             yield return wait0Dot1;
         
@@ -414,31 +495,35 @@ public class VolcanoDragon : Enemy
         yield return wait1;
 
         rb.velocity = new Vector2(0, 0);
-
         this_sprite.SetActive(false);
 
-        StartCoroutine(SurpriseAttack());
-        yield return null;
+        yield return StartCoroutine(SurpriseAttack());
     }
 
     private IEnumerator SurpriseAttack()
     {
         Debug.Log("기습공격");
-        animator.SetBool("SurpriseAtk", true);
+
+        CameraShake.Instance.OnShakeCamera(3f, 0.5f);
+        SurpriseEffect.transform.position = new Vector3(player.position.x, SurpriseEffect.transform.position.y, SurpriseEffect.transform.position.z);
+        SurpriseEffect.SetActive(true);
+        Vector3 currentPos = gameObject.transform.position;
+        transform.position = new Vector3(player.position.x, currentPos.y, currentPos.z);
+        yield return new WaitForSeconds(2f);
+
+        SurpriseEffect.SetActive(false);
 
         int loopnum = 0;
 
-        Vector3 currentPos = gameObject.transform.position;
-        transform.position = new Vector3(player.position.x, currentPos.y, currentPos.z);
-
-        while (player.transform.position.y + 2f > gameObject.transform.position.y)
+        while (gameObject.transform.position.y < 86f)
         {
             if(hidePos.transform.position.y < gameObject.transform.position.y)
             {
                 this_sprite.SetActive(true);
+                animator.SetBool("SurpriseAtk", true);
             }
 
-            rb.velocity = new Vector2(0, 5f);
+            rb.velocity = new Vector2(0, 10f);
 
             yield return wait0Dot1;
 
@@ -447,13 +532,26 @@ public class VolcanoDragon : Enemy
                 throw new Exception("Infinite Loop");
         }
 
-        yield return wait0Dot1;
-        gameObject.GetComponent<BoxCollider2D>().enabled = true;
         animator.SetBool("SurpriseAtk", false);
+        this_sprite.SetActive(false);
 
-        yield return wait2;
+        yield return new WaitForSeconds(3f);
 
-        StartCoroutine(Think());
+        gameObject.transform.position = hidePos.position;
+        this_sprite.SetActive(true);
+
+        while (gameObject.transform.position.y < 70.5f)
+        {
+            rb.velocity = new Vector2(0, 5f);
+
+            yield return wait0Dot1;
+
+            loopnum++;
+            if (loopnum++ > 10000)
+                throw new Exception("Infinite Loop");
+        }
+        rb.velocity = new Vector2(0, 0f);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
@@ -477,6 +575,8 @@ public class VolcanoDragon : Enemy
 
     private IEnumerator Death()
     {
+        StopCoroutine(act1);
+        StopCoroutine(act2);
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
         canDamage = false;

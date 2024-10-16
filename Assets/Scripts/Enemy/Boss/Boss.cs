@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public int maxHp;
     public int hp;
     public int dmg;
 
@@ -30,6 +31,7 @@ public class Boss : MonoBehaviour
         canAct = false;
         canDamage = true;
         isDead = false;
+        hp = maxHp;
 
         if (GameManager.Instance.gameState == GameManager.GameState.Event)
         {

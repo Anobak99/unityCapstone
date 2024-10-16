@@ -4,44 +4,36 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private TextAsset inkJSON;
+    public Dialogue dialogue;
 
-    private bool playerInRange;
+    bool closePlayer = false;
 
-    private void Awake()
+    public void Update()
     {
-        playerInRange = false;
+        if (closePlayer &&Input.GetKeyDown(KeyCode.G))
+        {
+            DialogueManager.Instance.StartDialogue(dialogue);
+        }
     }
 
-    private void Update()
+    public void TriggerDialogue()
     {
-        if (playerInRange && !DialogueManager.Instance.DialogueState())
-        {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                Debug.Log("대화문 진입");
-                DialogueManager.Instance.EnterDialogueMode(inkJSON);
-            }
-        }
-        else
-        {
-
-        }
+        DialogueManager.Instance.StartDialogue(dialogue);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            playerInRange = true;
+            closePlayer = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            playerInRange = false;
+            closePlayer = false;
         }
     }
 }

@@ -29,12 +29,13 @@ public class RisingLava : MonoBehaviour
     IEnumerator UpdateLava()
     {
         while (true)
-        {
+        {          
             if (rising )
             {
                 // 용암을 위로 차오르게 함
                 if (currentHeight < maxHeight)
                 {
+                    Debug.Log("Rise Lava");
                     currentHeight++;
                     UpdateLavaTiles();
                     yield return new WaitForSeconds(riseSpeed);
@@ -50,7 +51,7 @@ public class RisingLava : MonoBehaviour
             {
                 // 용암을 아래로 내리게 함
                 if (currentHeight > minHeight)
-                {
+                {                 
                     currentHeight--;
                     UpdateLavaTiles();
                     yield return new WaitForSeconds(riseSpeed);
@@ -83,6 +84,7 @@ public class RisingLava : MonoBehaviour
 
                 if (y <= currentHeight)
                 {
+                    Debug.Log("Rise Lava");
                     // 현재 높이 이하의 타일에 용암 타일을 설정
                     lavaTilemap.SetTile(tilePosition, lavaTile);
                 }
@@ -105,6 +107,7 @@ public class RisingLava : MonoBehaviour
 
                 if (y <= currentHeight)
                 {
+                    Debug.Log("Remove Lava");
                     // 현재 높이 이하의 타일에 용암 타일을 설정
                     lavaTilemap.SetTile(tilePosition, null);
                 }

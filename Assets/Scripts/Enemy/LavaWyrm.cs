@@ -13,7 +13,6 @@ public class LavaWyrm : Enemy
     public float viewRange;
     public float attackRange;
     public bool facingRight;
-    private bool ready;
     private int moveCount;
 
     public Transform attackPos;
@@ -53,14 +52,14 @@ public class LavaWyrm : Enemy
     {
         Check();
 
-        if (player != null && !GameManager.Instance.isDead && ready)
+        if (player != null && !GameManager.Instance.isDead)
         {
             horizental = player.position.x - transform.position.x;
+            playerDistance = Mathf.Abs(horizental);
             // 플레이어가 인식 범위 안으로 들어왔을 때
-            if (horizental < viewRange)
+            if (playerDistance < viewRange)
             {
                 FlipToPlayer(horizental);
-                playerDistance = Mathf.Abs(horizental);
                 // 플레이어가 위에 있을 때
                 if (player.position.y > this.transform.position.y)
                 {
@@ -103,7 +102,6 @@ public class LavaWyrm : Enemy
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        ready = true;
         animator.SetBool("Hit", true);
         canDamage = false;
         spriteRenderer.material = flashMaterial;
@@ -142,11 +140,11 @@ public class LavaWyrm : Enemy
 
     private void FlipToPlayer(float playerPosition)
     {
-        if (playerPosition < 0 && ready)
+        if (playerPosition < 0)
         {
             moveDirection = -1;
         }
-        else if (playerPosition > 0 && ready)
+        else if (playerPosition > 0)
         {
             moveDirection = 1;
         }
@@ -186,8 +184,10 @@ public class LavaWyrm : Enemy
 
         bullet = select.GetComponent<EnemyBullet>();
         bullet.target = player.gameObject;
-        bulletDirection = (player.position - transform.position).normalized * 5f;
-        bullet.rb.velocity = bulletDirection;
+        bulletDirection = (player.position - transform.position).normalized;
+        float angle = Mathf.Atan2(bulletDirection.y, bulletDirection.x) * Mathf.Rad2Deg; // 회전 각도 구하기 (라디안 값을 각도로 변환)
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle); // 총알을 회전시키기
+        bullet.rb.velocity = bulletDirection * 5f;
 
         StartShotCoolDown();
         canAct = true;

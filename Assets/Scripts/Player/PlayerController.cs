@@ -404,6 +404,10 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.Instance.PlayerHit(GameManager.Instance.maxHp);
             }
+            else if (collision.CompareTag("Lava"))
+            {
+                GameManager.Instance.PlayerHit(1);
+            }
         }
     }
 
