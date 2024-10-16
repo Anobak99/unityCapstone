@@ -419,7 +419,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f1da527a6f46a45bfc14634eb88549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Volcano_1
+<<<<<<< HEAD
+  nextScene: Level1-0
+=======
+  nextScene: SkyTower1
+>>>>>>> 01b9c632366983404f7d08288e891ea69fbe8a35
 --- !u!4 &546742460
 Transform:
   m_ObjectHideFlags: 0
@@ -2069,6 +2073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnScene
+<<<<<<< Updated upstream
       value: Volcano_1
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
@@ -2078,6 +2083,17 @@ PrefabInstance:
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnPoint.y
       value: -3
+=======
+      value: SkyTower1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
+      propertyPath: respawnPoint.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
+      propertyPath: respawnPoint.y
+      value: 0
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: playerController
