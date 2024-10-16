@@ -490,9 +490,9 @@ public class VolcanoDragon : Boss
         }
 
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        rb.velocity = new Vector2(0, speed * -1f);
+        rb.velocity = new Vector2(0, speed * -2f);
 
-        yield return wait1;
+        yield return wait2;
 
         rb.velocity = new Vector2(0, 0);
         this_sprite.SetActive(false);
