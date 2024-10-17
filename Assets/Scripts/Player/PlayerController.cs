@@ -41,12 +41,19 @@ public class PlayerController : MonoBehaviour
     private Collider2D col;
 
     public float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
+    public float timeBtwFire; // 파이어볼 쿨타임
     public float startTimeBtwAttack = 0.8f; // 공격 쿨타임 설정
+    public float startTimeBtwFire = 2f; 
 
     public Transform attackPos;
     public LayerMask whatIsEnemies;
     public float attackRange; // 공격 범위
     public int damage;        // 데미지 수치
+
+    #region 투사체
+    public GameObject bulletPrefab; // 투사체 프리팹
+    private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
+    #endregion
 
     public bool canDamage;
     private bool isDamaged;
@@ -99,6 +106,11 @@ public class PlayerController : MonoBehaviour
         if (timeBtwAttack <= 0 && input.attackInput &&  !isDashing)
         {          
             StartCoroutine(Attack());
+        }
+
+        if (timeBtwFire <= 0 && input.fireballInput && !isDashing)
+        {
+            StartCoroutine(FireBall());
         }
 
     }
@@ -159,6 +171,8 @@ public class PlayerController : MonoBehaviour
         if (input.jumpBufferCounter > 0) input.jumpBufferCounter -= Time.deltaTime;
 
         if(timeBtwAttack > 0) { timeBtwAttack -= Time.deltaTime; }
+
+        if (timeBtwFire > 0) { timeBtwFire -= Time.deltaTime; }
     }
 
     void Jump()
@@ -221,6 +235,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         canDash = false;
         anim.SetBool("isDash", true);
+        SoundManager.PlaySound(SoundType.DASH, 0.4f);
         dashingDir = new Vector2(input.horizontal, 0f);
         if (dashingDir == Vector2.zero)
         {
@@ -312,6 +327,54 @@ public class PlayerController : MonoBehaviour
 
        
         timeBtwAttack = startTimeBtwAttack;
+    }
+
+    private IEnumerator FireBall()
+    {
+        canAct = false;
+        rigid.velocity = new Vector2(0, 0);
+        Debug.Log("Fire Ball");
+        anim.SetTrigger("FireBall");       
+
+        yield return new WaitForSeconds(1f);
+
+        canAct = true;
+        timeBtwFire = startTimeBtwFire;
+    }
+
+    public void ShotFireBall()
+    {
+        PlayerBullet bullet;
+        GameObject select = null;
+
+        foreach (GameObject item in pool)
+        {
+            if (!item.activeSelf)
+            {
+                select = item;
+                select.transform.position = attackPos.position;
+                select.transform.localScale = new Vector3(gameObject.transform.localScale.x, 1, 1);
+                select.SetActive(true);
+                break;
+            }
+        }
+
+        if (!select)
+        {
+            select = Instantiate(bulletPrefab, new Vector2 (attackPos.position.x, attackPos.position.y), Quaternion.identity);
+            pool.Add(select);
+        }
+
+        select.transform.localScale = new Vector3(gameObject.transform.localScale.x, 1, 1);
+        bullet = select.GetComponent<PlayerBullet>();
+        if (gameObject.transform.localScale.x > 0)
+        {
+            bullet.rb.velocity = new Vector2(bullet.speed, 0);
+        }
+        else if (gameObject.transform.localScale.x < 0)
+        {
+            bullet.rb.velocity = new Vector2(bullet.speed * -1, 0);
+        }
     }
 
     public void HitCheck()

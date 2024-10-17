@@ -1,81 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+public enum SoundType
+{
+    SWORD,FOOTSTEP,JUMP,DASH,LAND,ATTACK,HURT,MAGIC
+}
+
+[RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
-
-    [Header("#BGM")]
-    public AudioClip bgmClip;
-    public float bgmVolume;
-    AudioSource bgmPlayer;
-
-    [Header("#SFX")]
-    public AudioClip[] sfxClip;
-    public float sfxVolume;
-    public List<AudioSource> sfxPlayers;
-    public AudioSource select;
-    public GameObject sfxSound;
-
+    private AudioSource audioSource;
+    [SerializeField] private SoundList[] soundList;
 
     private void Awake()
     {
         instance = this;
-        Init();
     }
 
-    void Init()
+    private void Start()
     {
-        //배경음악 재생 오브젝트 초기화
-        GameObject bgmSound = new GameObject("BgmPlayer");
-        bgmSound.transform.parent = transform;
-        bgmPlayer = bgmSound.AddComponent<AudioSource>();
-        bgmPlayer.playOnAwake = false;
-        bgmPlayer.loop = true;
-        bgmPlayer.volume = bgmVolume;
-        bgmPlayer.clip = bgmClip;
-
-        //효과음 재생 오브젝트 초기화
-        sfxSound = new GameObject("SfxPlayer");
-        sfxSound.transform.parent = transform;
-        sfxPlayers = new List<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlayBgm(bool isPlay)
+    public static void PlaySound(SoundType sound, float volume = 1, int num = 0)
     {
-        if (isPlay) { bgmPlayer.Play(); }
-        else { bgmPlayer.Stop(); }
+        AudioClip[] clips = instance.soundList[(int)sound].Sounds;
+        //AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
+
+        instance.audioSource.PlayOneShot(clips[num], volume);
     }
 
-    public void PlaySfx(int sfx) //효과음 재생
+#if UNITY_EDITOR
+    private void OnEnable()
     {
-        bool canPlay = false;
-
-        //사용 가능한 오디오소스 탐색
-        foreach (AudioSource currentPlayer in sfxPlayers)
+        string[] names = Enum.GetNames(typeof(SoundType));
+        Array.Resize(ref soundList, names.Length);
+        for(int i = 0; i < soundList.Length; i++)
         {
-            if(!currentPlayer.isPlaying)
-            {
-                select = currentPlayer;
-                canPlay = true;
-                break;
-            }
+            soundList[i].name = names[i];
         }
-
-
-        Debug.Log(canPlay);
-        //없을 시 새로운 오디오 소스 추가
-        if (!canPlay)
-        {
-            select = sfxSound.AddComponent<AudioSource>();
-            Debug.Log("Worked");
-            select.playOnAwake = false;
-            select.volume = sfxVolume;
-            sfxPlayers.Add(select);
-        }
-
-        //select.clip = sfxClip[sfx];
-        //select.Play();
     }
+#endif
+}
+
+[Serializable]
+public struct SoundList
+{
+    public AudioClip[] Sounds { get => sounds; }
+    [HideInInspector] public string name;
+    [SerializeField] private AudioClip[] sounds;
 }

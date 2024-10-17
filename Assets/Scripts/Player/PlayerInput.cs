@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] public float jumpBufferCounter;
     public bool dashInput;
     public bool attackInput;
+    public bool fireballInput;
 
 
     //void Awake()
@@ -32,6 +33,7 @@ public class PlayerInput : MonoBehaviour
         Dash();
         Attack();
         Pause();
+        FireBall();
     }
 
     void Pause()
@@ -83,6 +85,19 @@ public class PlayerInput : MonoBehaviour
         if(Input.GetButtonUp("Attack"))
         {
             attackInput = false;
+        }
+    }
+
+    void FireBall()
+    {
+        if (Input.GetButtonDown("FireBall"))
+        {
+            fireballInput = true;
+        }
+
+        if (Input.GetButtonUp("FireBall"))
+        {
+            fireballInput = false;
         }
     }
 }

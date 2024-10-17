@@ -3,43 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
-{
-    public GameObject player;
-    public Transform bullet;
-    public float speed = 10f;
-    public int damage = 10;
+{   
+    private Animator animator;
     public Rigidbody2D rb;
+    public float speed = 5f;
 
-    private void Awake()
-    {
-        player = GameObject.FindWithTag("Player");
-        player.GetComponent<Transform>();
-    }
+    public int damage = 1;
 
-    void Start()
+    private void OnEnable()
     {
-        if (player.transform.localScale.x == 1)
-        {
-            rb.velocity = transform.right * speed;
-        }
-        else if (player.transform.localScale.x == -1)
-        {
-            rb.velocity = transform.right * speed *-1;
-        }
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {      
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().Attacked(damage, bullet.position);
+            rb.velocity = Vector2.zero;
+            collision.GetComponent<Enemy>().Attacked(damage, gameObject.transform.position);
+            StartCoroutine(OnHit());
         }
 
-        if (collision.gameObject.tag == "Switch")
+        if (collision.CompareTag("Ground") || collision.CompareTag("Platform"))
         {
-            Debug.Log("Switch Active");
-            SwitchManager.Instance.openSwitchDoor[collision.GetComponent<Switch>().num] = true;
+            rb.velocity = Vector2.zero;
+            StartCoroutine(OnHit());
         }
-        //Destroy(gameObject);
+    }
+
+    private IEnumerator OnHit()
+    {
+        animator.SetTrigger("Explo");
+        yield return new WaitForSeconds(0.2f);
+        transform.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        transform.localPosition = Vector2.zero;
     }
 }
