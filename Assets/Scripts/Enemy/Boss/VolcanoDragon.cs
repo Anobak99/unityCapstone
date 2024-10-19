@@ -91,7 +91,7 @@ public class VolcanoDragon : Boss
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            StartCoroutine(LavaEruption());
+            StartCoroutine(Hide());
         }
         if (Input.GetKeyDown(KeyCode.G))
         {

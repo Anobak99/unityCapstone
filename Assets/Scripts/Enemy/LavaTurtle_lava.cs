@@ -21,7 +21,7 @@ public class LavaTurtle_lava : MonoBehaviour
 
     private IEnumerator DisableTime()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2.5f);
         gameObject.SetActive(false);
     }
 

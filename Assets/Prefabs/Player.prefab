@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 406135717960536348}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 1.22, y: 1.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +103,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 8855693910838137715}
   - component: {fileID: 1284313668461532792}
   - component: {fileID: -8279214233809994695}
+  - component: {fileID: 141809691051163669}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -229,7 +230,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 072ee146a802e054b9af102c2bf7e4b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -255,7 +256,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 2.4375}
+  m_Size: {x: 1.125, y: 2.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -346,7 +347,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.125, y: 2.0625}
-    newSize: {x: 2.5, y: 2.4375}
+    newSize: {x: 1.125, y: 2.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -380,13 +381,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   timeBtwAttack: 0
-  startTimeBtwAttack: 0.5
+  timeBtwFire: 0
+  startTimeBtwAttack: 1
+  startTimeBtwFire: 2
   attackPos: {fileID: 1840215377923922934}
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 256
   attackRange: 1
   damage: 1
+  bulletPrefab: {fileID: 7179465635268567610, guid: 2e80c694de5f8fa449baaa810de534ab, type: 3}
   canDamage: 0
 --- !u!114 &1284313668461532792
 MonoBehaviour:
@@ -406,6 +410,7 @@ MonoBehaviour:
   jumpBufferCounter: 0
   dashInput: 0
   attackInput: 0
+  fireballInput: 0
 --- !u!114 &-8279214233809994695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,3 +426,16 @@ MonoBehaviour:
   liftingForce: 5
   holdRange: 1.5
   holdPosition: {fileID: 1840215377923922934}
+--- !u!114 &141809691051163669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373365281794207096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a89985010454d2428f66922f36892d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 0.05

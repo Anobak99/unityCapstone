@@ -205,6 +205,7 @@ public class LavaTurtle : Enemy
         animator.SetTrigger("LavaOverFlow");
 
         isLavaFlowCooldown = true;
+        yield return new WaitForSeconds(1f);
         GameObject select = null;
 
         foreach (GameObject item in pool)
@@ -227,8 +228,8 @@ public class LavaTurtle : Enemy
         }
 
         yield return new WaitForSeconds(cooldownTime);
-        isLavaFlowCooldown = false;
 
+        isLavaFlowCooldown = false;
         canAct = true;
         act1 = StartCoroutine(Think());
 

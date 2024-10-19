@@ -517,7 +517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6080312609958654048, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6719560278201563589, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -543,6 +543,11 @@ PrefabInstance:
       addedObject: {fileID: 1478095837}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+--- !u!1 &951009897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6080312609958654048, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+  m_PrefabInstance: {fileID: 951009896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &961085099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,7 +1900,8 @@ MonoBehaviour:
   roomCamera: {fileID: 2142920929}
   objects:
   - {fileID: 2142920929}
-  areaName: 
+  - {fileID: 951009897}
+  areaName: Volcano
 --- !u!61 &2051187845
 BoxCollider2D:
   m_ObjectHideFlags: 0

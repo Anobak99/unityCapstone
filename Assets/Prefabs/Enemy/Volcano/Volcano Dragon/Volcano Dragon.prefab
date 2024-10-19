@@ -105,12 +105,12 @@ SpriteRenderer:
   m_SortingLayerID: -1255376291
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 64e90de7284ddbb4f8f2c259d3009ff8, type: 3}
+  m_Sprite: {fileID: 140545246, guid: 67080693361ba3741b5dba12d1dd686b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 12.506107, y: 12.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -229,25 +229,23 @@ MonoBehaviour:
   canAct: 0
   canDamage: 0
   isDead: 0
-  isAttack: 0
   dropTable: []
   speed: 7
-  groundCheck: {fileID: 5656196516194647959}
-  groundLayor:
-    serializedVersion: 2
-    m_Bits: 128
-  WallCheck: {fileID: 3209989880372365064}
-  firstLava:
-  - {fileID: 0}
-  - {fileID: 0}
-  secondLava:
-  - {fileID: 0}
-  - {fileID: 0}
+  fireBreath: {fileID: 0}
+  eruption: {fileID: 0}
+  SurpriseEffect: {fileID: 0}
+  this_sprite: {fileID: 0}
+  lavaTilemap: {fileID: 0}
+  lavaTile: {fileID: 0}
+  riseSpeed: 0.5
+  maxHeight: 10
+  minHeight: 0
+  tilemapWidth: 10
+  tilemapWidth_start: 0
   hidePos: {fileID: 0}
-  countMax: 3
+  viewRange: 0
   meleeattackRange: 3.3
   breathRange: 8
-  cooldownTime: 5
 --- !u!50 &6039508485178614262
 Rigidbody2D:
   serializedVersion: 4

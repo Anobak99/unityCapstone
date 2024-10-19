@@ -106,6 +106,7 @@ public class Turtler_move : Enemy
         rb.velocity = Vector2.zero;
         ready = true;
         animator.SetBool("Hit", true);
+        SoundManager.PlaySound(SoundType.HURT, 0.2f, 2);
         canDamage = false;
         animator.SetInteger("AnimState", 0);
         spriteRenderer.material = flashMaterial;
