@@ -55,10 +55,10 @@ public class LavaTurtle : Enemy
         if (player != null && !GameManager.Instance.isDead)
         {
             horizental = player.position.x - transform.position.x;
-            if (horizental < viewRange && player.position.y +1.5f >= transform.position.y && player.position.y < transform.position.y) //대상이 인식 범위 안쪽일 경우
+            playerDistance = Mathf.Abs(horizental);
+            if (playerDistance < viewRange && player.position.y +1.5f >= transform.position.y && player.position.y < transform.position.y) //대상이 인식 범위 안쪽일 경우
             {
                 FlipToPlayer(horizental);
-                playerDistance = Mathf.Abs(horizental);
                 if (playerDistance > attackRange) //대상의 거리가 공격범위 밖일 경우
                 {
                     Debug.Log("플레이어 공격 범위 밖");
@@ -128,8 +128,7 @@ public class LavaTurtle : Enemy
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-       
-        Instantiate(blood, new Vector2(transform.position.x, transform.position.y + 1f), Quaternion.identity);
+        SoundManager.PlaySound(SoundType.HURT, 1, 3);
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", true);
         canDamage = false;
@@ -157,16 +156,17 @@ public class LavaTurtle : Enemy
             yield break;
         }
 
+        canDamage = true;
+
         if (!isLavaFlowCooldown)
         {
-            StartCoroutine(LavaOverFlow());
+            yield return StartCoroutine(LavaOverFlow());
         }
         else
         {
             act1 = StartCoroutine(Think());
         }
-
-        canDamage = true;
+       
     }
 
     private void Check()
@@ -203,8 +203,6 @@ public class LavaTurtle : Enemy
     {
         Debug.Log("라바 오버플러우");      
         animator.SetTrigger("LavaOverFlow");
-
-        isLavaFlowCooldown = true;
         yield return new WaitForSeconds(1f);
         GameObject select = null;
 
@@ -227,13 +225,30 @@ public class LavaTurtle : Enemy
             pool.Add(select);
         }
 
-        yield return new WaitForSeconds(cooldownTime);
+        StartCoroutine(LavaCooldown());
+        yield return new WaitForSeconds(4f);
 
-        isLavaFlowCooldown = false;
         canAct = true;
         act1 = StartCoroutine(Think());
 
         yield return null;
+    }
+
+    IEnumerator LavaCooldown()
+    {
+        isLavaFlowCooldown = true;
+
+        float elapsedTime = 0f;
+
+        // 쿨타임 동안 시간을 체크하고 UI 업데이트
+        while (elapsedTime < cooldownTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        isLavaFlowCooldown = false; // 쿨타임 종료
+        Debug.Log("Cooldown finished. You can use the skill again.");
     }
 
     public override IEnumerator Attack()

@@ -31,10 +31,12 @@ public class UIManager : MonoBehaviour
 
     public ScreenFader screenFader;
     public GameObject HPUI;
+    public GameObject blackScreen;
     [SerializeField] private GameObject deathMassage;
     [SerializeField] private Slider hpBar;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject mapImage;
+    
 
     private void Awake()
     {

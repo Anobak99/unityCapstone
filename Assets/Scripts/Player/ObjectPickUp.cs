@@ -9,7 +9,13 @@ public class ObjectPickUp : MonoBehaviour
     public Transform holdPosition;   // 들고 있는 위치
 
     private Rigidbody2D heldObject;  // 들고 있는 물체의 Rigidbody2D
+    private Animator animator;
     private bool isHolding = false;  // 현재 물건을 들고 있는지 여부
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -42,6 +48,7 @@ public class ObjectPickUp : MonoBehaviour
             if (col.CompareTag("Pickupable"))
             {
                 // 들고 있는 물체 설정
+                animator.SetBool("isGrab", true);
                 heldObject = col.GetComponent<Rigidbody2D>();
                 heldObject.mass = 0;
                 col.transform.SetParent(transform);
@@ -61,6 +68,7 @@ public class ObjectPickUp : MonoBehaviour
         // 물체 놓기
         if (heldObject != null)
         {
+            animator.SetBool("isGrab", false);
             heldObject.mass = 1000;
             heldObject.transform.SetParent(null);
             heldObject.gravityScale = 1f;

@@ -181,9 +181,9 @@ GameObject:
   - component: {fileID: 8902728411599764245}
   - component: {fileID: 3775630747754395304}
   - component: {fileID: 9069026418745721363}
+  - component: {fileID: -8494552680934119788}
   - component: {fileID: 8855693910838137715}
   - component: {fileID: 1284313668461532792}
-  - component: {fileID: -8279214233809994695}
   - component: {fileID: 141809691051163669}
   m_Layer: 6
   m_Name: Player
@@ -355,6 +355,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.125, y: 1.940492}
   m_EdgeRadius: 0
+--- !u!81 &-8494552680934119788
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373365281794207096}
+  m_Enabled: 1
 --- !u!114 &8855693910838137715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,30 +376,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  gravity: 5
   vertical: 0
-  jumpPower: 15
-  djumpPower: 15
   jumpTime: 0
   coyoteTimeCounter: 0
+  gravity: 5
+  jumpPower: 15
+  djumpPower: 15
   dashSpeed: 20
   dashTime: 0.1
-  groundCheck: {fileID: 6599504246180515065}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  timeBtwAttack: 0
-  timeBtwFire: 0
-  startTimeBtwAttack: 1
-  startTimeBtwFire: 2
+  holdPosition: {fileID: 1840215377923922934}
+  liftingForce: 5
+  holdRange: 1.5
   attackPos: {fileID: 1840215377923922934}
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 256
-  attackRange: 1
   damage: 1
+  attackRange: 1
+  startTimeBtwAttack: 1
+  timeBtwAttack: 0
   bulletPrefab: {fileID: 7179465635268567610, guid: 2e80c694de5f8fa449baaa810de534ab, type: 3}
+  timeBtwFire: 0
+  startTimeBtwFire: 2
+  groundCheck: {fileID: 6599504246180515065}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
   canDamage: 0
+  isRespawn: 0
 --- !u!114 &1284313668461532792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,21 +423,6 @@ MonoBehaviour:
   dashInput: 0
   attackInput: 0
   fireballInput: 0
---- !u!114 &-8279214233809994695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6373365281794207096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77153eb209159444ea727330710f5aa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  liftingForce: 5
-  holdRange: 1.5
-  holdPosition: {fileID: 1840215377923922934}
 --- !u!114 &141809691051163669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,4 +435,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a89985010454d2428f66922f36892d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundNum: 0
   volume: 0.05

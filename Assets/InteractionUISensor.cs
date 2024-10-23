@@ -48,7 +48,7 @@ public class InteractionUISensor : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<ObjectPickUp>().holding() == true)
+        if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerController>().holding() == true)
         {
             InteractionImg.enabled = false;
         }

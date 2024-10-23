@@ -24,7 +24,7 @@ public class VolcanoDragon : Boss
     [Header("Object")]
     public GameObject fireBreath;
     public GameObject eruption;
-    public GameObject SurpriseEffect;
+    public GameObject SurpriseEffect; // 기습 공격 위치 전조 알림
     public GameObject this_sprite;
     [Space(10f)]
     #endregion
@@ -48,6 +48,11 @@ public class VolcanoDragon : Boss
     [SerializeField] private Transform hidePos; // 숨는 위치
     private float hideHorizental;
     [Space(10f)]
+    #endregion
+
+    #region CoolTime
+    [SerializeField] private float HidecooldownTime;
+    private bool IsHideCoolingDown;
     #endregion
 
     #region Count
@@ -104,7 +109,7 @@ public class VolcanoDragon : Boss
         if (GameManager.Instance.gameState != GameManager.GameState.Boss || isDead || Time.timeScale == 0) yield return null;
 
         if (canAct && player != null && !GameManager.Instance.isDead)
-        {
+        {            
             Debug.Log("생각중 . . . ");
             rb.velocity = new Vector2(0, 0);
             horizental = player.position.x - transform.position.x;
@@ -113,9 +118,9 @@ public class VolcanoDragon : Boss
                 switch (currentState)
                 {
                     case BossState.Idle:
-                        if(atk_Count == atk_countMax && hp < maxHp/2)
+                        if (!IsHideCoolingDown && hp < maxHp / 2)
+                        // 피가 50% 아래인 경우 -> 숨기
                         {
-                            atk_Count = 0;
                             yield return StartCoroutine(TransitionToState(BossState.Hide));
                         }
                         else if (Vector2.Distance(transform.position, player.position) < meleeattackRange)
@@ -131,25 +136,29 @@ public class VolcanoDragon : Boss
                         }
                         else if (Vector2.Distance(transform.position, player.position) < viewRange)
                         {
-                            StartCoroutine(TransitionToState(BossState.ChasePlayer));
+                            yield return StartCoroutine(TransitionToState(BossState.ChasePlayer));
                         }
 
                         break;
 
                     case BossState.ChasePlayer:
                             yield return StartCoroutine(ChasePlayer());
-                            yield return wait1;
                             yield return StartCoroutine(TransitionToState(BossState.Idle));
 
                         break;
                         
                     case BossState.MeleeAttack:
                         yield return StartCoroutine(MeleeAttack());
-                        yield return new WaitForSeconds(1.5f); // 공격 후 딜레이
+                        yield return new WaitForSeconds(1f); // 공격 후 딜레이
 
-                        if (atk_Count == atk_countMax && hp < maxHp / 2)
+                        if (atk_Count == atk_countMax)
                         {
                             atk_Count = 0;
+                            yield return StartCoroutine(TransitionToState(BossState.LavaEruption));
+                        }
+                        else if (!IsHideCoolingDown && hp < maxHp / 2)
+                        // 피가 50% 아래인 경우 -> 숨기
+                        {
                             yield return StartCoroutine(TransitionToState(BossState.Hide));
                         }
                         else if (meleeAtk_Count == meleeAtk_countMax) 
@@ -157,7 +166,7 @@ public class VolcanoDragon : Boss
                         {
                             Debug.Log("근접 공격 full count");
                             meleeAtk_Count = 0;
-                            StartCoroutine(TransitionToState(BossState.LavaFlood));
+                            yield return StartCoroutine(TransitionToState(BossState.LavaFlood));
                         }
                         else if (Vector2.Distance(transform.position, player.position) < breathRange &&
                                     1 < Mathf.Abs(player.transform.position.y - gameObject.transform.position.y))
@@ -170,11 +179,16 @@ public class VolcanoDragon : Boss
 
                     case BossState.FireBreath:
                         yield return StartCoroutine(Breath());
-                        yield return new WaitForSeconds(2f); // 화염 브레스 후 딜레이
+                        yield return new WaitForSeconds(0.5f); // 화염 브레스 후 딜레이
 
-                        if (atk_Count == atk_countMax && hp < maxHp / 2)
+                        if (breath_Count == breath_countMax)
                         {
-                            atk_Count = 0;
+                            breath_Count = 0;
+                            yield return StartCoroutine(TransitionToState(BossState.ChasePlayer));
+                        }
+                        else if (!IsHideCoolingDown && hp < maxHp / 2)
+                        // 피가 50% 아래인 경우 -> 숨기
+                        {
                             yield return StartCoroutine(TransitionToState(BossState.Hide));
                         }
                         else if (2 < Mathf.Abs(player.transform.position.y - gameObject.transform.position.y) || breath_Count == breath_countMax)
@@ -182,12 +196,12 @@ public class VolcanoDragon : Boss
                         {
                             Debug.Log("브레스 full count");
                             breath_countMax = 0;
-                            StartCoroutine(TransitionToState(BossState.ChasePlayer));
+                            yield return StartCoroutine(TransitionToState(BossState.ChasePlayer));
                         }
                         else if (Vector2.Distance(transform.position, player.position) < meleeattackRange) 
                             // 근접 공격 범위 안에 있을 경우 -> 근접 공격
                         {
-                            StartCoroutine(TransitionToState(BossState.MeleeAttack));
+                            yield return StartCoroutine(TransitionToState(BossState.MeleeAttack));
                         }
                         else if (player.position.y < 68f) 
                             // 플레어이의 위치가 아래 쪽인 경우 -> 용암 분화
@@ -198,16 +212,16 @@ public class VolcanoDragon : Boss
                         break;
 
                     case BossState.LavaFlood:
-                        yield return StartCoroutine(LavaFlood());
+                        StartCoroutine(LavaFlood());
                         yield return new WaitForSeconds(1f); // 용암 분출 후 딜레이
 
-                        if (lavaflood_Count == lavaflood_countMax)
+                        if (!IsHideCoolingDown && lavaflood_Count == lavaflood_countMax)
                         {
                             Debug.Log("용암 분출 full count");
                             lavaflood_Count = 0;
-                            yield return StartCoroutine(TransitionToState(BossState.LavaEruption));
+                            yield return StartCoroutine(TransitionToState(BossState.Hide));
                         }
-                        else if (hp < maxHp/2) 
+                        else if (!IsHideCoolingDown && hp < maxHp/2) 
                             // 피가 50% 아래인 경우 -> 숨기
                         {
                             yield return StartCoroutine(TransitionToState(BossState.Hide));
@@ -215,12 +229,16 @@ public class VolcanoDragon : Boss
                         else if (Vector2.Distance(transform.position, player.position) < meleeattackRange) 
                             // 근접 공격 범위 안에 있을 경우 -> 근접 공격
                         {
-                            TransitionToState(BossState.MeleeAttack);
+                            yield return StartCoroutine(TransitionToState(BossState.MeleeAttack));
                         }
                         else if (Vector2.Distance(transform.position, player.position) < breathRange) 
                             // 브레스 범위 안에 있을 경우 -> 브레스 
                         {
                             yield return StartCoroutine(TransitionToState(BossState.FireBreath));
+                        }
+                        else
+                        {
+                            yield return StartCoroutine(TransitionToState(BossState.ChasePlayer));
                         }
 
                         break;
@@ -234,7 +252,7 @@ public class VolcanoDragon : Boss
 
                     case BossState.Hide:
                         yield return StartCoroutine(Hide());
-                        yield return new WaitForSeconds(2.0f); // 기습 공격 후 딜레이
+                        yield return new WaitForSeconds(1.5f); // 기습 공격 후 딜레이
                         yield return StartCoroutine(TransitionToState(BossState.Idle));
 
                     break;            
@@ -368,11 +386,12 @@ public class VolcanoDragon : Boss
 
         FlipToPlayer(horizental);
         rb.velocity = Vector2.zero;
-        animator.SetTrigger("Breath");        
-        fireBreath.SetActive(true);
+        animator.SetTrigger("Breath");
+        animator.SetBool("IsBreath", true);
 
-        yield return new WaitForSeconds(4f); // 브레스 지속시간
+        yield return new WaitForSeconds(3f); // 브레스 지속시간
 
+        animator.SetBool("IsBreath", false);
         fireBreath.SetActive(false);
     }
 
@@ -385,6 +404,7 @@ public class VolcanoDragon : Boss
         animator.SetTrigger("LavaFlood");
         CameraShake.Instance.OnShakeCamera();
 
+        
         while (true)
         {
             Debug.Log(currentHeight);
@@ -401,7 +421,7 @@ public class VolcanoDragon : Boss
                 {
                     // 최대 높이에 도달했을 때 잠시 멈추고 하강
                     rising = false;
-                    yield return new WaitForSeconds(2f);
+                    yield return wait1;
                 }
             }
             else if (!rising)
@@ -465,7 +485,7 @@ public class VolcanoDragon : Boss
 
         int loopnum=0;
 
-        FlipToHidePos(hideHorizental);
+        FlipToHidePos(hideHorizental);       
 
         while(hidePos.transform.position.x != this.transform.position.x)
         {
@@ -514,13 +534,18 @@ public class VolcanoDragon : Boss
         SurpriseEffect.SetActive(false);
 
         int loopnum = 0;
-
         while (gameObject.transform.position.y < 86f)
         {
             if(hidePos.transform.position.y < gameObject.transform.position.y)
             {
-                this_sprite.SetActive(true);
-                animator.SetBool("SurpriseAtk", true);
+                if (!this_sprite.activeSelf)
+                {
+                    this_sprite.SetActive(true);
+                }
+                if (!animator.GetBool("SurpriseAtk"))
+                {
+                    animator.SetBool("SurpriseAtk", true);
+                }
             }
 
             rb.velocity = new Vector2(0, 10f);
@@ -533,12 +558,14 @@ public class VolcanoDragon : Boss
         }
 
         animator.SetBool("SurpriseAtk", false);
+        yield return wait1;
         this_sprite.SetActive(false);
 
         yield return new WaitForSeconds(3f);
 
         gameObject.transform.position = hidePos.position;
         this_sprite.SetActive(true);
+        
 
         while (gameObject.transform.position.y < 70.5f)
         {
@@ -552,11 +579,29 @@ public class VolcanoDragon : Boss
         }
         rb.velocity = new Vector2(0, 0f);
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        StartCoroutine(HideCooldown());
+    }
+
+    IEnumerator HideCooldown()
+    {
+        IsHideCoolingDown = true;
+
+        float elapsedTime = 0f;
+
+        // 쿨타임 동안 시간을 체크하고 UI 업데이트
+        while (elapsedTime < HidecooldownTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        IsHideCoolingDown = false; // 쿨타임 종료
+        Debug.Log("Cooldown finished. You can use the skill again.");
     }
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-        animator.SetBool("Hit", true);
+        animator.SetTrigger("Hit");
         canDamage = false;
         spriteRenderer.material = flashMaterial;
         hp -= dmg;
@@ -569,7 +614,6 @@ public class VolcanoDragon : Boss
         }
 
         yield return wait1;
-        animator.SetBool("Hit", false);
         canDamage = true;
     }
 

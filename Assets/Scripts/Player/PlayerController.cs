@@ -6,59 +6,80 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    #region Move
+    [Header("움직임")]
+    private Rigidbody2D rigid;
+    private Animator anim;
+    private PlayerInput input;
     private GameObject currentOneWayPlatform; // onewayplatform 오브젝트
     private Collider2D playerCollider;
-
     public float moveSpeed;
+    #endregion
 
-    public float gravity = 5;
-    [SerializeField] private float vertical;
-    public float jumpPower;
-    public float djumpPower;
-    private float jumpCounter;
+    #region Jump
+    [Header("점프")]
+    [SerializeField] private float vertical; // 수직항력
     [SerializeField] private float jumpTime;
-    private bool isJumping;
-    private bool doubleJump;
+    [SerializeField] private float coyoteTimeCounter;
+    public float gravity = 5;
+    public float jumpPower;
+    public float djumpPower;    
+    private float jumpCounter;    
     private float maxJumpTime = 0.25f;
     private float coyoteTime = 0.2f;
-    [SerializeField] private float coyoteTimeCounter;
+    private bool isJumping;
+    private bool doubleJump;
+    #endregion
 
-    // 대시
+    #region Dash
+    [Header("대시")]
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashTime = 0.1f;
     private Vector2 dashingDir;
     private bool isDashing;
     private bool canDash = true;
+    #endregion
 
-    private Rigidbody2D rigid;
-    private Animator anim;
-    private PlayerInput input;
+    #region Object Pickup
+    [Header("잡기")]
+    public Transform holdPosition;   // 들고 있는 위치
+    private Rigidbody2D heldObject;  // 들고 있는 물체의 Rigidbody2D
+    public float liftingForce = 5f; // 들기 힘
+    public float holdRange = 1.5f;
+    private bool isHolding = false;  // 현재 물건을 들고 있는지 여부
+    #endregion
 
-    
+    #region Attack
+    [Header("공격")]
+    public Transform attackPos;
+    public LayerMask whatIsEnemies;
+    public int damage;        // 데미지 수치
+    public float attackRange; // 공격 범위
+    public float startTimeBtwAttack = 0.8f; // 공격 쿨타임 설정
+    public float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
+    #endregion
+
+    #region FireBall
+    [Header("파이어볼")]
+    public GameObject bulletPrefab; // 투사체 프리팹
+    private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
+    public float timeBtwFire;
+    public float startTimeBtwFire = 2f; // 투사체 쿨타임
+    #endregion
+
+    #region Checker
+    [Header("체커")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     private Vector2 boxSize = new Vector2(0.8f, 0.2f);
     private Collider2D col;
 
-    public float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
-    public float timeBtwFire; // 파이어볼 쿨타임
-    public float startTimeBtwAttack = 0.8f; // 공격 쿨타임 설정
-    public float startTimeBtwFire = 2f; 
-
-    public Transform attackPos;
-    public LayerMask whatIsEnemies;
-    public float attackRange; // 공격 범위
-    public int damage;        // 데미지 수치
-
-    #region 투사체
-    public GameObject bulletPrefab; // 투사체 프리팹
-    private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
-    #endregion
-
     public bool canDamage;
     private bool isDamaged;
     private bool canAct;
     private bool isDead;
+    public bool isRespawn;
+    #endregion
 
     private void Awake()
     {
@@ -69,13 +90,14 @@ public class PlayerController : MonoBehaviour
         canDamage = true;
         canAct = true;
         isDead = false;
+        isRespawn = false;
     }
 
     private void Update()
     {
         UpdateVariables();
         
-        if(!canAct || isDead || Time.timeScale == 0f) { return; }
+        if(!canAct || isRespawn || isDead || Time.timeScale == 0f) { return; }
 
         Flip();
         Run();
@@ -94,23 +116,42 @@ public class PlayerController : MonoBehaviour
         }
 
         // 대시 
-        if (input.dashInput && canDash)
+        if (input.dashInput && canDash && !isHolding)
         {
-            Debug.Log("Dash");
+            //Debug.Log("Dash");
             isDashing = true;
             canDash = false;
             canDamage = false;
             StartCoroutine(Dashing());
         }
 
-        if (timeBtwAttack <= 0 && input.attackInput &&  !isDashing)
+        if (timeBtwAttack <= 0 && input.attackInput && !isDashing && !isHolding)
         {          
             StartCoroutine(Attack());
         }
 
-        if (timeBtwFire <= 0 && input.fireballInput && !isDashing)
+        if (timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
         {
             StartCoroutine(FireBall());
+        }
+
+        // 물건 들기/놓기 토글
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (isHolding)
+            {
+                ReleaseObject();
+            }
+            else
+            {
+                PickUpObject();
+            }
+        }
+
+        // 물건을 들고 있는 경우 위치 업데이트
+        if (isHolding)
+        {
+            UpdateHeldObjectPosition();
         }
 
     }
@@ -177,7 +218,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (coyoteTimeCounter > 0f && input.jumpBufferCounter > 0f && !isJumping)
+        if (coyoteTimeCounter > 0f && input.jumpBufferCounter > 0f && !isJumping && !isHolding)
         {
             //SoundManager.instance.PlaySfx(0);
             input.jumpBufferCounter = 0f;
@@ -190,7 +231,7 @@ public class PlayerController : MonoBehaviour
         if(!IsGrounded() && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
             //SoundManager.instance.PlaySfx(0);
-            Debug.Log("double jump");
+            //Debug.Log("double jump");
             input.jumpBufferCounter = 0f;
             isJumping = true;
             doubleJump = false;
@@ -248,6 +289,61 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (!isDamaged) canDamage = true;
         canDash = true;
+    }
+
+    void PickUpObject()
+    {
+        // 근처에 있는 물체 찾기
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, holdRange);
+        foreach (Collider2D col in colliders)
+        {
+            if (col.CompareTag("Pickupable"))
+            {
+                // 들고 있는 물체 설정
+                anim.SetBool("isGrab", true);
+                heldObject = col.GetComponent<Rigidbody2D>();
+                heldObject.mass = 0;
+                col.transform.SetParent(transform);
+                if (heldObject != null)
+                {
+                    isHolding = true;
+                    heldObject.gravityScale = 0f;
+                }
+                break;
+            }
+        }
+
+    }
+
+    void ReleaseObject()
+    {
+        // 물체 놓기
+        if (heldObject != null)
+        {
+            anim.SetBool("isGrab", false);
+            heldObject.mass = 1000;
+            heldObject.transform.SetParent(null);
+            heldObject.gravityScale = 1f;
+            heldObject = null;
+            isHolding = false;
+            SoundManager.PlaySound(SoundType.JUMP, 0.3f, 0);
+        }
+    }
+
+    void UpdateHeldObjectPosition()
+    {
+        // 들고 있는 물체를 들고 있는 위치로 이동
+        if (heldObject != null)
+        {
+            heldObject.velocity = Vector2.zero;
+            heldObject.angularVelocity = 0f;
+            heldObject.MovePosition(holdPosition.position);
+        }
+    }
+
+    public bool holding()
+    {
+        return isHolding;
     }
 
     public void TakeDamage(int dmg)
@@ -413,6 +509,10 @@ public class PlayerController : MonoBehaviour
 
         // 공격상태확인
         if (stateInfo.IsName("Attack") && IsGrounded())
+        {
+            rigid.velocity = new Vector2(0f, rigid.velocity.y);
+        }
+        else if (stateInfo.IsName("Attack2") && IsGrounded())
         {
             rigid.velocity = new Vector2(0f, rigid.velocity.y);
         }

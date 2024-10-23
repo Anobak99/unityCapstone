@@ -56,7 +56,7 @@ public class SoundManager : MonoBehaviour
     public static void PlaySound(SoundType sound, float volume = 1, int num = 0)
     {
         AudioClip[] clips = instance.soundList[(int)sound].Sounds;
-        Debug.Log("»ç¿îµå : "+ clips[num] + ",  º¼·ý : " + volume);
+        //Debug.Log("»ç¿îµå : "+ clips[num] + ",  º¼·ý : " + volume);
         instance.audioSource.PlayOneShot(clips[num], volume);
     }
 

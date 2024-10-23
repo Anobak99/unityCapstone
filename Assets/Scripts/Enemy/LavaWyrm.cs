@@ -102,7 +102,7 @@ public class LavaWyrm : Enemy
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        animator.SetBool("Hit", true);
+        animator.SetTrigger("Hit");
         canDamage = false;
         spriteRenderer.material = flashMaterial;
 
@@ -121,7 +121,6 @@ public class LavaWyrm : Enemy
         spriteRenderer.material = defalutMaterial;
         yield return new WaitForSeconds(0.4f);
         rb.velocity = Vector2.zero;
-        animator.SetBool("Hit", false);
 
         if (hp <= 0)
         {

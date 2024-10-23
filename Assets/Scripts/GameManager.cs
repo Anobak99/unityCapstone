@@ -87,6 +87,11 @@ public class GameManager : MonoBehaviour
         mainCam.SetActive(false);
     }
 
+    public void CamON()
+    {
+        mainCam.SetActive(true);
+    }
+
     public void PlayerHit(int dmg) //플레이어 피격처리
     {
         if(playerController.canDamage) //플레이어가 피격 가능일 경우

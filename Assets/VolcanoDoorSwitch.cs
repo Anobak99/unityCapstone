@@ -25,6 +25,7 @@ public class VolcanoDoorSwitch : MonoBehaviour
             if (!SceneManager.GetSceneByName("Volcano_8").isLoaded) // 열려고하는  문 오브젝트의 씬이 활성화되지 않았을 때
             {
                 SceneManager.LoadSceneAsync("Volcano_8", LoadSceneMode.Additive);
+                SoundManager.PlaySound(SoundType.SFX, 1, 7);
                 GameObject door = GameObject.Find("Door");
                 door.SetActive(false);
                 col.enabled = false;
@@ -33,6 +34,7 @@ public class VolcanoDoorSwitch : MonoBehaviour
             }
             else
             {
+                SoundManager.PlaySound(SoundType.SFX, 1, 7);
                 GameObject door = GameObject.Find("Door");
                 door.SetActive(false);
                 col.enabled = false;

@@ -249,6 +249,7 @@ public class Drako_move : Boss
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         canDamage = false;
+        SoundManager.PlaySound(SoundType.HURT, 1, 3);
         spriteRenderer.material = flashMaterial;
         hp -= dmg;
         yield return new WaitForSeconds(0.1f);
