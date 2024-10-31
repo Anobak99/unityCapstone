@@ -12,7 +12,7 @@ public class RoomCheck : MonoBehaviour
     [SerializeField] private string curScene;
     [SerializeField] GameObject roomCamera;
     [SerializeField] GameObject[] objects;
-    [SerializeField] public string areaName;
+    [SerializeField] string areaName;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

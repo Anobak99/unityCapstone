@@ -5315,7 +5315,7 @@ MonoBehaviour:
   objects:
   - {fileID: 1361457605}
   - {fileID: 1352989724}
-  - {fileID: 508814347}
+  - {fileID: 0}
   areaName: Forest
 --- !u!61 &294767299
 BoxCollider2D:
@@ -5905,68 +5905,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &508814346
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5864604477160673110, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_Name
-      value: Flame_eye
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 102
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8643808191135397711, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
---- !u!1 &508814347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5864604477160673110, guid: d0740e57f1adbb341af773b5731f8935, type: 3}
-  m_PrefabInstance: {fileID: 508814346}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &672043342
 GameObject:
   m_ObjectHideFlags: 0
@@ -15930,8 +15868,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6191b0b3273e2488fa519c59651978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundList: []
-  enemysoundPool: []
+  bgmClip: {fileID: 0}
+  bgmVolume: 0
+  sfxClip: []
+  sfxVolume: 0
+  sfxPlayers: []
+  select: {fileID: 0}
+  sfxSound: {fileID: 0}
 --- !u!4 &2032302370
 Transform:
   m_ObjectHideFlags: 0
@@ -19551,4 +19494,3 @@ SceneRoots:
   - {fileID: 1828477749}
   - {fileID: 995399606}
   - {fileID: 1679560821}
-  - {fileID: 508814346}

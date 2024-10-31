@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator animator;
     [HideInInspector] public SpriteRenderer spriteRenderer;
+    [SerializeField] Subject playerSubject;
     public Material flashMaterial;
     public Material defalutMaterial;
     [HideInInspector] public bool canAct;
@@ -133,5 +134,10 @@ public class Enemy : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void OnNotify()
+    {
+        gameObject.SetActive(false);
     }
 }

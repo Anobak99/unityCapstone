@@ -23,7 +23,6 @@ public class SavePoint : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                SoundManager.PlaySound(SoundType.SFX, 1, 8);
                 GameManager.Instance.respawnScene = GameManager.Instance.currentScene;
                 GameManager.Instance.respawnPoint = savedPos;
                 DataManager.Instance.SaveData();

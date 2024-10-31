@@ -18,11 +18,6 @@ public class GameManager : MonoBehaviour
                 {
                     instance = obj;
                 }
-                else
-                {
-                    var newObj = new GameObject().AddComponent<GameManager>();
-                    instance = newObj;
-                }
             }
             return instance;
         }
@@ -38,6 +33,7 @@ public class GameManager : MonoBehaviour
     public int hp;
 
     public Vector2 respawnPoint;
+    public Vector2 posToLoad;
     public string respawnScene;
     [HideInInspector] public bool isRespawn;
     [HideInInspector] public bool isDead;
@@ -73,23 +69,20 @@ public class GameManager : MonoBehaviour
         cam = mainCam.GetComponentInChildren<CameraFollow>();
         if (isRespawn)
         {
-            player.transform.position = respawnPoint;
+            gameState = GameState.Field;
+            player.transform.position = posToLoad;
             playerController.Respawn();
             isRespawn = false;
+            StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
         }
         cam.cameraMove = true;
         cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));
-        //StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0.3f));
+        
     }
     
     public void CamOff()
     {
         mainCam.SetActive(false);
-    }
-
-    public void CamON()
-    {
-        mainCam.SetActive(true);
     }
 
     public void PlayerHit(int dmg) //플레이어 피격처리
@@ -109,20 +102,16 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateHealth(hp, maxHp);
     }
 
-    public IEnumerator RespawnPlayer() //플레이어 부활
+    public void RespawnPlayer() //플레이어 부활
     {
         if(!isRespawn)
         {
             isRespawn = true;
             currentScene = "";
+            posToLoad = respawnPoint;
             DataManager.Instance.LoadData();
-            UnloadAllScenes();
             MapManager.Instance.LoadMapInfo();
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
-            while (!asyncOperation.isDone)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
+            StartCoroutine(ChangeScene(respawnScene));
             hp = maxHp;
             UIManager.Instance.UpdateHealth(hp, maxHp);
             isDead = false;
@@ -136,7 +125,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void UnloadAllScenes()
+    public void UnloadAllScenes()
     {
         int count = SceneManager.sceneCount;
         for(int i = 0; i < count; i++)
@@ -144,6 +133,17 @@ public class GameManager : MonoBehaviour
             Scene scene = SceneManager.GetSceneAt(i);
             if(scene.name != "Map")
                SceneManager.UnloadSceneAsync(scene);
+        }
+    }
+
+    public IEnumerator ChangeScene(string sceneName)
+    {
+        UnloadAllScenes();
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        while (!asyncOperation.isDone)
+        {
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

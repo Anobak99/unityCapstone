@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : Subject
 {
     public float horizontal;
     public bool jumpPressed;
@@ -13,27 +13,20 @@ public class PlayerInput : MonoBehaviour
     public bool attackInput;
     public bool fireballInput;
 
-
-    //void Awake()
-    //{
-    //    var objs = FindObjectsOfType<PlayerInput>();
-    //    if (objs.Length != 1)
-    //    {
-    //        Destroy(gameObject);
-    //        return;
-    //    }
-    //    DontDestroyOnLoad(gameObject);
-    //}
-
     void Update()
     {
+        if(GameManager.Instance.gameState==GameManager.GameState.Field || GameManager.Instance.gameState== GameManager.GameState.Boss)
+        {
+            Jump();
+            Dash();
+            Attack();
+            FireBall();
+        }
+
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        Jump();
-        Dash();
-        Attack();
+        
         Pause();
-        FireBall();
     }
 
     void Pause()

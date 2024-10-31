@@ -24,11 +24,6 @@ public class MapManager : MonoBehaviour
                 {
                     instance = obj;
                 }
-                else
-                {
-                    var newObj = new GameObject().AddComponent<MapManager>();
-                    instance = newObj;
-                }
             }
             return instance;
         }

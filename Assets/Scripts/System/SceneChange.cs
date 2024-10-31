@@ -15,7 +15,6 @@ public class SceneChange : MonoBehaviour
         if (collision.CompareTag("Player") && !SceneManager.GetSceneByName(nextScene).isLoaded)
         {
             SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
-            //StartCoroutine(UIManager.Instance.screenFader.FadeAndLoadScene(ScreenFader.FadeDirection.In, nextScene));
         }
     }
 

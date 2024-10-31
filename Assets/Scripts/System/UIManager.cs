@@ -19,11 +19,6 @@ public class UIManager : MonoBehaviour
                 {
                     instance = obj;
                 }
-                else
-                {
-                    var newObj = new GameObject().AddComponent<UIManager>();
-                    instance = newObj;
-                }
             }
             return instance;
         }
@@ -31,12 +26,11 @@ public class UIManager : MonoBehaviour
 
     public ScreenFader screenFader;
     public GameObject HPUI;
-    public GameObject blackScreen;
     [SerializeField] private GameObject deathMassage;
     [SerializeField] private Slider hpBar;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject mapImage;
-    
+    public GameObject blackScreen;
 
     private void Awake()
     {
@@ -53,7 +47,7 @@ public class UIManager : MonoBehaviour
 
     public void RespawnBtn()
     {
-        StartCoroutine(GameManager.Instance.RespawnPlayer());
+        GameManager.Instance.RespawnPlayer();
     }
 
     public IEnumerator ActivateDeathMassage()
@@ -68,7 +62,7 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         deathMassage.SetActive(false);
-        StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
+        //StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
     }
 
     public void UpdateHealth(int hp, int maxHp)
