@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MovePos : MonoBehaviour
+{
+    [SerializeField] private Vector2 m_Pos;
+    [SerializeField] private string curScene;
+    private Vector2 nextPos;
+    [SerializeField] private GameObject playerObj;
+    [HideInInspector] public bool isMoved;
+    Subject playerSubject;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerSubject = collision.GetComponent<PlayerInput>();
+            playerSubject.NotifyObservers();
+            if (GameManager.Instance.currentScene == curScene)
+            {
+                GameManager.Instance.nextScene = true;
+                Debug.Log("Setting current scene's player to inactive");
+                collision.gameObject.SetActive(false);
+                nextPos = new Vector2(GameManager.Instance.player.transform.position.x + m_Pos.x,
+                                            GameManager.Instance.player.transform.position.y + m_Pos.y);
+                GameManager.Instance.CamOff();
+                Debug.Log("Activating player object in the next scene");
+                playerObj.SetActive(true);
+                playerObj.transform.position = nextPos;
+            }
+        }
+    }
+}

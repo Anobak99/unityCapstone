@@ -60,12 +60,12 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         mainMenu.SetActive(false);
         startMenu.SetActive(true);
-        //if (DataManager.instance.FileCheck("saveFile1.json"))
-        //    startText1.text = DataManager.instance.currentData.areaName;
-        //if (DataManager.instance.FileCheck("saveFile2.json"))
-        //    startText2.text = DataManager.instance.currentData.areaName;
-        //if (DataManager.instance.FileCheck("saveFile3.json"))
-        //    startText3.text = DataManager.instance.currentData.areaName;
+        if (DataManager.instance.FileCheck("saveFile1.json"))
+            startText1.text = DataManager.instance.currentData.areaName;
+        if (DataManager.instance.FileCheck("saveFile2.json"))
+            startText2.text = DataManager.instance.currentData.areaName;
+        if (DataManager.instance.FileCheck("saveFile3.json"))
+            startText3.text = DataManager.instance.currentData.areaName;
     }
 
     public void Option()

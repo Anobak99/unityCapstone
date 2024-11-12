@@ -22,11 +22,6 @@ public class DataManager : MonoBehaviour
                 {
                     instance = obj;
                 }
-                else
-                {
-                    var newObj = new GameObject().AddComponent<DataManager>();
-                    instance = newObj;
-                }
             }
             return instance;
         }

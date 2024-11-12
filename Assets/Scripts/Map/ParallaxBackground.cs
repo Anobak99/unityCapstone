@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class ParallaxBackground : MonoBehaviour
+public class ParallaxBackground : MonoBehaviour, IObserver
 {
     public ParallaxCamera parallaxCamera;
     List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
+    [SerializeField] Subject playerSubject;
 
     void Start()
     {
@@ -40,5 +41,20 @@ public class ParallaxBackground : MonoBehaviour
         {
             layer.Move(delta);
         }
+    }
+
+    private void OnEnable()
+    {
+        playerSubject.AddObsrver(this);
+    }
+
+    private void OnDisable()
+    {
+        playerSubject.RemoveObserver(this);
+    }
+
+    public void OnNotify()
+    {
+        gameObject.SetActive(false);
     }
 }
