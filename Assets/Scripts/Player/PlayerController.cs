@@ -61,10 +61,16 @@ public class PlayerController : MonoBehaviour
 
     #region FireBall
     [Header("파이어볼")]
-    public GameObject bulletPrefab; // 투사체 프리팹
-    private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
     public float timeBtwFire;
     public float startTimeBtwFire = 2f; // 투사체 쿨타임
+    #endregion
+
+    #region 애니메이터 초기값 
+    private bool isGrounded = true;
+    private bool isJump;
+    private bool isRun;
+    private bool isDash;
+    private bool isGrab;
     #endregion
 
     #region Checker
@@ -76,7 +82,8 @@ public class PlayerController : MonoBehaviour
 
     public bool canDamage;
     private bool isDamaged;
-    private bool canAct;
+    public bool canAct;
+    private bool canFireBall;
     private bool isDead;
     public bool isRespawn;
     #endregion
@@ -91,13 +98,23 @@ public class PlayerController : MonoBehaviour
         canAct = true;
         isDead = false;
         isRespawn = false;
+
+        isJump = anim.GetBool("isJump");
+        isRun = anim.GetBool("isRun");
+        isDash = anim.GetBool("isDash");
+        isGrab = anim.GetBool("isGrab");
     }
 
     private void Update()
     {
         UpdateVariables();
         
-        if(!canAct || isRespawn || isDead || Time.timeScale == 0f) { return; }
+        if(!canAct || isRespawn || isDead || DialogueManager.Instance.isDialogue ||Time.timeScale == 0f) 
+        {
+            ResetAnimeParameter();
+            rigid.velocity = new Vector2(0, 0);
+            return; 
+        }
 
         Flip();
         Run();
@@ -130,7 +147,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Attack());
         }
 
-        if (timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
+        if (canFireBall && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
         {
             StartCoroutine(FireBall());
         }
@@ -208,6 +225,8 @@ public class PlayerController : MonoBehaviour
         {
             if (coyoteTimeCounter > 0) coyoteTimeCounter -= Time.deltaTime;
         }
+
+        if (SwitchManager.Instance.abilities[0]) canFireBall = true;
 
         if (input.jumpBufferCounter > 0) input.jumpBufferCounter -= Time.deltaTime;
 
@@ -354,6 +373,7 @@ public class PlayerController : MonoBehaviour
             canDamage = false;
             isDamaged = true;
             rigid.velocity = Vector2.zero;
+            StartCoroutine(UIManager.Instance.ShowBloodScreen());
             anim.SetBool("isRun", false);
             if(GameManager.Instance.hp <= 0)
             {
@@ -428,8 +448,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator FireBall()
     {
         canAct = false;
-        rigid.velocity = new Vector2(0, 0);
-        Debug.Log("Fire Ball");
         anim.SetTrigger("FireBall");       
 
         yield return new WaitForSeconds(1f);
@@ -443,24 +461,7 @@ public class PlayerController : MonoBehaviour
         PlayerBullet bullet;
         GameObject select = null;
 
-        foreach (GameObject item in pool)
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.transform.position = attackPos.position;
-                select.transform.localScale = new Vector3(gameObject.transform.localScale.x, 1, 1);
-                select.SetActive(true);
-                break;
-            }
-        }
-
-        if (!select)
-        {
-            select = Instantiate(bulletPrefab, new Vector2 (attackPos.position.x, attackPos.position.y), Quaternion.identity);
-            pool.Add(select);
-        }
-
+        select = ObjectPoolManager.instance.GetFireBallObject(new Vector2(attackPos.position.x, attackPos.position.y), Quaternion.identity);
         select.transform.localScale = new Vector3(gameObject.transform.localScale.x, 1, 1);
         bullet = select.GetComponent<PlayerBullet>();
         if (gameObject.transform.localScale.x > 0)
@@ -481,10 +482,16 @@ public class PlayerController : MonoBehaviour
             if (enemiesToDamage[i].gameObject.tag == "Enemy") // 적과 충돌 시 데미지 처리
             {
                 enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage, transform.position);
+                ObjectPoolManager.instance.GetEffectObject(enemiesToDamage[i].GetComponent<Enemy>().transform.position, 
+                                                        enemiesToDamage[i].GetComponent<Enemy>().transform.rotation);
+                SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
             }
             else if (enemiesToDamage[i].gameObject.tag == "Boss")
             {
                 enemiesToDamage[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
+                ObjectPoolManager.instance.GetEffectObject(enemiesToDamage[i].GetComponent<Boss>().transform.position,
+                                                        enemiesToDamage[i].GetComponent<Boss>().transform.rotation);
+                SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
             }
             else if (enemiesToDamage[i].gameObject.tag == "EnemyDestroyableBullet")
             {
@@ -493,6 +500,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+
 
     void Setgravity()
     {
@@ -572,6 +581,15 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.PlayerHit(1);
             }
         }
+    }
+
+    private void ResetAnimeParameter()
+    {
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("isJump", isJump);
+        anim.SetBool("isRun", isRun);
+        anim.SetBool("isDash", isDash);
+        anim.SetBool("isGrab", isGrab);
     }
 
     private void OnDrawGizmosSelected()

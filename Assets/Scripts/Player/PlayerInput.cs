@@ -27,6 +27,8 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        if (DialogueManager.Instance.isDialogue) return;
+
         horizontal = Input.GetAxisRaw("Horizontal");
 
         Jump();

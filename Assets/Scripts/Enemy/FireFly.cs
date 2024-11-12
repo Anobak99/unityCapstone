@@ -130,6 +130,7 @@ public class FireFly : Enemy
             if (!item.activeSelf)
             {
                 select = item;
+                select.transform.position = attackPos.position;
                 select.SetActive(true);
                 break;
             }
@@ -138,6 +139,7 @@ public class FireFly : Enemy
         if (!select)
         {
             select = Instantiate(bulletPrefab, attackPos);
+            select.transform.SetParent(null);
             pool.Add(select);
         }
 
@@ -187,7 +189,7 @@ public class FireFly : Enemy
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        //animator.SetBool("Hit", true);
+        animator.SetBool("Hit", true);
         animator.SetTrigger("Damaged");
         canDamage = false;
         spriteRenderer.material = flashMaterial;
@@ -203,14 +205,14 @@ public class FireFly : Enemy
             rb.velocity = new Vector2(2f, rb.velocity.y);
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         spriteRenderer.material = defalutMaterial;
-        yield return new WaitForSeconds(0.4f);
         rb.velocity = Vector2.zero;
-        //animator.SetBool("Hit", false);
+        animator.SetBool("Hit", false);
 
         if (hp <= 0)
         {
+            StopAllCoroutines();
             StartCoroutine(Death());
             yield break;
         }

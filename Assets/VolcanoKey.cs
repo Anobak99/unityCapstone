@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VolcanoKey : MonoBehaviour
 {
-    public int key_num;
+    [SerializeField] private int key_num;
+    [SerializeField] private Item item;
+    public Dialogue dialogue;
+    private Button acceptButton;
     Animator animator;
+
+    private void Awake()
+    {
+        acceptButton = DialogueManager.Instance.acceptButton;
+    }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        acceptButton.onClick.AddListener(AbilityAccept);
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,9 +36,7 @@ public class VolcanoKey : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                Debug.Log("≈∞ »πµÊ");
-                DataManager.Instance.currentData.doorSwitch[key_num] = true;
-                gameObject.SetActive(false);
+                DialogueManager.Instance.StartDialogue(dialogue);
             }
         }
     }
@@ -39,5 +47,21 @@ public class VolcanoKey : MonoBehaviour
         {
             animator.SetTrigger("SignOff");
         }
+    }
+
+    public void AbilityAccept()
+    {
+        GetKey();
+    }
+
+    void GetKey()
+    {
+        Debug.Log("≈∞ »πµÊ");
+        DialogueManager.Instance.sentences.Enqueue("≈∞∏¶ »πµÊ«ﬂ¥Ÿ.");
+        DialogueManager.Instance.HideChoices();
+        DialogueManager.Instance.DisplayNextSentence();
+        InventoryManager.instance.AddItem(item);
+        DataManager.Instance.currentData.doorSwitch[key_num] = true;
+        gameObject.SetActive(false);
     }
 }

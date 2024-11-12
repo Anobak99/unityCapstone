@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.Audio;
 
 public class UIManager : MonoBehaviour
 {
@@ -32,11 +35,25 @@ public class UIManager : MonoBehaviour
     public ScreenFader screenFader;
     public GameObject HPUI;
     public GameObject blackScreen;
+    public GameObject bloodScreen;
+
+    [SerializeField] private GameObject ResumeSelectButton;
     [SerializeField] private GameObject deathMassage;
     [SerializeField] private Slider hpBar;
+
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Slider soundVolumeBar;
+    [SerializeField] private TextMeshProUGUI volumeText;   
+
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject inventoryScreen;
+    [SerializeField] private GameObject settingScreen;
     [SerializeField] private GameObject mapImage;
-    
+
+    private bool isPauseMenu = false;
+
+    public AudioClip clickSound;  // 선택 효과음
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -49,11 +66,31 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         screenFader = GetComponentInChildren<ScreenFader>();
+        audioSource = GetComponent<AudioSource>();
+
+        soundVolumeBar.onValueChanged.AddListener(OnSliderValueChanged);
+        OnSliderValueChanged(soundVolumeBar.value);
     }
 
     public void RespawnBtn()
     {
         StartCoroutine(GameManager.Instance.RespawnPlayer());
+    }
+
+    IEnumerator ButtonControl()
+    {
+        while (isPauseMenu)
+        {
+            if (EventSystem.current.currentSelectedGameObject == null)
+            {
+                if (Input.anyKeyDown)
+                {
+                    GameObject AnyResumeButton = GameObject.Find("Resume Button");
+                    EventSystem.current.SetSelectedGameObject(AnyResumeButton);
+                }
+            }
+            yield return null;
+        }
     }
 
     public IEnumerator ActivateDeathMassage()
@@ -71,6 +108,13 @@ public class UIManager : MonoBehaviour
         StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
     }
 
+    public IEnumerator ShowBloodScreen()
+    {
+        bloodScreen.SetActive(true);
+        yield return new WaitForSeconds(1.2f);
+        bloodScreen.SetActive(false);
+    }
+
     public void UpdateHealth(int hp, int maxHp)
     {
         hpBar.maxValue = maxHp;
@@ -79,22 +123,87 @@ public class UIManager : MonoBehaviour
 
     public void PauseMenu()
     {
+        PlayClickSound();
+
+        if (inventoryScreen.activeSelf)
+        {
+            inventoryScreen.SetActive(false);
+            StopCoroutine(InventoryManager.instance.ButtonControl());
+        }
+
+        if (settingScreen.activeSelf)
+        {
+            settingScreen.SetActive(false);
+            StopCoroutine(InventoryManager.instance.ButtonControl());
+        }
+
+        if (mapImage.activeSelf)
+        {
+            mapImage.SetActive(false);
+            StopCoroutine(InventoryManager.instance.ButtonControl());
+        }
+
         if (!pauseScreen.activeSelf)
         {
             Time.timeScale = 0f;
 
             pauseScreen.SetActive(true);
+            isPauseMenu = true;
+            EventSystem.current.SetSelectedGameObject(ResumeSelectButton);
+
+            StartCoroutine(ButtonControl());
         }
         else
         {
             Time.timeScale = 1f;
 
             pauseScreen.SetActive(false);
+            isPauseMenu = false;
+
+            StopCoroutine(ButtonControl());
         }
+    }   
+
+    public void GoSetting()
+    {
+        PlayClickSound();
+        StopCoroutine(ButtonControl());
+        pauseScreen.SetActive(false);
+        settingScreen.SetActive(true);
+    }
+
+    public void SetVolune(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void OnSliderValueChanged(float volume)
+    {
+        volume = ((volume + 80) / 80) * 100;
+        volumeText.text = volume.ToString("0");
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    public void SetFullScreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
+    }
+
+    public void GoInventory()
+    {
+        PlayClickSound();
+        StopCoroutine(ButtonControl());
+        pauseScreen.SetActive(false);
+        inventoryScreen.SetActive(true);
     }
 
     public void GoTitle()
     {
+        PlayClickSound();
         Time.timeScale = 1f;
 
         pauseScreen.SetActive(false);
@@ -104,7 +213,10 @@ public class UIManager : MonoBehaviour
 
     public void MapMenu()
     {
-        if(!mapImage.activeSelf)
+        PlayClickSound();
+
+        pauseScreen.SetActive(false);
+        if (!mapImage.activeSelf)
         {
             mapImage.SetActive(true);
         }
@@ -121,5 +233,14 @@ public class UIManager : MonoBehaviour
             return true;
         }
         else { return false; }
+    }
+
+    private void PlayClickSound()
+    {
+        if (audioSource != null && clickSound != null)
+        {
+            audioSource.clip = clickSound;
+            audioSource.Play();
+        }
     }
 }

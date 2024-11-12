@@ -24,6 +24,7 @@ public class LavaTrap : MonoBehaviour
         playerObj.transform.position = CalcDistance().position;
 
         yield return new WaitForSeconds(1f);
+
         UIManager.Instance.blackScreen.SetActive(false);
         GameManager.Instance.player.GetComponent<PlayerController>().isRespawn = false;
     }

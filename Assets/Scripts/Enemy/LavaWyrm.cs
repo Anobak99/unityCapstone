@@ -170,6 +170,7 @@ public class LavaWyrm : Enemy
             if (!item.activeSelf)
             {
                 select = item;
+                select.transform.position = attackPos.position;
                 select.SetActive(true);
                 break;
             }
@@ -178,6 +179,7 @@ public class LavaWyrm : Enemy
         if (!select)
         {
             select = Instantiate(bulletPrefab, attackPos);
+            select.transform.SetParent(null);
             pool.Add(select);
         }
 

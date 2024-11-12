@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,15 +14,23 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogueBox;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    [SerializeField] private float typeSpeed = 0.1f;
     #endregion
 
     #region Button
     [Header("Button")]
+    public GameObject firstSelectButton;
+    public GameObject leftSelectButton;
+    public GameObject rightSelectButton;
     public Button continueButton;
     public Button acceptButton;
     public Button declineButton;
     #endregion
 
+    public AudioClip clickSound;  // 선택 효과음
+    private AudioSource audioSource;
+
+    public bool isDialogue;
     public Queue<string> sentences;
 
     public static DialogueManager Instance
@@ -54,27 +63,75 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
         sentences = new Queue<string>();
+        isDialogue = false;
 
 
         continueButton.onClick.AddListener(Continue);
-        acceptButton.onClick.AddListener(AbilityAccept);
-        declineButton.onClick.AddListener(AbilityDecline);
+        acceptButton.onClick.AddListener(Accept);
+        declineButton.onClick.AddListener(Decline);
 
         acceptButton.gameObject.SetActive(false); 
         declineButton.gameObject.SetActive(false);
     }
 
+    IEnumerator ButtonControl()
+    {
+        while(isDialogue)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (firstSelectButton.activeSelf)
+                {
+                    EventSystem.current.SetSelectedGameObject(firstSelectButton);
+                }
+                else
+                {
+                    EventSystem.current.SetSelectedGameObject(leftSelectButton);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (firstSelectButton.activeSelf)
+                {
+                    EventSystem.current.SetSelectedGameObject(firstSelectButton);
+                }
+                else
+                {
+                    EventSystem.current.SetSelectedGameObject(rightSelectButton);
+                }
+            }
+            yield return null;
+        }
+    }
+
+    private void PlayClickSound()
+    {
+        if (audioSource != null && clickSound != null)
+        {
+            audioSource.clip = clickSound;
+            audioSource.Play();
+        }
+    }
+
     public void StartDialogue(Dialogue dialogue)
     {
+        isDialogue = true;
+        StartCoroutine(ButtonControl());
+        
         if (!dialogueBox.activeSelf)
         {
             dialogueBox.SetActive(true);
+            dialogueBox.transform.SetAsLastSibling();
         }
+
 
         nameText.text = dialogue.name;
 
@@ -102,14 +159,14 @@ public class DialogueManager : MonoBehaviour
         string sentence = sentences.Dequeue();
 
         // 선택지 트리거 확인
-        if (sentence == "<<능력선택>>")
+        if (sentence == "<<선택지>>")
         {
             // 수락/거절 버튼 표시
             ShowChoices();
             return; // 다음 문장은 출력하지 않음
         }
 
-        StopAllCoroutines();
+        StopCoroutine(TypeSentence(sentence));
         StartCoroutine(TypeSentence(sentence));
     }
 
@@ -119,14 +176,16 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(typeSpeed);
         }
     }
 
     void EndDialogue()
     {
         Debug.Log("대화문 끝");
+        StopCoroutine(ButtonControl());
         dialogueBox.SetActive(false);
+        isDialogue = false;
     }
 
     // 수락/거절 선택지를 표시하는 메서드
@@ -134,29 +193,31 @@ public class DialogueManager : MonoBehaviour
     {
         acceptButton.gameObject.SetActive(true);
         declineButton.gameObject.SetActive(true);
+        continueButton.gameObject.SetActive(false);
     }
 
     public void Continue()
     {
+        PlayClickSound();
         DisplayNextSentence();
     }
 
-    public void AbilityAccept()
+    public void Accept()
     {
-        sentences.Enqueue("수락하셨습니다."); 
+        PlayClickSound();
         HideChoices();
-        DisplayNextSentence(); 
+        continueButton.gameObject.SetActive(true);
     }
 
-    public void AbilityDecline()
+    public void Decline()
     {
-        sentences.Enqueue("거절하셨습니다.");
+        PlayClickSound();
         HideChoices();
-        DisplayNextSentence(); 
+        continueButton.gameObject.SetActive(true);
     }
 
     // 선택지를 숨기는 메서드
-    void HideChoices()
+    public void HideChoices()
     {
         acceptButton.gameObject.SetActive(false);
         declineButton.gameObject.SetActive(false);

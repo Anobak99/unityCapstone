@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] GameObject selectStartBtn;
+    [SerializeField] GameObject selectSaveBtn;
+    [SerializeField] GameObject selectOptionBtn;
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject startMenu;
     [SerializeField] GameObject optionMenu;
@@ -13,8 +17,47 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TextMeshPro startText2;
     [SerializeField] TextMeshPro startText3;
 
+    public AudioClip clickSound;  // 선택 효과음
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;  // 자동 재생 방지
+
+        StartCoroutine(ButtonControl());
+    }
+
+    IEnumerator ButtonControl()
+    {
+        while (true)
+        {
+            if (EventSystem.current.currentSelectedGameObject == null)
+            {
+                if (Input.anyKeyDown)
+                {
+                    if (mainMenu.activeSelf)
+                    {
+                        EventSystem.current.SetSelectedGameObject(selectStartBtn);
+                    }
+                    else if(startMenu.activeSelf)
+                    {
+                        EventSystem.current.SetSelectedGameObject(selectSaveBtn);
+                    }
+                    else if(optionMenu.activeSelf)
+                    {
+                        EventSystem.current.SetSelectedGameObject(selectOptionBtn);
+                    }
+                }
+            }
+            yield return null;
+        }
+    }
+
     public void GameStart()
     {
+        PlayClickSound();
+        EventSystem.current.SetSelectedGameObject(null);
         mainMenu.SetActive(false);
         startMenu.SetActive(true);
         //if (DataManager.instance.FileCheck("saveFile1.json"))
@@ -27,12 +70,16 @@ public class MainMenu : MonoBehaviour
 
     public void Option()
     {
+        PlayClickSound();
+        EventSystem.current.SetSelectedGameObject(null);
         mainMenu.SetActive(false);
         optionMenu.SetActive(true);
     }
 
     public void StartGame1()
     {
+        PlayClickSound();
+        StopCoroutine(ButtonControl());
         if (DataManager.Instance.FileCheck("saveFile1.json"))
         {
             DataManager.Instance.LoadData();
@@ -48,6 +95,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame2()
     {
+        PlayClickSound();
+        StopCoroutine(ButtonControl());
         if (DataManager.Instance.FileCheck("saveFile2.json"))
         {
             DataManager.Instance.LoadData();
@@ -63,6 +112,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame3()
     {
+        PlayClickSound();
+        StopCoroutine(ButtonControl());
         if (DataManager.Instance.FileCheck("saveFile3.json"))
         {
             DataManager.Instance.LoadData();
@@ -78,6 +129,8 @@ public class MainMenu : MonoBehaviour
 
     public void GoToMain()
     {
+        PlayClickSound();
+        EventSystem.current.SetSelectedGameObject(null);
         startMenu.SetActive(false);
         optionMenu.SetActive(false);
         mainMenu.SetActive(true); 
@@ -86,5 +139,14 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    private void PlayClickSound()
+    {
+        if (audioSource != null && clickSound != null)
+        {
+            audioSource.clip = clickSound;
+            audioSource.Play();
+        }
     }
 }

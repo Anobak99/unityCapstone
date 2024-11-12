@@ -19,8 +19,13 @@ public class RisingLava : MonoBehaviour
     private int currentHeight;            // 현재 용암 높이
     private bool rising = true;           // 용암이 상승 중인지 여부
 
-    void Start()
+    void Awake()
     {
+        if (!lavaSwitch)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         // 처음 시작할 때는 최저 높이에서 시작
         currentHeight = minHeight;
         StartCoroutine(UpdateLava());
@@ -29,7 +34,13 @@ public class RisingLava : MonoBehaviour
     IEnumerator UpdateLava()
     {
         while (true)
-        {          
+        {
+            if (!lavaSwitch)
+            {
+                RemoveLavaTiles();
+                break;
+            }
+
             if (rising )
             {
                 // 용암을 위로 차오르게 함
@@ -62,11 +73,6 @@ public class RisingLava : MonoBehaviour
                     rising = true;
                     yield return new WaitForSeconds(waitTime);
                 }
-            }
-            else if (!lavaSwitch)
-            {
-                RemoveLavaTiles();
-                break;
             }
         }
 
@@ -118,5 +124,10 @@ public class RisingLava : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(UpdateLava());
     }
 }

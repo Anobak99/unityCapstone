@@ -17,6 +17,19 @@ public class CameraShake : MonoBehaviour
         instance = this;
     }
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     public void OnShakeCamera(float shakeTime =0.5f, float shakeIntensity =1f)
     {

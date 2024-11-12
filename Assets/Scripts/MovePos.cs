@@ -17,10 +17,12 @@ public class MovePos : MonoBehaviour
             if (GameManager.Instance.currentScene == curScene)
             {
                 GameManager.Instance.nextScene = true;
+                Debug.Log("Setting current scene's player to inactive");
                 collision.gameObject.SetActive(false);
                 nextPos = new Vector2(GameManager.Instance.player.transform.position.x + m_Pos.x,
-            GameManager.Instance.player.transform.position.y + m_Pos.y);
+                                            GameManager.Instance.player.transform.position.y + m_Pos.y);
                 GameManager.Instance.CamOff();
+                Debug.Log("Activating player object in the next scene");
                 playerObj.SetActive(true);
                 playerObj.transform.position = nextPos;
             }

@@ -131,8 +131,10 @@ public class LavaTurtle : Enemy
         SoundManager.PlaySound(SoundType.HURT, 1, 3);
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", true);
+        animator.SetTrigger("Damaged");
         canDamage = false;
         animator.SetInteger("AnimState", 0);
+        spriteRenderer.material = flashMaterial;
 
         hp -= dmg;
 
@@ -148,10 +150,12 @@ public class LavaTurtle : Enemy
         yield return new WaitForSeconds(0.5f);
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", false);
+        spriteRenderer.material = defalutMaterial;
 
         if (hp <= 0)
         {
             canAct = false;
+            StopAllCoroutines();
             StartCoroutine(Death());
             yield break;
         }

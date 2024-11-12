@@ -8,6 +8,7 @@ public class GasZone : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private AudioSource audioSource;
     public Vector2 forceDirection = new Vector2(-1, 0); // 가스를 통해 밀릴 방향
+    public float waitTime = 2f;
     public float pushForce = 5f; // 밀리는 힘의 크기
 
     private void Awake()
@@ -15,18 +16,16 @@ public class GasZone : MonoBehaviour
         col = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponentInChildren<AudioSource>();
-        StartCoroutine(ToggleColliderCoroutine());
+
+        StartCoroutine(TimerCoroutine());
     }
 
-    IEnumerator ToggleColliderCoroutine()
+    private IEnumerator TimerCoroutine()
     {
         while (true)
-        {
-            col.enabled = !col.enabled;
-            animator.enabled = !animator.enabled;
-            audioSource.enabled = !audioSource.enabled;
-
-            yield return new WaitForSeconds(0.6f);
+        {            
+            animator.SetTrigger("IsPlay");
+            yield return new WaitForSeconds(waitTime); // 1초 대기
         }
     }
 
@@ -45,6 +44,6 @@ public class GasZone : MonoBehaviour
     // 게임 오브젝트가 비활성화되면 코루틴 중지
     void OnDisable()
     {
-        StopCoroutine(ToggleColliderCoroutine());
+        StopCoroutine(TimerCoroutine());
     }
 }
