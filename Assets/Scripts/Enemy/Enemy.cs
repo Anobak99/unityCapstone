@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IObserver
 {
     [SerializeField] public int maxHp;
     public int hp;
     public int dmg;
+    [SerializeField] private Vector2 posSet;
 
     [HideInInspector] public Transform player;
     [HideInInspector] public Rigidbody2D rb;
@@ -29,11 +30,13 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        playerSubject.AddObsrver(this);
         canAct = false;
         canDamage = true;
         isDead = false;
-        act1 = StartCoroutine(Think());
+        gameObject.transform.position = posSet;
         hp = maxHp;
+        act1 = StartCoroutine(Think());
     }
 
     public virtual IEnumerator Think()

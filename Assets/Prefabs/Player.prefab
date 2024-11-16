@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 406135717960536348}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.22, y: 1.13, z: 0}
+  m_LocalPosition: {x: -1, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 1586975754078276855}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 1, z: 0}
+  m_LocalPosition: {x: -1, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,7 +103,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 3876904782352388295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 6373365281794207096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.22, y: -0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -249,9 +249,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2109086697
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
+  m_Sprite: {fileID: -502509202, guid: d0c7a6e8428590b44aeffba7b0fa5b04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -272,7 +272,7 @@ Animator:
   m_GameObject: {fileID: 6373365281794207096}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 312496b25d842af4a938e96c7d5aaee0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5ca87327be1f32a4ebe23fd1a2cffb16, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -342,18 +342,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.970246}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.125, y: 2.0625}
+    oldSize: {x: 1.5, y: 1.5}
     newSize: {x: 1.125, y: 2.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.125, y: 1.940492}
+  m_Size: {x: 0.6, y: 1}
   m_EdgeRadius: 0
 --- !u!81 &-8494552680934119788
 AudioListener:
@@ -380,8 +380,8 @@ MonoBehaviour:
   jumpTime: 0
   coyoteTimeCounter: 0
   gravity: 5
-  jumpPower: 15
-  djumpPower: 15
+  jumpPower: 13
+  djumpPower: 10
   dashSpeed: 20
   dashTime: 0.1
   holdPosition: {fileID: 1840215377923922934}
@@ -395,7 +395,6 @@ MonoBehaviour:
   attackRange: 1
   startTimeBtwAttack: 1
   timeBtwAttack: 0
-  bulletPrefab: {fileID: 7179465635268567610, guid: 2e80c694de5f8fa449baaa810de534ab, type: 3}
   timeBtwFire: 0
   startTimeBtwFire: 2
   groundCheck: {fileID: 6599504246180515065}
@@ -403,6 +402,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   canDamage: 0
+  canAct: 0
   isRespawn: 0
 --- !u!114 &1284313668461532792
 MonoBehaviour:

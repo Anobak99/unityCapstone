@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             player.transform.position = posToLoad;
             playerController.Respawn();
             isRespawn = false;
-            StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
+            StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 1f));
         }
         cam.cameraMove = true;
         cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));

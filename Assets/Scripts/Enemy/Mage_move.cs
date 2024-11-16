@@ -15,17 +15,8 @@ public class Mage_move : Enemy
     public bool facingRight;
     private bool playerFound;
 
-    public Transform attackPos;
-    public LayerMask whatIsEnemies;
-    public float hitRange;
-
-    [SerializeField] Transform groundCheck;
-    [SerializeField] LayerMask groundLayor;
-    [SerializeField] Transform WallCheck;
-
     public GameObject objectPrefab;
     private List<GameObject> bullets = new List<GameObject>();
-    [SerializeField] private BossBattle battle;
 
     public override IEnumerator Think()
     {
@@ -40,14 +31,12 @@ public class Mage_move : Enemy
                 {
                     if (playerDistance > attackRange) //대상의 거리가 공격범위 밖일 경우
                     {
-                        animator.SetInteger("AnimState", 0);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                         act2 = StartCoroutine(Attack2()); //원거리 공격 코루틴 시작
                         yield break; //현재 코루틴 정지
                     }
                     else //대상이 공격거리 안일 경우
                     {
-                        animator.SetInteger("AnimState", 0);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                         act2 = StartCoroutine(Attack()); //근접 공격 코루틴 시작
                         yield break; //현재 코루틴 정지
@@ -66,11 +55,6 @@ public class Mage_move : Enemy
                             playerFound = true;
                     }
                 }
-            }
-            else //대상을 찾지 못했을 때
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-                animator.SetInteger("AnimState", 0);
             }
         }
 
@@ -99,9 +83,7 @@ public class Mage_move : Enemy
     public override IEnumerator Attack()
     {
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.5f);
-        animator.SetTrigger("Attack2");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
 
@@ -146,7 +128,6 @@ public class Mage_move : Enemy
         rb.velocity = Vector2.zero;
         animator.SetBool("Hit", true);
         canDamage = false;
-        animator.SetInteger("AnimState", 0);
         spriteRenderer.material = flashMaterial;
 
         hp -= dmg;
