@@ -58,8 +58,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        maxHp = 5;
-        hp = maxHp;
+        Application.targetFrameRate = 60;
     }
 
     public void SetPlayerComp() //플레이어 컴포넌트 참조

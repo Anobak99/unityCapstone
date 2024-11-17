@@ -145,10 +145,12 @@ public class Widow_move : Boss
         StopCoroutine(act1);
         StopCoroutine(act2);
         rb.velocity = Vector2.zero;
-        animator.SetTrigger("Death");
         canDamage = false;
-        isDead = true;
+        animator.SetTrigger("Death");
+        yield return new WaitForSeconds(4f);
+        animator.SetTrigger("Explo");
         yield return new WaitForSeconds(1.5f);
+        isDead = true;
         battle.BossDead();
         gameObject.SetActive(false);
     }

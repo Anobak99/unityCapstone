@@ -192,11 +192,11 @@ public class PlayerController : MonoBehaviour
     {
         if (input.horizontal > 0)
         {
-            transform.localScale = new Vector2(1, transform.localScale.y);
+            transform.localScale = new Vector2(-1, transform.localScale.y);
         }
         else if (input.horizontal < 0)
         {
-            transform.localScale = new Vector2(-1, transform.localScale.y);
+            transform.localScale = new Vector2(1, transform.localScale.y);
         }
     }
 

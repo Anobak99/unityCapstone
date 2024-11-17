@@ -30,7 +30,7 @@ public class Mage_orb : MonoBehaviour
     IEnumerator Hit()
     {
         rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.35f);
         gameObject.SetActive(false);
     }
 }

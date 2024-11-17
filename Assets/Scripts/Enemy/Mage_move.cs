@@ -24,7 +24,7 @@ public class Mage_move : Enemy
         {
             horizental = player.position.x - transform.position.x; //플레이어까지의 x거리
             playerDistance = Mathf.Abs(horizental);
-            if (playerDistance < viewRange && player.position.y >= transform.position.y - 2.5f && player.position.y < transform.position.y + 2.5f) //대상이 인식 범위 안쪽일 경우
+            if (playerDistance < viewRange ) //대상이 인식 범위 안쪽일 경우
             {
                 FlipToPlayer(horizental);
                 if (playerFound) //플레이어를 인식한 상황일 때
@@ -35,7 +35,7 @@ public class Mage_move : Enemy
                         act2 = StartCoroutine(Attack2()); //원거리 공격 코루틴 시작
                         yield break; //현재 코루틴 정지
                     }
-                    else //대상이 공격거리 안일 경우
+                    else if(player.position.y >= transform.position.y - 0.5f && player.position.y < transform.position.y + 2f)//대상이 공격거리 안일 경우
                     {
                         rb.velocity = new Vector2(0, rb.velocity.y);
                         act2 = StartCoroutine(Attack()); //근접 공격 코루틴 시작
@@ -82,21 +82,22 @@ public class Mage_move : Enemy
 
     public override IEnumerator Attack()
     {
-        animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(1.5f);
+        animator.SetTrigger("Attack1");
+        yield return new WaitForSeconds(2f);
         act1 = StartCoroutine(Think());
     }
 
     public IEnumerator Attack2()
     {
         GameObject fire;
-        animator.SetTrigger("Attack3");
-        yield return new WaitForSeconds(1f);
+        animator.SetTrigger("Attack2");
+        yield return new WaitForSeconds(0.6f);
         fire = Shoot();
-        fire.transform.position = transform.position;
+        fire.transform.position = new Vector2(transform.position.x, transform.position.y + 1f);
         Rigidbody2D rigid = fire.GetComponent<Rigidbody2D>();
         Vector2 dirVec = player.transform.position - transform.position;
-        rigid.AddForce(dirVec.normalized*5, ForceMode2D.Impulse);
+        rigid.AddForce(dirVec.normalized*8, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
 
@@ -146,5 +147,22 @@ public class Mage_move : Enemy
 
         canDamage = true;
         act1 = StartCoroutine(Think());
+    }
+
+    public override void OnNotify()
+    {
+        GameObject select = null;
+
+        foreach (GameObject item in bullets)
+        {
+            if (!item.activeSelf)
+            {
+                select = item;
+                select.SetActive(false);
+                break;
+            }
+        }
+
+        gameObject.SetActive(false);
     }
 }

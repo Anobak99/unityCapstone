@@ -139,7 +139,7 @@ public class Enemy : MonoBehaviour, IObserver
         }
     }
 
-    public void OnNotify()
+    public virtual void OnNotify()
     {
         gameObject.SetActive(false);
     }
