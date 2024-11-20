@@ -13,11 +13,16 @@ public class SpecialPlatform : MonoBehaviour
     public float speed; //플랫폼 이동속도
     public Vector2[] locations; //플랫폼이 이동할 좌표
     int i = 0;
-    public enum Type { move, disable };
+    public enum Type { move, disable, jump, none };
     public Type type;
     public float time; //플랫폼이 사라지기까지의 시간
 
-    
+    [SerializeField] private Rigidbody2D rb;
+    private Vector2 forceDirection = new Vector2(0, 1); //위로 점프
+    public float pushForce = 5f; // 밀리는 힘의 크기
+
+    WaitForSeconds waitSec = new WaitForSeconds(1f);
+
     void Start()
     {
         col = GetComponent<BoxCollider2D>();
@@ -41,10 +46,12 @@ public class SpecialPlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(!stand && type == Type.move)
+        if (collision.collider.CompareTag("Player"))
         {
-            if (collision.collider.CompareTag("Player"))
+            rb = collision.collider.GetComponent<Rigidbody2D>();
+            if(!stand && type == Type.move)
             {
+            
                 //플레이어가 플랫폼 위에 서 있을 시
                 if (col.bounds.min.x < collision.collider.bounds.max.x && col.bounds.max.x > collision.collider.bounds.min.x)
                 {
@@ -77,6 +84,11 @@ public class SpecialPlatform : MonoBehaviour
             stand = true;
             StartCoroutine(Disable(time));
         }
+        else if (!stand && type == Type.jump)
+        {
+            stand = true;
+            StartCoroutine(Jump());
+        }
     }
 
     private IEnumerator Disable(float time)
@@ -87,11 +99,19 @@ public class SpecialPlatform : MonoBehaviour
         spRend.color = new Color(255, 255, 255, 0);
         gameObject.layer = 0;
 
-        yield return new WaitForSeconds(1f);
+        yield return waitSec;
         col.isTrigger = false;
         spRend.color = new Color(255, 255, 255, 255);
         gameObject.layer = 7;
 
+        stand = false;
+    }
+
+    IEnumerator Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        rb.AddForce(forceDirection.normalized * pushForce, ForceMode2D.Impulse);
+        yield return waitSec;
         stand = false;
     }
 }

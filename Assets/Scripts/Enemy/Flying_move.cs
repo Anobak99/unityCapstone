@@ -20,6 +20,12 @@ public class Flying_move : Enemy
 
     [SerializeField] private GameObject damageBox;
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        playerFound = false;
+    }
+
     public override IEnumerator Think()
     {
         if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동

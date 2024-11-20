@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private PlayerInput input;
     private GameObject currentOneWayPlatform; // onewayplatform 오브젝트
+    private Collider2D platformCollider; //onwayplayform 콜라이더
     private Collider2D playerCollider;
     public float moveSpeed;
     #endregion
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
     public float attackRange; // 공격 범위
     public float startTimeBtwAttack = 0.8f; // 공격 쿨타임 설정
     public float timeBtwAttack;  // 공격 쿨타임 (0이 되면 공격가능)
+    private bool canAirAtk; //공중공격 가능 여부
     #endregion
 
     #region FireBall
@@ -79,9 +81,12 @@ public class PlayerController : MonoBehaviour
     [Header("체커")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    private RaycastHit2D slopeHit;
     private Vector2 boxSize = new Vector2(0.8f, 0.2f);
     private Collider2D col;
 
+    bool isGround;
+    bool isSlope;
     public bool canDamage;
     private bool isDamaged;
     public bool canAct;
@@ -111,12 +116,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         UpdateVariables();
-        
-        if(!canAct || isRespawn || isDead || DialogueManager.Instance.isDialogue ||Time.timeScale == 0f) 
+
+        if (!canAct || isRespawn || isDead || DialogueManager.Instance.isDialogue || Time.timeScale == 0f)
         {
             ResetAnimeParameter();
             rigid.velocity = new Vector2(0, 0);
-            return; 
+            return;
         }
 
         Flip();
@@ -126,12 +131,17 @@ public class PlayerController : MonoBehaviour
         Setgravity();
         CheckAnime();
 
-        // 아래키 입력->플랫폼 통과
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        // 아래키 입력 시 플랫폼 통과
+        if (currentOneWayPlatform != null)
         {
-            if (currentOneWayPlatform != null)
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 StartCoroutine(DisableCollision());
+            }
+
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                EnableCollision();
             }
         }
 
@@ -145,6 +155,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dashing());
         }
 
+
         if (timeBtwAttack <= 0 && input.attackInput && !isDashing && !isHolding)
         {
             if (input.vertical > 0)
@@ -152,33 +163,41 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(TopAttack());
                 return;
             }
-            StartCoroutine(Attack());
-        }
 
-        if (canFireBall && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
-        {
-            StartCoroutine(FireBall());
-        }
+            if (timeBtwAttack <= 0 && input.attackInput && !isDashing && !isHolding && isGround)
+            {
+                StartCoroutine(Attack());
+            }
+            else if (canAirAtk && input.attackInput && !isDashing && !isHolding)
+            {
+                StartCoroutine(AirAttack());
+            }
 
-        // 물건 들기/놓기 토글
-        if (Input.GetKeyDown(KeyCode.G))
-        {
+            if (canFireBall && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
+            {
+                StartCoroutine(FireBall());
+            }
+
+            // 물건 들기/놓기 토글
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (isHolding)
+                {
+                    ReleaseObject();
+                }
+                else
+                {
+                    PickUpObject();
+                }
+            }
+
+            // 물건을 들고 있는 경우 위치 업데이트
             if (isHolding)
             {
-                ReleaseObject();
+                UpdateHeldObjectPosition();
             }
-            else
-            {
-                PickUpObject();
-            }
-        }
 
-        // 물건을 들고 있는 경우 위치 업데이트
-        if (isHolding)
-        {
-            UpdateHeldObjectPosition();
         }
-
     }
 
     // 캐릭터 좌우 반전
@@ -201,30 +220,68 @@ public class PlayerController : MonoBehaviour
         if (!col)
         {
             anim.SetBool("isGrounded", false);
+            currentOneWayPlatform = null;
             return false;
         }
-        else if (col.CompareTag("Platform")) //바닥이 플랫폼일 시
+
+        if (col.CompareTag("Platform")) //바닥이 플랫폼일 시
         {
-            SpecialPlatform platform = col.GetComponent<SpecialPlatform>();
-            platform.OnStand();
+            SpecialPlatform platform;
+            if (platform = col.GetComponent<SpecialPlatform>())
+                platform.OnStand();
+
+            currentOneWayPlatform = col.gameObject;
+        }
+        else
+        {
+            EnableCollision();
+            currentOneWayPlatform = null;
         }
 
         anim.SetBool("isGrounded", true);
+        canAirAtk = true;
         return true;
+    }
+
+    //경사 체크
+    private bool IsOnSlope()
+    {
+        slopeHit = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
+        if (slopeHit)
+        {
+            var angle = Vector2.Angle(Vector2.up, slopeHit.normal);
+            return angle != 0 && angle < 60f;
+        }
+
+        return false;
     }
 
     private void Run()
     {
         if (!isDashing)
         {
-            rigid.velocity = new Vector2(input.horizontal * moveSpeed, rigid.velocity.y);
-            anim.SetBool("isRun", rigid.velocity.x != 0 && IsGrounded());
+            if (isSlope && isGround && !isJumping)
+            {
+                Vector2 perp = Vector2.Perpendicular(slopeHit.normal);
+                rigid.velocity = -1f * input.horizontal * moveSpeed * perp;
+            }
+            else if (!isSlope && isGround && !isJumping && platformCollider == null)
+            {
+                rigid.velocity = new Vector2(input.horizontal * moveSpeed, rigid.velocity.y);
+            }
+            else if (!isGround)
+            {
+                rigid.velocity = new Vector2(input.horizontal * moveSpeed, rigid.velocity.y);
+            }
+            anim.SetBool("isRun", rigid.velocity.x != 0 && isGround);
         }
     }
 
     void UpdateVariables()
     {
-        if (IsGrounded())
+        isGround = IsGrounded();
+        isSlope = IsOnSlope();
+        if (isGround)
         {
             coyoteTimeCounter = coyoteTime;
             doubleJump = true;
@@ -256,7 +313,7 @@ public class PlayerController : MonoBehaviour
             jumpCounter += 1;
         }
 
-        if(!IsGrounded() && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
+        if(!isGround && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
             //SoundManager.instance.PlaySfx(0);
             //Debug.Log("double jump");
@@ -297,6 +354,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("isJump", false);
+            if (rigid.velocity.y < -10f)
+                rigid.velocity = new Vector2(rigid.velocity.x, -10f);
         }
     }
 
@@ -466,26 +525,33 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        //SoundManager.instance.PlaySfx(1);
         canAct = false;
         anim.SetTrigger("isAttack");
         yield return null;
         canAct = true;
 
-       
         timeBtwAttack = startTimeBtwAttack;
     }
 
     private IEnumerator TopAttack()
+        {
+            //SoundManager.instance.PlaySfx(1);
+            canAct = false;
+            anim.SetTrigger("isTopAttack");
+            yield return null;
+            canAct = true;
+
+
+            timeBtwAttack = startTimeBtwAttack;
+        }
+
+    private IEnumerator AirAttack()
     {
-        //SoundManager.instance.PlaySfx(1);
         canAct = false;
-        anim.SetTrigger("isTopAttack");
+        canAirAtk = false;
+        anim.SetTrigger("isAttack");
         yield return null;
         canAct = true;
-
-
-        timeBtwAttack = startTimeBtwAttack;
     }
 
     private IEnumerator FireBall()
@@ -556,13 +622,17 @@ public class PlayerController : MonoBehaviour
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         // 공격상태확인
-        if (stateInfo.IsName("Attack") && IsGrounded())
+        if (stateInfo.IsName("Attack") && isGround)
         {
             rigid.velocity = new Vector2(0f, rigid.velocity.y);
         }
-        else if (stateInfo.IsName("Attack2") && IsGrounded())
+        else if (stateInfo.IsName("Attack2") && isGround)
         {
             rigid.velocity = new Vector2(0f, rigid.velocity.y);
+        }
+        else if (stateInfo.IsName("Knight_air_attack") && !isGround)
+        {
+            rigid.velocity = new Vector2(0f, 0f);
         }
         // 다른 애니메이션 상태에 대한 확인 코드 추가 가능
     }
@@ -588,10 +658,10 @@ public class PlayerController : MonoBehaviour
     {
         if (currentOneWayPlatform.GetComponent<Collider2D>() != null)
         {
-            Collider2D platformCollider = currentOneWayPlatform.GetComponent<Collider2D>();
+            EnableCollision();
+
+            platformCollider = currentOneWayPlatform.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(playerCollider, platformCollider);
-            yield return new WaitForSeconds(0.25f);
-            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
         }
         else if (currentOneWayPlatform.GetComponent<TilemapCollider2D>() != null)
         {
@@ -601,6 +671,18 @@ public class PlayerController : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
         }
 
+    }
+
+    private void EnableCollision()
+    {
+        if (platformCollider == null)
+            return;
+
+        if (Physics2D.GetIgnoreCollision(playerCollider, platformCollider))
+        {
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+            platformCollider = null;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -639,3 +721,4 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawCube(groundCheck.position, boxSize);
     }
 }
+        
