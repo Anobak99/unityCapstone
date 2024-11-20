@@ -9,9 +9,10 @@ public class LavaRise_Switch : MonoBehaviour
     [SerializeField] private GameObject wall;
     public GameObject lavaRise;
 
-    [SerializeField] private int switchNum = 0;
-    [SerializeField] private int doorkeyNum = 3;
+    [SerializeField] private int switchNum;
+    [SerializeField] private int doorNum;
 
+    private bool isUse = false;
     private bool isPlayer = false;
 
     private void Awake()
@@ -19,7 +20,7 @@ public class LavaRise_Switch : MonoBehaviour
         animator = GetComponent<Animator>();
         col = GetComponent<BoxCollider2D>();
 
-        if (SwitchManager.Instance.volcanoSwitch[switchNum] == true)
+        if (SwitchManager.Instance.volcano_Switch[switchNum] == true)
         {
             col.enabled = false;
         }
@@ -27,16 +28,9 @@ public class LavaRise_Switch : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayer && Input.GetKeyDown(KeyCode.G))
+        if (!isUse && isPlayer && Input.GetKeyDown(KeyCode.G))
         {
-            animator.SetBool("Lever", true);
-            SoundManager.PlaySound(SoundType.SFX, 1, 7);
-            CameraShake.Instance.OnShakeCamera(0.5f, 0.5f);
-            RisingLava.lavaSwitch = false;
-            SwitchManager.Instance.volcanoSwitch[switchNum] = true;
-            SwitchManager.Instance.openedDoor[doorkeyNum] = true;
-            col.enabled = false;
-            wall.SetActive(false);
+            UseSwitch();
         }
 
         //if (!lavaSwitchOn) lavaRise.SetActive(false);
@@ -48,5 +42,17 @@ public class LavaRise_Switch : MonoBehaviour
         {
             isPlayer = true;
         }
+    }
+
+    private void UseSwitch()
+    {
+        isUse = true;
+        animator.SetBool("Lever", true);
+        SoundManager.PlaySound(SoundType.SFX, 1, 7);
+        CameraShake.Instance.OnShakeCamera(0.5f, 0.5f);
+        SwitchManager.Instance.volcano_Switch[switchNum] = true;
+        SwitchManager.Instance.volcano_SwitchDoor[doorNum] = true;
+        col.enabled = false;
+        wall.SetActive(false);
     }
 }

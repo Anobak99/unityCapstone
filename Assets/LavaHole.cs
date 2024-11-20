@@ -6,35 +6,40 @@ using UnityEngine.Tilemaps;
 
 public class LavaHole : MonoBehaviour
 {
-    [SerializeField] private GameObject lavaHole;
+    [SerializeField] private int switchNum;
+    [SerializeField] private int doorNum;
+    [SerializeField] private GameObject pickupableObj;
+    [SerializeField] private GameObject lava;
     private BoxCollider2D col;
-    public int key_num = 2;
+    
 
     private void Awake()
     {
         col = GetComponent<BoxCollider2D>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            CameraShake.Instance.OnShakeCamera(0.5f, 0.5f);
-        }
+        if (SwitchManager.Instance.volcano_Switch[switchNum])
+            pickupableObj.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (SwitchManager.Instance.volcano_Switch[switchNum]) return;
+
         if (collision.gameObject.tag == "Pickupable")
         {
-            col.enabled = false;
-            //collision.GetComponent<ObjectPosSave>().SaveObjectPos();
-            //CameraShake.Instance.OnShakeCamera(0.5f, 0.5f);
-            SoundManager.PlaySound(SoundType.SFX, 1, 6);
-            lavaHole.SetActive(false);
-            DataManager.Instance.currentData.openedDoor[key_num] = true;
-            GameObject lava = GameObject.Find("Lava_Door");
-            lava.SetActive(false);
+            UseSwitch();       
         }
+    }
+
+    private void UseSwitch()
+    {
+        col.enabled = false;
+        SoundManager.PlaySound(SoundType.SFX, 1, 6);        
+
+        SwitchManager.Instance.volcano_Switch[switchNum] = true;
+        SwitchManager.Instance.volcano_SwitchDoor[doorNum] = true;
+
+        if (lava != null) lava.SetActive(false);
+        GameObject lavaDoor = GameObject.Find("Lava Door");
+        lavaDoor.SetActive(false);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerInput : Subject
 {
     public float horizontal;
+    public float vertical;
     public bool jumpPressed;
     public float jumpBufferTime = 0.2f;
     [SerializeField] public float jumpBufferCounter;
@@ -26,7 +27,9 @@ public class PlayerInput : Subject
         }
 
         horizontal = Input.GetAxisRaw("Horizontal");
-      
+        vertical = Input.GetAxisRaw("Vertical");
+
+
         Pause();
     }
 

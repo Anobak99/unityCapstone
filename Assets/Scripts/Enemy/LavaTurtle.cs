@@ -61,16 +61,13 @@ public class LavaTurtle : Enemy
                 FlipToPlayer(horizental);
                 if (playerDistance > attackRange) //대상의 거리가 공격범위 밖일 경우
                 {
-                    Debug.Log("플레이어 공격 범위 밖");
                     if (isGround && !isWall && !isplatform && !animator.GetBool("Hit")) //개체 앞의 지형이 이동 가능한 경우
                     {
-                        Debug.Log("플레이어에게 이동");
                         animator.SetInteger("AnimState", 1);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
                     }
                     else
                     {
-                        Debug.Log("실드워리어 : 앞의 지형이 이동불가지형");
                         animator.SetInteger("AnimState", 0);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
@@ -204,8 +201,7 @@ public class LavaTurtle : Enemy
     }
 
     private IEnumerator LavaOverFlow()
-    {
-        Debug.Log("라바 오버플러우");      
+    {  
         animator.SetTrigger("LavaOverFlow");
         yield return new WaitForSeconds(1f);
         GameObject select = null;
@@ -214,7 +210,6 @@ public class LavaTurtle : Enemy
         {
             if (!item.activeSelf)
             {
-                Debug.Log("오브젝트 풀에 프리팹이 있음");
                 select = item;
                 select.SetActive(true);
                 select.transform.position = this.transform.position;
@@ -224,7 +219,6 @@ public class LavaTurtle : Enemy
 
         if (!select)
         {
-            Debug.Log("오브젝트 풀에 프리팹이 없음");
             select = Instantiate(lavaPrefab, lavaPos.transform.position, Quaternion.identity);
             pool.Add(select);
         }
@@ -252,7 +246,6 @@ public class LavaTurtle : Enemy
         }
 
         isLavaFlowCooldown = false; // 쿨타임 종료
-        Debug.Log("Cooldown finished. You can use the skill again.");
     }
 
     public override IEnumerator Attack()

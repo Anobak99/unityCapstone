@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 140545246, guid: 67080693361ba3741b5dba12d1dd686b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -182,7 +182,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d5e2d6acf15d3854dba57fc326a1f490, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -337,7 +337,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.33776093, y: 0}
+  m_Offset: {x: -0.13840675, y: -0.07313681}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -348,7 +348,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 7.3827324, y: 8.013259}
   m_EdgeRadius: 0
 --- !u!1 &8448397444715735026
 GameObject:
@@ -411,10 +411,12 @@ MonoBehaviour:
   isDead: 0
   dropTable: []
   speed: 7
+  battle: {fileID: 0}
   fireBreath: {fileID: 6662214635850579522}
   eruption: {fileID: 0}
-  SurpriseEffect: {fileID: 0}
+  SurpriseAttack_sign: {fileID: 0}
   this_sprite: {fileID: 5724315425541855812}
+  Ablity_Get_Effect: {fileID: 0}
   lavaTilemap: {fileID: 0}
   lavaTile: {fileID: 11400000, guid: bae379681f723254dbf25324cd29140e, type: 2}
   riseSpeed: 0.5
@@ -426,7 +428,8 @@ MonoBehaviour:
   HidecooldownTime: 15
   viewRange: 22
   meleeattackRange: 7.63
-  breathRange: 16
+  breathRangeStart: 8.3
+  breathRangeEnd: 17.34
 --- !u!50 &6039508485178614262
 Rigidbody2D:
   serializedVersion: 4

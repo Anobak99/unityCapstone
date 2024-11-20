@@ -14,28 +14,31 @@ public class RisingLava : MonoBehaviour
     public float waitTime = 2f;           // 상승과 하강 사이의 대기 시간
     public int tilemapWidth = 10;         // 타일맵의 가로 길이 (x축 범위)
     public int tilemapWidth_start;        // 타일맵의 시작 x 위치
-    public static bool lavaSwitch = true;
 
+    [SerializeField] private int switchNum;
     private int currentHeight;            // 현재 용암 높이
     private bool rising = true;           // 용암이 상승 중인지 여부
 
     void Awake()
-    {
-        if (!lavaSwitch)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+    {        
         // 처음 시작할 때는 최저 높이에서 시작
         currentHeight = minHeight;
         StartCoroutine(UpdateLava());
+    }
+
+    private void OnEnable()
+    {
+        if (SwitchManager.Instance.volcano_Switch[switchNum] == true)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     IEnumerator UpdateLava()
     {
         while (true)
         {
-            if (!lavaSwitch)
+            if (SwitchManager.Instance.volcano_Switch[switchNum] == true)
             {
                 RemoveLavaTiles();
                 break;
@@ -46,7 +49,6 @@ public class RisingLava : MonoBehaviour
                 // 용암을 위로 차오르게 함
                 if (currentHeight < maxHeight)
                 {
-                    Debug.Log("Rise Lava");
                     currentHeight++;
                     UpdateLavaTiles();
                     yield return new WaitForSeconds(riseSpeed);
@@ -58,7 +60,7 @@ public class RisingLava : MonoBehaviour
                     yield return new WaitForSeconds(waitTime);
                 }
             }
-            else if (!rising && lavaSwitch)
+            else if (!rising)
             {
                 // 용암을 아래로 내리게 함
                 if (currentHeight > minHeight)
@@ -90,7 +92,6 @@ public class RisingLava : MonoBehaviour
 
                 if (y <= currentHeight)
                 {
-                    Debug.Log("Rise Lava");
                     // 현재 높이 이하의 타일에 용암 타일을 설정
                     lavaTilemap.SetTile(tilePosition, lavaTile);
                 }
@@ -113,7 +114,6 @@ public class RisingLava : MonoBehaviour
 
                 if (y <= currentHeight)
                 {
-                    Debug.Log("Remove Lava");
                     // 현재 높이 이하의 타일에 용암 타일을 설정
                     lavaTilemap.SetTile(tilePosition, null);
                 }

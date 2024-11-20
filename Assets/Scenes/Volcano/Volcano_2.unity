@@ -326,6 +326,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+--- !u!114 &227067301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1284313668461532792, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 227067300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043472596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &469266878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2173,7 +2184,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1970751680, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -1040399417, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 26, y: -1, z: 0}
@@ -2209,7 +2220,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 29, y: -1, z: 0}
@@ -2365,7 +2376,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 42, y: -1, z: 0}
@@ -2533,7 +2544,7 @@ Tilemap:
       - {fileID: 535480408, guid: 130cef30da0e95c46b8f95c01f37b87f, type: 3}
       - {fileID: -926319154, guid: 130cef30da0e95c46b8f95c01f37b87f, type: 3}
       - {fileID: -1622247812, guid: 130cef30da0e95c46b8f95c01f37b87f, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 24, y: 0, z: 0}
@@ -3316,6 +3327,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 227067301}
     - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: parallaxCamera
       value: 
@@ -7255,6 +7270,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: viewRange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: attackRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: shotcooldownTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4695097136068793106, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: m_Name
       value: Lava Wyrm (1)
@@ -7627,11 +7654,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: viewRange
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: attackRange
-      value: 5
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: shotcooldownTime
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: groundLayor.m_Bits
@@ -7753,7 +7784,7 @@ AudioSource:
   m_GameObject: {fileID: 1789742742}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 88db208a4173d124fb3406c81b884b0b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6584bcc7a9e7ce74d99227ee48238796, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.6

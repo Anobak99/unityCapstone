@@ -11,6 +11,7 @@ public class LavaTrap : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (collision.gameObject.GetComponent<PlayerController>().isObsidianSkin) return;
             GameManager.Instance.PlayerHit(1);
             StartCoroutine(MovePos());
         }

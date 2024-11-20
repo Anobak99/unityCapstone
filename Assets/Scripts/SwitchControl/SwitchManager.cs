@@ -5,7 +5,13 @@ using UnityEngine;
 public class SwitchManager : MonoBehaviour
 {
     //게임 내에서 사용되는 맵 스위치들을 관리하기 위한 스크립트
-    public bool[] volcanoSwitch = new bool[10];
+
+    #region Volcano Switch
+    [Header("Volcano")]
+    public bool[] volcano_Switch = new bool[5];
+    public bool[] volcano_SwitchDoor = new bool[5];
+    #endregion
+
     public bool[] doorSwitch = new bool[10]; //문을 여는 열쇠
     public bool[] openedDoor = new bool[10]; //열린 문
     public bool[] openSwitchDoor = new bool[10]; //스위치로 여는 문
@@ -49,7 +55,8 @@ public class SwitchManager : MonoBehaviour
     //이벤트 스위치 정보 저장
     public SaveData SaveSwitchInfo(SaveData saveData)
     {
-        saveData.volcanoSwitch = volcanoSwitch;
+        saveData.volcano_Switch = volcano_Switch;
+        saveData.volcano_SwitchDoor = volcano_SwitchDoor;
         saveData.doorSwitch = doorSwitch;
         saveData.openedDoor = openedDoor;
         saveData.openSwitchDoor = openSwitchDoor;
@@ -61,7 +68,8 @@ public class SwitchManager : MonoBehaviour
     //이벤트 스위치 정보 불러오기
     public void LoadSwitchInfo(SaveData loadData)
     {
-        volcanoSwitch = loadData.volcanoSwitch;
+        volcano_Switch = loadData.volcano_Switch;
+        volcano_SwitchDoor = loadData.volcano_SwitchDoor;
         doorSwitch = loadData.doorSwitch;
         openedDoor = loadData.openedDoor;
         openSwitchDoor = loadData.openSwitchDoor;

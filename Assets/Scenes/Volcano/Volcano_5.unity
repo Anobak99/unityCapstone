@@ -2867,7 +2867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: viewRange
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8368238447065744203, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_IsActive
@@ -2905,11 +2905,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32.829998
+      value: 31.34
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.17
+      value: 10.59
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2961,6 +2961,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
   m_PrefabInstance: {fileID: 605533669}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &605533671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1284313668461532792, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 605533669}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605533670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &811499591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,7 +2984,7 @@ GameObject:
   - component: {fileID: 811499593}
   - component: {fileID: 811499594}
   m_Layer: 0
-  m_Name: Lava_Door
+  m_Name: Lava Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3049,10 +3060,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 811499591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aeb7350d85d58b4096088672ed042d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a3165ec78127554fa5a528ca85887f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  num: 2
+  doorNum: 0
 --- !u!1 &1222465914
 GameObject:
   m_ObjectHideFlags: 0
@@ -3625,6 +3636,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 605533671}
+    - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: parallaxCamera
       value: 
       objectReference: {fileID: 389924041}
@@ -3708,7 +3723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.x
-      value: -5.5
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: curScene
@@ -3720,7 +3735,7 @@ PrefabInstance:
       objectReference: {fileID: 605533670}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.14
+      value: 33.16
       objectReference: {fileID: 0}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4513,7 +4528,7 @@ AudioSource:
   m_GameObject: {fileID: 2021126063}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 88db208a4173d124fb3406c81b884b0b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6584bcc7a9e7ce74d99227ee48238796, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1

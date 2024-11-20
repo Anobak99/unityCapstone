@@ -75,6 +75,8 @@ public class AbilityStatue : MonoBehaviour
         DialogueManager.Instance.DisplayNextSentence();
         InventoryManager.instance.RemoveItem(item);
         CameraShake.Instance.OnShakeCamera(0.5f, 2f);
+        UIManager.Instance.systemScreen.SetActive(true);
+        UIManager.Instance.AbilityImageOn(anbility_num);
         SwitchManager.Instance.abilities[anbility_num] = true;
     }
 

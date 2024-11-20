@@ -28,6 +28,7 @@ public class VolcanoDragon : Boss
     public GameObject eruption;
     public GameObject SurpriseAttack_sign; // 기습 공격 위치 전조 알림
     public GameObject this_sprite;
+    public GameObject Ablity_Get_Effect;
     [Space(10f)]
     #endregion
 
@@ -59,8 +60,6 @@ public class VolcanoDragon : Boss
     #endregion
 
     #region Count
-    private int atk_Count = 0;
-    private int atk_countMax;
     private int meleeAtk_Count = 0;
     private int meleeAtk_countMax;
     private int breath_Count = 0;
@@ -69,6 +68,7 @@ public class VolcanoDragon : Boss
     private int lavaflood_countMax;
     private int LavaEruption_Count = 0;
     private int LavaEruption_countMax;
+    private int SurpriseAttack_countMax;
     #endregion
 
     #region Range
@@ -89,27 +89,11 @@ public class VolcanoDragon : Boss
     {
         currentHeight = minHeight; // 용암의 초기 위치는 최저로 설정
 
-        atk_countMax = UnityEngine.Random.Range(3, 5);
         meleeAtk_countMax = UnityEngine.Random.Range(2, 4);
         breath_countMax = UnityEngine.Random.Range(2, 4);
         lavaflood_countMax = UnityEngine.Random.Range(2, 3);
-        LavaEruption_countMax = UnityEngine.Random.Range(1, 3);
+        LavaEruption_countMax = UnityEngine.Random.Range(1, 3);       
     }
-
-    private void Update()
-    {
-        hideHorizental = hidePos.position.x - this.transform.position.x;
-        Debug.Log("현재상태:"+currentState);
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartCoroutine(Hide());
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(Think());
-        }
-    } 
 
     public override IEnumerator Think()
     {      
@@ -157,10 +141,9 @@ public class VolcanoDragon : Boss
                         yield return StartCoroutine(MeleeAttack());
                         yield return new WaitForSeconds(1f); // 공격 후 딜레이
 
-                        if (atk_Count == atk_countMax)
+                        if (IsMeleeAttackRange())
                         {
-                            atk_Count = 0;
-                            yield return StartCoroutine(TransitionToState(BossState.LavaFlood));
+                            yield return StartCoroutine(TransitionToState(BossState.MeleeAttack));
                         }
                         else if (!IsHideCoolingDown && hp < maxHp / 2)
                         // 피가 50% 아래인 경우 -> 숨기
@@ -343,7 +326,7 @@ public class VolcanoDragon : Boss
         float distance = Vector2.Distance(transform.position, player.position);
         verticalDistance = player.position.y - transform.position.y;
 
-        if (distance > breathRangeStart && distance < breathRangeEnd && verticalDistance > -0.5f && verticalDistance < 2.1f)
+        if (distance > breathRangeStart && distance < breathRangeEnd && verticalDistance > -1f && verticalDistance < 2.1f)
         {
             return true;
         }
@@ -396,7 +379,7 @@ public class VolcanoDragon : Boss
         {
             Debug.Log("플레이어에게 이동");
             distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-            while (distanceFromPlayer > 6f)
+            while (distanceFromPlayer > 8f)
             {
                 distanceFromPlayer = Vector2.Distance(player.position, transform.position);
                 rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -419,7 +402,6 @@ public class VolcanoDragon : Boss
     private IEnumerator MeleeAttack()
     {
         Debug.Log("근접 공격");
-        atk_Count++;
         meleeAtk_Count++;
 
         rb.velocity = Vector2.zero;
@@ -431,7 +413,6 @@ public class VolcanoDragon : Boss
     private IEnumerator Breath()
     {
         Debug.Log("브레스");
-        atk_Count++;
         breath_Count++;
 
         FlipToPlayer(horizentalDistance);
@@ -449,7 +430,6 @@ public class VolcanoDragon : Boss
     {
         Debug.Log("용암 분출");
         isLavaflood = true;
-        atk_Count++;
         lavaflood_Count++;
 
         animator.SetTrigger("LavaFlood");
@@ -520,7 +500,6 @@ public class VolcanoDragon : Boss
     private IEnumerator LavaEruption()
     {
         Debug.Log("Lava Eruption");
-        atk_Count++;
         LavaEruption_Count++;
 
         animator.SetTrigger("LavaFlood");
@@ -534,13 +513,14 @@ public class VolcanoDragon : Boss
     private IEnumerator Hide()
     {
         Debug.Log("숨기");
-        atk_Count++;
 
         int loopnum=0;
+        SurpriseAttack_countMax = UnityEngine.Random.Range(2, 3);
 
+        hideHorizental = hidePos.position.x - this.transform.position.x;
         FlipToHidePos(hideHorizental);       
 
-        while(hidePos.transform.position.x != this.transform.position.x)
+        while(hidePos.transform.position.y+1f < this.transform.position.y)
         {
             if (moveDirection > 0 && hidePos.transform.position.x < this.transform.position.x)
             {
@@ -552,20 +532,16 @@ public class VolcanoDragon : Boss
                 rb.velocity = new Vector2(0, 0);
                 break;
             }
+            gameObject.transform.position = Vector3.Slerp(gameObject.transform.position, hidePos.position, speed * Time.deltaTime);
 
-            rb.velocity = new Vector2(moveDirection * speed * 1.5f, rb.velocity.y);
+            //rb.velocity = new Vector2(moveDirection * speed * 1.5f, rb.velocity.y);
 
-            yield return wait0Dot1;
+            yield return new WaitForSeconds(0.025f);
         
             loopnum++;
             if (loopnum++ > 10000)
                 throw new Exception("Infinite Loop");
         }
-
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        rb.velocity = new Vector2(0, speed * -2f);
-
-        yield return wait2;
 
         rb.velocity = new Vector2(0, 0);
         this_sprite.SetActive(false);
@@ -575,51 +551,53 @@ public class VolcanoDragon : Boss
 
     private IEnumerator SurpriseAttack()
     {
-        Debug.Log("기습공격");
-
-        CameraShake.Instance.OnShakeCamera(3f, 0.5f);
-        SurpriseAttack_sign.transform.position = new Vector3(player.position.x, player.position.y, SurpriseAttack_sign.transform.position.z);
-        SurpriseAttack_sign.SetActive(true);
-        Vector3 currentPos = gameObject.transform.position;
-        transform.position = new Vector3(player.position.x, currentPos.y, currentPos.z);
-        yield return new WaitForSeconds(1.5f);
-
-        SurpriseAttack_sign.SetActive(false);
-
         int loopnum = 0;
-        while (gameObject.transform.position.y < 86f)
+
+        for (int i = 0; i < SurpriseAttack_countMax; i++)
         {
-            if(hidePos.transform.position.y < gameObject.transform.position.y)
+            Debug.Log("Surprise Attack !");
+            yield return wait1;
+            SoundManager.PlaySound(SoundType.SFX, 1, 6);
+            CameraShake.Instance.OnShakeCamera(1f, 0.5f);
+            SurpriseAttack_sign.transform.position = new Vector3(player.position.x, player.position.y, SurpriseAttack_sign.transform.position.z);
+            SurpriseAttack_sign.SetActive(true);
+            gameObject.transform.position = new Vector3(player.position.x, hidePos.position.y -10f, gameObject.transform.position.z);
+            yield return new WaitForSeconds(1f);
+            SurpriseAttack_sign.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+
+            this_sprite.SetActive(true);
+            while (gameObject.transform.position.y < 86f)
             {
-                if (!this_sprite.activeSelf)
+                if (hidePos.transform.position.y < gameObject.transform.position.y)
                 {
-                    this_sprite.SetActive(true);
+                    if (!this_sprite.activeSelf)
+                    {
+                        this_sprite.SetActive(true);
+                    }
+                    if (!animator.GetBool("IsSurpriseAtk"))
+                    {
+                        animator.SetTrigger("SurpriseAtk");
+                        animator.SetBool("IsSurpriseAtk", true);
+                    }
                 }
-                if (!animator.GetBool("IsSurpriseAtk"))
-                {
-                    animator.SetTrigger("SurpriseAtk");
-                    animator.SetBool("IsSurpriseAtk", true);
-                }
+
+                rb.velocity = new Vector2(0, 10f);
+
+                yield return wait0Dot1;
+
+                loopnum++;
+                if (loopnum++ > 10000)
+                    throw new Exception("Infinite Loop");
             }
 
-            rb.velocity = new Vector2(0, 10f);
-
-            yield return wait0Dot1;
-
-            loopnum++;
-            if (loopnum++ > 10000)
-                throw new Exception("Infinite Loop");
+            animator.SetBool("IsSurpriseAtk", false);
+            yield return wait1;
+            this_sprite.SetActive(false);
         }
-
-        animator.SetBool("IsSurpriseAtk", false);
-        yield return wait1;
-        this_sprite.SetActive(false);
-
-        yield return new WaitForSeconds(3f);
 
         gameObject.transform.position = hidePos.position;
         this_sprite.SetActive(true);
-        
 
         while (gameObject.transform.position.y < 70.5f)
         {
@@ -674,14 +652,15 @@ public class VolcanoDragon : Boss
 
     private IEnumerator Death()
     {
-        StopCoroutine(Think());
+        StopAllCoroutines();
+        StartCoroutine(LavaFlood());
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
+        Ablity_Get_Effect.SetActive(true);
         canDamage = false;
         isDead = true;
         battle.BossDead();
         yield return new WaitForSeconds(1f);
-        gameObject.SetActive(false);
     }
 
     void OnDrawGizmos()

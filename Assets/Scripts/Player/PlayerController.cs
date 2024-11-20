@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
 
     #region Attack
     [Header("공격")]
+    [SerializeField] private GameObject basicSlashAttack;
+    [SerializeField] private GameObject topSlashAttack;
     public Transform attackPos;
     public LayerMask whatIsEnemies;
     public int damage;        // 데미지 수치
@@ -86,6 +88,7 @@ public class PlayerController : MonoBehaviour
     private bool canFireBall;
     private bool isDead;
     public bool isRespawn;
+    public bool isObsidianSkin; // 용암에 피해 안받음
     #endregion
 
     private void Awake()
@@ -102,7 +105,7 @@ public class PlayerController : MonoBehaviour
         isJump = anim.GetBool("isJump");
         isRun = anim.GetBool("isRun");
         isDash = anim.GetBool("isDash");
-        isGrab = anim.GetBool("isGrab");
+        isGrab = anim.GetBool("isGrab");       
     }
 
     private void Update()
@@ -143,7 +146,12 @@ public class PlayerController : MonoBehaviour
         }
 
         if (timeBtwAttack <= 0 && input.attackInput && !isDashing && !isHolding)
-        {          
+        {
+            if (input.vertical > 0)
+            {
+                StartCoroutine(TopAttack());
+                return;
+            }
             StartCoroutine(Attack());
         }
 
@@ -178,11 +186,11 @@ public class PlayerController : MonoBehaviour
     {
         if (input.horizontal > 0)
         {
-            transform.localScale = new Vector2(1, transform.localScale.y);
+            transform.localScale = new Vector2(-1, transform.localScale.y);
         }
         else if (input.horizontal < 0)
         {
-            transform.localScale = new Vector2(-1, transform.localScale.y);
+            transform.localScale = new Vector2(1, transform.localScale.y);
         }
     }
 
@@ -240,6 +248,7 @@ public class PlayerController : MonoBehaviour
         if (coyoteTimeCounter > 0f && input.jumpBufferCounter > 0f && !isJumping && !isHolding)
         {
             //SoundManager.instance.PlaySfx(0);
+            SoundManager.PlaySound(SoundType.JUMP, 1f);
             input.jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
             isJumping = true;
@@ -251,6 +260,7 @@ public class PlayerController : MonoBehaviour
         {
             //SoundManager.instance.PlaySfx(0);
             //Debug.Log("double jump");
+            SoundManager.PlaySound(SoundType.JUMP, 1f);
             input.jumpBufferCounter = 0f;
             isJumping = true;
             doubleJump = false;
@@ -299,15 +309,17 @@ public class PlayerController : MonoBehaviour
         dashingDir = new Vector2(input.horizontal, 0f);
         if (dashingDir == Vector2.zero)
         {
-            dashingDir = new Vector2(transform.localScale.x, 0);
+            dashingDir = new Vector2(transform.localScale.x * -1f, 0);
         }
         rigid.velocity = dashingDir.normalized * dashSpeed;
         yield return new WaitForSeconds(dashTime);
         anim.SetBool("isDash", false);
+        rigid.velocity = Vector2.zero;
         isDashing = false;
         yield return new WaitForSeconds(1f);
         if (!isDamaged) canDamage = true;
         canDash = true;
+
     }
 
     void PickUpObject()
@@ -320,6 +332,8 @@ public class PlayerController : MonoBehaviour
             {
                 // 들고 있는 물체 설정
                 anim.SetBool("isGrab", true);
+                anim.SetTrigger("isGrabobj");
+                SoundManager.PlaySound(SoundType.SFX, 0.5f, 5);
                 heldObject = col.GetComponent<Rigidbody2D>();
                 heldObject.mass = 0;
                 col.transform.SetParent(transform);
@@ -368,7 +382,8 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         if (canDamage)
-        {           
+        {
+            SoundManager.PlaySound(SoundType.HURT, 0.7f, 0);
             canAct = false;
             canDamage = false;
             isDamaged = true;
@@ -433,6 +448,22 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
+    public void ActivateBasicAttackObject()
+    {
+        if (basicSlashAttack != null)
+        {
+            basicSlashAttack.SetActive(true);
+        }
+    }
+
+    public void ActivateTopAttackObject()
+    {
+        if (topSlashAttack != null)
+        {
+            topSlashAttack.SetActive(true);
+        }
+    }
+
     private IEnumerator Attack()
     {
         //SoundManager.instance.PlaySfx(1);
@@ -445,11 +476,22 @@ public class PlayerController : MonoBehaviour
         timeBtwAttack = startTimeBtwAttack;
     }
 
+    private IEnumerator TopAttack()
+    {
+        //SoundManager.instance.PlaySfx(1);
+        canAct = false;
+        anim.SetTrigger("isTopAttack");
+        yield return null;
+        canAct = true;
+
+
+        timeBtwAttack = startTimeBtwAttack;
+    }
+
     private IEnumerator FireBall()
     {
         canAct = false;
-        anim.SetTrigger("FireBall");       
-
+        anim.SetTrigger("FireBall");
         yield return new WaitForSeconds(1f);
 
         canAct = true;
@@ -462,46 +504,43 @@ public class PlayerController : MonoBehaviour
         GameObject select = null;
 
         select = ObjectPoolManager.instance.GetFireBallObject(new Vector2(attackPos.position.x, attackPos.position.y), Quaternion.identity);
-        select.transform.localScale = new Vector3(gameObject.transform.localScale.x, 1, 1);
+        select.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1f, 1, 1);
         bullet = select.GetComponent<PlayerBullet>();
         if (gameObject.transform.localScale.x > 0)
         {
-            bullet.rb.velocity = new Vector2(bullet.speed, 0);
+            bullet.rb.velocity = new Vector2(bullet.speed*-1, 0);
         }
         else if (gameObject.transform.localScale.x < 0)
         {
-            bullet.rb.velocity = new Vector2(bullet.speed * -1, 0);
+            bullet.rb.velocity = new Vector2(bullet.speed, 0);
         }
     }
 
-    public void HitCheck()
+    public void DetectEnemy(Collider2D[] enemy)
     {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
-        for (int i = 0; i < enemiesToDamage.Length; i++)
+        for (int i = 0; i < enemy.Length; i++)
         {
-            if (enemiesToDamage[i].gameObject.tag == "Enemy") // 적과 충돌 시 데미지 처리
+            if (enemy[i].gameObject.tag == "Enemy") // 적과 충돌 시 데미지 처리
             {
-                enemiesToDamage[i].GetComponent<Enemy>().Attacked(damage, transform.position);
-                ObjectPoolManager.instance.GetEffectObject(enemiesToDamage[i].GetComponent<Enemy>().transform.position, 
-                                                        enemiesToDamage[i].GetComponent<Enemy>().transform.rotation);
+                enemy[i].GetComponent<Enemy>().Attacked(damage, transform.position);
+                ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Enemy>().transform.position,
+                                                        enemy[i].GetComponent<Enemy>().transform.rotation);
                 SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
             }
-            else if (enemiesToDamage[i].gameObject.tag == "Boss")
+            else if (enemy[i].gameObject.tag == "Boss")
             {
-                enemiesToDamage[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
-                ObjectPoolManager.instance.GetEffectObject(enemiesToDamage[i].GetComponent<Boss>().transform.position,
-                                                        enemiesToDamage[i].GetComponent<Boss>().transform.rotation);
+                enemy[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
+                ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Boss>().transform.position,
+                                                        enemy[i].GetComponent<Boss>().transform.rotation);
                 SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
             }
-            else if (enemiesToDamage[i].gameObject.tag == "EnemyDestroyableBullet")
+            else if (enemy[i].gameObject.tag == "EnemyDestroyableBullet")
             {
                 Debug.Log("적의 투사체에 적중");
-                enemiesToDamage[i].gameObject.SetActive(false);
+                enemy[i].gameObject.SetActive(false);
             }
         }
     }
-
-
 
     void Setgravity()
     {
@@ -578,6 +617,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (collision.CompareTag("Lava"))
             {
+                if (isObsidianSkin) return; // 옵시디언 스킨 능력 활성화시 용암피해x
                 GameManager.Instance.PlayerHit(1);
             }
         }

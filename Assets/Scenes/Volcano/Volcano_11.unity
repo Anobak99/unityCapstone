@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967819218463624623, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.49
+      value: 2.22
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.x
@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.y
-      value: 5.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: curScene
@@ -165,7 +165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.69
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -870,6 +870,7 @@ MonoBehaviour:
   objects:
   - {fileID: 883193741}
   - {fileID: 1466369076}
+  - {fileID: 741991738}
   areaName: Volcano
 --- !u!61 &649150727
 BoxCollider2D:
@@ -1129,6 +1130,7 @@ MonoBehaviour:
   waitTime: 2
   tilemapWidth: 144
   tilemapWidth_start: 127
+  switchNum: 4
 --- !u!4 &741991740
 Transform:
   m_ObjectHideFlags: 0
@@ -1138,7 +1140,7 @@ Transform:
   m_GameObject: {fileID: 741991738}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 129.19, y: 10.1, z: -0.013642319}
+  m_LocalPosition: {x: 135.08, y: 10.05, z: -0.013642319}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1170,7 +1172,7 @@ AudioSource:
   m_GameObject: {fileID: 751729384}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 88db208a4173d124fb3406c81b884b0b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6584bcc7a9e7ce74d99227ee48238796, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1266,7 +1268,7 @@ Transform:
   m_GameObject: {fileID: 751729384}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.5, y: 19.45, z: -0.029993564}
+  m_LocalPosition: {x: 134.93, y: 16.73, z: -0.029993564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1798,6 +1800,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
   m_PrefabInstance: {fileID: 1300722721}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1300722723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1284313668461532792, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 1300722721}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300722722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1466369075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1886,6 +1899,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1300722723}
     - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: parallaxCamera
       value: 
@@ -1990,7 +2007,7 @@ PrefabInstance:
       objectReference: {fileID: 1300722722}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 124.86
+      value: 125.06
       objectReference: {fileID: 0}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4915,6 +4932,7 @@ MonoBehaviour:
   objects:
   - {fileID: 883193741}
   - {fileID: 1466369076}
+  - {fileID: 741991738}
   areaName: Volcano
 --- !u!61 &2132986402
 BoxCollider2D:

@@ -223,6 +223,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  playerSubject: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: cd0affa3b0c9c4f448d8a7942cce4e56, type: 2}
   defalutMaterial: {fileID: 2100000, guid: 072ee146a802e054b9af102c2bf7e4b9, type: 2}
   canAct: 0
@@ -233,7 +234,7 @@ MonoBehaviour:
   moveDirection: -1
   speed: 1.5
   viewRange: 10
-  attackRange: 5
+  attackRange: 4
   facingRight: 0
   attackPos: {fileID: 4376106221704286627}
   lavaPos: {fileID: 2294006567620045313}
@@ -314,7 +315,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.98, y: -0.15}
+  m_Offset: {x: -2.3466232, y: -0.14999998}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -325,7 +326,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2}
+  m_Size: {x: 2.2332463, y: 2}
   m_EdgeRadius: 0
 --- !u!1 &8509593223304685245
 GameObject:
@@ -431,7 +432,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -508086094, guid: 2a13ef627d024a1429fcf2e14cb8b557, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

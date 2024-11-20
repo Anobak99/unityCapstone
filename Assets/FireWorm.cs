@@ -34,7 +34,6 @@ public class FireWorm : Enemy
     public override IEnumerator Think()
     {
         Check(); //지형 체크
-        Debug.Log(isGround + " " + isWall);
         if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동
         {
             horizental = player.position.x - transform.position.x; //플레이어까지의 x거리

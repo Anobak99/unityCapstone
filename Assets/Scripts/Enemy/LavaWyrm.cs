@@ -65,32 +65,27 @@ public class LavaWyrm : Enemy
                 {
                     if (isLava && !animator.GetBool("Hit")) // 현재 위치가 용암안인 경우
                     {
-                        Debug.Log("플레이어가 인식 범위 안이고 위에 있음");
                         rb.velocity = new Vector2(rb.velocity.x, 1f * speed);
                     }
                     else 
                     {
-                        Debug.Log("플레이어가 인식 범위 안이고 위에 있으나 현재 위치가 용암이 아니거나 공격중");
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
                 else if (player.position.y + 3f < this.transform.position.y && !IsShotCoolingDown)
                 {
-                    Debug.Log("플레이어가 인식 범위 안이고 아래에 있음 : 공격");
                     rb.velocity = new Vector2(0, 0);
                     animator.SetTrigger("Attack");
                     act2 = StartCoroutine(Shot());
                 }
                 else if (IsShotCoolingDown)
                 {
-                    Debug.Log("공격이 쿨타임중임");
                     rb.velocity = new Vector2(rb.velocity.x, -1f * speed);
                     yield return new WaitForSecondsRealtime(shotcooldownTime);
                 }
             }
             else
             {
-                Debug.Log("플레이어가 인식 범위 밖에 있음");
                 rb.velocity = new Vector2(rb.velocity.x, -1f * speed);
             }
         }

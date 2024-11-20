@@ -14,20 +14,9 @@ public enum SoundType
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
-    RoomCheck roomCheck;
     [SerializeField] private SoundList[] soundList;
-    public List<GameObject> enemysoundPool; 
     public static SoundManager instance;
     private AudioSource audioSource;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            string currentSceneName = SceneManager.GetActiveScene().name;
-            Debug.Log(currentSceneName);
-        }
-    }
 
     private void Awake()
     {
@@ -60,29 +49,6 @@ public class SoundManager : MonoBehaviour
         instance.audioSource.PlayOneShot(clips[num], volume);
     }
 
-    public static void EnemyPlaySound(SoundType sound, float volume = 1, int num = 0)
-    {
-        AudioClip[] clips = instance.soundList[(int)sound].Sounds;
-        AudioSource audioSource = null;
-        GameObject enemySound = null;       
-
-        foreach (GameObject item in instance.enemysoundPool)
-        {
-            if (!item.activeSelf)
-            {                
-                enemySound = item;
-                enemySound.SetActive(true);
-                audioSource = enemySound.GetComponent<AudioSource>();
-                break;
-            }
-        }
-
-        Debug.Log("적 사운드 : " + clips[num] + ",  볼륨 : " + volume);
-        if (!enemySound)
-        {
-            audioSource.PlayOneShot(clips[num], volume);
-        }
-    }
 }
 
 [Serializable]

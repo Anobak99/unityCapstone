@@ -335,6 +335,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2056311670}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (3)
@@ -345,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -1999,6 +2027,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 703090867}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap
@@ -2009,7 +2065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -2074,6 +2130,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
   m_PrefabInstance: {fileID: 413334347}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &457016757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457016758}
+  m_Layer: 0
+  m_Name: HitTrap_MovePos (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457016758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457016757}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 104.35, y: 11.13, z: -0.07328363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457648571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,6 +2489,68 @@ Transform:
   - {fileID: 793696531}
   m_Father: {fileID: 1549156507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!1 &654465416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 654465417}
+  m_Layer: 0
+  m_Name: HitTrap_MovePos (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &654465417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654465416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 110.21, y: 11.13, z: -0.07328363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &665970713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665970714}
+  m_Layer: 0
+  m_Name: HitTrap_MovePos (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &665970714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665970713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 110.21, y: 11.13, z: -0.07328363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &666652560
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,7 +2577,7 @@ AudioSource:
   m_GameObject: {fileID: 666652560}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 88db208a4173d124fb3406c81b884b0b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 34ff06c8b9746004786abe671534517d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2619,6 +2768,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1816630859}
+    - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: parallaxCamera
       value: 
       objectReference: {fileID: 487415145}
@@ -2790,6 +2943,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 643032398}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (1)
@@ -2800,7 +2981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3113,7 +3294,7 @@ AudioSource:
   m_GameObject: {fileID: 937103457}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 88db208a4173d124fb3406c81b884b0b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 34ff06c8b9746004786abe671534517d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3208,6 +3389,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1635007402}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (2)
@@ -3218,7 +3427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3492,6 +3701,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2117075589}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (4)
@@ -3502,7 +3739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3575,6 +3812,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1111191081}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (3)
@@ -3585,7 +3850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3658,6 +3923,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146331484}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (1)
@@ -3668,7 +3961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -4054,6 +4347,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 84615540}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (2)
@@ -4064,7 +4385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -4132,6 +4453,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
   m_PrefabInstance: {fileID: 1460163288}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1545645069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545645070}
+  m_Layer: 0
+  m_Name: HitTrap_MovePos (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1545645070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545645069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 95.3, y: 11.13, z: -0.07328363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549156506
 GameObject:
   m_ObjectHideFlags: 0
@@ -4304,7 +4656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.x
-      value: -12.5
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: curScene
@@ -4420,6 +4772,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1794667646}
     m_Modifications:
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1816630858}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1962501809}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[1]
+      value: 
+      objectReference: {fileID: 1545645070}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[2]
+      value: 
+      objectReference: {fileID: 457016758}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[3]
+      value: 
+      objectReference: {fileID: 654465417}
+    - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
+      propertyPath: m_Pos.Array.data[4]
+      value: 
+      objectReference: {fileID: 665970714}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap
@@ -4430,7 +4810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Lava
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -4663,6 +5043,48 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
   m_PrefabInstance: {fileID: 1816630857}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1816630859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1284313668461532792, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 1816630857}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816630858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1962501808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1962501809}
+  m_Layer: 0
+  m_Name: HitTrap_MovePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1962501809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962501808}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 87.88, y: 11.13, z: -0.07328363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2012453468
 GameObject:
   m_ObjectHideFlags: 0
@@ -4996,3 +5418,8 @@ SceneRoots:
   - {fileID: 811242675}
   - {fileID: 688685614}
   - {fileID: 1650340176}
+  - {fileID: 1962501809}
+  - {fileID: 1545645070}
+  - {fileID: 457016758}
+  - {fileID: 654465417}
+  - {fileID: 665970714}

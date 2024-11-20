@@ -13,9 +13,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject startMenu;
     [SerializeField] GameObject optionMenu;
-    [SerializeField] TextMeshPro     startText1;
-    [SerializeField] TextMeshPro startText2;
-    [SerializeField] TextMeshPro startText3;
+    [SerializeField] TextMeshProUGUI startText1;
+    [SerializeField] TextMeshProUGUI startText2;
+    [SerializeField] TextMeshProUGUI startText3;
 
     public AudioClip clickSound;  // 선택 효과음
     private AudioSource audioSource;
@@ -26,6 +26,11 @@ public class MainMenu : MonoBehaviour
         audioSource.playOnAwake = false;  // 자동 재생 방지
 
         StartCoroutine(ButtonControl());
+    }
+
+    private void Update()
+    {
+        Debug.Log(DataManager.instance);
     }
 
     IEnumerator ButtonControl()
@@ -60,14 +65,16 @@ public class MainMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         mainMenu.SetActive(false);
         startMenu.SetActive(true);
+
+
         if (DataManager.instance.FileCheck("saveFile1.json"))
             startText1.text = DataManager.instance.currentData.areaName;
-        if (DataManager.instance.FileCheck("saveFile2.json"))
+        if (DataManager.instance.FileCheck("saveFile2.json"))  
             startText2.text = DataManager.instance.currentData.areaName;
         if (DataManager.instance.FileCheck("saveFile3.json"))
             startText3.text = DataManager.instance.currentData.areaName;
     }
-
+           
     public void Option()
     {
         PlayClickSound();

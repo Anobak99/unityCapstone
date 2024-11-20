@@ -31,7 +31,10 @@ public class UIManager : MonoBehaviour
     public GameObject HPUI;
     public GameObject blackScreen;
     public GameObject bloodScreen;
+    public GameObject systemScreen;
+    public Image[] abilityGetImage;
 
+    private GameObject player;
     [SerializeField] private GameObject ResumeSelectButton;
     [SerializeField] private GameObject deathMassage;
     [SerializeField] private Slider hpBar;
@@ -229,6 +232,24 @@ public class UIManager : MonoBehaviour
             return true;
         }
         else { return false; }
+    }
+
+    public void AbilityImageOn(int abilityNum)
+    {
+        player = GameObject.FindWithTag("Player");
+        player.GetComponent<PlayerController>().canAct = false;
+        abilityGetImage[abilityNum].gameObject.SetActive(true);
+    }
+
+    public void SystemScreenOff()
+    {
+        for (int i = 0; i < abilityGetImage.Length; i++)
+        {
+            abilityGetImage[i].gameObject.SetActive(false);
+        }
+        player = GameObject.FindWithTag("Player");
+        player.GetComponent<PlayerController>().canAct = true;
+        systemScreen.SetActive(false);
     }
 
     private void PlayClickSound()

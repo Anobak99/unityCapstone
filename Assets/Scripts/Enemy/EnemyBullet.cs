@@ -14,6 +14,7 @@ public class EnemyBullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        StartCoroutine(Disable());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,6 +36,12 @@ public class EnemyBullet : MonoBehaviour
     {
         animator.SetTrigger("Explo");
         yield return new WaitForSeconds(0.2f);
+        transform.gameObject.SetActive(false);
+    }
+
+    private IEnumerator Disable()
+    {
+        yield return new WaitForSeconds(5f);
         transform.gameObject.SetActive(false);
     }
 
