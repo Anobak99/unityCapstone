@@ -4,17 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
-using UnityEngine.U2D;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Experimental.Rendering.Universal;
 
 public class BossBattle : MonoBehaviour 
 {
     [SerializeField] private CameraFollow cam;
     [SerializeField] private CinemachineVirtualCamera roomCam;
     [SerializeField] private CinemachineVirtualCamera bossCam;
-    [SerializeField] private CinemachineVirtualCamera cutSceneCam;
-    [SerializeField] private UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera mainCam;
     public BoxCollider2D camPosition;
     private BoxCollider2D preCamBox;
     public float camSpeed;
@@ -49,10 +44,9 @@ public class BossBattle : MonoBehaviour
         //        StartCoroutine(DoorEffect());
         //    }
         //}
-        
         if (collision.CompareTag("Player"))
         {
-             StartCoroutine(BossBattleEnter());
+            StartCoroutine(BossBattleEnter());
         }
     }
 
@@ -78,11 +72,9 @@ public class BossBattle : MonoBehaviour
 
     IEnumerator BossCutScene()
     {
-        Debug.Log("cut");
         GameManager.Instance.gameState = GameManager.GameState.Event;
         BossObject.SetActive(true);
         Player.GetComponent<PlayerController>().canAct = false;
-        mainCam.enabled = false;
 
         // 타임라인 시작
         director.Play();
@@ -91,13 +83,11 @@ public class BossBattle : MonoBehaviour
         yield return new WaitForSeconds((float)director.duration);
 
         
-        cutSceneCam.Priority = 9;
-        if(BossObject.GetComponent<Animator>() != null)
-            Destroy(BossObject.GetComponent<Animator>());
+        bossCam.Priority = 9;
+        Destroy(BossObject.GetComponent<Animator>());
         yield return new WaitForSeconds(0.5f);
         Player.GetComponent<PlayerController>().canAct = true;
-        BossObject.GetComponent<Boss>().enabled = true;
-        mainCam.enabled = true;
+        BossObject.GetComponent<VolcanoDragon>().enabled = true;
     }
 
     IEnumerator DoorEffect()

@@ -26,13 +26,6 @@ public class Turtler_move : Enemy
     private bool isWall;
     private bool isplatform;
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        ready = false;
-        animator.Play("Turtler_Idle");
-    }
-
     public override IEnumerator Think()
     {
         Check();
@@ -40,13 +33,13 @@ public class Turtler_move : Enemy
         if (player != null && !GameManager.Instance.isDead && ready)
         {
             horizental = player.position.x - transform.position.x;
-            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f)
+            if (horizental < viewRange && player.position.y >= transform.position.y && player.position.y < transform.position.y + 1.5f) //����� �ν� ���� ������ ���
             {
                 FlipToPlayer(horizental);
                 playerDistance = Mathf.Abs(horizental);
-                if (playerDistance > attackRange)
+                if (playerDistance > attackRange) //����� �Ÿ��� ���ݹ��� ���� ���
                 {
-                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit"))
+                    if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //��ü ���� ������ �̵� ������ ���
                     {
                         animator.SetInteger("AnimState", 1);
                         rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
@@ -57,7 +50,7 @@ public class Turtler_move : Enemy
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
-                else
+                else //����� ���ݰŸ� ���� ���
                 {
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     animator.SetInteger("AnimState", 0);
@@ -88,7 +81,7 @@ public class Turtler_move : Enemy
             }
             else
             {
-                if (isGround && !isWall && isplatform && !animator.GetBool("Hit"))
+                if (isGround && !isWall && isplatform && !animator.GetBool("Hit")) //��ü ���� ������ �̵� ������ ���
                 {
                     animator.SetInteger("AnimState", 1);
                     rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);

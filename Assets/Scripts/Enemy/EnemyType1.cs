@@ -26,12 +26,6 @@ public class EnemyType1 : Enemy {
     private bool isWall;
     private bool isplatform;
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        playerFound = false;
-        animator.Play("Drago_idle");
-    }
 
     public override IEnumerator Think()
     {
