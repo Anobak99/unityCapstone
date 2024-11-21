@@ -142,8 +142,14 @@ public class Widow_move : Boss
 
     private IEnumerator Death()
     {
-        StopCoroutine(act1);
-        StopCoroutine(act2);
+        if (act1 != null)
+        {
+            StopCoroutine(act1);
+        }
+        if (act2 != null)
+        {
+            StopCoroutine(act2);
+        }
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
         canDamage = false;

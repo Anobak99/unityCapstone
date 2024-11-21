@@ -33,7 +33,7 @@ public class Boss : MonoBehaviour
         isDead = false;
         hp = maxHp;
 
-        if (GameManager.Instance.gameState == GameManager.GameState.Event)
+        if (GameManager.Instance.gameState == GameManager.GameState.Field)
         {
             canAct = true;
             GameManager.Instance.gameState = GameManager.GameState.Boss;

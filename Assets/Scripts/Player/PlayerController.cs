@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
@@ -7,18 +7,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Move
-    [Header("¿òÁ÷ÀÓ")]
+    [Header("ì›€ì§ì„")]
     private Rigidbody2D rigid;
     private Animator anim;
     private PlayerInput input;
-    private GameObject currentOneWayPlatform; // onewayplatform ¿ÀºêÁ§Æ®
+    private GameObject currentOneWayPlatform; // onewayplatform ì˜¤ë¸Œì íŠ¸
     private Collider2D playerCollider;
+    private Collider2D platformCollider;
     public float moveSpeed;
     #endregion
 
     #region Jump
-    [Header("Á¡ÇÁ")]
-    [SerializeField] private float vertical; // ¼öÁ÷Ç×·Â
+    [Header("ì í”„")]
+    [SerializeField] private float vertical; // ìˆ˜ì§í•­ë ¥
     [SerializeField] private float jumpTime;
     [SerializeField] private float coyoteTimeCounter;
     public float gravity = 5;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Dash
-    [Header("´ë½Ã")]
+    [Header("ëŒ€ì‹œ")]
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashTime = 0.1f;
     private Vector2 dashingDir;
@@ -41,33 +42,34 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Object Pickup
-    [Header("Àâ±â")]
-    public Transform holdPosition;   // µé°í ÀÖ´Â À§Ä¡
-    private Rigidbody2D heldObject;  // µé°í ÀÖ´Â ¹°Ã¼ÀÇ Rigidbody2D
-    public float liftingForce = 5f; // µé±â Èû
+    [Header("ì¡ê¸°")]
+    public Transform holdPosition;   // ë“¤ê³  ìˆëŠ” ìœ„ì¹˜
+    private Rigidbody2D heldObject;  // ë“¤ê³  ìˆëŠ” ë¬¼ì²´ì˜ Rigidbody2D
+    public float liftingForce = 5f; // ë“¤ê¸° í˜
     public float holdRange = 1.5f;
-    private bool isHolding = false;  // ÇöÀç ¹°°ÇÀ» µé°í ÀÖ´ÂÁö ¿©ºÎ
+    private bool isHolding = false;  // í˜„ì¬ ë¬¼ê±´ì„ ë“¤ê³  ìˆëŠ”ì§€ ì—¬ë¶€
     #endregion
 
     #region Attack
-    [Header("°ø°İ")]
+    [Header("ê³µê²©")]
     [SerializeField] private GameObject basicSlashAttack;
     [SerializeField] private GameObject topSlashAttack;
     public Transform attackPos;
     public LayerMask whatIsEnemies;
-    public int damage;        // µ¥¹ÌÁö ¼öÄ¡
-    public float attackRange; // °ø°İ ¹üÀ§
-    public float startTimeBtwAttack = 0.8f; // °ø°İ ÄğÅ¸ÀÓ ¼³Á¤
-    public float timeBtwAttack;  // °ø°İ ÄğÅ¸ÀÓ (0ÀÌ µÇ¸é °ø°İ°¡´É)
+    public int damage;        // ë°ë¯¸ì§€ ìˆ˜ì¹˜
+    public float attackRange; // ê³µê²© ë²”ìœ„
+    public float startTimeBtwAttack = 0.8f; // ê³µê²© ì¿¨íƒ€ì„ ì„¤ì •
+    public float timeBtwAttack;  // ê³µê²© ì¿¨íƒ€ì„ (0ì´ ë˜ë©´ ê³µê²©ê°€ëŠ¥)
+    private bool canAirAtk;
     #endregion
 
     #region FireBall
-    [Header("ÆÄÀÌ¾îº¼")]
+    [Header("íŒŒì´ì–´ë³¼")]
     public float timeBtwFire;
-    public float startTimeBtwFire = 2f; // Åõ»çÃ¼ ÄğÅ¸ÀÓ
+    public float startTimeBtwFire = 2f; // íˆ¬ì‚¬ì²´ ì¿¨íƒ€ì„
     #endregion
 
-    #region ¾Ö´Ï¸ŞÀÌÅÍ ÃÊ±â°ª 
+    #region ì• ë‹ˆë©”ì´í„° ì´ˆê¸°ê°’ 
     private bool isGrounded = true;
     private bool isJump;
     private bool isRun;
@@ -76,9 +78,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Checker
-    [Header("Ã¼Ä¿")]
+    [Header("ì²´ì»¤")]
+    private bool isSlope;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    private RaycastHit2D slopeHit;
     private Vector2 boxSize = new Vector2(0.8f, 0.2f);
     private Collider2D col;
 
@@ -88,7 +92,7 @@ public class PlayerController : MonoBehaviour
     private bool canFireBall;
     private bool isDead;
     public bool isRespawn;
-    public bool isObsidianSkin; // ¿ë¾Ï¿¡ ÇÇÇØ ¾È¹ŞÀ½
+    public bool isObsidianSkin; // ìš©ì•”ì— í”¼í•´ ì•ˆë°›ìŒ
     #endregion
 
     private void Awake()
@@ -126,7 +130,7 @@ public class PlayerController : MonoBehaviour
         Setgravity();
         CheckAnime();
 
-        // ¾Æ·¡Å° ÀÔ·Â->ÇÃ·§Æû Åë°ú
+        // ì•„ë˜í‚¤ ì…ë ¥->í”Œë«í¼ í†µê³¼
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (currentOneWayPlatform != null)
@@ -135,7 +139,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // ´ë½Ã 
+        if (currentOneWayPlatform != null)
+        {
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                StartCoroutine(DisableCollision());
+            }
+
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                EnableCollision();
+            }
+        }
+
+        // ëŒ€ì‹œ 
         if (input.dashInput && canDash && !isHolding)
         {
             //Debug.Log("Dash");
@@ -155,12 +172,13 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Attack());
         }
 
+
         if (canFireBall && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
         {
             StartCoroutine(FireBall());
         }
 
-        // ¹°°Ç µé±â/³õ±â Åä±Û
+        // ë¬¼ê±´ ë“¤ê¸°/ë†“ê¸° í† ê¸€
         if (Input.GetKeyDown(KeyCode.G))
         {
             if (isHolding)
@@ -173,7 +191,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // ¹°°ÇÀ» µé°í ÀÖ´Â °æ¿ì À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ë¬¼ê±´ì„ ë“¤ê³  ìˆëŠ” ê²½ìš° ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         if (isHolding)
         {
             UpdateHeldObjectPosition();
@@ -181,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Ä³¸¯ÅÍ ÁÂ¿ì ¹İÀü
+    // ìºë¦­í„° ì¢Œìš° ë°˜ì „
     void Flip()
     {
         if (input.horizontal > 0)
@@ -194,19 +212,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ¹Ù´Ú Ã¼Å©
+    // ë°”ë‹¥ ì²´í¬
     private bool IsGrounded()
     {
         col = Physics2D.OverlapBox(groundCheck.position, boxSize, 0f, groundLayer);
         if (!col)
         {
             anim.SetBool("isGrounded", false);
+            currentOneWayPlatform = null;
             return false;
         }
-        else if (col.CompareTag("Platform")) //¹Ù´ÚÀÌ ÇÃ·§ÆûÀÏ ½Ã
+
+        if (col.CompareTag("Platform"))
         {
-            SpecialPlatform platform = col.GetComponent<SpecialPlatform>();
-            platform.OnStand();
+            SpecialPlatform platform;
+            if (platform = col.GetComponent<SpecialPlatform>())
+                platform.OnStand(rigid);
+
+            currentOneWayPlatform = col.gameObject;
+        }
+        else
+        {
+            EnableCollision();
+            currentOneWayPlatform = null;
         }
 
         anim.SetBool("isGrounded", true);
@@ -218,7 +246,7 @@ public class PlayerController : MonoBehaviour
         if (!isDashing)
         {
             rigid.velocity = new Vector2(input.horizontal * moveSpeed, rigid.velocity.y);
-            anim.SetBool("isRun", rigid.velocity.x != 0 && IsGrounded());
+            anim.SetBool("isRun", rigid.velocity.x != 0 && isGrounded);
         }
     }
 
@@ -226,6 +254,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGrounded())
         {
+            isGrounded = true;
             coyoteTimeCounter = coyoteTime;
             doubleJump = true;
         }
@@ -243,11 +272,22 @@ public class PlayerController : MonoBehaviour
         if (timeBtwFire > 0) { timeBtwFire -= Time.deltaTime; }
     }
 
+    private bool IsOnSlope()
+    {
+        slopeHit = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
+        if (slopeHit)
+        {
+            var angle = Vector2.Angle(Vector2.up, slopeHit.normal);
+            return angle != 0 && angle < 60f;
+        }
+
+        return false;
+    }
+
     void Jump()
     {
         if (coyoteTimeCounter > 0f && input.jumpBufferCounter > 0f && !isJumping && !isHolding)
         {
-            //SoundManager.instance.PlaySfx(0);
             SoundManager.PlaySound(SoundType.JUMP, 1f);
             input.jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
@@ -256,10 +296,8 @@ public class PlayerController : MonoBehaviour
             jumpCounter += 1;
         }
 
-        if(!IsGrounded() && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
+        if(!isGrounded && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
         {
-            //SoundManager.instance.PlaySfx(0);
-            //Debug.Log("double jump");
             SoundManager.PlaySound(SoundType.JUMP, 1f);
             input.jumpBufferCounter = 0f;
             isJumping = true;
@@ -297,6 +335,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("isJump", false);
+            if (rigid.velocity.y < -10f)
+                rigid.velocity = new Vector2(rigid.velocity.x, -10f);
         }
     }
 
@@ -324,13 +364,13 @@ public class PlayerController : MonoBehaviour
 
     void PickUpObject()
     {
-        // ±ÙÃ³¿¡ ÀÖ´Â ¹°Ã¼ Ã£±â
+        // ê·¼ì²˜ì— ìˆëŠ” ë¬¼ì²´ ì°¾ê¸°
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, holdRange);
         foreach (Collider2D col in colliders)
         {
             if (col.CompareTag("Pickupable"))
             {
-                // µé°í ÀÖ´Â ¹°Ã¼ ¼³Á¤
+                // ë“¤ê³  ìˆëŠ” ë¬¼ì²´ ì„¤ì •
                 anim.SetBool("isGrab", true);
                 anim.SetTrigger("isGrabobj");
                 SoundManager.PlaySound(SoundType.SFX, 0.5f, 5);
@@ -350,7 +390,7 @@ public class PlayerController : MonoBehaviour
 
     void ReleaseObject()
     {
-        // ¹°Ã¼ ³õ±â
+        // ë¬¼ì²´ ë†“ê¸°
         if (heldObject != null)
         {
             anim.SetBool("isGrab", false);
@@ -365,7 +405,7 @@ public class PlayerController : MonoBehaviour
 
     void UpdateHeldObjectPosition()
     {
-        // µé°í ÀÖ´Â ¹°Ã¼¸¦ µé°í ÀÖ´Â À§Ä¡·Î ÀÌµ¿
+        // ë“¤ê³  ìˆëŠ” ë¬¼ì²´ë¥¼ ë“¤ê³  ìˆëŠ” ìœ„ì¹˜ë¡œ ì´ë™
         if (heldObject != null)
         {
             heldObject.velocity = Vector2.zero;
@@ -466,7 +506,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        //SoundManager.instance.PlaySfx(1);
         canAct = false;
         anim.SetTrigger("isAttack");
         yield return null;
@@ -478,7 +517,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator TopAttack()
     {
-        //SoundManager.instance.PlaySfx(1);
         canAct = false;
         anim.SetTrigger("isTopAttack");
         yield return null;
@@ -520,7 +558,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < enemy.Length; i++)
         {
-            if (enemy[i].gameObject.tag == "Enemy") // Àû°ú Ãæµ¹ ½Ã µ¥¹ÌÁö Ã³¸®
+            if (enemy[i].gameObject.tag == "Enemy") // ì ê³¼ ì¶©ëŒ ì‹œ ë°ë¯¸ì§€ ì²˜ë¦¬
             {
                 enemy[i].GetComponent<Enemy>().Attacked(damage, transform.position);
                 ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Enemy>().transform.position,
@@ -536,7 +574,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (enemy[i].gameObject.tag == "EnemyDestroyableBullet")
             {
-                Debug.Log("ÀûÀÇ Åõ»çÃ¼¿¡ ÀûÁß");
+                Debug.Log("ì ì˜ íˆ¬ì‚¬ì²´ì— ì ì¤‘");
                 enemy[i].gameObject.SetActive(false);
             }
         }
@@ -544,27 +582,41 @@ public class PlayerController : MonoBehaviour
 
     void Setgravity()
     {
-        //Á¡ÇÁ½Ã ¹× µ¹Áø½Ã Áß·Â¿¡ ¿µÇâÀ» ¹ŞÁö ¾ÊÀ½
+        //ì í”„ì‹œ ë° ëŒì§„ì‹œ ì¤‘ë ¥ì— ì˜í–¥ì„ ë°›ì§€ ì•ŠìŒ
         if (isJumping || isDashing) { rigid.gravityScale = 0; }
-        else { rigid.gravityScale = gravity; }
+        else
+        {
+            if (isGrounded && IsOnSlope() && platformCollider == null)
+            {
+                if (input.horizontal == 0)
+                {
+                    rigid.velocity = new Vector2(rigid.velocity.x, 0f);
+                }
+                rigid.gravityScale = 0f;
+            }
+            else
+            {
+                rigid.gravityScale = gravity;
+            }
+        }
     }
 
-    // ÇöÀç ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ È®ÀÎ
+    // í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœ í™•ì¸
     void CheckAnime()
     {
       
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
-        // °ø°İ»óÅÂÈ®ÀÎ
-        if (stateInfo.IsName("Attack") && IsGrounded())
+        // ê³µê²©ìƒíƒœí™•ì¸
+        if (stateInfo.IsName("Knight_attack1") && isGrounded)
         {
             rigid.velocity = new Vector2(0f, rigid.velocity.y);
         }
-        else if (stateInfo.IsName("Attack2") && IsGrounded())
+        else if (stateInfo.IsName("Knight_attack2") && isGrounded)
         {
             rigid.velocity = new Vector2(0f, rigid.velocity.y);
         }
-        // ´Ù¸¥ ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ¿¡ ´ëÇÑ È®ÀÎ ÄÚµå Ãß°¡ °¡´É
+        // ë‹¤ë¥¸ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœì— ëŒ€í•œ í™•ì¸ ì½”ë“œ ì¶”ê°€ ê°€ëŠ¥
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -583,15 +635,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // one-way platform(¾Æ·¡Å° ´­·¯ ÇÃ·§Æû ¾Æ·¡·Î ÀÌµ¿)
+    // one-way platform(ì•„ë˜í‚¤ ëˆŒëŸ¬ í”Œë«í¼ ì•„ë˜ë¡œ ì´ë™)
     private IEnumerator DisableCollision()
     {
         if (currentOneWayPlatform.GetComponent<Collider2D>() != null)
         {
-            Collider2D platformCollider = currentOneWayPlatform.GetComponent<Collider2D>();
+            EnableCollision();
+
+            platformCollider = currentOneWayPlatform.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(playerCollider, platformCollider);
-            yield return new WaitForSeconds(0.25f);
-            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
         }
         else if (currentOneWayPlatform.GetComponent<TilemapCollider2D>() != null)
         {
@@ -601,6 +653,18 @@ public class PlayerController : MonoBehaviour
             Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
         }
 
+    }
+
+    private void EnableCollision()
+    {
+        if (platformCollider == null)
+            return;
+
+        if (Physics2D.GetIgnoreCollision(playerCollider, platformCollider))
+        {
+            Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
+            platformCollider = null;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -617,7 +681,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (collision.CompareTag("Lava"))
             {
-                if (isObsidianSkin) return; // ¿É½Ãµğ¾ğ ½ºÅ² ´É·Â È°¼ºÈ­½Ã ¿ë¾ÏÇÇÇØx
+                if (isObsidianSkin) return; // ì˜µì‹œë””ì–¸ ìŠ¤í‚¨ ëŠ¥ë ¥ í™œì„±í™”ì‹œ ìš©ì•”í”¼í•´x
                 GameManager.Instance.PlayerHit(1);
             }
         }

@@ -6,19 +6,11 @@ using UnityEngine.EventSystems;
 public class Drako_fire : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    private Animator animator;
+    [SerializeField] private Animator animator;
 
 
     public void OnEnable()
     {
-        if(animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-        if(rb == null)
-        {
-            rb = GetComponent<Rigidbody2D>();
-        }
         animator.SetBool("Explo", false);
     }
 

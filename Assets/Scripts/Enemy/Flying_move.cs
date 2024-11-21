@@ -20,11 +20,19 @@ public class Flying_move : Enemy
 
     [SerializeField] private GameObject damageBox;
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+
+        animator.Play("Cloud_eye_inactive");
+        playerFound = false;
+    }
+
     public override IEnumerator Think()
     {
         if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동
         {
-            horizental = player.position.x - transform.position.x; //플레이어까지의 x거리
+            horizental = Vector2.Distance(player.transform.position, transform.position); //플레이어까지의 거리
             moveDirection = (player.transform.position - transform.position);
             if(moveDirection.x >= 0) { moveX = 1; } else { moveX = -1; }
             if(moveDirection.y >= 0) { moveY = 1; } else { moveY = -1; }
@@ -38,9 +46,9 @@ public class Flying_move : Enemy
             {
                 if (playerDistance < viewRange) //대상이 인식 범위 안쪽일 경우
                 {
-                    playerFound = true;
                     animator.SetTrigger("Awake");
                     yield return new WaitForSeconds(0.5f);
+                    playerFound = true;
                 }
             }
         }

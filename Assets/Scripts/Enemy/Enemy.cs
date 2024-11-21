@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IObserver
 {
     [SerializeField] public int maxHp;
     public int hp;
@@ -15,10 +15,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] Subject playerSubject;
     public Material flashMaterial;
     public Material defalutMaterial;
+
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
     [HideInInspector] public bool isDead;
     [HideInInspector] public bool isAttack;
+    public Vector2 originPos;
     public Coroutine act1 = null;
     public Coroutine act2 = null;
     public List<DropItemInfo> dropTable = new List<DropItemInfo>();
@@ -32,13 +34,14 @@ public class Enemy : MonoBehaviour
         canAct = false;
         canDamage = true;
         isDead = false;
-        act1 = StartCoroutine(Think());
+        transform.position = originPos;
         hp = maxHp;
+        playerSubject.AddObsrver(this);
+        act1 = StartCoroutine(Think());
     }
 
     public virtual IEnumerator Think()
     {
-        Debug.Log("»ý°¢Áß");
         yield return null;
     }
 
@@ -134,6 +137,11 @@ public class Enemy : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void OnDisable()
+    {
+        playerSubject.RemoveObserver(this);
     }
 
     public void OnNotify()

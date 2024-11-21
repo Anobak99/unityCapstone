@@ -1,3 +1,4 @@
+using Ink.Parsed;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,11 +14,13 @@ public class SpecialPlatform : MonoBehaviour
     public float speed; //ÇÃ·§Æû ÀÌµ¿¼Óµµ
     public Vector2[] locations; //ÇÃ·§ÆûÀÌ ÀÌµ¿ÇÒ ÁÂÇ¥
     int i = 0;
-    public enum Type { move, disable };
+    public enum Type { move, disable, jump };
     public Type type;
     public float time; //ÇÃ·§ÆûÀÌ »ç¶óÁö±â±îÁöÀÇ ½Ã°£
+    public float pushForce;
 
-    
+
+
     void Start()
     {
         col = GetComponent<BoxCollider2D>();
@@ -70,12 +73,21 @@ public class SpecialPlatform : MonoBehaviour
         }
     }
 
-    public void OnStand()
+    public void OnStand(Rigidbody2D Rb)
     {
         if (!stand && type == Type.disable)
         {
             stand = true;
             StartCoroutine(Disable(time));
+        }
+        else if(!stand && type == Type.jump)
+        {
+            stand = true;
+            Rigidbody2D playerRb = Rb;
+
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0f);
+            playerRb.AddForce(Vector2.up * pushForce, ForceMode2D.Impulse);
+            StartCoroutine(JumpReset());
         }
     }
 
@@ -92,6 +104,12 @@ public class SpecialPlatform : MonoBehaviour
         spRend.color = new Color(255, 255, 255, 255);
         gameObject.layer = 7;
 
+        stand = false;
+    }
+
+    private IEnumerator JumpReset()
+    {
+        yield return new WaitForSeconds(0.5f);
         stand = false;
     }
 }
