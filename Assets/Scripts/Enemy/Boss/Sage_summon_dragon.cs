@@ -5,11 +5,14 @@ using UnityEngine;
 public class Sage_summon_dragon : MonoBehaviour
 {
     public enum direction {left, right};
-    public direction facingDir;
-    public Animator dragon_anim;
-    public Animator head_anim;
+    [SerializeField] private direction facingDir;
+    [SerializeField] private Animator dragon_anim;
+    [SerializeField] private Animator head_anim;
+    [SerializeField] private Transform firePos;
 
-    public Sage_move boss_move;
+    [SerializeField] private Sage_move boss_move;
+    [SerializeField] private Enemy_Pool objectPool;
+    private bool Fire;
 
     public IEnumerator Summon()
     {
@@ -21,7 +24,8 @@ public class Sage_summon_dragon : MonoBehaviour
         yield return new WaitForSeconds(3f);
         dragon_anim.SetTrigger("breath");
         head_anim.SetTrigger("breath");
-        Debug.Log("Fire!");
+        Fire = true;
+        StartCoroutine(FireBreath());
         if (facingDir == direction.left)
         {
             boss_move.lowerDragon = true;
@@ -30,7 +34,9 @@ public class Sage_summon_dragon : MonoBehaviour
         {
             boss_move.uppderDragon = true;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
+        Fire = false;
+        yield return new WaitForSeconds(0.5f);
         if (facingDir == direction.left)
         {
             boss_move.lowerDragon = false;
@@ -43,5 +49,27 @@ public class Sage_summon_dragon : MonoBehaviour
         head_anim.SetTrigger("idle");
         yield return new WaitForSeconds(3f);
         boss_move.summonEnd = true;
+    }
+
+    public IEnumerator FireBreath()
+    {
+        if(Fire)
+        {
+            if (facingDir == direction.left)
+            {
+                objectPool.GetObject(firePos.position, "DownDragon");
+            }
+            else
+            {
+                objectPool.GetObject(firePos.position, "UpDragon");
+            }
+            yield return new WaitForSeconds(0.15f);
+            StartCoroutine(FireBreath());
+        }
+    }
+
+    public void StopAct()
+    {
+        StopAllCoroutines();
     }
 }

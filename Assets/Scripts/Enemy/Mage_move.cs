@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Mage_move : Enemy
@@ -11,6 +12,7 @@ private float horizental;
     public bool facingRight;
     private bool playerFound;
 
+    [SerializeField] private Enemy_Pool objectPool;
     public GameObject objectPrefab;
     private List<GameObject> bullets = new List<GameObject>();
 
@@ -90,36 +92,14 @@ private float horizental;
         yield return new WaitForSeconds(0.8f);
         animator.SetTrigger("magic");
         yield return new WaitForSeconds(0.5f);
-        fire = Shoot();
-        fire.transform.position = transform.position;
+        fire = objectPool.GetObject(new Vector2(transform.position.x, transform.position.y +0.7f), "Mage");
         Rigidbody2D rigid = fire.GetComponent<Rigidbody2D>();
         Vector2 dirVec = player.transform.position - transform.position;
         rigid.AddForce(dirVec.normalized*5, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
 
-    private GameObject Shoot() //총알 생성, 생성된 오브젝트 재활용 및 없을 시 생성
-    {
-        GameObject select = null;
-
-        foreach (GameObject item in bullets)
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.SetActive(true);
-                break;
-            }
-        }
-
-        if (!select)
-        {
-            select = Instantiate(objectPrefab, transform);
-            bullets.Add(select);
-        }
-
-        return select;
-    }
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {

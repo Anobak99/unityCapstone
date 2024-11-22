@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,60 +6,56 @@ using UnityEngine;
 public class Enemy_Pool : MonoBehaviour, IObserver
 {
     [SerializeField] Subject playerSubject;
-
-    public GameObject effectPrefab; // 이펙트 프리팹
-    public GameObject fireballPrefab; // 플레이어 파이어볼 프리팹
-    public int initialPoolSize = 10; // 초기 풀 사이즈
-
-    private Queue<GameObject> effectPool = new Queue<GameObject>();
-    private Queue<GameObject> fireballPool = new Queue<GameObject>();
+    [Serializable]
+    public struct Pool
+    {
+        public int id;
+        public string name;
+        public GameObject targetPrefab;
+    }
+    public Pool[] object_Pool;
+    public List<List<GameObject>> object_List = new();
 
     private void OnEnable()
     {
         playerSubject.AddObsrver(this);
+        for(int i = 0; i < object_Pool.Length; i++)
+        {
+            object_List.Add(new List<GameObject>());
+        }
     }
 
-    public GameObject GetEffectObject(Vector2 position, Quaternion rotation)
+    public GameObject GetObject(Vector2 position, string request_name)
     {
-        GameObject obj;
+        GameObject obj = null;
+        int target_id = 0;
 
-        if (effectPool.Count > 0 && !effectPool.Peek().activeInHierarchy)
+        foreach (var pool in object_Pool)
         {
-            obj = effectPool.Dequeue();
+            if (pool.name == request_name)
+            {
+                target_id = pool.id;
+                break;
+            }
         }
-        else
+
+        foreach (GameObject item in object_List[target_id])
         {
-            obj = Instantiate(effectPrefab);
+            if (!item.activeSelf)
+            {
+                obj = item;
+                obj.SetActive(true);
+                break;
+            }
+        }
+
+        if (!obj)
+        {
+            obj = Instantiate(object_Pool[target_id].targetPrefab, transform);
+            object_List[target_id].Add(obj);
         }
 
         obj.transform.position = position;
-        obj.transform.rotation = rotation;
-        obj.SetActive(true);
-
-        StartCoroutine(DeactivatePrefab(obj, 3f));
-        effectPool.Enqueue(obj);
-
-        return obj;
-    }
-
-    public GameObject GetFireBallObject(Vector2 position, Quaternion rotation)
-    {
-        GameObject obj;
-
-        if (fireballPool.Count > 0 && !fireballPool.Peek().activeInHierarchy)
-        {
-            obj = fireballPool.Dequeue();
-        }
-        else
-        {
-            obj = Instantiate(fireballPrefab);
-        }
-
-        obj.transform.position = position;
-        obj.transform.rotation = rotation;
-        obj.SetActive(true);
-
-        fireballPool.Enqueue(obj);
 
         return obj;
     }
@@ -71,6 +68,13 @@ public class Enemy_Pool : MonoBehaviour, IObserver
 
     public void OnNotify()
     {
-        gameObject.SetActive(false);
+        foreach(var list in object_List)
+        {
+            foreach (var item in list)
+            {
+                if(item.activeSelf)
+                    item.SetActive(false);
+            }
+        }
     }
 }

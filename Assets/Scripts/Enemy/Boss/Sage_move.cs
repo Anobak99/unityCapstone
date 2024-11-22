@@ -10,7 +10,7 @@ public class Sage_move : Boss
 
     private int attackCount; //°ø°ÝÈ½¼ö
     private int patternNum = 0;
-    private int patternNum2 = 0;
+    private int patternNum2 = 1;
     [SerializeField] private bool phase1 = false;
     [SerializeField] private bool phase2 = false;
     [SerializeField] private float jumpHeight;
