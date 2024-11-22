@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < count; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
-            if(scene.name != "Map")
+            if(scene.name != "Map _Test")
                SceneManager.UnloadSceneAsync(scene);
         }
     }

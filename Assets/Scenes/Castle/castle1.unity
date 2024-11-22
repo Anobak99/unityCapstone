@@ -717,8 +717,6 @@ MonoBehaviour:
   roomCamera: {fileID: 2119326510}
   objects:
   - {fileID: 2119326510}
-  - {fileID: 0}
-  - {fileID: 0}
   areaName: Castle
 --- !u!61 &462176020
 BoxCollider2D:
@@ -3188,8 +3186,6 @@ MonoBehaviour:
   roomCamera: {fileID: 2119326510}
   objects:
   - {fileID: 2119326510}
-  - {fileID: 0}
-  - {fileID: 0}
   areaName: Castle
 --- !u!61 &1094877675
 BoxCollider2D:
@@ -3259,6 +3255,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+      propertyPath: playerObj
+      value: 
+      objectReference: {fileID: 1288520169}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.48
@@ -3380,7 +3380,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -41673919
-  m_SortingLayer: 7
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -3878,7 +3878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_TagString
@@ -4015,7 +4015,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -41673919
-  m_SortingLayer: 7
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -4596,7 +4596,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -41673919
-  m_SortingLayer: 7
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

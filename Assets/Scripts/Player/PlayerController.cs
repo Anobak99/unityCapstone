@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (canFireBall && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
+        if (timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
         {
             StartCoroutine(FireBall());
         }
@@ -296,8 +296,9 @@ public class PlayerController : MonoBehaviour
             jumpCounter += 1;
         }
 
-        if(!isGrounded && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0f)
+        if(!IsGrounded() && doubleJump && input.jumpBufferCounter > 0f && jumpCounter > 0)
         {
+            Debug.Log("이단점프");
             SoundManager.PlaySound(SoundType.JUMP, 1f);
             input.jumpBufferCounter = 0f;
             isJumping = true;
@@ -305,6 +306,7 @@ public class PlayerController : MonoBehaviour
             vertical = djumpPower;
             jumpCounter = 0;
         }
+
     }
 
     void WhileJump()

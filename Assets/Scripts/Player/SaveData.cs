@@ -24,5 +24,5 @@ public class SaveData
     public bool[] openSwitchDoor = new bool[10]; //스위치로 여는 문
     public bool[] abilities = new bool[10]; //능력 잠금해제
     public bool[,] mapData = new bool[10, 10]; //미니맵 정보
-    public bool[] boss = new bool[3]; //처치한 보스
+    public bool[] boss = new bool[4]; //처치한 보스
 }

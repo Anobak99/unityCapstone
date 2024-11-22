@@ -67,11 +67,11 @@ public class MainMenu : MonoBehaviour
         startMenu.SetActive(true);
 
 
-        if (DataManager.instance.FileCheck("saveFile1.json"))
+        if (DataManager.Instance.FileCheck("saveFile1.json"))
             startText1.text = DataManager.instance.currentData.areaName;
-        if (DataManager.instance.FileCheck("saveFile2.json"))  
+        if (DataManager.Instance.FileCheck("saveFile2.json"))  
             startText2.text = DataManager.instance.currentData.areaName;
-        if (DataManager.instance.FileCheck("saveFile3.json"))
+        if (DataManager.Instance.FileCheck("saveFile3.json"))
             startText3.text = DataManager.instance.currentData.areaName;
     }
            

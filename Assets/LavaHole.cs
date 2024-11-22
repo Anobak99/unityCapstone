@@ -12,8 +12,7 @@ public class LavaHole : MonoBehaviour
     [SerializeField] private GameObject lava;
     private BoxCollider2D col;
     
-
-    private void Awake()
+    private void OnEnable()
     {
         col = GetComponent<BoxCollider2D>();
         if (SwitchManager.Instance.volcano_Switch[switchNum])
