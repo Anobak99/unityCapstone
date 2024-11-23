@@ -23,6 +23,8 @@ public class SavePoint : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
+                UIManager.Instance.SavePointScreen();
+
                 GameManager.Instance.respawnScene = GameManager.Instance.currentScene;
                 GameManager.Instance.respawnPoint = savedPos;
                 DataManager.Instance.SaveData();

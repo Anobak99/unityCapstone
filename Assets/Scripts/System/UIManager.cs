@@ -31,8 +31,6 @@ public class UIManager : MonoBehaviour
     public GameObject HPUI;
     public GameObject blackScreen;
     public GameObject bloodScreen;
-    public GameObject systemScreen;
-    public Image[] abilityGetImage;
 
     private GameObject player;
     [SerializeField] private GameObject ResumeSelectButton;
@@ -47,6 +45,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject inventoryScreen;
     [SerializeField] private GameObject settingScreen;
     [SerializeField] private GameObject mapImage;
+
+    [SerializeField] private GameObject systemScreen;
+    [SerializeField] private Image[] abilityGetImage;
+
+    [SerializeField] private GameObject savepointScreen;
 
 
     private bool isPauseMenu = false;
@@ -234,7 +237,13 @@ public class UIManager : MonoBehaviour
         else { return false; }
     }
 
-    public void AbilityImageOn(int abilityNum)
+    public void SystemScreenON(int abilityNum)
+    {
+        systemScreen.SetActive(true);
+        AbilityImageOn(abilityNum);
+    }
+
+    private void AbilityImageOn(int abilityNum)
     {
         player = GameObject.FindWithTag("Player");
         player.GetComponent<PlayerController>().canAct = false;
@@ -250,6 +259,18 @@ public class UIManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         player.GetComponent<PlayerController>().canAct = true;
         systemScreen.SetActive(false);
+    }
+
+    public void SavePointScreen()
+    {
+        if(savepointScreen.activeSelf)
+        {
+            savepointScreen.SetActive(false);
+        }
+        else
+        {
+            savepointScreen.SetActive(true);
+        }        
     }
 
     private void PlayClickSound()
