@@ -2196,7 +2196,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 27, y: -1, z: 0}
@@ -2424,7 +2424,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 46, y: -1, z: 0}
@@ -7279,6 +7279,18 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: originPos.x
+      value: 44.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: originPos.y
+      value: -2.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 227067301}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: shotcooldownTime
       value: 3
       objectReference: {fileID: 0}
@@ -7660,6 +7672,18 @@ PrefabInstance:
       propertyPath: attackRange
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: originPos.x
+      value: 30.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: originPos.y
+      value: -3.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 227067301}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: shotcooldownTime
       value: 3

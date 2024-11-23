@@ -776,7 +776,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 12, y: 16, z: 0}
@@ -800,7 +800,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 12, y: 17, z: 0}
@@ -2869,6 +2869,18 @@ PrefabInstance:
       propertyPath: viewRange
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: originPos.x
+      value: 19.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: originPos.y
+      value: 11.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 605533671}
     - target: {fileID: 8368238447065744203, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_IsActive
       value: 0

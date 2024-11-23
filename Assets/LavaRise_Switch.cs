@@ -20,7 +20,7 @@ public class LavaRise_Switch : MonoBehaviour
         animator = GetComponent<Animator>();
         col = GetComponent<BoxCollider2D>();
 
-        if (SwitchManager.Instance.volcano_Switch[switchNum] == true)
+        if (DataManager.instance.currentData.volcano_Switch[switchNum] == true)
         {
             col.enabled = false;
         }
@@ -50,8 +50,8 @@ public class LavaRise_Switch : MonoBehaviour
         animator.SetBool("Lever", true);
         SoundManager.PlaySound(SoundType.SFX, 1, 7);
         CameraShake.Instance.OnShakeCamera(0.5f, 0.5f);
-        SwitchManager.Instance.volcano_Switch[switchNum] = true;
-        SwitchManager.Instance.volcano_SwitchDoor[doorNum] = true;
+        DataManager.instance.currentData.volcano_Switch[switchNum] = true;
+        DataManager.instance.currentData.volcano_SwitchDoor[doorNum] = true;
         col.enabled = false;
         wall.SetActive(false);
     }

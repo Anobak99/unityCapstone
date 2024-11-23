@@ -25,7 +25,7 @@ public class DoorKeyOpen : MonoBehaviour
 
     private void OnEnable()
     {
-        if (DataManager.Instance.currentData.openedDoor[num] || SwitchManager.Instance.openedDoor[num])
+        if (DataManager.Instance.currentData.openedDoor[num])
         {
             gameObject.SetActive(false);
         }
@@ -61,7 +61,7 @@ public class DoorKeyOpen : MonoBehaviour
         DialogueManager.Instance.sentences.Enqueue("열쇠를 사용했다.");
         DialogueManager.Instance.DisplayNextSentence();
         InventoryManager.instance.RemoveItem(item);
-        DataManager.Instance.currentData.openedDoor[num] = true;
+        DataManager.instance.currentData.openedDoor[num] = true;
         gameObject.SetActive(false);
     }
 }

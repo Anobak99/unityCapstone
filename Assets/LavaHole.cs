@@ -15,13 +15,13 @@ public class LavaHole : MonoBehaviour
     private void OnEnable()
     {
         col = GetComponent<BoxCollider2D>();
-        if (SwitchManager.Instance.volcano_Switch[switchNum])
+        if (DataManager.instance.currentData.volcano_Switch[switchNum])
             pickupableObj.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (SwitchManager.Instance.volcano_Switch[switchNum]) return;
+        if (DataManager.instance.currentData.volcano_Switch[switchNum]) return;
 
         if (collision.gameObject.tag == "Pickupable")
         {
@@ -32,10 +32,10 @@ public class LavaHole : MonoBehaviour
     private void UseSwitch()
     {
         col.enabled = false;
-        SoundManager.PlaySound(SoundType.SFX, 1, 6);        
+        SoundManager.PlaySound(SoundType.SFX, 1, 6);
 
-        SwitchManager.Instance.volcano_Switch[switchNum] = true;
-        SwitchManager.Instance.volcano_SwitchDoor[doorNum] = true;
+        DataManager.instance.currentData.volcano_Switch[switchNum] = true;
+        DataManager.instance.currentData.volcano_SwitchDoor[doorNum] = true;
 
         if (lava != null) lava.SetActive(false);
         GameObject lavaDoor = GameObject.Find("Lava Door");

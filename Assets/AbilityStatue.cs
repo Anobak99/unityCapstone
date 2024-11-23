@@ -77,7 +77,7 @@ public class AbilityStatue : MonoBehaviour
         CameraShake.Instance.OnShakeCamera(0.5f, 2f);
         UIManager.Instance.systemScreen.SetActive(true);
         UIManager.Instance.AbilityImageOn(anbility_num);
-        SwitchManager.Instance.abilities[anbility_num] = true;
+        DataManager.instance.currentData.abilities[anbility_num] = true;
     }
 
 

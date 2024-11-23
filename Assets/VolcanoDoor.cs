@@ -8,7 +8,7 @@ public class VolcanoDoor : MonoBehaviour
 
     private void OnEnable()
     {
-        if (DataManager.Instance.currentData.volcano_SwitchDoor[doorNum] || SwitchManager.Instance.volcano_SwitchDoor[doorNum])
+        if (DataManager.Instance.currentData.volcano_SwitchDoor[doorNum])
         {
             gameObject.SetActive(false);
         }
@@ -18,7 +18,7 @@ public class VolcanoDoor : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            if (DataManager.Instance.currentData.volcano_SwitchDoor[doorNum] || SwitchManager.Instance.volcano_SwitchDoor[doorNum])
+            if (DataManager.Instance.currentData.volcano_SwitchDoor[doorNum])
             {
                 gameObject.SetActive(false);
             }

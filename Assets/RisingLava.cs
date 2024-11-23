@@ -28,7 +28,7 @@ public class RisingLava : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SwitchManager.Instance.volcano_Switch[switchNum] == true)
+        if (DataManager.instance.currentData.volcano_Switch[switchNum] == true)
         {
             gameObject.SetActive(false);
         }
@@ -38,7 +38,7 @@ public class RisingLava : MonoBehaviour
     {
         while (true)
         {
-            if (SwitchManager.Instance.volcano_Switch[switchNum] == true)
+            if (DataManager.instance.currentData.volcano_Switch[switchNum] == true)
             {
                 RemoveLavaTiles();
                 break;

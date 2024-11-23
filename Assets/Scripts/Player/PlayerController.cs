@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
             currentOneWayPlatform = col.gameObject;
         }
-        else
+        else if (col.gameObject.tag !=("OneWayPlatform"))
         {
             EnableCollision();
             currentOneWayPlatform = null;
@@ -640,21 +640,20 @@ public class PlayerController : MonoBehaviour
     // one-way platform(아래키 눌러 플랫폼 아래로 이동)
     private IEnumerator DisableCollision()
     {
-        if (currentOneWayPlatform.GetComponent<Collider2D>() != null)
+        if (currentOneWayPlatform.GetComponent<Tilemap>() == null && currentOneWayPlatform.GetComponent<Collider2D>() != null)
         {
             EnableCollision();
 
             platformCollider = currentOneWayPlatform.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(playerCollider, platformCollider);
         }
-        else if (currentOneWayPlatform.GetComponent<TilemapCollider2D>() != null)
+        else if (currentOneWayPlatform.GetComponent<Tilemap>() != null && currentOneWayPlatform.GetComponent<TilemapCollider2D>() != null)
         {
             TilemapCollider2D platformCollider = currentOneWayPlatform.GetComponent<TilemapCollider2D>();
             Physics2D.IgnoreCollision(playerCollider, platformCollider);
             yield return new WaitForSeconds(0.25f);
             Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
         }
-
     }
 
     private void EnableCollision()
