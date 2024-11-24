@@ -98,7 +98,7 @@ public class MapManager : MonoBehaviour
 
     public void SetMapIcon(Vector3Int pos, int num)
     {
-        maptile.SetTile(pos, icon_Images[num]);
+        iconTile.SetTile(pos, icon_Images[num]);
     }
 
     public bool CheckSavePoint(int id)
