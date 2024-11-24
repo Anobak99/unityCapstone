@@ -49,8 +49,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject systemScreen;
     [SerializeField] private Image[] abilityGetImage;
 
-    [SerializeField] private GameObject savepointScreen;
-
 
     private bool isPauseMenu = false;
 
@@ -73,6 +71,7 @@ public class UIManager : MonoBehaviour
         soundVolumeBar.onValueChanged.AddListener(OnSliderValueChanged);
         OnSliderValueChanged(soundVolumeBar.value);
     }
+
 
     public void RespawnBtn()
     {
@@ -107,7 +106,6 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         deathMassage.SetActive(false);
-        //StartCoroutine(screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
     }
 
     public IEnumerator ShowBloodScreen()
@@ -261,17 +259,6 @@ public class UIManager : MonoBehaviour
         systemScreen.SetActive(false);
     }
 
-    public void SavePointScreen()
-    {
-        if(savepointScreen.activeSelf)
-        {
-            savepointScreen.SetActive(false);
-        }
-        else
-        {
-            savepointScreen.SetActive(true);
-        }        
-    }
 
     private void PlayClickSound()
     {

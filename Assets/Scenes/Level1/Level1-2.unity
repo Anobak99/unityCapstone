@@ -778,7 +778,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1041,7 +1041,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1355,7 +1355,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6285,6 +6285,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.x
+      value: 67.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: playerSubject
       value: 
       objectReference: {fileID: 362174290}
@@ -6400,16 +6408,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: playerSubject
       value: 
       objectReference: {fileID: 362174290}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 65.30321
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0748014
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6516,6 +6532,14 @@ PrefabInstance:
     - target: {fileID: 3628800849670023459, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.x
+      value: 63.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.y
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: playerSubject
@@ -13560,16 +13584,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 61.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: playerSubject
       value: 
       objectReference: {fileID: 362174290}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.496433
+      value: 61.5
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.012377
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13761,6 +13793,7 @@ MonoBehaviour:
   roomCam: {fileID: 316793588}
   camCollider: {fileID: 386703569}
   curScene: Level1-2
+  sceneId: 0
   roomCamera: {fileID: 316793586}
   objects:
   - {fileID: 316793586}
@@ -20055,7 +20088,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -20747,6 +20780,7 @@ MonoBehaviour:
   roomCam: {fileID: 316793588}
   camCollider: {fileID: 386703569}
   curScene: Level1-2
+  sceneId: 0
   roomCamera: {fileID: 316793586}
   objects:
   - {fileID: 316793586}

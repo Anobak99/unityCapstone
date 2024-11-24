@@ -17,12 +17,14 @@ public class Sage_move : Boss
     [SerializeField] private BossBattle battle;
 
     public Vector2[] warpPos_list;
+    [SerializeField] private GameObject[] magic_Pos;
     private int warpNum;
     private int preWarpNum;
     [SerializeField] private GameObject downDragon;
     [SerializeField] private Animator downAttack;
     [SerializeField] private Sage_summon_dragon upFire;
     [SerializeField] private Sage_summon_dragon downFire;
+    [SerializeField] private Enemy_Pool object_Pool;
     [HideInInspector] public bool uppderDragon;
     [HideInInspector] public bool lowerDragon;
     public bool summonEnd = true;
@@ -75,7 +77,9 @@ public class Sage_move : Boss
     IEnumerator Attack1() //마법 공격
     {
         canAct = false;
-        Debug.Log("Attack1");
+        object_Pool.GetObject(magic_Pos[0].transform.position, "Attack1");
+        object_Pool.GetObject(magic_Pos[1].transform.position, "Attack1");
+        object_Pool.GetObject(magic_Pos[2].transform.position, "Attack1");
         yield return wait2;
         attackCount++;
         act2 = StartCoroutine(Warp());
@@ -84,7 +88,7 @@ public class Sage_move : Boss
     IEnumerator Attack2() //마법 공격2
     {
         canAct = false;
-        Debug.Log("Attack2");
+        object_Pool.GetObject(gameObject.transform.position, "Attack2");
         yield return wait2;
         act2 = StartCoroutine(Warp());
     }

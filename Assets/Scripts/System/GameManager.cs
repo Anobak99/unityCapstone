@@ -69,11 +69,11 @@ public class GameManager : MonoBehaviour
         cam = mainCam.GetComponentInChildren<CameraFollow>();
         if (isRespawn)
         {
-            gameState = GameState.Field;
             player.transform.position = posToLoad;
             playerController.Respawn();
             isRespawn = false;
             StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.Out, 0f));
+            gameState = GameState.Field;
         }
         cam.cameraMove = true;
         cam.ChangeCameraPos(new Vector3(player.transform.position.x, player.transform.position.y, -10));

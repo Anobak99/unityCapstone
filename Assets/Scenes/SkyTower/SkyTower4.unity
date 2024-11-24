@@ -332,15 +332,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5430593975755357514, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.000011444092
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.124500275
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -445,6 +445,7 @@ MonoBehaviour:
   roomCam: {fileID: 325480539}
   camCollider: {fileID: 1301411010}
   curScene: SkyTower4
+  sceneId: 0
   roomCamera: {fileID: 325480538}
   objects:
   - {fileID: 325480538}
@@ -1461,12 +1462,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 554534323}
     - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
-      propertyPath: savedPos.x
-      value: -24
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
-      propertyPath: savedPos.y
-      value: 15
+      propertyPath: savePoint_Id
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1474,7 +1471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1512,13 +1509,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePoint
       objectReference: {fileID: 0}
-    - target: {fileID: 7334071481534524223, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7334071481534524223, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1255376291
+    - target: {fileID: 6433662012123868673, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4479,7 +4472,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

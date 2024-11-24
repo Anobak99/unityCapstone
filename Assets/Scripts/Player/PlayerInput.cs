@@ -18,18 +18,18 @@ public class PlayerInput : Subject
     {
         if (DialogueManager.Instance.isDialogue) return;
 
-        if(GameManager.Instance.gameState==GameManager.GameState.Field || GameManager.Instance.gameState== GameManager.GameState.Boss)
+
+        if (GameManager.Instance.gameState != GameManager.GameState.Field && GameManager.Instance.gameState != GameManager.GameState.Boss)
         {
-            Jump();
-            Dash();
-            Attack();
-            FireBall();
+            return;
         }
 
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-
-
+        Jump();
+        Dash();
+        Attack();
+        FireBall();
         Pause();
     }
 

@@ -3703,6 +3703,7 @@ MonoBehaviour:
   roomCam: {fileID: 1136913331}
   camCollider: {fileID: 282580773}
   curScene: Level1-3
+  sceneId: 0
   roomCamera: {fileID: 1136913329}
   objects:
   - {fileID: 1136913329}
@@ -3944,11 +3945,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1808818850036565264, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 89.55304
+      value: 89.5
       objectReference: {fileID: 0}
     - target: {fileID: 1808818850036565264, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.114634
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 1808818850036565264, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3989,6 +3990,14 @@ PrefabInstance:
     - target: {fileID: 3628800849670023459, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.x
+      value: 89.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.y
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: playerSubject
@@ -5685,7 +5694,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5723,11 +5732,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1808818850036565264, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 83.280075
+      value: 83
       objectReference: {fileID: 0}
     - target: {fileID: 1808818850036565264, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.986176
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1808818850036565264, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5768,6 +5777,14 @@ PrefabInstance:
     - target: {fileID: 3628800849670023459, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.x
+      value: 83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.y
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: playerSubject
@@ -5817,6 +5834,7 @@ MonoBehaviour:
   roomCam: {fileID: 1136913331}
   camCollider: {fileID: 282580773}
   curScene: Level1-3
+  sceneId: 0
   roomCamera: {fileID: 1136913329}
   objects:
   - {fileID: 1136913329}
@@ -6058,7 +6076,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6541,16 +6559,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 86
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: playerSubject
       value: 
       objectReference: {fileID: 328321246}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 86.1628
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 28.99369
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.z

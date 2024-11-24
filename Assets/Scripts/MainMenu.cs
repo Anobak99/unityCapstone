@@ -134,6 +134,11 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void DeleteFiles()
+    {
+        return;
+    }
+
     public void GoToMain()
     {
         PlayClickSound();

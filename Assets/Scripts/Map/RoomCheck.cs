@@ -10,6 +10,7 @@ public class RoomCheck : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera roomCam;
     public BoxCollider2D camCollider;
     [SerializeField] private string curScene;
+    [SerializeField] private int sceneId = 0;
     [SerializeField] GameObject roomCamera;
     [SerializeField] GameObject[] objects;
     [SerializeField] string areaName;
@@ -18,7 +19,7 @@ public class RoomCheck : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            MapManager.Instance.EnterRoom(roomPos);
+            MapManager.Instance.EnterRoom(roomPos, sceneId);
             GameManager.Instance.camCollider = camCollider.GetComponent<BoxCollider2D>();
             if(GameManager.Instance.currentScene != curScene)
             {

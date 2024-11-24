@@ -60,8 +60,6 @@ public class DataManager : MonoBehaviour
     public void SaveData()
     {
         GameManager.Instance.SavePlayerInfo(currentData);
-        //SwitchManager.Instance.SaveSwitchInfo(currentData);
-        //MapManager.Instance.SaveMapInfo(currentData);
 
         string saveData = JsonConvert.SerializeObject(currentData);
         File.WriteAllText(filePath, saveData);
@@ -73,7 +71,5 @@ public class DataManager : MonoBehaviour
         currentData = JsonConvert.DeserializeObject<SaveData>(loadData);
 
         GameManager.Instance.LoadPlayerInfo(currentData);
-        //SwitchManager.Instance.LoadSwitchInfo(currentData);
-        //MapManager.Instance.LoadMapInfo(currentData);
     }
 }
