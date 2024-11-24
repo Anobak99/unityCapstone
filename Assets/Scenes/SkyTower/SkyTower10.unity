@@ -404,6 +404,7 @@ MonoBehaviour:
   roomCam: {fileID: 1737947278}
   camCollider: {fileID: 1453455234}
   curScene: SkyTower10
+  sceneId: 0
   roomCamera: {fileID: 1737947280}
   objects:
   - {fileID: 1737947280}
@@ -2168,7 +2169,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -4834,6 +4835,10 @@ PrefabInstance:
     - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: savedPos.y
       value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+      propertyPath: savePoint_Id
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.x

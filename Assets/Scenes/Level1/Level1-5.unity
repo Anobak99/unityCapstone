@@ -343,6 +343,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 846356800}
+    - target: {fileID: 6978243322485933769, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: parallaxCamera
       value: 
       objectReference: {fileID: 371171922}
@@ -487,6 +491,7 @@ MonoBehaviour:
   roomCam: {fileID: 371171921}
   camCollider: {fileID: 157173631}
   curScene: Level1-5
+  sceneId: 0
   roomCamera: {fileID: 371171919}
   objects:
   - {fileID: 371171919}
@@ -1199,6 +1204,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
   m_PrefabInstance: {fileID: 846356797}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &846356800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1284313668461532792, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 846356797}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846356799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1017873225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1207,6 +1223,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 129
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 846356800}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 129.09
@@ -1273,13 +1301,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 113.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 846356800}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 113.41353
+      value: 113.5
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.98933
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4977,6 +5017,7 @@ MonoBehaviour:
   roomCam: {fileID: 371171921}
   camCollider: {fileID: 157173631}
   curScene: Level1-5
+  sceneId: 0
   roomCamera: {fileID: 371171919}
   objects:
   - {fileID: 371171919}
@@ -5166,7 +5207,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5224,8 +5265,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6191b0b3273e2488fa519c59651978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundList: []
-  enemysoundPool: []
+  bgmClip: {fileID: 0}
+  bgmVolume: 0
+  sfxClip: []
+  sfxVolume: 0
+  sfxPlayers: []
+  select: {fileID: 0}
+  sfxSound: {fileID: 0}
 --- !u!4 &1470438934
 Transform:
   m_ObjectHideFlags: 0

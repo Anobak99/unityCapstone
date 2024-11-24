@@ -60,12 +60,6 @@ public class Enemy_Pool : MonoBehaviour, IObserver
         return obj;
     }
 
-    private IEnumerator DeactivatePrefab(GameObject obj, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        obj.SetActive(false);
-    }
-
     public void OnNotify()
     {
         foreach(var list in object_List)

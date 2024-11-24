@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] GameObject mainmenuScreen;
     [SerializeField] GameObject selectStartBtn;
     [SerializeField] GameObject selectSaveBtn;
     [SerializeField] GameObject selectOptionBtn;
@@ -85,6 +86,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame1()
     {
+        mainmenuScreen.SetActive(false);
+
         PlayClickSound();
         StopCoroutine(ButtonControl());
         if (DataManager.Instance.FileCheck("saveFile1.json"))
@@ -102,6 +105,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame2()
     {
+        mainmenuScreen.SetActive(false);
+
         PlayClickSound();
         StopCoroutine(ButtonControl());
         if (DataManager.Instance.FileCheck("saveFile2.json"))
@@ -119,6 +124,8 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame3()
     {
+        mainmenuScreen.SetActive(false);
+
         PlayClickSound();
         StopCoroutine(ButtonControl());
         if (DataManager.Instance.FileCheck("saveFile3.json"))
@@ -132,6 +139,11 @@ public class MainMenu : MonoBehaviour
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
         }
+    }
+
+    public void DeleteFiles()
+    {
+        return;
     }
 
     public void GoToMain()

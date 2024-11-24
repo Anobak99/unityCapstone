@@ -58,6 +58,7 @@ public class DoorKeyOpen : MonoBehaviour
 
     private void UseKey()
     {
+        SoundManager.PlaySound(SoundType.SFX, 1f, 10);
         DialogueManager.Instance.sentences.Enqueue("열쇠를 사용했다.");
         DialogueManager.Instance.DisplayNextSentence();
         InventoryManager.instance.RemoveItem(item);

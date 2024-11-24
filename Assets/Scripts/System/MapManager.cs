@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,19 @@ public class MapManager : MonoBehaviour
     public GameObject mapCam;
     private Transform location;
     private int currentX, currentY; // Current position of the player
-    
+
+    [SerializeField] private TileBase[] icon_Images;
+    [SerializeField] Tilemap iconTile;
+    [Serializable]
+    public struct SaveInfo
+    {
+        public int id;
+        public string saved_scene;
+        public Vector2Int map_Pos;
+        public Vector2 saved_pos;
+    }
+    [SerializeField] public SaveInfo[] curSaveInfo;
+
     private static MapManager instance;
 
     public static MapManager Instance
@@ -46,7 +59,7 @@ public class MapManager : MonoBehaviour
     }
 
     //방에 진입 시
-    public void EnterRoom(Vector3Int pos)
+    public void EnterRoom(Vector3Int pos, int id)
     {
         currentX = pos.x;
         currentY = pos.y;
@@ -55,6 +68,10 @@ public class MapManager : MonoBehaviour
         {
             maptile.SetColor(pos, new Color(255, 255, 255, 255));
             DataManager.Instance.currentData.mapData[currentX, currentY] = true;
+            if(id == 1)
+            {
+                SetMapIcon(pos, 1);
+            }
         }
         //지도의 플레이어 위치 갱신
         location = playerIcon.transform;
@@ -72,6 +89,39 @@ public class MapManager : MonoBehaviour
             return false;
     }
 
+    public void ChangeCamPos(Vector2 pos)
+    {
+        location = mapCam.transform;
+        location.position = new Vector3(pos.x + 0.5f, pos.y + 0.5f, -10f);
+        Debug.Log("cam Changed.");
+    }
+
+    public void SetMapIcon(Vector3Int pos, int num)
+    {
+        iconTile.SetTile(pos, icon_Images[num]);
+    }
+
+    public bool CheckSavePoint(int id)
+    {
+        if (HasVisited(curSaveInfo[id].map_Pos.x, curSaveInfo[id].map_Pos.y))
+            return true;
+        else
+            return false;
+    }
+
+    public IEnumerator WarpSave(int id)
+    {
+        Debug.Log("Warp!");
+        GameManager.Instance.posToLoad = curSaveInfo[id].saved_pos;
+        GameManager.Instance.nextScene = true;
+        GameManager.Instance.isRespawn = true;
+
+        GameManager.Instance.gameState = GameManager.GameState.Event;
+        StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.In, 0f));
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(GameManager.Instance.ChangeScene(curSaveInfo[id].saved_scene));
+    }
+
     //저장된 파일에서 지도 이미지 갱신
     public void LoadMapInfo()
     {
@@ -85,6 +135,15 @@ public class MapManager : MonoBehaviour
                     maptile.SetColor(pos, new Color(255, 255, 255, 255));
                 else
                     maptile.SetColor(pos, new Color(255, 255, 255, 0));
+            }
+        }
+
+        for(int i = 0; i < curSaveInfo.Length; i++)
+        {
+            pos = new Vector3Int(curSaveInfo[i].map_Pos.x, curSaveInfo[i].map_Pos.y, 0);
+            if (HasVisited(pos.x, pos.y))
+            {
+                SetMapIcon(pos, 1);
             }
         }
     }

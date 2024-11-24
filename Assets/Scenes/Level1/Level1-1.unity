@@ -526,6 +526,7 @@ MonoBehaviour:
   roomCam: {fileID: 1296036916}
   camCollider: {fileID: 252621847}
   curScene: Level1-1
+  sceneId: 0
   roomCamera: {fileID: 788167595}
   objects:
   - {fileID: 788167595}
@@ -1059,6 +1060,7 @@ MonoBehaviour:
   roomCam: {fileID: 1296036916}
   camCollider: {fileID: 252621847}
   curScene: Level1-1
+  sceneId: 0
   roomCamera: {fileID: 788167595}
   objects:
   - {fileID: 788167595}
@@ -1181,6 +1183,14 @@ PrefabInstance:
     - target: {fileID: 3628800849670023459, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.x
+      value: 32.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
+      propertyPath: originPos.y
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6160672605200902611, guid: e4db8b4d7263bc2499837d019a6e565a, type: 3}
       propertyPath: playerSubject
@@ -1541,7 +1551,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1923,7 +1933,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7575,7 +7585,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7716,6 +7726,14 @@ PrefabInstance:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: speed
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: playerSubject

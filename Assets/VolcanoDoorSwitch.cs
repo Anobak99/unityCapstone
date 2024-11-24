@@ -34,8 +34,8 @@ public class VolcanoDoorSwitch : MonoBehaviour
                 door.SetActive(false);
                 col.enabled = false;
 
-                SwitchManager.Instance.volcano_Switch[switchNum] = true;
-                SwitchManager.Instance.volcano_SwitchDoor[doorNum] = true;
+                DataManager.instance.currentData.volcano_Switch[switchNum] = true;
+                DataManager.instance.currentData.volcano_SwitchDoor[doorNum] = true;
                 //SceneManager.UnloadSceneAsync("Volcano_8");
                 isUse = true;
             }
@@ -47,8 +47,8 @@ public class VolcanoDoorSwitch : MonoBehaviour
                 door.SetActive(false);
                 col.enabled = false;
 
-                SwitchManager.Instance.volcano_Switch[switchNum] = true;
-                SwitchManager.Instance.volcano_SwitchDoor[doorNum] = true;
+                DataManager.instance.currentData.volcano_Switch[switchNum] = true;
+                DataManager.instance.currentData.volcano_SwitchDoor[doorNum] = true;
                 //SceneManager.UnloadSceneAsync("Volcano_8");
                 isUse = true;
             }

@@ -71,7 +71,6 @@ public class AbilityStatue : MonoBehaviour
     public void GetAbility()
     {
         Debug.Log("´É·Â È¹µæ");
-        DialogueManager.Instance.sentences.Enqueue("È­¿°±¸ ±â¼úÀ» ¹è¿ü´Ù.");
         DialogueManager.Instance.DisplayNextSentence();
         InventoryManager.instance.RemoveItem(item);
         CameraShake.Instance.OnShakeCamera(0.5f, 2f);

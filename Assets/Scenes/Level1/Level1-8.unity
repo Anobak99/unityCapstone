@@ -245,7 +245,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -395,7 +395,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -483,6 +483,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 158
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: moveDirection
       value: 1
       objectReference: {fileID: 0}
@@ -492,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 645727501}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 157.81888
+      value: 158
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.y
@@ -559,6 +567,14 @@ PrefabInstance:
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: facingRight
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 152
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: moveDirection
@@ -1654,7 +1670,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1716,6 +1732,7 @@ MonoBehaviour:
   roomCam: {fileID: 1152114554}
   camCollider: {fileID: 1814946306}
   curScene: Level1-8
+  sceneId: 0
   roomCamera: {fileID: 1152114552}
   objects:
   - {fileID: 1152114552}
@@ -2313,6 +2330,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.x
+      value: 151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
+      propertyPath: originPos.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159386157158361844, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: moveDirection
       value: 1
       objectReference: {fileID: 0}
@@ -2322,7 +2347,7 @@ PrefabInstance:
       objectReference: {fileID: 645727501}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 150.96841
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 7679128429253476647, guid: cb8a216ae81a50f419e53767ea1e4f67, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2412,6 +2437,7 @@ MonoBehaviour:
   roomCam: {fileID: 1152114554}
   camCollider: {fileID: 1814946306}
   curScene: Level1-8
+  sceneId: 0
   roomCamera: {fileID: 1152114552}
   objects:
   - {fileID: 1152114552}
@@ -2866,7 +2892,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6119,7 +6145,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -378851421, guid: 59c0e851a8b30804aa772865cabf81d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
