@@ -2196,7 +2196,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 27, y: -1, z: 0}
@@ -2304,7 +2304,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 36, y: -1, z: 0}
@@ -2424,7 +2424,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 46, y: -1, z: 0}
@@ -3168,7 +3168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 2, y: 0, z: 0}
+  roomPos: {x: 9, y: 6, z: 0}
   roomCam: {fileID: 469266880}
   camCollider: {fileID: 680574361}
   curScene: Volcano_2
@@ -7160,7 +7160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 8, y: 6, z: 0}
   roomCam: {fileID: 469266880}
   camCollider: {fileID: 680574361}
   curScene: Volcano_2
@@ -7231,6 +7231,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1040148834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040148836}
+  - component: {fileID: 1040148835}
+  m_Layer: 0
+  m_Name: EnemyObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1040148835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040148834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffac7b869b9fc5348bd3ae302639082b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSubject: {fileID: 227067301}
+  object_Pool:
+  - id: 0
+    name: Lava Wyrm
+    targetPrefab: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+--- !u!4 &1040148836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040148834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.18, y: 1.21, z: -0.06724289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1077124934
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,6 +7324,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1040148835}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: attackRange
       value: 6
       objectReference: {fileID: 0}
@@ -7286,6 +7339,10 @@ PrefabInstance:
       propertyPath: originPos.y
       value: -2.93
       objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: playerSubject
       value: 
@@ -7669,6 +7726,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1040148835}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: attackRange
       value: 6
       objectReference: {fileID: 0}
@@ -7680,6 +7741,10 @@ PrefabInstance:
       propertyPath: originPos.y
       value: -3.13
       objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: playerSubject
       value: 
@@ -8748,3 +8813,4 @@ SceneRoots:
   - {fileID: 1985617851}
   - {fileID: 904072781}
   - {fileID: 726274912}
+  - {fileID: 1040148836}

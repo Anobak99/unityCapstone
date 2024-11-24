@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
+        if (DataManager.instance.currentData.abilities[1] && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
         {
             StartCoroutine(FireBall());
         }
@@ -530,6 +530,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator FireBall()
     {
+        SoundManager.PlaySound(SoundType.MAGIC, 0.7f);
         canAct = false;
         anim.SetTrigger("FireBall");
         yield return new WaitForSeconds(1f);
@@ -563,16 +564,16 @@ public class PlayerController : MonoBehaviour
             if (enemy[i].gameObject.tag == "Enemy") // 적과 충돌 시 데미지 처리
             {
                 enemy[i].GetComponent<Enemy>().Attacked(damage, transform.position);
-                ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Enemy>().transform.position,
-                                                        enemy[i].GetComponent<Enemy>().transform.rotation);
-                SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
+                //ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Enemy>().transform.position,
+                //                                        enemy[i].GetComponent<Enemy>().transform.rotation);
+                //SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
             }
             else if (enemy[i].gameObject.tag == "Boss")
             {
                 enemy[i].GetComponent<Boss>().Attacked(damage, attackPos.position);
-                ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Boss>().transform.position,
-                                                        enemy[i].GetComponent<Boss>().transform.rotation);
-                SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
+                //ObjectPoolManager.instance.GetEffectObject(enemy[i].GetComponent<Boss>().transform.position,
+                //                                        enemy[i].GetComponent<Boss>().transform.rotation);
+                //SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
             }
             else if (enemy[i].gameObject.tag == "EnemyDestroyableBullet")
             {
@@ -682,7 +683,8 @@ public class PlayerController : MonoBehaviour
             }
             else if (collision.CompareTag("Lava"))
             {
-                if (isObsidianSkin) return; // 옵시디언 스킨 능력 활성화시 용암피해x
+                if (DataManager.instance.currentData.abilities[2]) return; // 옵시디언 스킨 능력 활성화시 용암피해x
+
                 GameManager.Instance.PlayerHit(1);
             }
         }

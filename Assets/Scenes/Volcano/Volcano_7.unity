@@ -1392,6 +1392,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1935512279}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: originPos.x
       value: 66
       objectReference: {fileID: 0}
@@ -1399,6 +1403,10 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 30.56
       objectReference: {fileID: 0}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: playerSubject
       value: 
@@ -1877,7 +1885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 2, y: 3, z: 0}
+  roomPos: {x: 10, y: 8, z: 0}
   roomCam: {fileID: 271215743}
   camCollider: {fileID: 967866883}
   curScene: Volcano_7
@@ -4850,6 +4858,55 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1935512278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1935512280}
+  - component: {fileID: 1935512279}
+  m_Layer: 0
+  m_Name: EnemyObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1935512279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935512278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffac7b869b9fc5348bd3ae302639082b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSubject: {fileID: 1070912282}
+  object_Pool:
+  - id: 0
+    name: FireFly
+    targetPrefab: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+--- !u!4 &1935512280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935512278}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.18, y: 1.21, z: -0.06724289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948384317
 GameObject:
   m_ObjectHideFlags: 0
@@ -5038,6 +5095,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1935512279}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: originPos.x
       value: 49.18
       objectReference: {fileID: 0}
@@ -5045,6 +5106,10 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 30.67
       objectReference: {fileID: 0}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: playerSubject
       value: 
@@ -5518,7 +5583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 2, y: 2, z: 0}
+  roomPos: {x: 9, y: 8, z: 0}
   roomCam: {fileID: 271215743}
   camCollider: {fileID: 967866883}
   curScene: Volcano_7
@@ -5724,3 +5789,4 @@ SceneRoots:
   - {fileID: 1650608967}
   - {fileID: 1961918197}
   - {fileID: 1203404793}
+  - {fileID: 1935512280}

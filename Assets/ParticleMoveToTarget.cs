@@ -79,6 +79,7 @@ public class ParticleMoveToTarget : MonoBehaviour
     {
         boss.SetActive(false);
         StopAllCoroutines();
+        DataManager.instance.currentData.abilities[abilityNum] = true;
         UIManager.Instance.SystemScreenON(abilityNum);
         gameObject.SetActive(false);
     }

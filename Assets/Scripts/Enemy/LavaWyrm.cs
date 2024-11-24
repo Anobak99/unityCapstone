@@ -23,8 +23,9 @@ public class LavaWyrm : Enemy
     private bool isLava;
 
     #region 투사체
-    public GameObject bulletPrefab; // 투사체 프리팹
-    private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
+    [SerializeField] private Enemy_Pool objectPool;
+    public GameObject objectPrefab;
+    private List<GameObject> bullets = new List<GameObject>();
     private Vector2 bulletDirection; // 투사체 방향
     #endregion
 
@@ -160,24 +161,25 @@ public class LavaWyrm : Enemy
         EnemyBullet bullet;
         GameObject select = null;
 
-        foreach (GameObject item in pool)
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.transform.position = attackPos.position;
-                select.SetActive(true);
-                break;
-            }
-        }
+        //foreach (GameObject item in pool)
+        //{
+        //    if (!item.activeSelf)
+        //    {
+        //        select = item;
+        //        select.transform.position = attackPos.position;
+        //        select.SetActive(true);
+        //        break;
+        //    }
+        //}
 
-        if (!select)
-        {
-            select = Instantiate(bulletPrefab, attackPos);
-            select.transform.SetParent(null);
-            pool.Add(select);
-        }
+        //if (!select)
+        //{
+        //    select = Instantiate(bulletPrefab, attackPos);
+        //    select.transform.SetParent(null);
+        //    pool.Add(select);
+        //}
 
+        select = objectPool.GetObject(new Vector2(transform.position.x, transform.position.y + 0.7f), "FireFly");
         bullet = select.GetComponent<EnemyBullet>();
         bullet.target = player.gameObject;
         bulletDirection = (player.position - transform.position).normalized;

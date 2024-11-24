@@ -353,6 +353,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1811470069}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: attackRange
       value: 5
       objectReference: {fileID: 0}
@@ -364,6 +368,14 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 24.05
       objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1300722723}
     - target: {fileID: 4695097136068793106, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: m_Name
       value: Lava Wyrm
@@ -2324,6 +2336,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1811470069}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: originPos.x
       value: 106.13
       objectReference: {fileID: 0}
@@ -2331,6 +2347,14 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 24.02
       objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1300722723}
     - target: {fileID: 4695097136068793106, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: m_Name
       value: Lava Wyrm (2)
@@ -4774,7 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 5, y: 2, z: 0}
+  roomPos: {x: 12, y: 8, z: 0}
   roomCam: {fileID: 1684701537}
   camCollider: {fileID: 1947776975}
   curScene: Volcano_12
@@ -4935,6 +4959,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74a3418f68444b343944c5259133403a, type: 3}
+--- !u!1 &1811470068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811470070}
+  - component: {fileID: 1811470069}
+  m_Layer: 0
+  m_Name: EnemyObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1811470069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811470068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffac7b869b9fc5348bd3ae302639082b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSubject: {fileID: 1300722723}
+  object_Pool:
+  - id: 0
+    name: Lava Wyrm
+    targetPrefab: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+--- !u!4 &1811470070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811470068}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.18, y: 1.21, z: -0.06724289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828749435
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,6 +5048,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 1811470069}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: originPos.x
       value: 111.05
       objectReference: {fileID: 0}
@@ -4982,6 +5059,14 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 23.98
       objectReference: {fileID: 0}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+    - target: {fileID: 2727308019190822339, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1300722723}
     - target: {fileID: 4695097136068793106, guid: 5712b45a961c5f6449fb5c04b4fd9411, type: 3}
       propertyPath: m_Name
       value: Lava Wyrm (1)
@@ -5596,3 +5681,4 @@ SceneRoots:
   - {fileID: 280298077}
   - {fileID: 1889962727}
   - {fileID: 703695315}
+  - {fileID: 1811470070}

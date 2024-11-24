@@ -303,6 +303,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 454907945}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: originPos.x
       value: 42.73
       objectReference: {fileID: 0}
@@ -310,6 +314,10 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 16.09
       objectReference: {fileID: 0}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: playerSubject
       value: 
@@ -563,6 +571,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74a3418f68444b343944c5259133403a, type: 3}
+--- !u!1 &454907944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 454907946}
+  - component: {fileID: 454907945}
+  m_Layer: 0
+  m_Name: EnemyObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &454907945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454907944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffac7b869b9fc5348bd3ae302639082b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSubject: {fileID: 1365259621}
+  object_Pool:
+  - id: 0
+    name: FireFly
+    targetPrefab: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+--- !u!4 &454907946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454907944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.18, y: 1.21, z: -0.06724289}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &488463239
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +751,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPool
+      value: 
+      objectReference: {fileID: 454907945}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: originPos.x
       value: 53.1
       objectReference: {fileID: 0}
@@ -701,6 +762,10 @@ PrefabInstance:
       propertyPath: originPos.y
       value: 14.47
       objectReference: {fileID: 0}
+    - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
+      propertyPath: objectPrefab
+      value: 
+      objectReference: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
     - target: {fileID: 6974107915465922005, guid: 5c4e9bee969242047ab426be4b33a6a4, type: 3}
       propertyPath: playerSubject
       value: 
@@ -4243,7 +4308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 2, y: 1, z: 0}
+  roomPos: {x: 9, y: 7, z: 0}
   roomCam: {fileID: 2142920930}
   camCollider: {fileID: 3185877}
   curScene: Volcano_4
@@ -4442,3 +4507,4 @@ SceneRoots:
   - {fileID: 1406531859}
   - {fileID: 81959501}
   - {fileID: 568130680}
+  - {fileID: 454907946}

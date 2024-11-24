@@ -76,9 +76,9 @@ public class MapManager : MonoBehaviour
     public void LoadMapInfo()
     {
         Vector3Int pos;
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 20; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 20; j++)
             {
                 pos = new Vector3Int(i, j, 0);
                 if (HasVisited(i, j))

@@ -64,6 +64,9 @@ public class Enemy : MonoBehaviour, IObserver
                 StopCoroutine(act2);
             }
 
+            ObjectPoolManager.instance.GetEffectObject(transform.position, transform.rotation);
+            SoundManager.PlaySound(SoundType.HURT, 0.3f, 1);
+
             StartCoroutine(TakeDamage(dmg, attackPos));
         }
     }
