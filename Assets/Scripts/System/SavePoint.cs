@@ -14,6 +14,8 @@ public class SavePoint : MonoBehaviour
     [SerializeField] private GameObject savepointScreen;
     [SerializeField] private GameObject mapScreen;
 
+    private bool closePlayer;
+
     private void Awake()
     {
         if(GameManager.Instance.isRespawn)
@@ -45,7 +47,7 @@ public class SavePoint : MonoBehaviour
                 PreSavePoint();
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (closePlayer &&Input.GetKeyDown(KeyCode.G))
         {
             if (mapScreen.activeSelf)
                 return;
@@ -59,9 +61,18 @@ public class SavePoint : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            
+            closePlayer = true;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            closePlayer = false;
+        }
+    }
+
 
     IEnumerator ShowText()
     {

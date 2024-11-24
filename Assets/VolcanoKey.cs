@@ -9,24 +9,35 @@ public class VolcanoKey : MonoBehaviour
     public Dialogue dialogue;
     private Button acceptButton;
 
+    private bool closePlayer;
+
     private void Awake()
     {
         acceptButton = DialogueManager.Instance.acceptButton;
-    }
-
-    private void Start()
-    {
         acceptButton.onClick.AddListener(AbilityAccept);
     }
-   
+
+    private void Update()
+    {
+        if (closePlayer && Input.GetKeyDown(KeyCode.G))
+        {
+            DialogueManager.Instance.StartDialogue(dialogue);
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                DialogueManager.Instance.StartDialogue(dialogue);
-            }
+            closePlayer = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            closePlayer = false;
         }
     }
 

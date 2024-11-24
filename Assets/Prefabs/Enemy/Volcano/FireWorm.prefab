@@ -82,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8732296140119258258
 Transform:
   m_ObjectHideFlags: 0
@@ -265,12 +265,14 @@ MonoBehaviour:
   rb: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  playerSubject: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: cd0affa3b0c9c4f448d8a7942cce4e56, type: 2}
   defalutMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   canAct: 0
   canDamage: 0
   isDead: 0
   isAttack: 0
+  originPos: {x: 82.28, y: 32.54}
   dropTable: []
   moveDirection: 1
   speed: 3
@@ -280,8 +282,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   bulletPrefab: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
-  viewRange: 12
-  attackRange: 9
+  viewRange: 13
+  attackRange: 11
   groundCheck: {fileID: 7416213327092105222}
   groundLayor:
     serializedVersion: 2

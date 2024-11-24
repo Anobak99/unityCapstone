@@ -13,6 +13,7 @@ public class DoorKeyOpen : MonoBehaviour
 
     private Button acceptButton;
     private Button declineButton;
+    public bool closePlayer;
 
     private void Awake()
     {
@@ -31,11 +32,11 @@ public class DoorKeyOpen : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void Update()
     {
-        if (collision.collider.CompareTag("Player") && Input.GetKeyDown(KeyCode.G))
+        if (closePlayer && Input.GetKeyDown(KeyCode.G))
         {
-            if(InventoryManager.instance.Items.Contains(item))
+            if (InventoryManager.instance.Items.Contains(item))
             {
                 DialogueManager.Instance.StartDialogue(dialogueHasKey);
             }
@@ -43,6 +44,22 @@ public class DoorKeyOpen : MonoBehaviour
             {
                 DialogueManager.Instance.StartDialogue(dialogueDontHaveKey);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            closePlayer = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            closePlayer = false;
         }
     }
 
