@@ -4142,7 +4142,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3215898899390689746, guid: f0812caeb21ec1748ab94a0666420f06, type: 3}
       propertyPath: soundList.Array.data[9].sounds.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3215898899390689746, guid: f0812caeb21ec1748ab94a0666420f06, type: 3}
       propertyPath: soundList.Array.data[6].sounds.Array.data[0]
@@ -4152,10 +4152,18 @@ PrefabInstance:
       propertyPath: soundList.Array.data[9].sounds.Array.data[9]
       value: 
       objectReference: {fileID: 8300000, guid: a7848a593ef1da944880d66020c81ed6, type: 3}
+    - target: {fileID: 3215898899390689746, guid: f0812caeb21ec1748ab94a0666420f06, type: 3}
+      propertyPath: soundList.Array.data[9].sounds.Array.data[10]
+      value: 
+      objectReference: {fileID: 8300000, guid: d2119a6f6ae15bd44aa639dc2a9a50ee, type: 3}
     - target: {fileID: 7211331258111836525, guid: f0812caeb21ec1748ab94a0666420f06, type: 3}
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8724794645485153495, guid: f0812caeb21ec1748ab94a0666420f06, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 88db208a4173d124fb3406c81b884b0b, type: 2}
     - target: {fileID: 9134857482497438985, guid: f0812caeb21ec1748ab94a0666420f06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.3123107
@@ -4267,15 +4275,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: posToLoad.x
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: posToLoad.y
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnScene
-      value: Castle1
+      value: Volcano_1
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnPoint.x

@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 대시 
-        if (input.dashInput && canDash && !isHolding)
+        if (DataManager.instance.currentData.abilities[0] && input.dashInput && canDash && !isHolding)
         {
             //Debug.Log("Dash");
             isDashing = true;
