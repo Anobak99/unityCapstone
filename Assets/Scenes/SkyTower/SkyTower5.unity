@@ -3290,7 +3290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
@@ -3310,15 +3310,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.y
-      value: -7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: curScene
-      value: SkyTower6
+      value: SkyTower8
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: playerObj
@@ -3392,6 +3392,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f0c32cf313b9749b6ccdbcdab0a5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &342967003
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3899859340918163902, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: originPos.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899859340918163902, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: originPos.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3899859340918163902, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1921243123}
+    - target: {fileID: 5240116360453341107, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_Name
+      value: TallHead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240116360453341107, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547781476274397526, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+--- !u!1 &342967004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5240116360453341107, guid: 50644f8e8d430874f81766f67f035808, type: 3}
+  m_PrefabInstance: {fileID: 342967003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &343446064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3414,11 +3496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4563403652914404621, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
@@ -4158,10 +4240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 3, y: 10, z: 0}
   roomCam: {fileID: 1733280196}
   camCollider: {fileID: 739797584}
   curScene: SkyTower5
+  sceneId: 0
   roomCamera: {fileID: 1733280198}
   objects:
   - {fileID: 1733280198}
@@ -4169,7 +4252,8 @@ MonoBehaviour:
   - {fileID: 1045849983}
   - {fileID: 842181816}
   - {fileID: 86191080}
-  areaName: SkyTower
+  - {fileID: 342967004}
+  areaName: Tower
 --- !u!61 &893449471
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4980,10 +5064,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 4, y: 10, z: 0}
   roomCam: {fileID: 1733280196}
   camCollider: {fileID: 739797584}
   curScene: SkyTower5
+  sceneId: 0
   roomCamera: {fileID: 1733280198}
   objects:
   - {fileID: 1733280198}
@@ -4991,7 +5076,8 @@ MonoBehaviour:
   - {fileID: 1045849983}
   - {fileID: 842181816}
   - {fileID: 86191080}
-  areaName: SkyTower
+  - {fileID: 342967004}
+  areaName: Tower
 --- !u!61 &1905157620
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8338,3 +8424,4 @@ SceneRoots:
   - {fileID: 1045849982}
   - {fileID: 842181815}
   - {fileID: 86191079}
+  - {fileID: 342967003}

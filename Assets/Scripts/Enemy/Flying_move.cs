@@ -32,11 +32,11 @@ public class Flying_move : Enemy
     {
         if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동
         {
-            horizental = Vector2.Distance(player.transform.position, transform.position); //플레이어까지의 거리
+            horizental = player.position.x - transform.position.x; //플레이어까지의 거리
             moveDirection = (player.transform.position - transform.position);
             if(moveDirection.x >= 0) { moveX = 1; } else { moveX = -1; }
             if(moveDirection.y >= 0) { moveY = 1; } else { moveY = -1; }
-            playerDistance = Mathf.Abs(horizental);
+            playerDistance = Mathf.Abs(Vector2.Distance(player.transform.position, transform.position));
             if (playerFound) //플레이어를 인식한 상황일 때
             {
                 FlipToPlayer(horizental);
