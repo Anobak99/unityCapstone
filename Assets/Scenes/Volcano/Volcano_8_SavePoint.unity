@@ -4164,15 +4164,19 @@ PrefabInstance:
       objectReference: {fileID: 114250637}
     - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: savedPos.x
-      value: 66.91
+      value: 60.74
       objectReference: {fileID: 0}
     - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: savedPos.y
-      value: 40.78
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473321429691075482, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+      propertyPath: savePoint_Id
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66.91
+      value: 60.74
       objectReference: {fileID: 0}
     - target: {fileID: 4050068980257949951, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4812,6 +4816,7 @@ MonoBehaviour:
   roomCam: {fileID: 352063483}
   camCollider: {fileID: 1763884358}
   curScene: Volcano_8_SavePoint
+  sceneId: 0
   roomCamera: {fileID: 352063482}
   objects:
   - {fileID: 352063482}
