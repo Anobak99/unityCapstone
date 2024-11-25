@@ -11,6 +11,7 @@ private float horizental;
     public float attackRange;
     public bool facingRight;
     private bool playerFound;
+    private bool isActing;
 
     [SerializeField] private Enemy_Pool objectPool;
     public GameObject objectPrefab;
@@ -20,8 +21,8 @@ private float horizental;
     {
         if (player != null && !GameManager.Instance.isDead) //플레이어가 살아있을 때에만 작동
         {
-            horizental = Vector2.Distance(player.transform.position, transform.position); //플레이어까지의 x거리
-            playerDistance = Mathf.Abs(horizental);
+            horizental = player.position.x - transform.position.x; //플레이어까지의 x거리
+            playerDistance = Mathf.Abs(Vector2.Distance(player.transform.position, transform.position));
             if (playerDistance < viewRange) //대상이 인식 범위 안쪽일 경우
             {
                 FlipToPlayer(horizental);
@@ -80,13 +81,16 @@ private float horizental;
 
     public override IEnumerator Attack()
     {
+        isActing = true;
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(1.5f);
+        isActing = false;
         act1 = StartCoroutine(Think());
     }
 
     public IEnumerator Attack2()
     {
+        isActing = true;
         GameObject fire;
         animator.SetTrigger("cast");
         yield return new WaitForSeconds(0.8f);
@@ -96,6 +100,7 @@ private float horizental;
         Rigidbody2D rigid = fire.GetComponent<Rigidbody2D>();
         Vector2 dirVec = player.transform.position - transform.position;
         rigid.AddForce(dirVec.normalized*5, ForceMode2D.Impulse);
+        isActing = false;
         yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
@@ -104,9 +109,11 @@ private float horizental;
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        animator.SetBool("Hit", true);
+        if(isActing)
+        {
+            animator.SetBool("Hit", true);
+        }
         canDamage = false;
-        animator.SetInteger("AnimState", 0);
         spriteRenderer.material = flashMaterial;
 
         hp -= dmg;

@@ -153,14 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 0, y: 13, z: 0}
   roomCam: {fileID: 1986080984}
   camCollider: {fileID: 253786459}
   curScene: SkyTower19
+  sceneId: 0
   roomCamera: {fileID: 1986080983}
   objects:
   - {fileID: 1986080983}
-  areaName: SkyTower
+  areaName: Tower
 --- !u!61 &103254511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -379,57 +380,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -73, y: 57, z: -0.059175998}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &450448857
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 450448859}
-  - component: {fileID: 450448858}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &450448858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450448857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6191b0b3273e2488fa519c59651978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmClip: {fileID: 0}
-  bgmVolume: 1
-  sfxClip: []
-  sfxVolume: 0.5
-  sfxPlayers: []
-  select: {fileID: 0}
-  sfxSound: {fileID: 0}
---- !u!4 &450448859
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450448857}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2424,7 +2374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
@@ -2598,7 +2548,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2668,11 +2618,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4563403652914404621, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
@@ -4639,56 +4589,36 @@ Tilemap:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054121481}
   m_Enabled: 1
-  m_Tiles:
-  - first: {x: -71, y: 50, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -72, y: 51, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
+  m_Tiles: {}
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 2
-    m_Data: {fileID: 11400000, guid: 844f1a2a167c1ba4c92e867cf5d02147, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 2
-    m_Data: {fileID: 2143108292, guid: bb8acdbfed5de1d4384c9a291185c725, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 2
+  - m_RefCount: 0
     m_Data:
-      e00: 1
+      e00: 7.0684684e+28
       e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
+      e02: -2.3622353e+10
+      e03: -2.3622353e+10
+      e10: 2.7900757e+20
+      e11: 0
+      e12: 6.81e-43
+      e13: 6.81e-43
+      e20: -2.7335955e-24
+      e21: 1.7117183e+32
+      e22: 1.6110414e-28
+      e23: 2.9096324e-29
+      e30: 4.5904e-41
+      e31: 6.85e-43
+      e32: 6.82e-43
+      e33: 6.85e-43
   m_TileColorArray:
-  - m_RefCount: 2
-    m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 4.4715e-41, g: 4.4715e-41, b: 4.4715e-41, a: 4.4715e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4840,7 +4770,6 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 450448859}
   - {fileID: 710756878}
   - {fileID: 103254512}
   - {fileID: 253786461}

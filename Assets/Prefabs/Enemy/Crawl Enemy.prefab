@@ -175,19 +175,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f4ae7720b11ba48b43e36beab31628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 3
-  hp: 3
+  maxHp: 1
+  hp: 1
   dmg: 1
   player: {fileID: 0}
   rb: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  playerSubject: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: cd0affa3b0c9c4f448d8a7942cce4e56, type: 2}
   defalutMaterial: {fileID: 2100000, guid: 072ee146a802e054b9af102c2bf7e4b9, type: 2}
   canAct: 0
   canDamage: 0
   isDead: 0
   isAttack: 0
+  originPos: {x: 0, y: 0}
   dropTable: []
   groundCheck: {fileID: 3052404045043601419}
   groundLayor:
@@ -198,7 +200,7 @@ MonoBehaviour:
   isWall: 0
   groundDistance: 0.8
   wallDistance: 0.3
-  speed: 2
+  speed: 4
   rotateDistance: 0.5
   dir: 1
 --- !u!1 &1218646266679082970
@@ -273,7 +275,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 170846526, guid: 1c1e9f3ae0582114594fb0973eca15d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
