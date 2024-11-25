@@ -39,9 +39,9 @@ public class FireFly : Enemy
     public void StartShotCoolDown() => nextFireTime = Time.time + shotcooldownTime;
     #endregion
 
-
     public override IEnumerator Think()
     {
+        rb.gravityScale = 0f;
         Check();
 
         if (player != null && !GameManager.Instance.isDead )

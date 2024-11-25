@@ -11,11 +11,11 @@ public class DropItem : MonoBehaviour
     public ItemType itype;
     [SerializeField] private int healPoint;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-            if(itype == ItemType.Heal)
+            if (itype == ItemType.Heal)
             {
                 GameManager.Instance.PlayerHeal(healPoint);
                 Destroy(gameObject);

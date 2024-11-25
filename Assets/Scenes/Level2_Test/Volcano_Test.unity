@@ -16455,6 +16455,64 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1180321822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180321824}
+  - component: {fileID: 1180321823}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1180321823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180321822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b958bb0c68a0f1944a8f31ee91bdf4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentData:
+    fileName: 
+    maxHp: 5
+    saveScene: Level1-0
+    areaName: Forest
+    savePosX: 0
+    savePosY: 0
+    volcano_Switch: 0000000000
+    volcano_SwitchDoor: 0000000000
+    doorSwitch: 00000000000000000000
+    openedDoor: 00000000000000000000
+    openSwitchDoor: 00000000000000000000
+    abilities: 00000000000000000000
+    boss: 00000000
+--- !u!4 &1180321824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180321822}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1205100835 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
@@ -19300,3 +19358,4 @@ SceneRoots:
   - {fileID: 326357013}
   - {fileID: 1702080514469287260}
   - {fileID: 1810007925}
+  - {fileID: 1180321824}

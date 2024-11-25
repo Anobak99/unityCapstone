@@ -13,7 +13,6 @@ public class LavaTrap : MonoBehaviour
         {
             if (DataManager.instance.currentData.abilities[2]) return; // 흑요석피부 활성화시 리턴
 
-            if (collision.gameObject.GetComponent<PlayerController>().isObsidianSkin) return;
             GameManager.Instance.PlayerHit(1);
             StartCoroutine(MovePos());
         }

@@ -13,6 +13,7 @@ public class PlayerInput : Subject
     public bool dashInput;
     public bool attackInput;
     public bool fireballInput;
+    public bool superjumpInput;
 
     void Update()
     {
@@ -30,6 +31,7 @@ public class PlayerInput : Subject
         Dash();
         Attack();
         FireBall();
+        SuperJump();
         Pause();
     }
 
@@ -95,6 +97,19 @@ public class PlayerInput : Subject
         if (Input.GetButtonUp("FireBall"))
         {
             fireballInput = false;
+        }
+    }
+
+    void SuperJump()
+    {
+        if (Input.GetButtonDown("SuperJump"))
+        {
+            superjumpInput = true;
+        }
+
+        if (Input.GetButtonUp("SuperJump"))
+        {
+            superjumpInput = false;
         }
     }
 }

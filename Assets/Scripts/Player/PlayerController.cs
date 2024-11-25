@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
@@ -30,6 +31,13 @@ public class PlayerController : MonoBehaviour
     private float coyoteTime = 0.2f;
     private bool isJumping;
     private bool doubleJump;
+    #endregion
+
+    #region SuperJump
+    [Header("슈퍼점프")]
+    [SerializeField] float jumpchargeTime = 0;
+    [SerializeField] float maxjumpForce = 5f;
+    bool isjumpCharging;
     #endregion
 
     #region Dash
@@ -89,10 +97,8 @@ public class PlayerController : MonoBehaviour
     public bool canDamage;
     private bool isDamaged;
     public bool canAct;
-    private bool canFireBall;
     private bool isDead;
     public bool isRespawn;
-    public bool isObsidianSkin; // 용암에 피해 안받음
     #endregion
 
     private void OnEnable()
@@ -162,6 +168,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dashing());
         }
 
+        // 공격
         if (timeBtwAttack <= 0 && input.attackInput && !isDashing && !isHolding)
         {
             if (input.vertical > 0)
@@ -172,10 +179,17 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Attack());
         }
 
-
+        // 파이어볼
         if (DataManager.instance.currentData.abilities[1] && timeBtwFire <= 0 && input.fireballInput && !isDashing && !isHolding)
         {
             StartCoroutine(FireBall());
+        }
+
+        // 슈퍼 점프
+        if (!isjumpCharging && IsGrounded() && input.superjumpInput && !isDashing && !isHolding)
+        {
+            Debug.Log("슈점");
+            StartCoroutine(SuperJump());
         }
 
         // 물건 들기/놓기 토글
@@ -263,8 +277,6 @@ public class PlayerController : MonoBehaviour
             if (coyoteTimeCounter > 0) coyoteTimeCounter -= Time.deltaTime;
         }
 
-        if (SwitchManager.Instance.abilities[0]) canFireBall = true;
-
         if (input.jumpBufferCounter > 0) input.jumpBufferCounter -= Time.deltaTime;
 
         if(timeBtwAttack > 0) { timeBtwAttack -= Time.deltaTime; }
@@ -339,6 +351,62 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isJump", false);
             if (rigid.velocity.y < -10f)
                 rigid.velocity = new Vector2(rigid.velocity.x, -10f);
+        }
+    }
+
+    private IEnumerator SuperJump()
+    {
+        canAct = false;
+        if (Input.GetButtonDown("SuperJump"))
+        {
+            StartCoroutine(SuperJumpChargeSound());
+            isjumpCharging = true;
+            anim.SetTrigger("isCast");
+            jumpchargeTime = 0f; // 초기화
+        }
+
+        float exitTime = 0f;
+
+        while(Input.GetButton("SuperJump"))
+        {
+            if (isjumpCharging && Input.GetButton("SuperJump"))
+            {
+                if (exitTime > 1000000)
+                {
+                    //throw new Exception("Infinite Loop");
+                    break;
+                }
+                jumpchargeTime += Time.deltaTime; // 프레임 시간 누적
+                exitTime++;
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+
+        // 키를 떼면 기모으기 종료 및 누적 시간 반환
+        if (Input.GetButtonUp("SuperJump"))
+        {
+            anim.SetTrigger("CastEnd");
+            isjumpCharging = false;
+            float jumpForce = Mathf.Clamp(jumpchargeTime, 0f, maxjumpForce) * 10;
+            rigid.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse); // Y축 속도에 점프력 적용
+            if (jumpForce > 10)
+            {
+                SoundManager.PlaySound(SoundType.JUMP, 1f, 2);
+            }
+        }
+        StopCoroutine(SuperJumpChargeSound());
+        canAct = true;
+    }
+
+    private IEnumerator SuperJumpChargeSound()
+    {
+        while(Input.GetButton("SuperJump"))
+        {
+            if (jumpchargeTime > 0.5f)
+            {
+                SoundManager.PlaySound(SoundType.JUMP, 0.6f, 1);
+            }
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
