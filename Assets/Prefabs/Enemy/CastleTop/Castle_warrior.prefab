@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5518181060536875197}
   - component: {fileID: 2353693299348919161}
   - component: {fileID: 3546438678132715259}
+  - component: {fileID: 7007378228220119501}
   m_Layer: 8
   m_Name: Castle_warrior
   m_TagString: Enemy
@@ -107,6 +108,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7007378228220119501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476635335333234937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360b4d679cfebef439607eb20f19edfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 8
+  hp: 8
+  dmg: 1
+  player: {fileID: 0}
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  playerSubject: {fileID: 0}
+  flashMaterial: {fileID: 2100000, guid: cd0affa3b0c9c4f448d8a7942cce4e56, type: 2}
+  defalutMaterial: {fileID: 2100000, guid: 072ee146a802e054b9af102c2bf7e4b9, type: 2}
+  canAct: 0
+  canDamage: 0
+  isDead: 0
+  isAttack: 0
+  originPos: {x: 0, y: 0}
+  dropTable: []
+  attackRange: 3
+  facingRight: 1
+  DamageBox: {fileID: 4720518307170417137}
 --- !u!1 &4720518307170417137
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +200,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}
@@ -245,7 +277,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 1.35, y: 1}

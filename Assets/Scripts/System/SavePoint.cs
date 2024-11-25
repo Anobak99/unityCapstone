@@ -9,7 +9,7 @@ public class SavePoint : MonoBehaviour
     public Vector2 savedPos;
     public int savePoint_Id; //Id for this object.
     private int curId; //current Id for seraching another savePoint.
-    private bool move_SavePoint;
+    private bool isWorked;
     [SerializeField] GameObject playerObj;
     [SerializeField] private GameObject savepointScreen;
     [SerializeField] private GameObject mapScreen;
@@ -47,7 +47,7 @@ public class SavePoint : MonoBehaviour
                 PreSavePoint();
         }
 
-        if (closePlayer &&Input.GetKeyDown(KeyCode.G))
+        if (closePlayer &&Input.GetKeyDown(KeyCode.G) && isWorked)
         {
             if (mapScreen.activeSelf)
                 return;
@@ -93,15 +93,14 @@ public class SavePoint : MonoBehaviour
     {
         if(mapScreen.activeSelf)
         {
-            move_SavePoint = false;
             mapScreen.SetActive(false);
+            GameManager.Instance.playerController.anim.SetBool("isCast", false);
             GameManager.Instance.gameState = GameManager.GameState.Field;
             return;
         }
         else
         {
             curId = savePoint_Id;
-            move_SavePoint=true;
             savepointScreen.SetActive(false);
             mapScreen.SetActive(true);
             MapManager.Instance.ChangeCamPos(MapManager.Instance.curSaveInfo[curId].map_Pos);
@@ -134,16 +133,25 @@ public class SavePoint : MonoBehaviour
 
     public void SavePointScreen()
     {
-
         if (savepointScreen.activeSelf)
         {
+            isWorked = false;
+            GameManager.Instance.playerController.anim.SetBool("isCast", false);
             GameManager.Instance.gameState = GameManager.GameState.Field;
             savepointScreen.SetActive(false);
         }
         else
         {
-            GameManager.Instance.gameState = GameManager.GameState.Menu;
-            savepointScreen.SetActive(true);
+            isWorked = true;
+            StartCoroutine(PlayerPray());
         }
+    }
+
+    public IEnumerator PlayerPray()
+    {
+        GameManager.Instance.playerController.anim.SetBool("isCast", true);
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.gameState = GameManager.GameState.Menu;
+        savepointScreen.SetActive(true);
     }
 }

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     #region Move
     [Header("움직임")]
     private Rigidbody2D rigid;
-    private Animator anim;
+    public Animator anim;
     private PlayerInput input;
     private GameObject currentOneWayPlatform; // onewayplatform 오브젝트
     private Collider2D playerCollider;
