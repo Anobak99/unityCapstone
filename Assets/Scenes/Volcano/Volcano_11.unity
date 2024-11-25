@@ -866,6 +866,7 @@ MonoBehaviour:
   roomCam: {fileID: 883193742}
   camCollider: {fileID: 1877039833}
   curScene: Volcano_11
+  sceneId: 0
   roomCamera: {fileID: 883193741}
   objects:
   - {fileID: 883193741}
@@ -1848,12 +1849,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 134.87
+      value: 134.96
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.83
+      value: 16.54
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4928,6 +4937,7 @@ MonoBehaviour:
   roomCam: {fileID: 883193742}
   camCollider: {fileID: 1877039833}
   curScene: Volcano_11
+  sceneId: 0
   roomCamera: {fileID: 883193741}
   objects:
   - {fileID: 883193741}
