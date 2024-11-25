@@ -3188,6 +3188,7 @@ MonoBehaviour:
   roomCamera: {fileID: 2119326510}
   objects:
   - {fileID: 2119326510}
+  - {fileID: 1253763607}
   areaName: Castle
 --- !u!61 &1094877675
 BoxCollider2D:
@@ -3318,6 +3319,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+--- !u!1 &1253763607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5459874733618595944, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+  m_PrefabInstance: {fileID: 1253763606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1256744946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3904,7 +3910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7887001681852989317, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7887001681852989317, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_SortingLayerID
@@ -4443,11 +4449,11 @@ PrefabInstance:
       objectReference: {fileID: 938642205}
     - target: {fileID: 5080021144994906025, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5080021144994906025, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5095320636966713715, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_BoundingShape2D
@@ -4459,15 +4465,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5430593975755357514, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.6599936
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6254797
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6432671972880285705, guid: 7db040c0a21f3eb4c99b3e587266793f, type: 3}
       propertyPath: m_LocalPosition.z

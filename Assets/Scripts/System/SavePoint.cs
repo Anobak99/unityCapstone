@@ -47,7 +47,7 @@ public class SavePoint : MonoBehaviour
                 PreSavePoint();
         }
 
-        if (closePlayer &&Input.GetKeyDown(KeyCode.G) && isWorked)
+        if (closePlayer &&Input.GetKeyDown(KeyCode.G) && !isWorked)
         {
             if (mapScreen.activeSelf)
                 return;
@@ -94,7 +94,8 @@ public class SavePoint : MonoBehaviour
         if(mapScreen.activeSelf)
         {
             mapScreen.SetActive(false);
-            GameManager.Instance.playerController.anim.SetBool("isCast", false);
+            isWorked = false;
+            GameManager.Instance.playerController.anim.SetTrigger("CastEnd");
             GameManager.Instance.gameState = GameManager.GameState.Field;
             return;
         }
@@ -102,6 +103,7 @@ public class SavePoint : MonoBehaviour
         {
             curId = savePoint_Id;
             savepointScreen.SetActive(false);
+            GameManager.Instance.gameState = GameManager.GameState.Menu;
             mapScreen.SetActive(true);
             MapManager.Instance.ChangeCamPos(MapManager.Instance.curSaveInfo[curId].map_Pos);
         }
@@ -136,7 +138,7 @@ public class SavePoint : MonoBehaviour
         if (savepointScreen.activeSelf)
         {
             isWorked = false;
-            GameManager.Instance.playerController.anim.SetBool("isCast", false);
+            GameManager.Instance.playerController.anim.SetTrigger("CastEnd");
             GameManager.Instance.gameState = GameManager.GameState.Field;
             savepointScreen.SetActive(false);
         }
@@ -149,7 +151,7 @@ public class SavePoint : MonoBehaviour
 
     public IEnumerator PlayerPray()
     {
-        GameManager.Instance.playerController.anim.SetBool("isCast", true);
+        GameManager.Instance.playerController.anim.SetTrigger("isCast");
         yield return new WaitForSeconds(0.5f);
         GameManager.Instance.gameState = GameManager.GameState.Menu;
         savepointScreen.SetActive(true);
