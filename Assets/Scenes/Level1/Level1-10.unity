@@ -5035,6 +5035,81 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1001 &168547534
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1780718864}
+    m_Modifications:
+    - target: {fileID: 3587199705481592724, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_Name
+      value: Ablity Get Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060519576643546717, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 1780718860}
+    - target: {fileID: 5060519576643546717, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 854462402}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+--- !u!4 &168547535 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+  m_PrefabInstance: {fileID: 168547534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &168547536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3587199705481592724, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+  m_PrefabInstance: {fileID: 168547534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &245185424
 GameObject:
   m_ObjectHideFlags: 0
@@ -5316,7 +5391,6 @@ MonoBehaviour:
   objects:
   - {fileID: 1361457605}
   - {fileID: 1352989724}
-  - {fileID: 0}
   areaName: Forest
 --- !u!61 &294767299
 BoxCollider2D:
@@ -7624,6 +7698,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &854462402 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 854462398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &866391084
 GameObject:
   m_ObjectHideFlags: 0
@@ -7705,7 +7784,7 @@ MonoBehaviour:
   camPosition: {fileID: 890151765}
   camSpeed: 5
   BossObject: {fileID: 1780718860}
-  Player: {fileID: 0}
+  Player: {fileID: 854462400}
   bossNum: 0
   bossDoor:
   - {fileID: 1637671984}
@@ -19442,6 +19521,10 @@ PrefabInstance:
       propertyPath: battle
       value: 
       objectReference: {fileID: 866391086}
+    - target: {fileID: 1659767887388049004, guid: 80e9f2e4cfb95684d94eafbe5d6efefd, type: 3}
+      propertyPath: Ablity_Get_Effect
+      value: 
+      objectReference: {fileID: 168547536}
     - target: {fileID: 6130804164677479234, guid: 80e9f2e4cfb95684d94eafbe5d6efefd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -19492,7 +19575,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6130804164677479234, guid: 80e9f2e4cfb95684d94eafbe5d6efefd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 168547535}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80e9f2e4cfb95684d94eafbe5d6efefd, type: 3}
 --- !u!1660057539 &9223372036854775807
