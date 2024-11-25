@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TwoHead_move : Enemy
 {
-    public float moveDirection;
+    public float moveDirection = 1;
     public float speed;
 
     private float horizental;
     private float playerDistance;
     public float viewRange;
-    public bool facingRight;
+    public bool facingRight = true;
     private bool playerFound;
     [SerializeField] private GameObject damageBox;
 
@@ -61,7 +61,11 @@ public class TwoHead_move : Enemy
                         damageBox.SetActive(true);
                     }
                 }
-                
+                else
+                {
+                    rb.velocity = Vector2.zero;
+                }
+
             }
         }
 

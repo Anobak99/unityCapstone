@@ -22,6 +22,7 @@ public class Turtler_move : Enemy
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayor;
     [SerializeField] Transform WallCheck;
+    public GameObject damageBox;
     private bool isGround;
     private bool isWall;
     private bool isplatform;
@@ -31,6 +32,7 @@ public class Turtler_move : Enemy
         base.OnEnable();
 
         ready = false;
+        damageBox.SetActive(true);
     }
 
     public override IEnumerator Think()
@@ -112,10 +114,13 @@ public class Turtler_move : Enemy
     {
         rb.velocity = Vector2.zero;
         ready = true;
-        animator.SetBool("Hit", true);
+        if (invinCnt == 0)
+        {
+            animator.SetBool("Hit", true);
+            animator.SetInteger("AnimState", 0);
+        }
         SoundManager.PlaySound(SoundType.HURT, 0.2f, 2);
         canDamage = false;
-        animator.SetInteger("AnimState", 0);
         spriteRenderer.material = flashMaterial;
 
         hp -= dmg;
@@ -137,12 +142,17 @@ public class Turtler_move : Enemy
 
         if (hp <= 0)
         {
+            damageBox.SetActive(false);
             StartCoroutine(Death());
             yield break;
         }
 
         canDamage = true;
-        act1 = StartCoroutine(Think());
+        if (invinCnt == 0)
+        {
+            act1 = StartCoroutine(Think());
+            invinCnt = 1;
+        }
     }
 
     private void Check()

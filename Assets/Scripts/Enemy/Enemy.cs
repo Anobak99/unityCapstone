@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IObserver
 
     [HideInInspector] public bool canAct;
     [HideInInspector] public bool canDamage;
+    public int invinCnt = 0;
     [HideInInspector] public bool isDead;
     [HideInInspector] public bool isAttack;
     public Vector2 originPos;
@@ -55,13 +56,16 @@ public class Enemy : MonoBehaviour, IObserver
     {
         if (canDamage)
         {
-            if (act1 != null)
+            if (invinCnt == 0)
             {
-                StopCoroutine(act1);
-            }
-            if (act2 != null)
-            {
-                StopCoroutine(act2);
+                if (act1 != null)
+                {
+                    StopCoroutine(act1);
+                }
+                if (act2 != null)
+                {
+                    StopCoroutine(act2);
+                }
             }
 
             ObjectPoolManager.instance.GetEffectObject(transform.position, transform.rotation);
@@ -74,7 +78,7 @@ public class Enemy : MonoBehaviour, IObserver
     public virtual IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        if (!isAttack)
+        if (invinCnt==0)
         {
             animator.SetTrigger("Hurt");
             animator.SetBool("Hit", true);
@@ -110,7 +114,11 @@ public class Enemy : MonoBehaviour, IObserver
             yield break;
         }
         canDamage = true;
-        act1 = StartCoroutine(Think());
+        if (invinCnt == 0)
+        {
+            act1 = StartCoroutine(Think());
+            invinCnt = 3;
+        }
     }
 
     public virtual void StopAction(IEnumerator action)

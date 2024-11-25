@@ -11,11 +11,9 @@ private float horizental;
     public float attackRange;
     public bool facingRight;
     private bool playerFound;
-    private bool isActing;
+    
 
     [SerializeField] private Enemy_Pool objectPool;
-    public GameObject objectPrefab;
-    private List<GameObject> bullets = new List<GameObject>();
 
     public override IEnumerator Think()
     {
@@ -81,16 +79,14 @@ private float horizental;
 
     public override IEnumerator Attack()
     {
-        isActing = true;
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(1.5f);
-        isActing = false;
+        invinCnt--;
         act1 = StartCoroutine(Think());
     }
 
     public IEnumerator Attack2()
     {
-        isActing = true;
         GameObject fire;
         animator.SetTrigger("cast");
         yield return new WaitForSeconds(0.8f);
@@ -100,16 +96,14 @@ private float horizental;
         Rigidbody2D rigid = fire.GetComponent<Rigidbody2D>();
         Vector2 dirVec = player.transform.position - transform.position;
         rigid.AddForce(dirVec.normalized*5, ForceMode2D.Impulse);
-        isActing = false;
         yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
 
-
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
         rb.velocity = Vector2.zero;
-        if(isActing)
+        if(invinCnt==0)
         {
             animator.SetBool("Hit", true);
         }
@@ -131,6 +125,10 @@ private float horizental;
         }
 
         canDamage = true;
-        act1 = StartCoroutine(Think());
+        if (invinCnt == 0)
+        {
+            act1 = StartCoroutine(Think());
+            invinCnt = 3;
+        }
     }
 }

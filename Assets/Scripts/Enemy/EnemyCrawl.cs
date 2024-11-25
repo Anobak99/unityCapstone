@@ -16,6 +16,7 @@ public class EnemyCrawl : Enemy
     [SerializeField] private float wallDistance;
     [SerializeField] private float speed;
     [SerializeField] private float rotateDistance;
+    public GameObject DamageBox;
 
     private bool turned;
     private enum Direction
@@ -24,6 +25,13 @@ public class EnemyCrawl : Enemy
     }
     [SerializeField] private Direction dir;
     private int ZaxisAdd;
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+
+        DamageBox.SetActive(true);
+    }
 
     public override IEnumerator Think()
     {
@@ -130,6 +138,7 @@ public class EnemyCrawl : Enemy
         yield return new WaitForSeconds(0.2f);
         if (hp <= 0)
         {
+            DamageBox.SetActive(false);
             StartCoroutine(Death());
             yield break;
         }
