@@ -189,6 +189,7 @@ public class Turtler_move : Enemy
     {
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(1.5f);
+        invinCnt--;
         act1 = StartCoroutine(Think());
     }
 

@@ -1109,6 +1109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crawl Enemy2
       objectReference: {fileID: 0}
+    - target: {fileID: 1011880543167233696, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4693757163509980384, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
       propertyPath: m_LocalPosition.x
       value: -49
@@ -1174,6 +1178,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
+--- !u!1 &342967004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1011880543167233696, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
+  m_PrefabInstance: {fileID: 342967003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &527491700
 GameObject:
   m_ObjectHideFlags: 0
@@ -8239,6 +8248,8 @@ MonoBehaviour:
   objects:
   - {fileID: 308477191}
   - {fileID: 8940926044764962304}
+  - {fileID: 1723155388}
+  - {fileID: 342967004}
   areaName: Tower
 --- !u!61 &1311551845
 BoxCollider2D:
@@ -9944,6 +9955,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crawl Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1011880543167233696, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4693757163509980384, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
       propertyPath: m_LocalPosition.x
       value: -45
@@ -10009,6 +10024,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
+--- !u!1 &1723155388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1011880543167233696, guid: 623e825a1984d5742b6dc525f8d7c300, type: 3}
+  m_PrefabInstance: {fileID: 1723155387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1857856061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10289,6 +10309,8 @@ MonoBehaviour:
   objects:
   - {fileID: 308477191}
   - {fileID: 8940926044764962304}
+  - {fileID: 1723155388}
+  - {fileID: 342967004}
   areaName: Tower
 --- !u!61 &1874513636
 BoxCollider2D:
