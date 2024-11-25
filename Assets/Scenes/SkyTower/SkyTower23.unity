@@ -153,14 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 2, y: 11, z: 0}
   roomCam: {fileID: 1366462684}
   camCollider: {fileID: 1761408561}
   curScene: SkyTower23
+  sceneId: 0
   roomCamera: {fileID: 1366462685}
   objects:
   - {fileID: 1366462685}
-  areaName: Skyland
+  areaName: Tower
 --- !u!61 &27325317
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -7255,14 +7256,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 2, y: 12, z: 0}
   roomCam: {fileID: 1366462684}
   camCollider: {fileID: 1761408561}
   curScene: SkyTower23
+  sceneId: 0
   roomCamera: {fileID: 1366462685}
   objects:
   - {fileID: 1366462685}
-  areaName: Skyland
+  areaName: Tower
 --- !u!61 &1760708377
 BoxCollider2D:
   m_ObjectHideFlags: 0

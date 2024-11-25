@@ -32,6 +32,7 @@ public class Drako_move : Boss
     [SerializeField] private BossBattle battle;
 
     public ParticleSystem dust;
+    [SerializeField] private GameObject Ablity_Get_Effect;
 
     public override IEnumerator Think()
     {
@@ -276,9 +277,9 @@ public class Drako_move : Boss
         animator.SetBool("Hit", true);
         canDamage = false;
         isDead = true;
-        yield return new WaitForSeconds(1f);
+        Ablity_Get_Effect.SetActive(true);
+        yield return new WaitForSeconds(5f);
         battle.BossDead();
-        gameObject.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()

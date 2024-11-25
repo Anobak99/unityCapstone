@@ -1977,57 +1977,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &776254914
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 776254916}
-  - component: {fileID: 776254915}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &776254915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776254914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6191b0b3273e2488fa519c59651978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmClip: {fileID: 0}
-  bgmVolume: 1
-  sfxClip: []
-  sfxVolume: 0.5
-  sfxPlayers: []
-  select: {fileID: 0}
-  sfxSound: {fileID: 0}
---- !u!4 &776254916
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776254914}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &856242992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2167,11 +2116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4563403652914404621, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
@@ -2192,7 +2141,7 @@ PrefabInstance:
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: playerObj
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 507927303}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29
@@ -2283,7 +2232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2900001963065045675, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Size.y
@@ -2307,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.y
-      value: 8.5
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: curScene
@@ -2457,7 +2406,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -4634,14 +4583,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 4, y: 11, z: 0}
   roomCam: {fileID: 856242994}
   camCollider: {fileID: 2027697835}
   curScene: SkyTower8
+  sceneId: 0
   roomCamera: {fileID: 856242993}
   objects:
   - {fileID: 856242993}
-  areaName: SkyTower
+  areaName: Tower
 --- !u!61 &1416549574
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4869,7 +4819,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 776254916}
   - {fileID: 1143131585}
   - {fileID: 1416549575}
   - {fileID: 2027697837}
