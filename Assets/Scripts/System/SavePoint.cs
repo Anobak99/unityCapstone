@@ -152,6 +152,7 @@ public class SavePoint : MonoBehaviour
     public IEnumerator PlayerPray()
     {
         GameManager.Instance.gameState = GameManager.GameState.Menu;
+        GameManager.Instance.playerController.rigid.velocity = Vector2.zero;
         GameManager.Instance.playerController.anim.SetTrigger("isCast");
         yield return new WaitForSeconds(0.5f);
         savepointScreen.SetActive(true);

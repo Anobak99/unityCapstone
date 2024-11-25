@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     #region Move
     [Header("움직임")]
-    private Rigidbody2D rigid;
+    public Rigidbody2D rigid;
     public Animator anim;
     private PlayerInput input;
     private GameObject currentOneWayPlatform; // onewayplatform 오브젝트
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
     public bool isObsidianSkin; // 용암에 피해 안받음
     #endregion
 
-    private void Awake()
+    private void OnEnable()
     {
         playerCollider = GetComponent<Collider2D>();
         input = GetComponent<PlayerInput>();
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         canAct = true;
         isDead = false;
         isRespawn = false;
-
+        rigid.velocity = Vector2.zero;
         isJump = anim.GetBool("isJump");
         isRun = anim.GetBool("isRun");
         isDash = anim.GetBool("isDash");

@@ -132,10 +132,13 @@ MonoBehaviour:
   defalutMaterial: {fileID: 2100000, guid: 072ee146a802e054b9af102c2bf7e4b9, type: 2}
   canAct: 0
   canDamage: 0
+  invinCnt: 0
   isDead: 0
   isAttack: 0
   originPos: {x: 0, y: 0}
-  dropTable: []
+  dropTable:
+  - itemPrefab: {fileID: 7827938167965584996, guid: 01c195dd958a85d479270d61b5c8c4d3, type: 3}
+    dropChance: 30
   attackRange: 3
   facingRight: 1
   DamageBox: {fileID: 4720518307170417137}

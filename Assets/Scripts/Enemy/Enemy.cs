@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour, IObserver
         if (invinCnt == 0)
         {
             act1 = StartCoroutine(Think());
-            invinCnt = 3;
+            invinCnt = 1;
         }
     }
 
@@ -128,6 +128,15 @@ public class Enemy : MonoBehaviour, IObserver
 
     public virtual IEnumerator Death()
     {
+        if (act1 != null)
+        {
+            StopCoroutine(act1);
+        }
+        if (act2 != null)
+        {
+            StopCoroutine(act2);
+        }
+
         animator.SetBool("Hit", false);
         animator.SetTrigger("Death");
         canDamage = false;

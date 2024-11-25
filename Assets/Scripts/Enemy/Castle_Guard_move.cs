@@ -91,7 +91,6 @@ public class Castle_Guard_move : Enemy
 
     public override IEnumerator TakeDamage(int dmg, Vector2 attackPos)
     {
-        
         rb.velocity = Vector2.zero;
         SoundManager.PlaySound(SoundType.HURT, 0.2f, 2);
         canDamage = false;

@@ -96,6 +96,7 @@ private float horizental;
         Rigidbody2D rigid = fire.GetComponent<Rigidbody2D>();
         Vector2 dirVec = player.transform.position - transform.position;
         rigid.AddForce(dirVec.normalized*5, ForceMode2D.Impulse);
+        invinCnt--;
         yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
     }
@@ -128,7 +129,7 @@ private float horizental;
         if (invinCnt == 0)
         {
             act1 = StartCoroutine(Think());
-            invinCnt = 3;
+            invinCnt = 1;
         }
     }
 }

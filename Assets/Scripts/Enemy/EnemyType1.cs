@@ -115,6 +115,7 @@ public class EnemyType1 : Enemy {
         yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("Attack2");
         yield return new WaitForSeconds(1f);
+        invinCnt--;
         act1 = StartCoroutine(Think());
     }
 
