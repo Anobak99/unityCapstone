@@ -710,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 2, y: 4, z: 0}
   roomCam: {fileID: 2119326511}
   camCollider: {fileID: 938642205}
   curScene: Castle1
@@ -3180,7 +3180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb0594004bed3841a6b4cf32798254d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPos: {x: 1, y: 0, z: 0}
+  roomPos: {x: 3, y: 4, z: 0}
   roomCam: {fileID: 2119326511}
   camCollider: {fileID: 938642205}
   curScene: Castle1
@@ -3188,6 +3188,7 @@ MonoBehaviour:
   roomCamera: {fileID: 2119326510}
   objects:
   - {fileID: 2119326510}
+  - {fileID: 1253763607}
   areaName: Castle
 --- !u!61 &1094877675
 BoxCollider2D:
@@ -3318,6 +3319,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+--- !u!1 &1253763607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5459874733618595944, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
+  m_PrefabInstance: {fileID: 1253763606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1256744946
 GameObject:
   m_ObjectHideFlags: 0
