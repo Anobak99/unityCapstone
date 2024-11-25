@@ -93,13 +93,13 @@ public class MainMenu : MonoBehaviour
         if (DataManager.Instance.FileCheck("saveFile1.json"))
         {
             DataManager.Instance.LoadData();
-            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
         else
         {
             GameManager.Instance.respawnScene = "Level1-0";
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
-            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
     }
 
@@ -112,13 +112,13 @@ public class MainMenu : MonoBehaviour
         if (DataManager.Instance.FileCheck("saveFile2.json"))
         {
             DataManager.Instance.LoadData();
-            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
         else
         {
             GameManager.Instance.respawnScene = "Level1-0";
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
-            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
     }
 
@@ -131,13 +131,13 @@ public class MainMenu : MonoBehaviour
         if (DataManager.Instance.FileCheck("saveFile3.json"))
         {
             DataManager.Instance.LoadData();
-            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
         else
         {
             GameManager.Instance.respawnScene = "Level1-0";
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
-            SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
     }
 
