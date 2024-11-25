@@ -733,7 +733,7 @@ Tilemap:
       - {fileID: 2129359014, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: -630270068, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
       - {fileID: 1721038430, guid: 09b3568a388677f44a0a22f05c42faa1, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -5160,6 +5160,7 @@ MonoBehaviour:
   roomCam: {fileID: 1477519653}
   camCollider: {fileID: 2095099171}
   curScene: Volcano_3
+  sceneId: 0
   roomCamera: {fileID: 1477519652}
   objects:
   - {fileID: 1477519652}
@@ -6928,6 +6929,7 @@ MonoBehaviour:
   roomCam: {fileID: 1477519653}
   camCollider: {fileID: 2095099171}
   curScene: Volcano_3
+  sceneId: 0
   roomCamera: {fileID: 1477519652}
   objects:
   - {fileID: 1477519652}
@@ -7191,6 +7193,14 @@ PrefabInstance:
     - target: {fileID: 5552659520587966379, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5861851603404807416, guid: c16ed142d54197243a1e014052b773be, type: 3}
       propertyPath: m_LocalPosition.x
