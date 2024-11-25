@@ -36,7 +36,7 @@ public class DoorKeyOpen : MonoBehaviour
     {
         if (closePlayer && Input.GetKeyDown(KeyCode.G))
         {
-            if (InventoryManager.instance.Items.Contains(item))
+            if (InventoryManager.instance.Iventory.Contains(item))
             {
                 DialogueManager.Instance.StartDialogue(dialogueHasKey);
             }

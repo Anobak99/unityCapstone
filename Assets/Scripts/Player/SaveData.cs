@@ -25,4 +25,5 @@ public class SaveData
     public bool[] abilities = new bool[10]; //능력 잠금해제
     public bool[,] mapData = new bool[20, 20]; //미니맵 정보
     public bool[] boss = new bool[4]; //처치한 보스
+    public bool[] items = new bool[10]; // 획득한 아이템
 }

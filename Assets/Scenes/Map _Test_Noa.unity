@@ -3623,6 +3623,7 @@ MonoBehaviour:
     openSwitchDoor: 00000000000000000000
     abilities: 00000000000000000000
     boss: 00000000
+    items: 00000000000000000000
 --- !u!4 &1436717027
 Transform:
   m_ObjectHideFlags: 0
@@ -3667,7 +3668,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140950e67d5772041977fb40ea376740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
+  Item:
+  - {fileID: 11400000, guid: f63ebe9e7ee1ca345b68c7aa9343178a, type: 2}
+  - {fileID: 11400000, guid: d4290bad6cebc2544aab8b9415e37fd8, type: 2}
+  Iventory: []
   ItemContent: {fileID: 15362042}
   InventoryItem: {fileID: 1604538555216149433, guid: 13bff91380330644ea95e2da0d0b052a, type: 3}
   ResumeSelectBtn: {fileID: 1773077371}
@@ -4287,15 +4291,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: posToLoad.x
-      value: 20
+      value: 98
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: posToLoad.y
-      value: 4
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnScene
-      value: Castle1
+      value: Volcano_Boss
       objectReference: {fileID: 0}
     - target: {fileID: 4031235721419104299, guid: 8e4386bc9ba07e2479d5c2bc9c9378b5, type: 3}
       propertyPath: respawnPoint.x
