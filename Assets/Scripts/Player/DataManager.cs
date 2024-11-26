@@ -36,6 +36,7 @@ public class DataManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+
     }
 
     public bool FileCheck(string name)

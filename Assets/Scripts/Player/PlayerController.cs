@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     [Header("슈퍼점프")]
     [SerializeField] private Animator superjumpAnime;
     [SerializeField] float jumpchargeTime = 0;
-    [SerializeField] float maxjumpForce = 5f;
+    [SerializeField] float maxjumpForce = 3f;
     bool isjumpCharging;
     public bool isSuperJump;
     #endregion
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 슈퍼 점프
-        if (!isjumpCharging && IsGrounded() && input.superjumpInput && !isDashing && !isHolding)
+        if (DataManager.instance.currentData.abilities[3] && !isjumpCharging && IsGrounded() && input.superjumpInput && !isDashing && !isHolding)
         {
             Debug.Log("슈점");
             StartCoroutine(SuperJump());
@@ -391,7 +391,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetTrigger("CastEnd");
             isjumpCharging = false;
-            float jumpForce = Mathf.Clamp(jumpchargeTime, 0f, maxjumpForce) * 10;
+            float jumpForce = Mathf.Clamp(jumpchargeTime, 0f, maxjumpForce) * 15;
             rigid.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse); // Y축 속도에 점프력 적용
             if (jumpForce > 10)
             {

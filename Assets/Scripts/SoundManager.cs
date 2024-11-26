@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public enum SoundType
 {
-    SWORD,FOOTSTEP,JUMP,DASH,LAND,HURT,MAGIC, // PLAYER
-    FOREST,VOLCANO,                                  // ENEMY
-    SFX                                       // Sound Effect
+    SWORD,FOOTSTEP,JUMP,DASH,LAND,HURT,MAGIC, 
+    FOREST,VOLCANO,                              
+    SFX, SKYTOWER, CASTLETOP                                    
 }
 
 [RequireComponent(typeof(AudioSource))]
