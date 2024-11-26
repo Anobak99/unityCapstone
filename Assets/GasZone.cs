@@ -35,9 +35,12 @@ public class GasZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
+            PlayerController player = other.GetComponent<PlayerController>();
 
-            // 플레이어가 존재하면 forceDirection 방향으로 힘을 가함
-            playerRb.AddForce(forceDirection.normalized * pushForce);
+            if (!player.isSuperJump)
+            {
+                playerRb.AddForce(forceDirection.normalized * pushForce);
+            }
         }
     }
 
