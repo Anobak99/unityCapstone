@@ -33,7 +33,7 @@ public class TrapBullet : MonoBehaviour
             StartCoroutine(OnHit());
         }
 
-        if(collision.CompareTag("Ground") || collision.CompareTag("Platform"))
+        if(collision.CompareTag("Ground") || collision.CompareTag("Platform") || collision.CompareTag("Block"))
         {
             isMove = false;
             StartCoroutine(OnHit());

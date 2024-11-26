@@ -29,7 +29,22 @@ public class Castle_Guard_move : Enemy
         base.OnEnable();
 
         canAct = true;
+        invinCnt = 1;
         animator.Play("Castle_guard_idle");
+    }
+
+    public void FixedUpdate()
+    {
+        if (isMove)
+        {
+            rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+            if (!isGround || isWall || !isplatform || moveCnt == 10)
+            {
+                rb.velocity = Vector2.zero;
+                isMove = false;
+                act2 = StartCoroutine(Attack2());
+            }
+        }
     }
 
     public override IEnumerator Think()
@@ -51,13 +66,6 @@ public class Castle_Guard_move : Enemy
         if (isMove)
         {
             moveCnt++;
-            if (!isGround || isWall || !isplatform || moveCnt == 10 )
-            {
-                rb.velocity = Vector2.zero;
-                isMove = false;
-                act2 = StartCoroutine(Attack2());
-                yield break;
-            }
         }
 
         yield return new WaitForSeconds(0.1f);
@@ -70,21 +78,17 @@ public class Castle_Guard_move : Enemy
         animator.SetTrigger("ready");
         yield return new WaitForSeconds(1f);
         isMove = true;
-        moveCnt = 0;
         animator.SetTrigger("attack");
-        if(facingRight)
-            rb.AddForce(Vector2.right * speed, ForceMode2D.Impulse);
-        else
-            rb.AddForce(Vector2.left * speed, ForceMode2D.Impulse);
-
         act1 = StartCoroutine(Think());
     }
 
     IEnumerator Attack2()
     {
+        moveCnt = 0;
         animator.SetTrigger("return");
         Flip();
         yield return new WaitForSeconds(2f);
+        invinCnt--;
         canAct = true;
         act1 = StartCoroutine(Think());
     }
