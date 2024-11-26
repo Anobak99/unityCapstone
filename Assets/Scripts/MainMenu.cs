@@ -18,6 +18,17 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI startText2;
     [SerializeField] TextMeshProUGUI startText3;
 
+
+    [SerializeField] TextMeshProUGUI startGame1_text;
+    [SerializeField] TextMeshProUGUI startGame2_text;
+    [SerializeField] TextMeshProUGUI startGame3_text;
+    [SerializeField] GameObject startGame1;
+    [SerializeField] GameObject startGame2;
+    [SerializeField] GameObject startGame3;
+    [SerializeField] GameObject deleteGame1;
+    [SerializeField] GameObject deleteGame2;
+    [SerializeField] GameObject deleteGame3;
+
     public AudioClip clickSound;  // 선택 효과음
     private AudioSource audioSource;
 
@@ -27,11 +38,6 @@ public class MainMenu : MonoBehaviour
         audioSource.playOnAwake = false;  // 자동 재생 방지
 
         StartCoroutine(ButtonControl());
-    }
-
-    private void Update()
-    {
-        Debug.Log(DataManager.instance);
     }
 
     IEnumerator ButtonControl()
@@ -69,11 +75,37 @@ public class MainMenu : MonoBehaviour
 
 
         if (DataManager.Instance.FileCheck("saveFile1.json"))
+        {
             startText1.text = DataManager.instance.currentData.areaName;
-        if (DataManager.Instance.FileCheck("saveFile2.json"))  
+            startGame1_text.text = "이어하기";
+            deleteGame1.SetActive(true);
+        }
+        else
+        {
+            startGame1_text.text = "새로하기";
+        }
+
+        if (DataManager.Instance.FileCheck("saveFile2.json"))
+        {
             startText2.text = DataManager.instance.currentData.areaName;
+            startGame2_text.text = "이어하기";
+            deleteGame2.SetActive(true);
+        }
+        else
+        {
+            startGame2_text.text = "새로하기";
+        }
+
         if (DataManager.Instance.FileCheck("saveFile3.json"))
+        {
             startText3.text = DataManager.instance.currentData.areaName;
+            startGame3_text.text = "이어하기";
+            deleteGame3.SetActive(true);
+        }
+        else
+        {
+            startGame3_text.text = "새로하기";
+        }
     }
            
     public void Option()
@@ -86,6 +118,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame1()
     {
+        Debug.Log("StatGame1");
         mainmenuScreen.SetActive(false);
 
         PlayClickSound();
@@ -103,8 +136,22 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void DeleteGame1()
+    {
+        PlayClickSound();
+
+        DataManager.Instance.FileDelete("saveFile1.json");
+        startText1.text = "Empty";
+        startGame1_text.text = "새로하기";
+        DataManager.Instance.FileCheck("saveFile1.json");
+
+        deleteGame1.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(startGame1);
+    }
+
     public void StartGame2()
     {
+        Debug.Log("StatGame2");
         mainmenuScreen.SetActive(false);
 
         PlayClickSound();
@@ -122,8 +169,22 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void DeleteGame2()
+    {
+        PlayClickSound();
+
+        DataManager.Instance.FileDelete("saveFile2.json");
+        startText2.text = "Empty";
+        startGame2_text.text = "새로하기";
+        DataManager.Instance.FileCheck("saveFile2.json");
+
+        deleteGame2.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(startGame2);
+    }
+
     public void StartGame3()
     {
+        Debug.Log("StatGame3");
         mainmenuScreen.SetActive(false);
 
         PlayClickSound();
@@ -139,6 +200,19 @@ public class MainMenu : MonoBehaviour
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
             SceneManager.LoadSceneAsync("Map _Test_Noa", LoadSceneMode.Additive);
         }
+    }
+
+    public void DeleteGame3()
+    {
+        PlayClickSound();
+
+        DataManager.Instance.FileDelete("saveFile3.json");
+        startText3.text = "Empty";
+        startGame3_text.text = "새로하기";
+        DataManager.Instance.FileCheck("saveFile3.json");
+
+        deleteGame3.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(startGame3);
     }
 
     public void DeleteFiles()
