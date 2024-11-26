@@ -57,6 +57,24 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public void FileDelete(string name)
+    {
+        currentData.fileName = name;
+        //파일 경로 설정(User\Username\AppData\LocalLow\DefaultCompany\unityCapstone\fileName)
+        filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
+
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+
+            return;
+        }
+        else
+        {
+            return;
+        }
+    }
+
     public void SaveData()
     {
         GameManager.Instance.SavePlayerInfo(currentData);
