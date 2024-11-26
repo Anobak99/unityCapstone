@@ -54,12 +54,9 @@ public class BossBattle : MonoBehaviour
     {
         if (!DataManager.Instance.currentData.boss[bossNum] && !BossObject.activeSelf)
         {
-            if (camChange)
+            if (bossCam != null)
             {
-                //bossCam.Follow = GameManager.Instance.player.transform;
                 bossCam.Priority = 11;
-                preCamBox = cam.camBound;
-                cam.camBound = camPosition;
             }
             yield return StartCoroutine(BossCutScene());
             foreach (GameObject door in bossDoor)
@@ -77,24 +74,28 @@ public class BossBattle : MonoBehaviour
         Player.GetComponent<PlayerController>().canAct = false;
 
         // 타임라인 시작
-        director.Play();
+        if (director != null)
+        {
+            director.Play();
+            // 컷씬이 끝날 때까지 대기
+            yield return new WaitForSeconds((float)director.duration);
+        }
 
-        // 컷씬이 끝날 때까지 대기
-        yield return new WaitForSeconds((float)director.duration);
-
-        
-        bossCam.Priority = 9;
-        Destroy(BossObject.GetComponent<Animator>());
+        if(!camChange)
+            bossCam.Priority = 9;
+        if(BossObject.GetComponent<Animator>() != null)
+            Destroy(BossObject.GetComponent<Animator>());
         yield return new WaitForSeconds(0.5f);
         Player.GetComponent<PlayerController>().canAct = true;
-        BossObject.GetComponent<VolcanoDragon>().enabled = true;
+        BossObject.GetComponent<Boss>().enabled = true;
     }
 
     IEnumerator DoorEffect()
     {
         foreach (GameObject door in bossDoor)
         {
-            door.SetActive(true);
+            if(!door.activeSelf)
+                door.SetActive(true);
         }
         foreach (ParticleSystem door in bossParticles)
         {

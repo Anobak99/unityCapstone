@@ -77,9 +77,9 @@ public class Sage_move : Boss
     IEnumerator Attack1() //마법 공격
     {
         canAct = false;
-        object_Pool.GetObject(magic_Pos[0].transform.position, "Attack1");
-        object_Pool.GetObject(magic_Pos[1].transform.position, "Attack1");
-        object_Pool.GetObject(magic_Pos[2].transform.position, "Attack1");
+        //object_Pool.GetObject(magic_Pos[0].transform.position, "Attack1");
+        //object_Pool.GetObject(magic_Pos[1].transform.position, "Attack1");
+        //object_Pool.GetObject(magic_Pos[2].transform.position, "Attack1");
         yield return wait2;
         attackCount++;
         act2 = StartCoroutine(Warp());
@@ -88,7 +88,7 @@ public class Sage_move : Boss
     IEnumerator Attack2() //마법 공격2
     {
         canAct = false;
-        object_Pool.GetObject(gameObject.transform.position, "Attack2");
+        //object_Pool.GetObject(gameObject.transform.position, "Attack2");
         yield return wait2;
         act2 = StartCoroutine(Warp());
     }
@@ -131,7 +131,7 @@ public class Sage_move : Boss
 
     IEnumerator Attack5() //드래곤 내려찍기
     {
-        downDragon.transform.position = new Vector2(-5f, 40f);
+        downDragon.transform.position = new Vector2(267f, 180f);
         downAttack.SetTrigger("appear");
         yield return wait2;
         downDragon.transform.position = new Vector2(player.position.x, downDragon.transform.position.y);
