@@ -33,7 +33,8 @@ public class VolcanoDragon : Boss
     #endregion
 
     #region LavaFlood
-    [Header ("Lava Flood")]
+    [Header("Lava Flood")]
+    [SerializeField] private GameObject lava;
     public Tilemap lavaTilemap;           // 용암 타일맵
     public TileBase lavaTile;             // 용암 타일
     private bool rising = true;           // 용암이 상승 중인지 여부
@@ -89,8 +90,8 @@ public class VolcanoDragon : Boss
     {
         currentHeight = minHeight; // 용암의 초기 위치는 최저로 설정
 
-        meleeAtk_countMax = UnityEngine.Random.Range(2, 4);
-        breath_countMax = UnityEngine.Random.Range(2, 4);
+        meleeAtk_countMax = UnityEngine.Random.Range(2, 3);
+        breath_countMax = UnityEngine.Random.Range(2, 3);
         lavaflood_countMax = UnityEngine.Random.Range(2, 3);
         LavaEruption_countMax = UnityEngine.Random.Range(1, 3);       
     }
@@ -209,7 +210,7 @@ public class VolcanoDragon : Boss
                         StartCoroutine(LavaFlood());
                         yield return new WaitForSeconds(1f);
 
-                    if (lavaflood_Count == lavaflood_countMax)
+                        if (lavaflood_Count == lavaflood_countMax)
                         {
                             Debug.Log("용암 분출 full count");
                             lavaflood_Count = 0;
@@ -256,14 +257,14 @@ public class VolcanoDragon : Boss
 
                     case BossState.Hide:
                         yield return StartCoroutine(Hide());
-                        yield return new WaitForSeconds(1.5f); // 기습 공격 후 딜레이
+                        yield return new WaitForSeconds(1f); // 기습 공격 후 딜레이
                         yield return StartCoroutine(TransitionToState(BossState.Idle));
 
                     break;            
             }
             
         }
-        yield return wait0Dot1;
+        yield return new WaitForSeconds(0.05f);
         yield return StartCoroutine(Think());
     }
 
@@ -653,7 +654,7 @@ public class VolcanoDragon : Boss
     private IEnumerator Death()
     {
         StopAllCoroutines();
-        StartCoroutine(LavaFlood());
+        lava.SetActive(false);
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
         Ablity_Get_Effect.SetActive(true);

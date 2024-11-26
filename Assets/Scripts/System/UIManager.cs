@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject systemScreen;
     [SerializeField] private Image[] abilityGetImage;
+    [SerializeField] private GameObject abilityconfirmButton;
 
 
     private bool isPauseMenu = false;
@@ -238,6 +239,7 @@ public class UIManager : MonoBehaviour
     public void SystemScreenON(int abilityNum)
     {
         systemScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(abilityconfirmButton);
         AbilityImageOn(abilityNum);
     }
 
