@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     #region SuperJump
     [Header("슈퍼점프")]
+    [SerializeField] private Animator superjumpAnime;
     [SerializeField] float jumpchargeTime = 0;
     [SerializeField] float maxjumpForce = 5f;
     bool isjumpCharging;
@@ -362,6 +363,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SuperJumpChargeSound());
             isjumpCharging = true;
             anim.SetTrigger("isCast");
+            superjumpAnime.SetTrigger("isCharge");
             jumpchargeTime = 0f; // 초기화
         }
 
@@ -391,7 +393,12 @@ public class PlayerController : MonoBehaviour
             rigid.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse); // Y축 속도에 점프력 적용
             if (jumpForce > 10)
             {
+                superjumpAnime.SetTrigger("isSuperJump");
                 SoundManager.PlaySound(SoundType.JUMP, 1f, 2);
+            }
+            else
+            {
+                superjumpAnime.SetTrigger("chargeEnd");
             }
         }
         StopCoroutine(SuperJumpChargeSound());
