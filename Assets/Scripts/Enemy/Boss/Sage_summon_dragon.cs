@@ -64,6 +64,7 @@ public class Sage_summon_dragon : MonoBehaviour
                 objectPool.GetObject(firePos.position, "UpDragon");
             }
             yield return new WaitForSeconds(0.15f);
+            // 브레스 사운드
             StartCoroutine(FireBreath());
         }
     }

@@ -19,7 +19,7 @@ public class SavePoint : MonoBehaviour
     private void Awake()
     {
         if(GameManager.Instance.isRespawn)
-        {
+        {       
             playerObj.SetActive(true);
         }
     }

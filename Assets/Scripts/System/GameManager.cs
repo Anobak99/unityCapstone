@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < count; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
-            if(scene.name != "Map _Test")
+            if(scene.name != "Map _Test_Noa")
                SceneManager.UnloadSceneAsync(scene);
         }
     }
@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
     {
         UnloadAllScenes();
 
+        SoundManager.StopBGMSound();
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!asyncOperation.isDone)
         {

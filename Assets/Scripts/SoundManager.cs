@@ -11,12 +11,19 @@ public enum SoundType
     SFX, SKYTOWER, CASTLETOP                                    
 }
 
+public enum FiledType
+{
+    Forest, Castle, Tower, Volcano, CastleTop, Boss
+}
+
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private SoundList[] soundList;
+    [SerializeField] private BGMList[] bgmList;
     public static SoundManager instance;
     private AudioSource audioSource;
+    public AudioSource bgmSource;
 
     private void Awake()
     {
@@ -49,10 +56,37 @@ public class SoundManager : MonoBehaviour
         instance.audioSource.PlayOneShot(clips[num], volume);
     }
 
+    public static void PlayBGMSound(string stageName, float volume = 1, int num = 0)
+    {
+        foreach(BGMList stage in instance.bgmList)
+        {
+            if(stage.name == stageName)
+            {
+                AudioClip[] clips = stage.Sounds;
+                instance.bgmSource.clip = clips[num];
+                instance.bgmSource.Play();
+                instance.bgmSource.volume = volume;
+            }
+        }
+    }
+
+    public static void StopBGMSound()
+    {
+        instance.bgmSource.Stop();
+    }
+
 }
 
 [Serializable]
 public struct SoundList
+{
+    public AudioClip[] Sounds { get => sounds; }
+    public string name;
+    [SerializeField] private AudioClip[] sounds;
+}
+
+[Serializable]
+public struct BGMList
 {
     public AudioClip[] Sounds { get => sounds; }
     public string name;

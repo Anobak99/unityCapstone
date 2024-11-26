@@ -54,6 +54,7 @@ public class BossBattle : MonoBehaviour
     {
         if (!DataManager.Instance.currentData.boss[bossNum] && !BossObject.activeSelf)
         {
+            SoundManager.StopBGMSound();
             if (bossCam != null)
             {
                 bossCam.Priority = 11;
@@ -88,6 +89,7 @@ public class BossBattle : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Player.GetComponent<PlayerController>().canAct = true;
         BossObject.GetComponent<Boss>().enabled = true;
+        SoundManager.PlayBGMSound("Boss", 0.2f, 0);
     }
 
     IEnumerator DoorEffect()
@@ -121,5 +123,6 @@ public class BossBattle : MonoBehaviour
         DataManager.Instance.currentData.boss[bossNum] = true;
         DataManager.Instance.currentData.doorSwitch[bossNum] = true;
         DataManager.Instance.currentData.openedDoor[bossNum] = true;
+        SoundManager.StopBGMSound();
     }
 }

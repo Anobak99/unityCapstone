@@ -31,6 +31,11 @@ public class RoomCheck : MonoBehaviour
                 GameManager.Instance.SetPlayerComp();
                 ActiveObject();
                 roomCam.Follow = GameManager.Instance.player.transform;
+
+                if(!SoundManager.instance.bgmSource.isPlaying)
+                {
+                    SoundManager.PlayBGMSound(DataManager.instance.currentData.areaName, 0.2f, 0);
+                }
             }
         }
     }
