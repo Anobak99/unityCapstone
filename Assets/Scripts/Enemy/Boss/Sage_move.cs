@@ -82,6 +82,7 @@ public class Sage_move : Boss
         canAct = false;
         for(int i = 0; i < 5; i++)
         {
+            SoundManager.PlaySound(SoundType.CASTLETOP, 1f, 4);
             bullet = object_Pool.GetObject(magic_Pos[i%3].transform.position, "Attack1");
             magic = bullet.GetComponent<Mage_orb>();
             Vector2 dirVec = player.transform.position - transform.position;
@@ -101,6 +102,7 @@ public class Sage_move : Boss
         Mage_orb magic;
 
         canAct = false;
+        SoundManager.PlaySound(SoundType.CASTLETOP, 1f, 5);
         bullet = object_Pool.GetObject(transform.position, "Attack2");
         magic = bullet.GetComponent<Mage_orb>();
         Vector2 dirVec = player.transform.position - transform.position;
@@ -207,6 +209,7 @@ public class Sage_move : Boss
         horizental = player.position.x - transform.position.x;
         FlipToPlayer(horizental);
         animator.SetTrigger("Appear");
+        canDamage = true;
         yield return wait1;
         
 
@@ -234,7 +237,7 @@ public class Sage_move : Boss
         else if (patternNum == 1)
             patternNum = 0;
 
-        canDamage = true;
+        
         canAct = true;
         act1 = StartCoroutine(Think());
     }
@@ -299,7 +302,13 @@ public class Sage_move : Boss
         rb.velocity = Vector2.zero;
         canDamage = false;
         isDead = true;
-        yield return new WaitForSeconds(1.5f);
+        animator.SetBool("hit", true);
+        if (facingRight)
+            rb.velocity = Vector2.left * 1.5f;
+        else
+            rb.velocity = Vector2.right * 1.5f;
+
+        yield return new WaitForSeconds(2f);
         battle.BossDead();
     }
 }
