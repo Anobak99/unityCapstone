@@ -22,6 +22,7 @@ public class PlayerHpUp : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            SoundManager.PlaySound(SoundType.SFX, 1f, 9);
             GameManager.Instance.hp += playerMaxHpUp;
             GameManager.Instance.maxHp += playerMaxHpUp;
 

@@ -22,6 +22,7 @@ public class PlayerDamageUp : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            SoundManager.PlaySound(SoundType.SFX, 1f, 9);
             player.damage += playerDamageUp;
             DataManager.instance.currentData.attackUpItem[statusId] = true;
 
