@@ -47,6 +47,8 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogError("Sound list is not assigned or is empty.");
         }
+
+        PlayBGMSound("Title", 0.2f, 0);
     }
 
     public static void PlaySound(SoundType sound, float volume = 1, int num = 0)

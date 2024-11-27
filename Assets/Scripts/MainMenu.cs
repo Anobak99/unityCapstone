@@ -131,6 +131,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            DataManager.instance.currentData.areaName = "Forest";
             GameManager.Instance.respawnScene = "Level1-0";
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, 0);
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
@@ -165,6 +166,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            DataManager.instance.currentData.areaName = "Forest";
             GameManager.Instance.respawnScene = "Level1-0";
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, 0);
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
@@ -199,6 +201,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            DataManager.instance.currentData.areaName = "Forest";
             GameManager.Instance.respawnScene = "Level1-0";
             GameManager.Instance.respawnPoint = new Vector2(-7.04f, 0);
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
@@ -236,6 +239,7 @@ public class MainMenu : MonoBehaviour
     {
         mainCam.SetActive(false);
         mainmenuScreen.SetActive(false);
+        startMenu.SetActive(false);
     }
 
     public void EnableMainMenu()
@@ -243,6 +247,7 @@ public class MainMenu : MonoBehaviour
         mainCam.SetActive(true);
         mainmenuScreen.SetActive(true);
         mainMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(selectStartBtn);
     }
 
     public void QuitGame()

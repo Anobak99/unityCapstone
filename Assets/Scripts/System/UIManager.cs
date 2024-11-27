@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image[] abilityGetImage;
     [SerializeField] private GameObject abilityconfirmButton;
 
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI damageText;
+
     private bool isPauseMenu = false;
 
     public AudioClip clickSound;  // 선택 효과음
@@ -190,6 +193,18 @@ public class UIManager : MonoBehaviour
         PlayClickSound();
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(true);
+
+        string hp = DataManager.instance.currentData.maxHp.ToString();
+        hpText.text = "MaxHp:"+hp;
+
+        int dmg = 0;
+        for (int i = 0; i < DataManager.instance.currentData.attackUpItem.Length; i++)
+        {
+            if (DataManager.instance.currentData.attackUpItem[i]) dmg++;
+        }
+        dmg++;
+        string dmgText = dmg.ToString();
+        damageText.text = "Damage:" + dmgText;
     }
 
     public void GoTitle()
