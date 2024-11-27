@@ -50,7 +50,6 @@ public class MapManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     public void FindMap()

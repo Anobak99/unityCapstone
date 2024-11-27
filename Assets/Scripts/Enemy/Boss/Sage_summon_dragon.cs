@@ -66,7 +66,7 @@ public class Sage_summon_dragon : MonoBehaviour
             }
             yield return new WaitForSeconds(0.15f);
             // 브레스 사운드
-            SoundManager.PlaySound(SoundType.CASTLETOP, 1f, 3);
+            SoundManager.PlaySound(SoundType.CASTLETOP, 1f, 5);
             StartCoroutine(FireBreath());
         }
     }

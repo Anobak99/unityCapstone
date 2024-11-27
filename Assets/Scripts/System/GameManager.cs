@@ -134,6 +134,7 @@ public class GameManager : MonoBehaviour
 
     public void UnloadAllScenes()
     {
+        SoundManager.StopBGMSound();
         int count = SceneManager.sceneCount;
         for(int i = 0; i < count; i++)
         {
@@ -141,6 +142,8 @@ public class GameManager : MonoBehaviour
             if(scene.name != "Map" || scene.name != "MainMenu")
                SceneManager.UnloadSceneAsync(scene);
         }
+        currentScene = "MainMenu";
+        SoundManager.PlayBGMSound("Title", 0.2f, 0);
     }
 
     public IEnumerator ChangeScene(string sceneName)

@@ -10,7 +10,6 @@ public class Test : MonoBehaviour
     {
         DataManager.Instance.FileCheck("saveFile1.json"); //시작맵 변경 라인, 게임 테스트용 코드
         StartCoroutine(UIManager.Instance.screenFader.Fade(ScreenFader.FadeDirection.In, 0f));
-        DataManager.Instance.SaveData();
         nextScene = GameManager.Instance.respawnScene;
         //GameManager.Instance.LoadPlayerInfo(DataManager.Instance.currentData);
         MapManager.Instance.LoadMapInfo();

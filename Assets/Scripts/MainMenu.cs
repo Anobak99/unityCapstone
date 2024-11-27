@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;  // 자동 재생 방지
-
+        SoundManager.PlayBGMSound("Title", 0.2f, 0);
         StartCoroutine(ButtonControl());
     }
 
@@ -124,6 +124,7 @@ public class MainMenu : MonoBehaviour
         PlayClickSound();
         StopCoroutine(ButtonControl());
         DisableMenu();
+        SoundManager.StopBGMSound();
         if (DataManager.Instance.FileCheck("saveFile1.json"))
         {
             DataManager.Instance.LoadData();
@@ -157,6 +158,7 @@ public class MainMenu : MonoBehaviour
         PlayClickSound();
         StopCoroutine(ButtonControl());
         DisableMenu();
+        SoundManager.StopBGMSound();
         if (DataManager.Instance.FileCheck("saveFile2.json"))
         {
             DataManager.Instance.LoadData();
@@ -190,6 +192,7 @@ public class MainMenu : MonoBehaviour
         PlayClickSound();
         StopCoroutine(ButtonControl());
         DisableMenu();
+        SoundManager.StopBGMSound();
         if (DataManager.Instance.FileCheck("saveFile3.json"))
         {
             DataManager.Instance.LoadData();
