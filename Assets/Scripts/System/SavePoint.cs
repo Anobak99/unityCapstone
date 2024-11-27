@@ -39,7 +39,10 @@ public class SavePoint : MonoBehaviour
             if (Input.GetButtonDown("Attack"))
             {
                 MoveToSave();
-                StartCoroutine(MapManager.Instance.WarpSave(curId));
+                if (curId != savePoint_Id)
+                {
+                    StartCoroutine(MapManager.Instance.WarpSave(curId));
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))

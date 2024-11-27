@@ -444,7 +444,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isDash", false);
         rigid.velocity = Vector2.zero;
         isDashing = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.75f);
         if (!isDamaged) canDamage = true;
         canDash = true;
 

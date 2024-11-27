@@ -346,23 +346,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (3)
@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -2038,23 +2038,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap
@@ -2065,7 +2065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -2130,37 +2130,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
   m_PrefabInstance: {fileID: 413334347}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &457016757
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 457016758}
-  m_Layer: 0
-  m_Name: HitTrap_MovePos (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &457016758
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457016757}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 104.35, y: 11.13, z: -0.07328363}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457648571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2489,68 +2458,6 @@ Transform:
   - {fileID: 793696531}
   m_Father: {fileID: 1549156507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!1 &654465416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 654465417}
-  m_Layer: 0
-  m_Name: HitTrap_MovePos (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &654465417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654465416}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110.21, y: 11.13, z: -0.07328363}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &665970713
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 665970714}
-  m_Layer: 0
-  m_Name: HitTrap_MovePos (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &665970714
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665970713}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110.21, y: 11.13, z: -0.07328363}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &666652560
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,23 +2861,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (1)
@@ -2981,7 +2888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3401,23 +3308,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (2)
@@ -3428,7 +3335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3714,23 +3621,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (4)
@@ -3741,7 +3648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3825,23 +3732,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (3)
@@ -3852,7 +3759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -3936,23 +3843,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (1)
@@ -3963,7 +3870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -4360,23 +4267,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap (2)
@@ -4387,7 +4294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -4455,37 +4362,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
   m_PrefabInstance: {fileID: 1460163288}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1545645069
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1545645070}
-  m_Layer: 0
-  m_Name: HitTrap_MovePos (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1545645070
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545645069}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 95.3, y: 11.13, z: -0.07328363}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549156506
 GameObject:
   m_ObjectHideFlags: 0
@@ -4785,23 +4661,23 @@ PrefabInstance:
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[0]
       value: 
-      objectReference: {fileID: 1962501809}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[1]
       value: 
-      objectReference: {fileID: 1545645070}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[2]
       value: 
-      objectReference: {fileID: 457016758}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[3]
       value: 
-      objectReference: {fileID: 654465417}
+      objectReference: {fileID: 0}
     - target: {fileID: 3541538003461865003, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Pos.Array.data[4]
       value: 
-      objectReference: {fileID: 665970714}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_Name
       value: FireTrap
@@ -4812,7 +4688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810038066451139549, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Lava
       objectReference: {fileID: 0}
     - target: {fileID: 6835941188453677256, guid: edb1e34d8f9f11a4c9ce160fb57ee674, type: 3}
       propertyPath: m_LocalScale.x
@@ -5056,37 +4932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9c1fc381aa9734a91e51819e912967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1962501808
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1962501809}
-  m_Layer: 0
-  m_Name: HitTrap_MovePos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1962501809
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1962501808}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87.88, y: 11.13, z: -0.07328363}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2012453468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,8 +5265,3 @@ SceneRoots:
   - {fileID: 811242675}
   - {fileID: 688685614}
   - {fileID: 1650340176}
-  - {fileID: 1962501809}
-  - {fileID: 1545645070}
-  - {fileID: 457016758}
-  - {fileID: 654465417}
-  - {fileID: 665970714}

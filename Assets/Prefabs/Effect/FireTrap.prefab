@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 2610061542001199581}
   - component: {fileID: 7183338710041810105}
   - component: {fileID: 3892697126306949124}
-  - component: {fileID: 3541538003461865003}
   m_Layer: 10
   m_Name: FireTrap
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,17 +152,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.55, y: 0.39}
   m_EdgeRadius: 0
---- !u!114 &3541538003461865003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4810038066451139549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 984775bd63d3d514c95ed5c05383c17e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Pos: []
-  playerObj: {fileID: 0}
