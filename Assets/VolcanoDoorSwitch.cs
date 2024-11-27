@@ -20,6 +20,14 @@ public class VolcanoDoorSwitch : MonoBehaviour
         col = gameObject.GetComponent<BoxCollider2D>();
     }
 
+    private void OnEnable()
+    {
+        if(DataManager.instance.currentData.volcano_Switch[switchNum])
+        {
+            col.enabled = false;
+        }
+    }
+
     private void Update()
     {
         if (!isUse && isPlayer && Input.GetKeyDown(KeyCode.G))

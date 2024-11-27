@@ -328,6 +328,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   WallCheck: {fileID: 985160385155589895}
+  isDeath: 0
   lavaPrefab: {fileID: 3727062303130943616, guid: ebd8a1eac64c2b4419d92cb37073265d, type: 3}
   color: {r: 1, g: 0, b: 0, a: 0}
   blood: {fileID: 2777047180474732725, guid: 7a79b568120e4ad488f5f91ccc1f0f74, type: 3}
@@ -348,7 +349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3876112841247863913
 Transform:
   m_ObjectHideFlags: 0
@@ -396,7 +397,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.3466232, y: -0.14999998}
+  m_Offset: {x: -1.9386055, y: -0.14999998}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -407,7 +408,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2332463, y: 2}
+  m_Size: {x: 1.417211, y: 2}
   m_EdgeRadius: 0
 --- !u!1 &8509593223304685245
 GameObject:

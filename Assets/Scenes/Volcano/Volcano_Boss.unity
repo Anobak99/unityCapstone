@@ -4255,6 +4255,7 @@ MonoBehaviour:
   - {fileID: 1769191904}
   camChange: 1
   director: {fileID: 1722272378}
+  bossDefeat: {fileID: 0}
 --- !u!4 &436951764
 Transform:
   m_ObjectHideFlags: 0
@@ -4408,7 +4409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_Pos.x
-      value: -5.5
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 5406783149329442587, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: curScene
@@ -4420,7 +4421,7 @@ PrefabInstance:
       objectReference: {fileID: 1121438142}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 99.82
+      value: 99.11
       objectReference: {fileID: 0}
     - target: {fileID: 7750238751293594284, guid: 74a3418f68444b343944c5259133403a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5656,7 +5657,7 @@ Tilemap:
       - {fileID: 535480408, guid: 130cef30da0e95c46b8f95c01f37b87f, type: 3}
       - {fileID: -926319154, guid: 130cef30da0e95c46b8f95c01f37b87f, type: 3}
       - {fileID: -1622247812, guid: 130cef30da0e95c46b8f95c01f37b87f, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 68, y: 62, z: 0}

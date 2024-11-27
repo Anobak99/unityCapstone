@@ -39,7 +39,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider soundVolumeBar;
-    [SerializeField] private TextMeshProUGUI volumeText;   
+    [SerializeField] private TextMeshProUGUI volumeText;
+    [SerializeField] private GameObject volumeBtn;
 
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject inventoryScreen;
@@ -86,22 +87,6 @@ public class UIManager : MonoBehaviour
     public void RespawnBtn()
     {
         GameManager.Instance.RespawnPlayer();
-    }
-
-    IEnumerator ButtonControl()
-    {
-        while (isPauseMenu)
-        {
-            if (EventSystem.current.currentSelectedGameObject == null)
-            {
-                if (Input.anyKeyDown)
-                {
-                    GameObject AnyResumeButton = GameObject.Find("Resume Button");
-                    EventSystem.current.SetSelectedGameObject(AnyResumeButton);
-                }
-            }
-            yield return null;
-        }
     }
 
     public IEnumerator ActivateDeathMassage()
@@ -161,7 +146,6 @@ public class UIManager : MonoBehaviour
             isPauseMenu = true;
             EventSystem.current.SetSelectedGameObject(ResumeSelectButton);
 
-            StartCoroutine(ButtonControl());
         }
         else
         {
@@ -170,16 +154,15 @@ public class UIManager : MonoBehaviour
             pauseScreen.SetActive(false);
             isPauseMenu = false;
 
-            StopCoroutine(ButtonControl());
         }
     }   
 
     public void GoSetting()
     {
         PlayClickSound();
-        StopCoroutine(ButtonControl());
         pauseScreen.SetActive(false);
         settingScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(volumeBtn);
     }
 
     public void SetVolune(float volume)
@@ -206,7 +189,6 @@ public class UIManager : MonoBehaviour
     public void GoInventory()
     {
         PlayClickSound();
-        StopCoroutine(ButtonControl());
         pauseScreen.SetActive(false);
         inventoryScreen.SetActive(true);
     }

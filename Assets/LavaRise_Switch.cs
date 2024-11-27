@@ -15,12 +15,11 @@ public class LavaRise_Switch : MonoBehaviour
     private bool isUse = false;
     private bool isPlayer = false;
 
-    private void Awake()
+    private void OnEnable()
     {
         animator = GetComponent<Animator>();
         col = GetComponent<BoxCollider2D>();
-
-        if (DataManager.instance.currentData.volcano_Switch[switchNum] == true)
+        if (DataManager.instance.currentData.volcano_Switch[switchNum])
         {
             col.enabled = false;
         }

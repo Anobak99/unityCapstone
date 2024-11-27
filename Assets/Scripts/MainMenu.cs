@@ -167,7 +167,7 @@ public class MainMenu : MonoBehaviour
         else
         {
             GameManager.Instance.respawnScene = "Level1-0";
-            GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
+            GameManager.Instance.respawnPoint = new Vector2(-7.04f, 0);
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
         }
     }
@@ -201,7 +201,7 @@ public class MainMenu : MonoBehaviour
         else
         {
             GameManager.Instance.respawnScene = "Level1-0";
-            GameManager.Instance.respawnPoint = new Vector2(-7.04f, -0.98f);
+            GameManager.Instance.respawnPoint = new Vector2(-7.04f, 0);
             SceneManager.LoadSceneAsync("Map", LoadSceneMode.Additive);
         }
     }

@@ -122,6 +122,7 @@ public class GameManager : MonoBehaviour
 
     public void GoTitle()
     {
+        SoundManager.StopBGMSound();
         int count = SceneManager.sceneCount;
         for (int i = 0; i < count; i++)
         {
@@ -129,21 +130,20 @@ public class GameManager : MonoBehaviour
             if (scene.name != "MainMenu")
                 SceneManager.UnloadSceneAsync(scene);
         }
+        currentScene = "MainMenu";
+        SoundManager.PlayBGMSound("Title", 0.2f, 0);
         mainScript.EnableMainMenu();
     }
 
     public void UnloadAllScenes()
     {
-        SoundManager.StopBGMSound();
         int count = SceneManager.sceneCount;
         for(int i = 0; i < count; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
-            if(scene.name != "Map" || scene.name != "MainMenu")
+            if(scene.name != "Map" && scene.name != "MainMenu")
                SceneManager.UnloadSceneAsync(scene);
         }
-        currentScene = "MainMenu";
-        SoundManager.PlayBGMSound("Title", 0.2f, 0);
     }
 
     public IEnumerator ChangeScene(string sceneName)

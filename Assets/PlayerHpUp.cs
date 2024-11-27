@@ -24,7 +24,6 @@ public class PlayerHpUp : MonoBehaviour
         {
             SoundManager.PlaySound(SoundType.SFX, 1f, 9);
             GameManager.Instance.hp += playerMaxHpUp;
-            GameManager.Instance.maxHp += playerMaxHpUp;
             DataManager.instance.currentData.maxHp += playerMaxHpUp;
             DataManager.instance.currentData.hpUpItem[statusId] = true;
 
