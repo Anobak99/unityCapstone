@@ -3031,7 +3031,7 @@ MonoBehaviour:
   roomPos: {x: 5, y: 3, z: 0}
   roomCam: {fileID: 1244083678}
   camCollider: {fileID: 938642205}
-  curScene: Castle3
+  curScene: Castle3_h
   sceneId: 0
   roomCamera: {fileID: 1244083677}
   objects:
@@ -3358,7 +3358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8855693910838137715, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: startTimeBtwAttack
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9069026418745721363, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -3383,6 +3383,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
   m_PrefabInstance: {fileID: 952039686}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &952039689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8855693910838137715, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 952039686}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952039688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d726cdd1bbc0e4281b7c2958d6df2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1244083676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6547,6 +6558,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2006275455}
     m_Modifications:
+    - target: {fileID: 592059783647018120, guid: 7fad5bcc5d769d8449031648bb9c289e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 952039689}
     - target: {fileID: 4194772453333828589, guid: 7fad5bcc5d769d8449031648bb9c289e, type: 3}
       propertyPath: m_Name
       value: Player Damage Up

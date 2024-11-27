@@ -491,6 +491,7 @@ MonoBehaviour:
   superjumpAnime: {fileID: 6748263594177590924}
   jumpchargeTime: 0
   maxjumpForce: 5
+  isSuperJump: 0
   dashSpeed: 20
   dashTime: 0.1
   holdPosition: {fileID: 1840215377923922934}
@@ -504,7 +505,7 @@ MonoBehaviour:
     m_Bits: 256
   damage: 1
   attackRange: 1
-  startTimeBtwAttack: 1
+  startTimeBtwAttack: 0.5
   timeBtwAttack: 1
   timeBtwFire: 0
   startTimeBtwFire: 2

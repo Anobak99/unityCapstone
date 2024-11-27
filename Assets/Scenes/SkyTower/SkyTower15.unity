@@ -1001,7 +1001,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1868,10 +1868,10 @@ Tilemap:
   - m_RefCount: 42
     m_Data: {fileID: 11400000, guid: af4f24bee5e780c4282c9dece486165e, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -227879891, guid: bb8acdbfed5de1d4384c9a291185c725, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -227879891, guid: bb8acdbfed5de1d4384c9a291185c725, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: -15733628, guid: 58a34243468f15049b52752caa9e5e34, type: 3}
   - m_RefCount: 1
@@ -2048,7 +2048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8855693910838137715, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: startTimeBtwAttack
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9069026418745721363, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x

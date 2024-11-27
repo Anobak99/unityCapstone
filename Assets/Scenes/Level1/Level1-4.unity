@@ -157,6 +157,7 @@ MonoBehaviour:
   roomCam: {fileID: 1740734887}
   camCollider: {fileID: 1131064808}
   curScene: Level1-4
+  sceneId: 0
   roomCamera: {fileID: 1740734886}
   objects:
   - {fileID: 1740734886}
@@ -2021,7 +2022,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -264778485
-  m_SortingLayer: 5
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2074,7 +2075,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2181,12 +2182,12 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 2
     m_Data: {fileID: 1071191851, guid: f503f92836f81e14184cc5e8f413fe32, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 210822107, guid: f503f92836f81e14184cc5e8f413fe32, type: 3}
-  - m_RefCount: 3
-    m_Data: {fileID: 1308276807, guid: f503f92836f81e14184cc5e8f413fe32, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 3
+    m_Data: {fileID: 1308276807, guid: f503f92836f81e14184cc5e8f413fe32, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 210822107, guid: f503f92836f81e14184cc5e8f413fe32, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -437438478, guid: f503f92836f81e14184cc5e8f413fe32, type: 3}
   - m_RefCount: 2
@@ -2556,7 +2557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8855693910838137715, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: startTimeBtwAttack
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9069026418745721363, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -4293,7 +4294,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1255376291
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
