@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject mainCam;
     [SerializeField] GameObject mainmenuScreen;
     [SerializeField] GameObject selectStartBtn;
     [SerializeField] GameObject selectSaveBtn;
@@ -122,6 +123,7 @@ public class MainMenu : MonoBehaviour
 
         PlayClickSound();
         StopCoroutine(ButtonControl());
+        DisableMenu();
         if (DataManager.Instance.FileCheck("saveFile1.json"))
         {
             DataManager.Instance.LoadData();
@@ -154,6 +156,7 @@ public class MainMenu : MonoBehaviour
 
         PlayClickSound();
         StopCoroutine(ButtonControl());
+        DisableMenu();
         if (DataManager.Instance.FileCheck("saveFile2.json"))
         {
             DataManager.Instance.LoadData();
@@ -186,6 +189,7 @@ public class MainMenu : MonoBehaviour
 
         PlayClickSound();
         StopCoroutine(ButtonControl());
+        DisableMenu();
         if (DataManager.Instance.FileCheck("saveFile3.json"))
         {
             DataManager.Instance.LoadData();
@@ -224,6 +228,19 @@ public class MainMenu : MonoBehaviour
         startMenu.SetActive(false);
         optionMenu.SetActive(false);
         mainMenu.SetActive(true); 
+    }
+
+    public void DisableMenu()
+    {
+        mainCam.SetActive(false);
+        mainmenuScreen.SetActive(false);
+    }
+
+    public void EnableMainMenu()
+    {
+        mainCam.SetActive(true);
+        mainmenuScreen.SetActive(true);
+        mainMenu.SetActive(true);
     }
 
     public void QuitGame()

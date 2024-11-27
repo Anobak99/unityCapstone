@@ -73,6 +73,15 @@ public class UIManager : MonoBehaviour
         OnSliderValueChanged(soundVolumeBar.value);
     }
 
+    public void ActiveUI()
+    {
+        HPUI.SetActive(true);
+    }
+
+    public void DeactiveUI()
+    {
+        HPUI.SetActive(false);
+    }
 
     public void RespawnBtn()
     {
@@ -208,8 +217,8 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
 
         pauseScreen.SetActive(false);
-        //HPUI.SetActive(false);
-        //GameManager.Instance.GoTitle();
+        DeactiveUI();
+        GameManager.Instance.GoTitle();
     }
 
     public void MapMenu()

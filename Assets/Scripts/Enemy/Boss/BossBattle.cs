@@ -21,6 +21,7 @@ public class BossBattle : MonoBehaviour
     public bool camChange;
 
     public PlayableDirector director;
+    public TimelineAsset bossDefeat;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -72,11 +73,10 @@ public class BossBattle : MonoBehaviour
     {
         GameManager.Instance.gameState = GameManager.GameState.Event;
         BossObject.SetActive(true);
-        Player.GetComponent<PlayerController>().canAct = false;
-
         // 타임라인 시작
         if (director != null)
         {
+            Player.GetComponent<PlayerController>().canAct = false;
             director.Play();
             // 컷씬이 끝날 때까지 대기
             yield return new WaitForSeconds((float)director.duration);
@@ -124,5 +124,15 @@ public class BossBattle : MonoBehaviour
         DataManager.Instance.currentData.doorSwitch[bossNum] = true;
         DataManager.Instance.currentData.openedDoor[bossNum] = true;
         SoundManager.StopBGMSound();
+        if (DataManager.Instance.currentData.boss[3])
+        {
+            StartCoroutine(EndGame());
+        }
+    }
+
+    private IEnumerator EndGame()
+    {
+        director.Play(bossDefeat);
+        yield return new WaitForSeconds((float)director.duration);
     }
 }

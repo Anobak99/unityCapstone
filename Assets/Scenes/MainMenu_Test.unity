@@ -1721,6 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73669b99ce241446838d39e27c43466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 1695143437}
   mainmenuScreen: {fileID: 1795837862}
   selectStartBtn: {fileID: 1770394227}
   selectSaveBtn: {fileID: 1720428420}
@@ -2499,6 +2500,8 @@ MonoBehaviour:
     abilities: 00000000000000000000
     boss: 0000
     items: 00000000000000000000
+    attackUpItem: 00000000000000000000
+    hpUpItem: 00000000000000000000
 --- !u!4 &901804495
 Transform:
   m_ObjectHideFlags: 0
@@ -4676,6 +4679,7 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   playerController: {fileID: 0}
   camCollider: {fileID: 0}
+  mainScript: {fileID: 0}
   maxHp: 5
   hp: 5
   respawnPoint: {x: 0, y: 0}

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainCam;
     public PlayerController playerController;
     public BoxCollider2D camCollider;
+    public MainMenu mainScript;
     public int maxHp;
     public int hp;
 
@@ -121,8 +122,14 @@ public class GameManager : MonoBehaviour
 
     public void GoTitle()
     {
-        player.SetActive(false);
-        SceneManager.LoadScene("MainMenu");
+        int count = SceneManager.sceneCount;
+        for (int i = 0; i < count; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name != "MainMenu")
+                SceneManager.UnloadSceneAsync(scene);
+        }
+        mainScript.EnableMainMenu();
     }
 
     public void UnloadAllScenes()
@@ -131,7 +138,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < count; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
-            if(scene.name != "Map _Test_Noa")
+            if(scene.name != "Map _Test_Noa" || scene.name != "MainMenu")
                SceneManager.UnloadSceneAsync(scene);
         }
     }
