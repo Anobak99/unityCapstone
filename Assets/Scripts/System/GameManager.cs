@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
     {
         maxHp = loadData.maxHp;
         respawnPoint = new Vector2(loadData.savePosX, loadData.savePosY);
+        posToLoad = respawnPoint;
         respawnScene = loadData.saveScene;
     }
 }
