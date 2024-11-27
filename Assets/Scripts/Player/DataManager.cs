@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour
         //파일 경로 설정(User\Username\AppData\LocalLow\DefaultCompany\unityCapstone\fileName)
         filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
 
-        if(File.Exists(filePath)) 
+        if (File.Exists(filePath))
         {
             string loadData = File.ReadAllText(filePath);
             currentData = JsonConvert.DeserializeObject<SaveData>(loadData);
@@ -62,12 +62,12 @@ public class DataManager : MonoBehaviour
     {
         currentData.fileName = name;
         //파일 경로 설정(User\Username\AppData\LocalLow\DefaultCompany\unityCapstone\fileName)
-        filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);
+        filePath = Path.Combine(Application.persistentDataPath, currentData.fileName);       
 
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
-
+            currentData = new SaveData();
             return;
         }
         else

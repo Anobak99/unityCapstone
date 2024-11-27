@@ -159,15 +159,18 @@ MonoBehaviour:
   rb: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  playerSubject: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: cd0affa3b0c9c4f448d8a7942cce4e56, type: 2}
   defalutMaterial: {fileID: 2100000, guid: 072ee146a802e054b9af102c2bf7e4b9, type: 2}
   canAct: 0
   canDamage: 0
+  invinCnt: 0
   isDead: 0
   isAttack: 0
+  originPos: {x: 0, y: 0}
   dropTable: []
   moveDirection: 0
-  speed: 5
+  speed: 7
   viewRange: 6
   attackRange: 5
   facingRight: 0
@@ -179,7 +182,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   LavaCheck: {fileID: 5562136873554208383}
-  bulletPrefab: {fileID: 7179465635268567610, guid: de32e64125e7e0542b972c59856e8298, type: 3}
+  objectPool: {fileID: 0}
+  objectPrefab: {fileID: 0}
+  bulletSPeeed: 10
   shotcooldownTime: 5
 --- !u!1 &5706653619084578731
 GameObject:
