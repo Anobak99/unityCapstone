@@ -1970,7 +1970,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.12}
+    oldSize: {x: 0.8125, y: 0.75}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2284,6 +2284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be318d3675913ff4e929491895425736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volcano_Switch: 0000000000
+  volcano_SwitchDoor: 0000000000
   doorSwitch: 00000000000000000000
   openedDoor: 00000000000000000000
   openSwitchDoor: 00000000000000000000
@@ -3194,7 +3196,6 @@ MonoBehaviour:
   liftingForce: 5
   holdRange: 1.5
   holdPosition: {fileID: 1804869063}
-  isHolding: 0
 --- !u!4 &1521466295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
