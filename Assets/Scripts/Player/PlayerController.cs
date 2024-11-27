@@ -105,6 +105,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        if(DataManager.instance.currentData.attackUp[0])
+        {
+            for(int i =0; i < DataManager.instance.currentData.attackUp.Length; i++)
+            {
+                if (DataManager.instance.currentData.attackUp[i]) damage += 1;
+            }
+        }
+
         playerCollider = GetComponent<Collider2D>();
         input = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody2D>();

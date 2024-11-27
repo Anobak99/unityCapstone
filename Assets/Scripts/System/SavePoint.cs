@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SavePoint : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SavePoint : MonoBehaviour
     [SerializeField] GameObject playerObj;
     [SerializeField] private GameObject savepointScreen;
     [SerializeField] private GameObject mapScreen;
+    [SerializeField] private GameObject saveBtn;
 
     private bool closePlayer;
 
@@ -156,5 +158,6 @@ public class SavePoint : MonoBehaviour
         GameManager.Instance.playerController.anim.SetTrigger("isCast");
         yield return new WaitForSeconds(0.5f);
         savepointScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(saveBtn);
     }
 }

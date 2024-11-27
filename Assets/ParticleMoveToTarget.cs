@@ -77,7 +77,10 @@ public class ParticleMoveToTarget : MonoBehaviour
 
     void StopEmit()
     {
-        boss.SetActive(false);
+        if (boss.activeSelf)
+        {
+            boss.SetActive(false);
+        }
         StopAllCoroutines();
         DataManager.instance.currentData.abilities[abilityNum] = true;
         UIManager.Instance.SystemScreenON(abilityNum);

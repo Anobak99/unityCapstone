@@ -118,7 +118,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame1()
     {
-        Debug.Log("StatGame1");
         mainmenuScreen.SetActive(false);
 
         PlayClickSound();
@@ -151,7 +150,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame2()
     {
-        Debug.Log("StatGame2");
         mainmenuScreen.SetActive(false);
 
         PlayClickSound();
@@ -184,7 +182,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame3()
     {
-        Debug.Log("StatGame3");
         mainmenuScreen.SetActive(false);
 
         PlayClickSound();

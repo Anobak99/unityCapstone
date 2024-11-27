@@ -3587,6 +3587,85 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6373365281794207096, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
   m_PrefabInstance: {fileID: 554534321}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &554534324 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
+  m_PrefabInstance: {fileID: 554534321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &891648177
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3587199705481592724, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_Name
+      value: Ablity Get Particle System
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063525578564607006, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060519576643546717, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 2093503144}
+    - target: {fileID: 5060519576643546717, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 554534324}
+    - target: {fileID: 5060519576643546717, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+      propertyPath: abilityNum
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+--- !u!1 &891648178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3587199705481592724, guid: 190165185f7b79443b503309fdd23dee, type: 3}
+  m_PrefabInstance: {fileID: 891648177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &921206912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12208,6 +12287,10 @@ PrefabInstance:
       propertyPath: battle
       value: 
       objectReference: {fileID: 1419736486}
+    - target: {fileID: 3367808636237029403, guid: 22d4c9b3ef60fe240a9519ad7aecf7e0, type: 3}
+      propertyPath: Ablity_Get_Effect
+      value: 
+      objectReference: {fileID: 891648178}
     - target: {fileID: 3515311322762438453, guid: 22d4c9b3ef60fe240a9519ad7aecf7e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -12274,3 +12357,4 @@ SceneRoots:
   - {fileID: 1780452958}
   - {fileID: 921206912}
   - {fileID: 1419736487}
+  - {fileID: 891648177}
