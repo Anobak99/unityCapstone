@@ -18,6 +18,7 @@ public class DropItem : MonoBehaviour
             if (itype == ItemType.Heal)
             {
                 GameManager.Instance.PlayerHeal(healPoint);
+                SoundManager.PlaySound(SoundType.SFX, 1f, 9);
                 Destroy(gameObject);
             }
         }
