@@ -98,6 +98,7 @@ public class SavePoint : MonoBehaviour
             mapScreen.SetActive(false);
             isWorked = false;
             GameManager.Instance.playerController.anim.SetTrigger("CastEnd");
+            MapManager.Instance.ChangeCamPos(MapManager.Instance.curSaveInfo[savePoint_Id].map_Pos);
             GameManager.Instance.gameState = GameManager.GameState.Field;
             return;
         }

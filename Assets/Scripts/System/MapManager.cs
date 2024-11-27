@@ -90,9 +90,10 @@ public class MapManager : MonoBehaviour
 
     public void ChangeCamPos(Vector2 pos)
     {
+        location = playerIcon.transform;
+        location.position = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
         location = mapCam.transform;
         location.position = new Vector3(pos.x + 0.5f, pos.y + 0.5f, -10f);
-        Debug.Log("cam Changed.");
     }
 
     public void SetMapIcon(Vector3Int pos, int num)
