@@ -37,7 +37,6 @@ public class MainMenu : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;  // 자동 재생 방지
-        SoundManager.PlayBGMSound("Title", 0.2f, 0);
         StartCoroutine(ButtonControl());
     }
 
