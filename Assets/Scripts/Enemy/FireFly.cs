@@ -145,6 +145,7 @@ public class FireFly : Enemy
         //    pool.Add(select);
         //}
 
+        SoundManager.PlaySound(SoundType.SKYTOWER, 0.75f, 1);
         select = objectPool.GetObject(new Vector2(transform.position.x, transform.position.y + 0.7f), "FireFly");
         bullet = select.GetComponent<EnemyBullet>();
         bullet.target = player.gameObject;
