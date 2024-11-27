@@ -26,6 +26,7 @@ public class LavaTurtle : Enemy
     private bool isGround;
     private bool isWall;
     private bool isplatform;
+    [SerializeField] private bool isDeath;
 
     public GameObject lavaPrefab; // 용암 프리팹
     private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
@@ -46,6 +47,26 @@ public class LavaTurtle : Enemy
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, hitRange);
+    }
+
+    public override void OnEnable()
+    {
+        if(isDeath)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        player = GameManager.Instance.player.transform;
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        canAct = false;
+        canDamage = true;
+        isDead = false;
+        transform.position = originPos;
+        hp = maxHp;
+        playerSubject.AddObsrver(this);
+        act1 = StartCoroutine(Think());
     }
 
     public override IEnumerator Think()
@@ -253,5 +274,18 @@ public class LavaTurtle : Enemy
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(1.5f);
         act1 = StartCoroutine(Think());
+    }
+
+    public override IEnumerator Death()
+    {
+        StopAllCoroutines();
+        animator.SetBool("Hit", false);
+        animator.SetTrigger("Death");
+        canDamage = false;
+        isDeath = true;
+        isDead = true;
+        ItemDrop();
+        yield return new WaitForSeconds(2f);
+        gameObject.SetActive(false);
     }
 }

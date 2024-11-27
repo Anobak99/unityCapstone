@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
         CheckAnime();
 
         // 아래키 입력->플랫폼 통과
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (currentOneWayPlatform != null)
             {
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (currentOneWayPlatform != null)
+        if (IsGrounded() && currentOneWayPlatform != null)
         {
             if (Input.GetKey(KeyCode.DownArrow))
             {

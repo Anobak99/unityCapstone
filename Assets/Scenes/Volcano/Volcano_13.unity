@@ -803,6 +803,84 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &171550226
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 166.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.06724289
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080312609958654048, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_Name
+      value: Lava Turtle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080312609958654048, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: originPos.x
+      value: 166.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: originPos.y
+      value: 32.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: playerSubject
+      value: 
+      objectReference: {fileID: 1615349108}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+--- !u!1 &171550227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6080312609958654048, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+  m_PrefabInstance: {fileID: 171550226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &200415658
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,10 +4113,12 @@ MonoBehaviour:
   roomCam: {fileID: 1337398145}
   camCollider: {fileID: 1878984286}
   curScene: Volcano_13
+  sceneId: 0
   roomCamera: {fileID: 1337398144}
   objects:
   - {fileID: 1337398144}
   - {fileID: 2080815940}
+  - {fileID: 171550227}
   areaName: Volcano
 --- !u!61 &1942199328
 BoxCollider2D:
@@ -4401,3 +4481,4 @@ SceneRoots:
   - {fileID: 2107616526}
   - {fileID: 1370397879}
   - {fileID: 2080815939}
+  - {fileID: 171550226}

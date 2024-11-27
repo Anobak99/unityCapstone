@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour, IObserver
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator animator;
     [HideInInspector] public SpriteRenderer spriteRenderer;
-    [SerializeField] Subject playerSubject;
+    [SerializeField] protected Subject playerSubject;
     public Material flashMaterial;
     public Material defalutMaterial;
 

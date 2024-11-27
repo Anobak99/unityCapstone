@@ -2767,11 +2767,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.8
+      value: 17.26
       objectReference: {fileID: 0}
     - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.14
+      value: 11.34
       objectReference: {fileID: 0}
     - target: {fileID: 74441581038976837, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2859,11 +2859,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: hp
-      value: 4
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: dmg
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: maxHp
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: viewRange
@@ -2881,6 +2885,18 @@ PrefabInstance:
       propertyPath: playerSubject
       value: 
       objectReference: {fileID: 605533671}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: dropTable.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: dropTable.Array.data[0].dropChance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973545638835861612, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
+      propertyPath: dropTable.Array.data[0].itemPrefab
+      value: 
+      objectReference: {fileID: 7827938167965584996, guid: 01c195dd958a85d479270d61b5c8c4d3, type: 3}
     - target: {fileID: 8368238447065744203, guid: d9d4b124a65503d4daef255d35b46dc8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3493,11 +3509,12 @@ MonoBehaviour:
   roomCam: {fileID: 389924040}
   camCollider: {fileID: 2127960841}
   curScene: Volcano_5
+  sceneId: 0
   roomCamera: {fileID: 389924039}
   objects:
   - {fileID: 389924039}
-  - {fileID: 450871967}
   - {fileID: 1389466420}
+  - {fileID: 450871967}
   areaName: Volcano
 --- !u!61 &1274919500
 BoxCollider2D:

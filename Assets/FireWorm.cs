@@ -19,6 +19,7 @@ public class FireWorm : Enemy
     private List<GameObject> pool = new List<GameObject>(); // 프리팹 오브젝트 풀
     public float viewRange;
     public float attackRange;
+    [SerializeField] private float bulletSPeeed = 10f;
     #endregion
 
     #region Checker
@@ -152,11 +153,11 @@ public class FireWorm : Enemy
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle); // 총알을 회전시키기
         if (facingRight)
         {
-            bullet.rb.velocity = new Vector2(bullet.speed, 0);
+            bullet.rb.velocity = new Vector2(bulletSPeeed, 0);
         }
         else if (!facingRight)
         {
-            bullet.rb.velocity = new Vector2(bullet.speed * -1, 0);
+            bullet.rb.velocity = new Vector2(bulletSPeeed * -1, 0);
         }
     }
 

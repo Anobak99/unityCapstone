@@ -27,6 +27,7 @@ public class LavaWyrm : Enemy
     public GameObject objectPrefab;
     private List<GameObject> bullets = new List<GameObject>();
     private Vector2 bulletDirection; // 투사체 방향
+    [SerializeField] private float bulletSPeeed = 10f;
     #endregion
 
     #region 쿨타임
@@ -185,7 +186,7 @@ public class LavaWyrm : Enemy
         bulletDirection = (player.position - transform.position).normalized;
         float angle = Mathf.Atan2(bulletDirection.y, bulletDirection.x) * Mathf.Rad2Deg; // 회전 각도 구하기 (라디안 값을 각도로 변환)
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle); // 총알을 회전시키기
-        bullet.rb.velocity = bulletDirection * 5f;
+        bullet.rb.velocity = bulletDirection * bulletSPeeed;
 
         StartShotCoolDown();
         canAct = true;
