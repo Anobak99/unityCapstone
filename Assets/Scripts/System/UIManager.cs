@@ -51,7 +51,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image[] abilityGetImage;
     [SerializeField] private GameObject abilityconfirmButton;
 
-
     private bool isPauseMenu = false;
 
     public AudioClip clickSound;  // 선택 효과음

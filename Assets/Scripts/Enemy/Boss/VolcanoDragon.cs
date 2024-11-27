@@ -142,7 +142,14 @@ public class VolcanoDragon : Boss
                         yield return StartCoroutine(MeleeAttack());
                         yield return new WaitForSeconds(1f); // 공격 후 딜레이
 
-                        if (IsMeleeAttackRange())
+                        if (meleeAtk_Count == meleeAtk_countMax)
+                        // 근접 공격 카운트 맥스면 -> 용암 분출
+                        {
+                        Debug.Log("근접 공격 full count");
+                        meleeAtk_Count = 0;
+                        yield return StartCoroutine(TransitionToState(BossState.LavaEruption));
+                        }
+                        else if (IsMeleeAttackRange())
                         {
                             yield return StartCoroutine(TransitionToState(BossState.MeleeAttack));
                         }
@@ -151,19 +158,12 @@ public class VolcanoDragon : Boss
                         {
                             yield return StartCoroutine(TransitionToState(BossState.Hide));
                         }
-                        else if (meleeAtk_Count == meleeAtk_countMax) 
-                            // 근접 공격 카운트 맥스면 -> 용암 분출
-                        {
-                            Debug.Log("근접 공격 full count");
-                            meleeAtk_Count = 0;
-                            yield return StartCoroutine(TransitionToState(BossState.LavaEruption));
-                        }
                         else if (IsBreathRange())
                             // 브레스 범위 안에 있을 경우 -> 브레스 
                         {
                             yield return StartCoroutine(TransitionToState(BossState.FireBreath));
                         }
-                        else if (!IsMeleeAttackRange())
+                        else
                             // 근접공격 범위 밖이면 -> Idle
                         {
                             yield return StartCoroutine(TransitionToState(BossState.Idle));

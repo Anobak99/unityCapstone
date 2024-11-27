@@ -13,7 +13,7 @@ public enum SoundType
 
 public enum FiledType
 {
-    Forest, Castle, Tower, Volcano, CastleTop, Boss
+    Forest, Castle, Tower, Volcano, CastleTop, Boss, Final, Title
 }
 
 [RequireComponent(typeof(AudioSource))]
