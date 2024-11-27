@@ -203,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &91204549
 Transform:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ Transform:
   m_GameObject: {fileID: 91204548}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.5, y: -3, z: 0}
+  m_LocalPosition: {x: 7, y: -3.5, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
-  hp: 100
+  hp: 1
   dmg: 0
   player: {fileID: 0}
   rb: {fileID: 0}
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 0
   m_fontColor: {r: 0, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8129,7 +8129,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.499588, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -8140,7 +8140,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 16, y: 11}
+  m_Size: {x: 13.000824, y: 11}
   m_EdgeRadius: 0
 --- !u!114 &916156430
 MonoBehaviour:
@@ -8161,7 +8161,7 @@ MonoBehaviour:
   camSpeed: 5
   BossObject: {fileID: 91204548}
   Player: {fileID: 1529510699}
-  bossNum: 1
+  bossNum: 3
   bossDoor:
   - {fileID: 1953047225}
   - {fileID: 624620208}
@@ -8170,8 +8170,8 @@ MonoBehaviour:
   bossParticles:
   - {fileID: 1953047226}
   camChange: 1
-  director: {fileID: 0}
-  bossDefeat: {fileID: 0}
+  director: {fileID: 916156432}
+  bossDefeat: {fileID: 11400000, guid: a173c12b39ff4e742ac238affde71802, type: 2}
 --- !u!4 &916156431
 Transform:
   m_ObjectHideFlags: 0
@@ -8198,8 +8198,8 @@ PlayableDirector:
   m_GameObject: {fileID: 916156428}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: a173c12b39ff4e742ac238affde71802, type: 2}
-  m_InitialState: 1
+  m_PlayableAsset: {fileID: 11400000, guid: e9a1be18f05b2c54293e27abafb9fda5, type: 2}
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -8222,6 +8222,10 @@ PlayableDirector:
     value: {fileID: 1382313154}
   - key: {fileID: 7832870456269127923, guid: a173c12b39ff4e742ac238affde71802, type: 2}
     value: {fileID: 267099510}
+  - key: {fileID: -3897458633972042665, guid: e9a1be18f05b2c54293e27abafb9fda5, type: 2}
+    value: {fileID: 1260443196}
+  - key: {fileID: -4148925010266958737, guid: e9a1be18f05b2c54293e27abafb9fda5, type: 2}
+    value: {fileID: 1260443196}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &925841582
@@ -14582,15 +14586,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4261325335261664963, guid: 91a7af799846e654ab5c88752cd6147b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

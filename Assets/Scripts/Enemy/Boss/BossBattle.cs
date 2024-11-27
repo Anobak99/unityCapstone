@@ -134,5 +134,6 @@ public class BossBattle : MonoBehaviour
     {
         director.Play(bossDefeat);
         yield return new WaitForSeconds((float)director.duration);
+        Application.Quit();
     }
 }

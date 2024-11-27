@@ -294,11 +294,12 @@ public class Sage_move : Boss
         {
             StopCoroutine(act2);
         }
+        upFire.StopAct();
+        downFire.StopAct();
         rb.velocity = Vector2.zero;
         canDamage = false;
         isDead = true;
         yield return new WaitForSeconds(1.5f);
         battle.BossDead();
-        gameObject.SetActive(false);
     }
 }
