@@ -203,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &91204549
 Transform:
   m_ObjectHideFlags: 0
@@ -249,7 +249,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &91204551
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12014,10 +12014,10 @@ MonoBehaviour:
   object_Pool:
   - id: 0
     name: Attack1
-    targetPrefab: {fileID: 0}
+    targetPrefab: {fileID: 5686972470803559557, guid: e5a82f043683ad84ea565b3b0a8a436e, type: 3}
   - id: 1
     name: Attack2
-    targetPrefab: {fileID: 0}
+    targetPrefab: {fileID: 5686972470803559557, guid: 840ba5bfa15f5bd40905b4b38ae5a8a4, type: 3}
   - id: 2
     name: UpDragon
     targetPrefab: {fileID: 213992345994933777, guid: 3bed4b77831044f47ac0748b66a34908, type: 3}
@@ -19219,7 +19219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5459874733618595944, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7334071481534524223, guid: e0e74d1f8702dc342b16ab58250edb3a, type: 3}
       propertyPath: m_Sprite

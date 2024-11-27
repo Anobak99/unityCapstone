@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mage_orb : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
+    public Rigidbody2D rb;
     [SerializeField] private Animator animator;
 
 

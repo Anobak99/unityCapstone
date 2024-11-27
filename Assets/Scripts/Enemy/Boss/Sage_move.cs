@@ -76,8 +76,18 @@ public class Sage_move : Boss
 
     IEnumerator Attack1() //마법 공격
     {
+        GameObject bullet;
+        Mage_orb magic;
+
         canAct = false;
-        //object_Pool.GetObject(magic_Pos[0].transform.position, "Attack1");
+        for(int i = 0; i < 5; i++)
+        {
+            bullet = object_Pool.GetObject(magic_Pos[i%3].transform.position, "Attack1");
+            magic = bullet.GetComponent<Mage_orb>();
+            Vector2 dirVec = player.transform.position - transform.position;
+            magic.rb.AddForce(dirVec.normalized * 10, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(0.2f);
+        }
         //object_Pool.GetObject(magic_Pos[1].transform.position, "Attack1");
         //object_Pool.GetObject(magic_Pos[2].transform.position, "Attack1");
         yield return wait2;
@@ -87,8 +97,14 @@ public class Sage_move : Boss
 
     IEnumerator Attack2() //마법 공격2
     {
+        GameObject bullet;
+        Mage_orb magic;
+
         canAct = false;
-        //object_Pool.GetObject(gameObject.transform.position, "Attack2");
+        bullet = object_Pool.GetObject(transform.position, "Attack2");
+        magic = bullet.GetComponent<Mage_orb>();
+        Vector2 dirVec = player.transform.position - transform.position;
+        magic.rb.AddForce(dirVec.normalized * 10, ForceMode2D.Impulse);
         yield return wait2;
         act2 = StartCoroutine(Warp());
     }
