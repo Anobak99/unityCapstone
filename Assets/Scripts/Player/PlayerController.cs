@@ -105,11 +105,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        if(DataManager.instance.currentData.attackUp[0])
+        if(DataManager.instance.currentData.attackUpItem[0])
         {
-            for(int i =0; i < DataManager.instance.currentData.attackUp.Length; i++)
+            for(int i =0; i < DataManager.instance.currentData.attackUpItem.Length; i++)
             {
-                if (DataManager.instance.currentData.attackUp[i]) damage += 1;
+                if (DataManager.instance.currentData.attackUpItem[i]) damage += 1;
             }
         }
 

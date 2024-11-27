@@ -21,6 +21,7 @@ public class Sage_summon_dragon : MonoBehaviour
         yield return new WaitForSeconds(2f);
         dragon_anim.SetTrigger("ready");
         head_anim.SetTrigger("ready");
+        SoundManager.PlaySound(SoundType.CASTLETOP, 0.5f, 4);
         yield return new WaitForSeconds(3f);
         dragon_anim.SetTrigger("breath");
         head_anim.SetTrigger("breath");
@@ -65,6 +66,7 @@ public class Sage_summon_dragon : MonoBehaviour
             }
             yield return new WaitForSeconds(0.15f);
             // 브레스 사운드
+            SoundManager.PlaySound(SoundType.CASTLETOP, 1f, 5);
             StartCoroutine(FireBreath());
         }
     }
