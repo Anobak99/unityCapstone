@@ -11,6 +11,7 @@ public class Widow_move : Boss
     private int patternNum = 0;
     [SerializeField] private float jumpHeight;
     [SerializeField] private BossBattle battle;
+    [SerializeField] private GameObject Ablity_Get_Effect;
 
     public override IEnumerator Think()
     {
@@ -152,6 +153,7 @@ public class Widow_move : Boss
         }
         rb.velocity = Vector2.zero;
         animator.SetTrigger("Death");
+        Ablity_Get_Effect.SetActive(true);
         canDamage = false;
         isDead = true;
         yield return new WaitForSeconds(1.5f);
