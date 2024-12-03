@@ -111,7 +111,6 @@ public class MapManager : MonoBehaviour
 
     public IEnumerator WarpSave(int id)
     {
-        Debug.Log("Warp!");
         GameManager.Instance.posToLoad = curSaveInfo[id].saved_pos;
         GameManager.Instance.nextScene = true;
         GameManager.Instance.isRespawn = true;
